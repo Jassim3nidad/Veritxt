@@ -2,6 +2,8 @@
 
 Status: **Blocked pending authorized phone connection or owner-collected evidence**. No physical phone was listed by local ADB. No device settings, accounts or logs were inspected, and no installation attempt was made on the phone. Installation, opening and offline manual scanning remain pending.
 
+Remote tester update: use [the phone-only / standalone Windows guide](remote-phone-diagnostics.md). The script now defaults to `platform-tools/adb.exe` beside itself, not a developer's local SDK. Existing SDK users must pass `-Adb` explicitly. The tester can use his own computer; connection to the project coordinator's laptop is unnecessary.
+
 ## Established artifact checks
 
 `deliverables/SmishGuard-0.2.0-dev.apk`: 13,032,755 bytes; SHA-256 `3ca8237395f94f52638c27169024568c48262ff879daebb9231998c7ab02c3f1`.
