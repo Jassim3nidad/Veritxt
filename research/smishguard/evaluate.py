@@ -30,10 +30,36 @@ def metrics(y, probabilities, threshold):
         confusion=dict(tn=int(tn),fp=int(fp),fn=int(fn),tp=int(tp)),
         hypothetical_base_rates=[dict(prevalence=r, estimated_positive_predictive_value=(1-fnr)*r/max(1e-15,(1-fnr)*r+fpr*(1-r))) for r in (.001,.01,.05)])
 
+def language_metrics(rows, probabilities, threshold):
+    result={}
+    for language in ("en","taglish","fil"):
+        indices=[i for i,r in enumerate(rows) if r.get("language")==language]
+        labels=[int(rows[i]["label"]) for i in indices]
+        support={"ham":labels.count(0),"smishing":labels.count(1)}
+        adequate=len(indices)>=20 and min(support.values())>=5
+        result[language]=dict(records=len(indices),support=support,
+            metrics=metrics(labels,np.asarray(probabilities)[indices],threshold) if adequate else None,
+            note="Descriptive small-sample metrics; no precision/representativeness guarantee" if adequate else "Not estimated: require >=20 records and >=5 per class; collect more independent examples")
+    return result
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("dataset", type=Path); p.add_argument("run", type=Path)
+    p.add_argument("--selection", type=Path, required=True)
+    p.add_argument("--allow-permissive-comparison", action="store_true")
     args = p.parse_args()
+    evaluate_selected(args.dataset, args.run, args.selection, args.allow_permissive_comparison)
+
+
+def evaluate_selected(dataset, run, selection, allow_permissive=False):
+    from .compare import verify_selection
+    from .import_data import agreement
+    from types import SimpleNamespace
+    args = SimpleNamespace(dataset=dataset, run=run)
+    selected = verify_selection(run, selection)
+    if selected["split"] in {"random", "time"} and not allow_permissive:
+        raise ValueError("Permissive comparison requires --allow-permissive-comparison; it is not template-isolated")
     if (args.run/"final-test.json").exists():
         raise ValueError("Final evaluation already exists. Do not retune against this test set.")
     metadata = json.loads((args.run/"run.json").read_text(encoding="utf-8"))
@@ -48,14 +74,14 @@ def main():
     x = transform(artifact["vectorizer"], [r["text_redacted"] for r in test], artifact["condition"], url_rows=test)
     probabilities = artifact["calibrator"].predict_proba(margin(artifact["model"], x).reshape(-1,1))[:,1]
     result = metrics([int(r["label"]) for r in test], probabilities, artifact["threshold"])
+    result["by_language"] = language_metrics(test, probabilities, artifact["threshold"])
+    result["final_test_scope"] = metadata.get("final_test_scope", "unspecified; do not claim prospective validation")
     result["host_batch_seconds"] = time.perf_counter()-started
     result["phone_latency_and_memory"] = "not measured"
-    labeled = [r for r in rows.values() if r.get("annotator_1") in {"0","1"} and r.get("annotator_2") in {"0","1"}]
-    result["cohen_kappa"] = None
-    if labeled:
-        value = float(cohen_kappa_score([r["annotator_1"] for r in labeled],[r["annotator_2"] for r in labeled]))
-        result["cohen_kappa"] = value if np.isfinite(value) else None
-    result["agreement_records"] = len(labeled)
+    result["annotation_agreement_eligible_subset"] = agreement(list(rows.values()))
+    result["agreement_note"] = "Use import-report.json for unfiltered pre-adjudication agreement; this subset excludes unresolved/out-of-scope rows"
+    result["evaluation_scope"] = metadata["evaluation_scope"]
+    result["selection_sha256"] = hashlib.sha256(selection.read_bytes()).hexdigest()
     result["deployment_approval"] = "pending researcher review of calibration, errors, parity and phone tests"
     write_json(args.run/"final-test.json", result)
     print("Final test evaluated once. No model winner or deployment approval inferred.")

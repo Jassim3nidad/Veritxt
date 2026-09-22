@@ -58,8 +58,10 @@ class IncomingSmsReceiver : BroadcastReceiver() {
                     if (!app.preferences.flow.first().scanning) return@withTimeout
                     val parts = Telephony.Sms.Intents.getMessagesFromIntent(intent)
                     val text = SmsParts.combine(parts.map { it.messageBody }) ?: return@withTimeout
-                    val result = app.detector().detect(text)
-                    if (result is Detection.Success && result.suspicious && !result.synthetic &&
+                    val detector = app.detector()
+                    if (!detector.automaticWarningsAllowed) return@withTimeout
+                    val result = detector.detect(text)
+                    if (result is Detection.Success && result.suspicious && !result.synthetic && !result.experimental &&
                         app.preferences.flow.first().scanning && PermissionState.read(context).active(true)) {
                         WarningNotifications.warn(context)
                     }
@@ -84,12 +86,14 @@ object WarningNotifications {
         if (!PermissionState.read(context).notifications) return
         if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(context,
                 Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) return
+        try { NotificationManagerCompat.from(context).notify(1, build(context)) } catch (_: SecurityException) { }
+    }
+    internal fun build(context: Context): android.app.Notification {
         val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        val notification = NotificationCompat.Builder(context, CHANNEL)
+        return NotificationCompat.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_shield).setContentTitle("Potential financial impersonation")
             .setContentText("Check the recent SMS in your messaging app. Verify through official channels.")
             .setVisibility(NotificationCompat.VISIBILITY_SECRET).setContentIntent(open).setAutoCancel(true).build()
-        try { NotificationManagerCompat.from(context).notify(1, notification) } catch (_: SecurityException) { }
     }
 }

@@ -1,36 +1,29 @@
-"""Validation and label-blind template grouping. Read already consented/redacted data only."""
+"""Validation and label-blind template grouping. Read operation-reviewed, redacted data only."""
 import csv
 from datetime import datetime
 from difflib import SequenceMatcher
 from .preprocessing import normalize
 
-REQUIRED = {"id", "text_redacted", "label", "language", "source_type", "consent_verified", "redaction_verified", "financial_scope"}
-
-def read_dataset(path):
-    with open(path, encoding="utf-8-sig", newline="") as f:
-        reader = csv.DictReader(f)
-        if not REQUIRED <= set(reader.fieldnames or []):
-            raise ValueError("Missing required schema columns")
-        rows = list(reader)
-    if len({r["id"] for r in rows}) != len(rows) or any(not r["id"] for r in rows):
-        raise ValueError("IDs must be unique and nonempty")
-    for r in rows:
-        if r["consent_verified"] != "true" or r["redaction_verified"] != "true":
-            raise ValueError("Consent/provenance and redaction review must be verified")
-        if r["source_type"] in {"synthetic", "sms_spam_collection", "smishtank"}:
-            raise ValueError("Synthetic/external corpora are excluded from primary research")
-        if r["financial_scope"] != "true" or r["label"] not in {"0", "1"}:
-            raise ValueError("Primary study requires adjudicated binary financial-scope records")
-        if r["language"] not in {"fil", "en", "taglish"} or not r["text_redacted"].strip():
-            raise ValueError("Invalid language or empty text")
-        if len(r["text_redacted"]) > 10000:
-            raise ValueError("Message exceeds deployment input bound")
+def read_dataset(path, study_role="primary"):
+    from .intake import read_csv, validate_record, eligible_category, TOKEN
+    rows = read_csv(path, approved=True)
+    for number, row in enumerate(rows, start=2):
+        try:
+            validate_record(row)
+            category, reason = eligible_category(row, study_role)
+            if reason or row["label"] != ("1" if category == "financial_phishing" else "0"):
+                raise ValueError("Training requires eligible resolved labels; import reviewed intake first")
+            if not TOKEN.fullmatch(row["approval_reference"]):
+                raise ValueError("Missing intake review reference (legacy approval_reference column)")
+        except ValueError as error:
+            raise ValueError(f"CSV row {number}: {error}") from None
     return rows
+
 
 def template_groups(rows, similarity=0.85):
     """Deterministic connected components of redacted character-template similarity.
 
-    O(n²), appropriate for this study's 1,200–2,500 target. No labels used.
+    O(nÂ²), appropriate for this study's 1,200â€“2,500 target. No labels used.
     Caller records group membership and similarity policy, then manually audits templates.
     """
     texts = [normalize(r["text_redacted"]) for r in rows]
@@ -42,6 +35,10 @@ def template_groups(rows, similarity=0.85):
         return i
     for i in range(len(rows)):
         for j in range(i):
+            if (texts[i] == texts[j] or (rows[i].get("template_group") and
+                    rows[i].get("template_group") == rows[j].get("template_group"))):
+                parent[root(i)] = root(j)
+                continue
             # Length upper bound makes obvious nonmatches inexpensive.
             if 2 * min(len(texts[i]), len(texts[j])) / max(1, len(texts[i])+len(texts[j])) < similarity:
                 continue
@@ -60,7 +57,7 @@ def split_rows(rows, groups, strategy, seed):
     from sklearn.model_selection import train_test_split, GroupShuffleSplit
     ids = np.arange(len(rows))
     y = np.array([int(r["label"]) for r in rows])
-    if strategy == "time":
+    if strategy in {"time", "time-group"}:
         dates = [timestamp(r.get("received_at", "")) for r in rows]
         ids = np.array(sorted(ids, key=lambda i: (dates[i], rows[i]["id"])))
         # Keep equal timestamps on one side; invalid/too-small splits are rejected below.
@@ -82,7 +79,16 @@ def split_rows(rows, groups, strategy, seed):
         partitions = [train, validation, calibration, test]
     else:
         raise ValueError("Unknown split strategy")
+    excluded = []
+    if strategy == "time-group":
+        memberships = {}
+        for part, indices in enumerate(partitions):
+            for i in indices: memberships.setdefault(groups[i], set()).add(part)
+        crossing = {g for g, parts in memberships.items() if len(parts) > 1}
+        excluded = [int(i) for i in ids if groups[i] in crossing]
+        partitions = [[i for i in part if groups[i] not in crossing] for part in partitions]
     result = dict(zip(("train", "validation", "calibration", "test"), [[int(i) for i in p] for p in partitions]))
     if any(len({rows[i]["label"] for i in p}) != 2 for p in result.values()):
         raise ValueError("Each partition requires both classes; report this split as not viable, do not retry seeds until favorable")
+    if excluded: result["excluded"] = excluded
     return result

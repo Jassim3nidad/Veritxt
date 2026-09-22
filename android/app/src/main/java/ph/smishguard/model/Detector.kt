@@ -29,11 +29,12 @@ sealed interface Detection {
     data object InvalidModel : Detection
     data object Failure : Detection
     data class Success(val suspicious: Boolean, val score: Double, val probability: Boolean = false,
-                       val synthetic: Boolean = false) : Detection
+                       val synthetic: Boolean = false, val experimental: Boolean = false) : Detection
 }
 
 interface Detector {
     val status: String
+    val automaticWarningsAllowed: Boolean get() = false
     suspend fun detect(text: String): Detection
 }
 

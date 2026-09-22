@@ -1,0 +1,40 @@
+{
+  "project_client_authorization": {
+    "status": "reported_authorized_to_proceed",
+    "basis": "Team reports go signal; signed client-request letter supports thesis/client arrangement",
+    "repeat_project_approval_request_required": false
+  },
+  "letter": {
+    "file_name": "808078986_1614641503657934_2988518485984585902_n.jpg",
+    "sha256": "6b47c463a92cf7a16c08297e990b447405942f61022a99dae9342265a1f6e56e",
+    "letter_date": "2026-09-11",
+    "received_stamp_date": "2026-09-14",
+    "description": "LPU-Cavite request for City Government of Dasmarinas through IT to serve as official client for Thesis 1 and Thesis 2; visible signatures and received stamp",
+    "limits": "Receipt is separate from team-reported go-ahead; not blanket dataset licensing or formal ethics clearance. See project-authorization.md."
+  },
+  "dataset_permitted_use": {
+    "status": "eligibility not yet verified",
+    "assessment": "source by source",
+    "reference": "source-evidence.md"
+  },
+  "labels_redaction": {
+    "status": "review incomplete"
+  },
+  "model": {
+    "technical_integration": "verified for manual development",
+    "evaluation": "unverified",
+    "calibration": "uncalibrated",
+    "automatic_warnings": "disabled",
+    "reporting": "disabled"
+  },
+  "development": {
+    "status": "may proceed",
+    "activities": [
+      "app implementation",
+      "offline conversion/parity",
+      "safe-fixture emulator testing",
+      "aggregate local audit",
+      "reproducible evaluation tooling"
+    ]
+  }
+}

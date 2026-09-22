@@ -1,12 +1,16 @@
-# SmishGuard — first Android milestone
+# SmishGuard — experimental model development milestone
 
-Native Kotlin/Compose research prototype for Philippine financial-institution impersonation in SMS. **No trained model or real research dataset is included.** The installed app explicitly says **Model not installed** and does not produce fabricated predictions or scam warnings. Reporting is unavailable because no endpoint exists.
+Native Kotlin/Compose research prototype for Philippine financial-institution impersonation in SMS. **Version 0.2.0-dev includes the supplied LR model for offline manual paste/share testing.** The interface identifies its output as an uncalibrated model score with unverified research performance and a provisional 0.5 threshold. Automatic model-driven SMS inference/warnings and reporting remain disabled. The separate default `debug` variant still says **Model not installed**. No dataset is bundled in either APK. Read the [package audit](docs/dataset-audit.md) before using the data for research.
+
+Project/client authorization is recorded as **reported authorized to proceed**, supported by the signed client-request letter. See [separate authorization and data/model statuses](docs/project-authorization.md) and [source-specific evidence still needed](docs/source-evidence.md). Development is not blocked by unresolved dataset research eligibility.
+
+This public checkout includes the converter and tests but excludes the supplied model asset, private datasets/reviews and generated deliverables. The existing local APK is preserved. See [co-developer setup and sharing policy](docs/repository-sharing.md).
 
 ## Open and build on Windows
 
 Open this repository root (the folder containing `settings.gradle.kts`) in Android Studio. Let Gradle sync. Use **JDK 17**, Android **SDK Platform 36**, SDK Build Tools **35.0.0**, and current platform-tools. The app supports Android 8.0/API 26 and later; compile/target SDK is 36.
 
-Pinned build stack: Gradle **8.13** with checksum-verified wrapper; Android Gradle Plugin **8.13.2**; Kotlin/Compose compiler plugin **2.3.21**; Compose BOM **2025.12.01**; Activity **1.12.2**; Lifecycle **2.10.0**; DataStore **1.2.0**; coroutines **1.10.2**. These are stable versions selected for compatibility, not a claim that every dependency is the newest. The newer Compose 2026.08 bundle required SDK 37/AGP 9.1+ during verification and was not used.
+Pinned build stack: Gradle **8.13** with checksum-verified wrapper; Android Gradle Plugin **8.13.2**; Kotlin/Compose compiler plugin **2.3.21**; Compose BOM **2025.12.01**; Activity **1.13.0**; Lifecycle **2.10.0**; DataStore **1.2.1**; coroutines **1.11.0**. These are stable versions selected for compatibility, not a claim that every dependency is the newest. The newer Compose 2026.08 bundle required SDK 37/AGP 9.1+ during verification and was not used.
 
 Android Studio creates `local.properties` for your SDK. If creating it yourself, escape the drive colon, e.g. `sdk.dir=C\:/Users/YourName/AppData/Local/Android/Sdk`.
 
@@ -19,14 +23,14 @@ Keep **Distribution** set to **Wrapper**. **Gradle user home** is a separate cac
 ```powershell
 .\gradlew.bat :app:assembleDebug :app:lintDebug :app:testDebugUnitTest
 # On this host, use the helper for a Java/Windows loopback socket workaround:
-.\scripts\build.ps1
+.\scripts\build.ps1 -Variant development
 ```
 
 The helper changes `JAVA_TOOL_OPTIONS` only within its process and restores it afterward. It does not alter Windows or Android security settings. Ensure `C:/sg-nonexistent-socket-dir` does not exist; the deliberately invalid Unix-domain socket directory makes Java use its TCP pipe fallback.
 
-APK output: `android\app\build\outputs\apk\debug\app-debug.apk`. This is a development-signed APK, not a production release. Release signing and distribution governance remain future work. First-time dependency downloads require internet on the build computer; app detection has no internet dependency.
+Development APK output: `android\app\build\outputs\apk\development\app-development.apk` (package `ph.smishguard.dev`). This is a development-signed APK, not a production release. Release signing and distribution governance remain future work. First-time dependency downloads require internet on the build computer; app detection has no internet dependency.
 
-Prepared deliverables are in `deliverables/`: `SmishGuard-0.1.0-debug.apk`, a portable `SmishGuard-source.zip`, and `SHA256SUMS.txt`. Regenerate after a successful build with `python scripts\package.py`. The source archive excludes SDK paths, build caches, virtual environments, research data and model runs.
+Prepared deliverables are in `deliverables/`: `SmishGuard-0.2.0-dev.apk`, a portable `SmishGuard-source.zip`, and `SHA256SUMS.txt`. Regenerate after a successful build with `python scripts\package.py --variant development`. The source archive excludes SDK paths, build caches, virtual environments, research data and model runs.
 
 ## Run on an emulator
 
@@ -34,18 +38,28 @@ Create an Android API 36 virtual device in Android Studio Device Manager, start 
 
 ```powershell
 adb devices
-adb install -r android\app\build\outputs\apk\debug\app-debug.apk
-adb shell am start -n ph.smishguard/.MainActivity
-.\scripts\build.ps1 -ConnectedTests
+adb install -r android\app\build\outputs\apk\development\app-development.apk
+adb shell am start -n ph.smishguard.dev/ph.smishguard.MainActivity
+.\scripts\build.ps1 -Variant development -ConnectedTests
 ```
 
 An API 36 `SmishGuard_Test_API36` emulator was created for this milestone. The tests cover manual entry, empty/long Taglish input, share/clear, denied SMS state, unavailable reporting, lifecycle clearing and static-screen capture. Synthetic inputs remain within test code. Do not use real private SMS for screenshots or test logs. `VisualReviewTest` disables screenshot protection **only within instrumentation** while capturing static, empty screens; production always enables protection.
+
+For expanded emulator verification (software models, modem SMS, multipart receipt, notifications and private-storage inspection):
+
+```powershell
+$env:PYTHONPATH='research'
+research\.venv\Scripts\python.exe -m smishguard.software_fixtures
+.\scripts\build.ps1 -Variant development -EmulatorTests
+```
+
+The verifier installs both APKs, clears SmishGuard's emulator data, controls emulator permissions/radios, restores airplane/Wi-Fi state, and leaves the app at onboarding. Use the dedicated test AVD: Android's messaging app may retain the synthetic incoming messages. Specialized modem/offline/notification tests require the verifier's setup and are skipped by the ordinary connected suite. No physical phone is required. See [the verification checklist](docs/verification.md) and [development emulator evidence](docs/development-emulator-results.json).
 
 ## Physical device
 
 Enable developer options/USB debugging if using adb, connect a trusted computer and approve its debugging prompt, then use the same install/start commands. Alternatively transfer the APK and follow the phone's normal per-installer installation prompts. **Sideloading does not guarantee SMS permission**: RECEIVE_SMS is hard restricted and depends on installer allowlisting, runtime consent, telephony and device policy. Never bypass these restrictions. Manual/share checking works without SMS permission.
 
-Onboarding explains processing and limitations. Home shows the real model and scanning states. Settings lets the user consent to new-SMS checks, request notification permission, review Android permission settings, choose a city manually, or clear preferences. A model is still required for actual warnings. Permission denial, force-stop and battery/vendor policies can prevent automatic checks. The app does not monitor RCS, Messenger, WhatsApp or other services and never replaces the default SMS app.
+Onboarding explains processing and limitations. Home shows the real model and scanning states. Settings lets the user consent to new-SMS checks, request notification permission, review Android permission settings, choose a city manually, or clear preferences. This experimental model cannot enable automatic warnings, even with consent and permissions granted. Permission denial, force-stop and battery/vendor policies can prevent automatic checks. The app does not monitor RCS, Messenger, WhatsApp or other services and never replaces the default SMS app.
 
 Share plain text from the existing messaging app using Android **Share → SmishGuard**, or type/paste into **Check**. Checking clears text; leaving the app or changing configuration also clears the session. Verify requests independently through official channels. No score could guarantee that a message is legitimate.
 
@@ -53,6 +67,8 @@ Share plain text from the existing messaging app using Android **Share → Smish
 
 - `android/app/`: Compose UI, transient ViewModel, preferences, receiver, notifications, offline detector, report contract and Android tests.
 - `research/`: dataset schema, preprocessing, group/random/time splits, classical training/export, calibration/evaluation, shortcut comparisons, optional transformer adapter and software tests.
+- `docs/dataset-audit.md`: verified supplied-package counts and unresolved eligibility/provenance.
+- `research/intake-template.csv`: ready-to-fill independent-annotation intake; see the labeling guide.
 - `docs/decisions.md`: source-document reconciliation and assumptions.
 - `docs/privacy.md`: data lifecycle, conservative domain policy and permission limitations.
 - `docs/model-contract.md`: portable inference schema and deployment procedure.

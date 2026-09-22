@@ -8,11 +8,27 @@ from smishguard.evaluate import metrics
 from smishguard.parity import predict
 from smishguard.train import transform
 from smishguard.train import margin
+from smishguard.linear_export import export_linear
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import LinearSVC
 
 class FoundationTests(unittest.TestCase):
+    def test_research_rejects_synthetic_and_unverified_records(self):
+        import csv
+        import tempfile
+        from pathlib import Path
+        from smishguard.data import read_dataset
+        row = dict(id="fixture", text_redacted="Software fixture only", label="0", language="en",
+                   source_type="synthetic", consent_verified="true", redaction_verified="true", financial_scope="true")
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "fixture.csv"
+            for source, consent, redaction in [("synthetic", "true", "true"), ("smishtank", "true", "true"), ("participant", "false", "true"), ("participant", "true", "false")]:
+                row.update(source_type=source, consent_verified=consent, redaction_verified=redaction)
+                with path.open("w", newline="", encoding="utf-8") as output:
+                    writer = csv.DictWriter(output, fieldnames=row.keys())
+                    writer.writeheader(); writer.writerow(row)
+                with self.assertRaises(ValueError): read_dataset(path)
     def test_uniform_preprocessing(self):
         self.assertEqual(normalize("Bayad 123! https://example.com/a?otp=99"),"bayad zznumberzz zzurlzz")
         self.assertEqual(normalize("İ ñ Á HELLO"), "hello")
@@ -72,14 +88,14 @@ class FoundationTests(unittest.TestCase):
         for classifier in (LogisticRegression(),MultinomialNB(),LinearSVC(dual="auto")):
             classifier.fit(x,y)
             calibration=LogisticRegression().fit(margin(classifier,x).reshape(-1,1),y)
-            if isinstance(classifier,MultinomialNB):
-                weights=classifier.feature_log_prob_[1]-classifier.feature_log_prob_[0]
-                bias=classifier.class_log_prior_[1]-classifier.class_log_prior_[0]
-            else:
-                weights=classifier.coef_[0]; bias=classifier.intercept_[0]
-            exported=dict(vocabulary=v.get_feature_names_out().tolist(),idf=v.idf_.tolist(),weights=weights.tolist(),bias=float(bias),threshold=.5,
-                calibration=dict(a=float(calibration.coef_[0,0]),b=float(calibration.intercept_[0])))
+            exported=export_linear(v,classifier,calibration,.5,synthetic=True)
+            self.assertTrue(exported["synthetic"])
+            self.assertFalse(exported["calibration_evaluated"])
             expected=calibration.predict_proba(margin(classifier,x).reshape(-1,1))[:,1]
             for text,score in zip(texts,expected): self.assertAlmostEqual(predict(exported,text)[0],score,places=12)
+            with self.assertRaises(ValueError): export_linear(v,classifier,calibration,float("nan"),synthetic=True)
+            v.sublinear_tf=True
+            with self.assertRaises(ValueError): export_linear(v,classifier,calibration,.5,synthetic=True)
+            v.sublinear_tf=False
 
 if __name__ == "__main__": unittest.main()

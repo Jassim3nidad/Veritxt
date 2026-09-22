@@ -1,0 +1,128 @@
+{
+  "package_sha256": "60eb0d22cf54199dab6de443f16bbb10d93e6664eccd31290ace303d102af14e",
+  "files_sha256": {
+    "smishguard_model_package-20260920T144757Z-1-001.zip": "60eb0d22cf54199dab6de443f16bbb10d93e6664eccd31290ace303d102af14e",
+    "model_export_final.json": "3ec2fa27951588447fa59800bfb5de0e7d0b61526bb1ff1352358db755ce768a",
+    "MODEL_INTEGRATION.md": "17517cee0afb7e89e30217f9c867fcac26ba55b13c654a37e2d272f6eb16c767",
+    "smishguard_dataset.csv": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b"
+  },
+  "rows": 1276,
+  "columns": [
+    "id",
+    "message_text",
+    "label",
+    "claimed_institution",
+    "spoofed_url",
+    "official_domain",
+    "language",
+    "attack_type",
+    "source",
+    "date_collected",
+    "notes"
+  ],
+  "labels": {
+    "smishing": 222,
+    "ham": 1054
+  },
+  "languages": {
+    "English": 1149,
+    "Taglish": 127
+  },
+  "missing": {
+    "id": 0,
+    "message_text": 0,
+    "label": 0,
+    "claimed_institution": 70,
+    "spoofed_url": 1111,
+    "official_domain": 70,
+    "language": 0,
+    "attack_type": 0,
+    "source": 0,
+    "date_collected": 78,
+    "notes": 3
+  },
+  "duplicate_ids": 0,
+  "invalid_labels": 0,
+  "exact_duplicates": {
+    "unique_groups": 1272,
+    "duplicate_groups": 4,
+    "excess_rows": 4,
+    "conflicting_groups": 0
+  },
+  "normalized_duplicates": {
+    "unique_groups": 1249,
+    "duplicate_groups": 20,
+    "excess_rows": 27,
+    "conflicting_groups": 0
+  },
+  "template_groups": {
+    "unique_groups": 940,
+    "duplicate_groups": 133,
+    "excess_rows": 336,
+    "conflicting_groups": 2
+  },
+  "template_method": "Label-blind sg-ascii-v1 normalization, exact equality + SequenceMatcher >=0.85 connected components; heuristic, requires review",
+  "source_label": {
+    "Facebook": {
+      "smishing": 1
+    },
+    "Reddit r/ScammersPH": {
+      "smishing": 2
+    },
+    "Personal (received)": {
+      "smishing": 9,
+      "ham": 1
+    },
+    "Public PH SMS spam dataset (archive.zip)": {
+      "smishing": 82,
+      "ham": 21
+    },
+    "UCI SMS Spam Collection (public baseline)": {
+      "ham": 70
+    },
+    "Kaggle: Tagalog-SMS / Text-Messages.csv (cited in BantayText, DLSU)": {
+      "ham": 962,
+      "smishing": 128
+    }
+  },
+  "language_label": {
+    "English": {
+      "smishing": 199,
+      "ham": 950
+    },
+    "Taglish": {
+      "ham": 104,
+      "smishing": 23
+    }
+  },
+  "eligibility": {
+    "external_uci": 70,
+    "non_uci_unverified": 1206,
+    "explicit_other_sector": 1,
+    "financial_institution_claim_unverified": 1205,
+    "financial_claim_unique_exact": 1201,
+    "financial_claim_template_groups": 869,
+    "verified_primary_rows": null,
+    "verified_primary_groups": null,
+    "reason": "Source-specific permitted-use documentation and record-level label/redaction review remain unresolved; project/client authorization is recorded separately",
+    "status": "eligibility not yet verified",
+    "project_authorization_record": "docs/project-authorization.json"
+  },
+  "pii_candidate_rows": {
+    "email": 3,
+    "long_digit_or_phone": 147,
+    "url": 120,
+    "name_salutation": 1
+  },
+  "pii_note": "Heuristics are not proof of identity or complete redaction. No examples disclosed. URLs remain unopened.",
+  "date_collected": {
+    "nonempty": 1198,
+    "iso_date_only": 1198,
+    "meaning": "Unverified; collection versus receipt undefined; no timezone or receipt provenance; do not use for chronology"
+  },
+  "claims_status": "No training scripts, CV splits, seed records, licenses/permissions, consent, or calibration report in package. Guide performance/CI/realistic-traffic claims not reproducible from these files.",
+  "learned_vocabulary_privacy": {
+    "long_numeric_feature_terms": 2,
+    "note": "Learned vocabulary can retain training tokens; numeric terms are candidates, not confirmed personal identifiers. Review before broader distribution. No weights/terms altered."
+  }
+}

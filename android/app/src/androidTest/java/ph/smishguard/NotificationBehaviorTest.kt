@@ -1,0 +1,48 @@
+package ph.smishguard
+
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.*
+import org.junit.Test
+import ph.smishguard.sms.PermissionState
+import ph.smishguard.sms.WarningNotifications
+
+class NotificationBehaviorTest {
+    private fun awaitNotificationState(predicate: () -> Boolean) {
+        val deadline = android.os.SystemClock.uptimeMillis() + 5000
+        while (!predicate() && android.os.SystemClock.uptimeMillis() < deadline) Thread.sleep(50)
+        assertTrue("Notification service did not reach the expected state", predicate())
+    }
+    @Test fun privateNotificationConstructionAndBlockedChannel() {
+        org.junit.Assume.assumeTrue(InstrumentationRegistry.getArguments().getString("granted") == "true")
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val manager = context.getSystemService(NotificationManager::class.java)
+        assertTrue("Run with notification permission granted on emulator", PermissionState.read(context).notifications)
+        val notification = WarningNotifications.build(context)
+        assertEquals(Notification.VISIBILITY_SECRET, notification.visibility)
+        assertEquals("Potential financial impersonation", notification.extras.getString(Notification.EXTRA_TITLE))
+        assertNotNull(notification.contentIntent)
+        // Exercise posting without impersonating a real detector warning.
+        notification.extras.putString(Notification.EXTRA_TITLE, "SmishGuard software test")
+        notification.extras.putString(Notification.EXTRA_TEXT, "Synthetic notification plumbing test only")
+        manager.notify(42, notification)
+        awaitNotificationState { manager.activeNotifications.any { it.id == 42 } }
+        manager.cancelAll()
+        awaitNotificationState { manager.activeNotifications.isEmpty() }
+        manager.createNotificationChannel(NotificationChannel(WarningNotifications.CHANNEL, "Suspicious SMS warnings", NotificationManager.IMPORTANCE_NONE))
+        assertFalse(PermissionState.read(context).notifications)
+        WarningNotifications.warn(context)
+        assertTrue(manager.activeNotifications.isEmpty())
+    }
+
+    @Test fun runtimeDenialSuppressesWarning() {
+        org.junit.Assume.assumeTrue(InstrumentationRegistry.getArguments().getString("denied") == "true")
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val manager = context.getSystemService(NotificationManager::class.java)
+        assertFalse(PermissionState.read(context).notifications)
+        WarningNotifications.warn(context)
+        assertTrue(manager.activeNotifications.isEmpty())
+    }
+}

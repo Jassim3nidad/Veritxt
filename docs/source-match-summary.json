@@ -1,0 +1,159 @@
+{
+  "snapshots": {
+    "tagalog": {
+      "ref": "onzero0/tagalog-sms",
+      "version": 1,
+      "member": "tagalog-sms.xlsx",
+      "sha256": "7757fb9cf70b9c1e0101e384886706da52110f6c17aeafef10a104e38fdfc0a7",
+      "author": "ZERO (onzero0)",
+      "license": "CC0 1.0",
+      "rows": 3454,
+      "download_url": "https://www.kaggle.com/api/v1/datasets/download/onzero0/tagalog-sms?datasetVersionNumber=1",
+      "page_url": "https://www.kaggle.com/datasets/onzero0/tagalog-sms",
+      "archive_sha256": "e0f4201360b79260aa249c98b3f4399668af62c549ac34ed1de73befb1fef60c"
+    },
+    "marketing": {
+      "ref": "scottleechua/ph-spam-marketing-sms-w-timestamps",
+      "version": 15,
+      "member": "text-messages.csv",
+      "sha256": "a3724dca065ee8ed23eb18fb6382657e2559f2b0c0364aaf9c14277af1974e32",
+      "author": "Scott Lee Chua",
+      "license": "CC BY 4.0",
+      "rows": 8895,
+      "download_url": "https://www.kaggle.com/api/v1/datasets/download/scottleechua/ph-spam-marketing-sms-w-timestamps?datasetVersionNumber=15",
+      "page_url": "https://www.kaggle.com/datasets/scottleechua/ph-spam-marketing-sms-w-timestamps",
+      "archive_sha256": "d4953b9c911fafd0a8fcf57ade1947b1032266816eb7589bbd82ecc1bfcd94f2"
+    },
+    "bwandowando": {
+      "ref": "bwandowando/philippine-spam-sms-messages",
+      "version": 49,
+      "member": "SPAM_SMS.csv",
+      "sha256": "3012700e9f774f87b6922cd88e41155b41d0bf9923f04af456683f2859941d5f",
+      "author": "BwandoWando",
+      "license": "CC BY-NC-SA 4.0",
+      "rows": 1021,
+      "download_url": "https://www.kaggle.com/api/v1/datasets/download/bwandowando/philippine-spam-sms-messages?datasetVersionNumber=49",
+      "page_url": "https://www.kaggle.com/datasets/bwandowando/philippine-spam-sms-messages",
+      "archive_sha256": "a8f42bbe280adf9cf2bd9cc3c365e3543280e10620253a84303481ec478e81e5"
+    }
+  },
+  "by_supplied_source": {
+    "Facebook": {
+      "rows": 1,
+      "any_match": 0,
+      "multiple_candidates": 0,
+      "candidates": {
+        "tagalog": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "marketing": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "bwandowando": {
+          "exact": 0,
+          "whitespace_only": 0
+        }
+      }
+    },
+    "Reddit r/ScammersPH": {
+      "rows": 2,
+      "any_match": 0,
+      "multiple_candidates": 0,
+      "candidates": {
+        "tagalog": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "marketing": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "bwandowando": {
+          "exact": 0,
+          "whitespace_only": 0
+        }
+      }
+    },
+    "Personal (received)": {
+      "rows": 10,
+      "any_match": 0,
+      "multiple_candidates": 0,
+      "candidates": {
+        "tagalog": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "marketing": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "bwandowando": {
+          "exact": 0,
+          "whitespace_only": 0
+        }
+      }
+    },
+    "Public PH SMS spam dataset (archive.zip)": {
+      "rows": 103,
+      "any_match": 103,
+      "multiple_candidates": 7,
+      "candidates": {
+        "tagalog": {
+          "exact": 6,
+          "whitespace_only": 0
+        },
+        "marketing": {
+          "exact": 1,
+          "whitespace_only": 0
+        },
+        "bwandowando": {
+          "exact": 54,
+          "whitespace_only": 49
+        }
+      }
+    },
+    "UCI SMS Spam Collection (public baseline)": {
+      "rows": 70,
+      "any_match": 0,
+      "multiple_candidates": 0,
+      "candidates": {
+        "tagalog": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "marketing": {
+          "exact": 0,
+          "whitespace_only": 0
+        },
+        "bwandowando": {
+          "exact": 0,
+          "whitespace_only": 0
+        }
+      }
+    },
+    "Kaggle: Tagalog-SMS / Text-Messages.csv (cited in BantayText, DLSU)": {
+      "rows": 1090,
+      "any_match": 1090,
+      "multiple_candidates": 14,
+      "candidates": {
+        "tagalog": {
+          "exact": 471,
+          "whitespace_only": 0
+        },
+        "marketing": {
+          "exact": 303,
+          "whitespace_only": 329
+        },
+        "bwandowando": {
+          "exact": 0,
+          "whitespace_only": 1
+        }
+      }
+    }
+  },
+  "method": "Exact Unicode text first, then whitespace collapse only; no case/URL/number/template normalization",
+  "limits": "Content overlap is not acquisition-chain proof, individual license assignment, label validation or receipt-time verification. No raw examples in public report.",
+  "uci": "Official page and CC BY 4.0 observed; direct official ZIP download failed TLS validation; no row match claimed"
+}

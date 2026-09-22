@@ -1,33 +1,35 @@
-# Offline model contract
+# Versioned offline model contract
 
-The APK contains no trained model. `MissingDetector` returns `Unavailable`; corrupt/unsupported assets return `InvalidModel`; inference can return `Failure` or `Success`. The app never treats a missing model as a negative prediction.
+## Three different statuses
 
-For this first deployment path, place a reviewed `model.json` in `android/app/src/main/assets/` and rebuild. Loader bounds the file at 8 MB and vocabulary at 50,000 entries, rejects incompatible schemas/feature types, duplicate tokens, inconsistent dimensions, nonfinite parameters, invalid IDF or thresholds, wrong class order, and synthetic assets. Unit resources and debug fixtures are never chosen by the production loader.
+| Status | Supplied model in this milestone |
+|---|---|
+| Technically integrated | Converted without retraining or changing vocabulary, IDF, coefficients or intercept; reference scores reproduced; Android parity/offline checks recorded in verification |
+| Experimentally evaluated | **Unverified.** Full-dataset fit; no reproducible evaluation/splits/calibration evidence supplied |
+| Approved for user-facing automatic warnings | **No.** Detector policy denies automatic SMS inference; reporting also disabled |
 
-The JSON exports schema version, preprocessing version, feature type, ordered vocabulary, IDF vector, weights, bias, class mapping, threshold, optional sigmoid calibration (`a`, `b`), calibration evaluation flag, and synthetic flag. The synthetic test JSON under `src/test/resources` is an executable schema example but **must never be installed as a real model**.
+`0.2.0-dev` / package `ph.smishguard.dev` is a distinct development build for manual paste/share checks. The ordinary debug build has no model asset. Missing, invalid and inference-failure paths remain available. Neither synthetic fixtures nor unverified supplied results can form report payloads.
 
-`sg-ascii-v1`: fold only A–Z to a–z; replace explicit HTTP(S)/www spans with `zzurlzz`, email spans with `zzemailzz`, each digit run with `zznumberzz`; replace everything outside a–z with spaces; collapse/trim; split on spaces. No label-specific rule, stemming, learned redaction, or network request. Non-ASCII letters, punctuation and emoji are omitted by this first lexical runtime; this is a documented limitation for future tokenizer comparisons. The research pipeline separately studies punctuation/emoji and character features. Dataset personal-name redaction uses `zznamezz` and account placeholders `zzaccountzz` before research ingestion; people must review those redactions uniformly for both classes.
+## Supplied schema v2
 
-Features are raw unigram counts × exported IDF followed by L2 normalization. Unknown terms contribute zero. Decision margin is `bias + dot(weights, normalized_features)`. LR/SVM export their coefficient vector directly. NB exports the positive-minus-negative log feature likelihoods and log prior difference, producing a log-odds margin. Optional calibration computes `sigmoid(a * margin + b)`. No arbitrary scikit-learn-to-TFLite conversion is assumed. This small deterministic Kotlin runtime avoids an additional ML native runtime and supports explicit cross-language parity.
+The conversion command in [research README](../research/README.md) validates contiguous unique vocabulary indices, one IDF/coefficient per feature, finite values, positive IDF, intercept, class order `[ham, smishing]`, positive class, lowercase and `[1,2]` n-grams. It checks the five guide examples to 0.00005 absolute tolerance, appropriate to four-decimal rounding. Actual errors are below that bound; full values and source/converted hashes are in [model-conversion.json](model-conversion.json).
 
-A raw SVM margin is never labeled probability. Android displays a percentage only if sigmoid parameters exist AND `calibration_evaluated` is true, and never for synthetic fixtures. Export defaults this flag to false even after fitting a calibrator. Researchers must review the actual final calibration/error results before approving any percentage display; running a script alone cannot establish acceptable calibration. The reporting `score` is the model's threshold score (sigmoid output if calibrated, margin otherwise); a future backend needs out-of-band deployment version documentation because the user's allowed payload does not include a model ID.
+The deployed math is raw unigram/bigram counts times supplied IDF, L2 normalization, dot product plus intercept, then sigmoid. Classification is **strictly score > 0.5**, not >=. Unknown terms contribute zero; all-unknown nonempty input uses the intercept. Empty/blank and >10,000 UTF-16-unit inputs fail gracefully in Android. No URL normalization, placeholder substitution, accent stripping, stemming or URL fetch is inserted into this supplied model's tokenizer.
 
-## Parity and release procedure
+Python `str.lower()` and Unicode `\b\w+\b` differ from Android/JVM regex and Unicode versions. Conversion freezes Python 3.12 / Unicode 15.0.0 word-character ranges, full lowercase mappings, cased/case-ignorable ranges and Greek final-sigma context. Android uses these tables, including single letters, ñ, accents, digits, underscores and supplementary code points. Unknown tokens are retained while forming consecutive bigrams so they cannot incorrectly bridge known neighbors. The original training Python version was not supplied; compatibility is against the documented algorithm, five references and this pinned reference implementation, not an invented claim about unavailable training code.
 
-1. Train only on verified research data. Freeze preprocessing and all splits.
-2. Evaluate once on untouched final data; inspect errors, calibration, base-rate sensitivity and shortcut comparisons. No research winner is automatically selected.
-3. Use synthetic privacy-safe probes to compare scikit-learn, portable Python arithmetic and Android (tolerance 1e-10 for the included double runtime). `python -m smishguard.parity` generates committed tests, not a deployment model. For a real export, run equivalent probes against that export before installation.
-4. Review model source, calibration and threshold documentation, then package the real asset. Do not reuse the synthetic test's weights.
-5. Run phone tests in airplane mode, measure latency/memory, test long/unknown/linkless/Taglish cases and false positives. No real-model phone results exist in this milestone.
+Schema v2 separates `provenance` (user-supplied source hash and claimed training rows), `technical_compatibility=reference_verified`, `evaluation_status=unverified`, `calibration_status=uncalibrated`, `intended_use=manual_development`, `automatic_warnings_approved=false` and `synthetic=false`. The parser validates these combinations rather than treating software compatibility as evaluation. This v2 contract intentionally does not accept an approval flag flipped to true. A future reviewed deployment policy needs explicit implementation and evidence.
 
-For a real trained export, these commands compare scikit-learn → portable Python → Android's Kotlin runtime using only synthetic probe messages:
+UI calls the sigmoid output an **uncalibrated model score**, never a validated probability/percentage. The 0.5 threshold is provisional. Results state experimental/unverified status and do not label a message definitively fraudulent or legitimate. The receiver checks `automaticWarningsAllowed` before calling a detector; this model denies it. Reporting is unavailable and experimental results are rejected by the report factory.
 
-```powershell
-$env:PYTHONPATH='research'
-research\.venv\Scripts\python.exe -m smishguard.export_parity research\runs\lr-group
-.\gradlew.bat :app:testDebugUnitTest '-PmodelParityDir=C:/absolute/path/to/research/runs/lr-group/parity'
-```
+## Older research schema v1
 
-`ExportParityTest` explicitly skips when no real export path is provided. The always-run `CoreTest.pythonKotlinParity` uses the checked-in synthetic fixture. Neither test constitutes evaluation of predictive accuracy.
+The existing calibrated word-unigram `sg-ascii-v1` pipeline remains separate: ASCII folding, URL/email/digit placeholders, raw TF-IDF/L2 and linear margin with optional separately fitted sigmoid calibration. Export defaults `calibration_evaluated=false`. Synthetic fixtures stay synthetic. This format is not silently reinterpreted as the supplied Unicode unigram/bigram model. Automatic warnings are also disabled by default for legacy detectors; a calibrated flag alone is not approval.
 
-Transformer research comparison remains in the study. Their deployment requires a separate tokenizer, supported export/runtime, quantization evaluation and parity work; they are not accepted by this runtime.
+## Verification boundaries
+
+Fifteen safe full-precision probes cover English/Taglish, single-character and Unicode tokenization, unknown tokens, empty/blank and long text. Python portable math is compared with scikit-learn; Android tolerance is `1e-10` (double arithmetic, much tighter than guide rounding). The five guide references are processed locally without following their URLs; no guide/dataset messages are included in parity assets. Actual results are in [verification](verification.md).
+
+The supplied source export has 5,000 features; converted asset is under the existing 8 MB loader bound. Only the necessary model and Unicode metadata enter the development APK. Raw dataset and original guide remain in ignored private research storage. Learned feature tokens can retain training information; the audit identifies numeric-token candidates for review. No pasted/shared text is persisted or transmitted by the app.
+
+No retraining, calibration-quality claim, warning-threshold approval, research winner or physical-device performance follows from parity. New research fitting uses approved data and the frozen split/selection workflow; the already-used supplied rows cannot become prospective validation by being reshuffled.

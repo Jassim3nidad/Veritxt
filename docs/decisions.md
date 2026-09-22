@@ -26,3 +26,17 @@ Single Activity with Compose/Material 3, one ViewModel and StateFlow for transie
 Android source lives under `android/`; Gradle root is Android Studio's project entry. Research tooling is under `research/`; documentation under `docs/`; future service scope under `backend/`.
 
 The required 12ui design workflow was attempted. CLI installer returned Windows `spawn EINVAL`; direct CLI execution worked, but hosted draft required a separate account sign-in. No design was generated or claimed as approved. The implementation uses native Material 3 components, scrolling screens, system font scaling and light/dark color schemes. This external-service limitation does not block native development.
+
+## Supplied-package milestone — 21 September 2026
+
+The local user-supplied ZIP, CSV, guide and model were read, along with the thesis documents and existing decisions, before integration. Drive was not accessed. This supersedes the historical no-package assumption above. The raw package is preserved with SHA-256 hashes; private working copies are excluded from Git/source packaging.
+
+The supplied full-dataset LR model uses Python Unicode word unigrams/bigrams, not the earlier ASCII unigram research baseline. Schema 2 preserves its parameters through explicit conversion and separates provenance, technical compatibility, evaluation, calibration and intended-use metadata. Its development-only build is experimental, unverified, uncalibrated and never approved for automatic warnings. The default debug build remains model-free. Compatibility tests do not establish research validity.
+
+The package has 1,276 rows; primary-study eligibility is not yet verified and eligible counts are unknown. Project/client authorization is now recorded separately in project-authorization.md; source names alone are neither permission evidence nor grounds for rejection. UCI stays supplementary. Other sources require review under the primary protocol. No dates, approvals, labels or performance were invented. Retrospective refitting cannot make the supplied rows prospectively unseen. The research workflow therefore records data history, isolates groups and training preprocessing, freezes candidate selection before final testing, and keeps uncertain labels out of training.
+
+Model vocabulary is learned content: the audit flags two numeric identifier-like terms for privacy review. Parameters were not silently edited to hide this. No message rows or guide reference texts are included in the APK. Physical-device work remains pending; it does not block emulator development.
+
+## Client authorization clarification
+
+The team reports authorization to proceed and supplied a signed client-request letter. Record that go-ahead without repeating the request. The letter supports the thesis/client arrangement, not blanket licensing or formal ethics clearance. The importer now assesses documented use and study role for each source, including aggregators, while retaining donation-consent, redaction and independent-label checks. App development/offline integration/emulator testing/evaluation tooling are not blocked by unresolved research eligibility. See project-authorization.md and source-evidence.md.

@@ -1,0 +1,15 @@
+{
+  "variant": "development",
+  "api": "36",
+  "ui_lifecycle_decoding": "ph.smishguard.FlowsTest:......\r\nph.smishguard.PrivacyLifecycleTest:.\r\nph.smishguard.SmsDecodingTest:.\r\nph.smishguard.DevelopmentFlowTest:.\r\n\r\nTime: 43.494\r\n\r\nOK (9 tests)",
+  "notification_denied": "ph.smishguard.NotificationBehaviorTest:.\r\n\r\nTime: 0.031\r\n\r\nOK (1 test)",
+  "offline_sklearn_exports": "ph.smishguard.OfflineModelTest:.\r\nph.smishguard.SuppliedModelTest:..\r\n\r\nTime: 2.304\r\n\r\nOK (3 tests)",
+  "modem_sms": "ph.smishguard.ModemSmsTest:.\r\n\r\nTime: 8.996\r\n\r\nOK (1 test)",
+  "notification_granted_and_channel_blocked": "ph.smishguard.NotificationBehaviorTest:.\r\n\r\nTime: 0.148\r\n\r\nOK (1 test)",
+  "accessibility_large_text": "ph.smishguard.AccessibilityTest:.\r\n\r\nTime: 7.48\r\n\r\nOK (1 test)",
+  "private_storage": {
+    "files_inspected": 2,
+    "raw_fixture_markers_found": 0
+  },
+  "scope": "Emulator software checks only; supplied-model compatibility and synthetic fixtures are not research accuracy or physical-device results"
+}

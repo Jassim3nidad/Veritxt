@@ -1,0 +1,18 @@
+{
+  "development_version": "0.2.0-dev",
+  "application_id": "ph.smishguard.dev",
+  "model_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+  "original_parameters_preserved": true,
+  "dataset_bundled": false,
+  "test_probes_bundled": false,
+  "baseline_debug_model_bundled": false,
+  "signature": "APK Signature Scheme v2 verified with SDK apksigner",
+  "permissions": [
+    "android.permission.RECEIVE_SMS",
+    "android.permission.POST_NOTIFICATIONS",
+    "ph.smishguard.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+  ],
+  "internet_permission": false,
+  "automatic_warnings_approved": false,
+  "reporting_enabled": false
+}

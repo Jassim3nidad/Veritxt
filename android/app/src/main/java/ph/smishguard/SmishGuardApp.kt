@@ -5,13 +5,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ph.smishguard.data.PreferencesRepository
 import ph.smishguard.model.Detector
-import ph.smishguard.model.LinearDetector
+import ph.smishguard.model.ModelLoader
 import ph.smishguard.model.MissingDetector
 import ph.smishguard.privacy.DisabledReportingRepository
 import ph.smishguard.sms.WarningNotifications
 import java.io.FileNotFoundException
 
-class SmishGuardApp : Application() {
+open class SmishGuardApp : Application() {
     val preferences by lazy { PreferencesRepository(this) }
     val reporting = DisabledReportingRepository()
     // Only immutable model parameters are cached, never input messages or predictions.
@@ -28,10 +28,10 @@ class SmishGuardApp : Application() {
                 }
                 buffer.toString("UTF-8")
             }
-            LinearDetector.parse(json)
+            ModelLoader.parse(json)
         } catch (_: FileNotFoundException) { MissingDetector() }
         catch (_: Exception) { MissingDetector(invalid = true) }
     }
-    suspend fun detector(): Detector = withContext(Dispatchers.IO) { detector }
+    open suspend fun detector(): Detector = withContext(Dispatchers.IO) { detector }
     override fun onCreate() { super.onCreate(); WarningNotifications.createChannel(this) }
 }

@@ -45,7 +45,7 @@ class ReportPayload private constructor(
     }.toString(2)
     companion object {
         fun create(domain: String?, result: Detection.Success, time: ZonedDateTime, city: City, brand: Brand): ReportPayload? {
-            if (result.synthetic || !result.score.isFinite() || city == City.NOT_SELECTED) return null
+            if (result.synthetic || result.experimental || !result.score.isFinite() || city == City.NOT_SELECTED) return null
             val safe = domain?.let { SafeDomain.fromUrl("https://$it") }
             return ReportPayload(safe, result.score, if (result.suspicious) "suspicious" else "not_suspicious",
                 time.withMinute(0).withSecond(0).withNano(0).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HHXXX")), city, brand)

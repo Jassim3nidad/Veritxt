@@ -1,0 +1,43 @@
+{
+  "source_sha256": "3ec2fa27951588447fa59800bfb5de0e7d0b61526bb1ff1352358db755ce768a",
+  "converted_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+  "feature_count": 5000,
+  "reference_rounding_tolerance": 5e-05,
+  "guide_references": [
+    {
+      "reference": 1,
+      "rounded_expected": 0.9081,
+      "python_score": 0.9080637871179464,
+      "absolute_error": 3.6212882053576756e-05
+    },
+    {
+      "reference": 2,
+      "rounded_expected": 0.4698,
+      "python_score": 0.46976542254368137,
+      "absolute_error": 3.457745631862963e-05
+    },
+    {
+      "reference": 3,
+      "rounded_expected": 0.7279,
+      "python_score": 0.7279331304952871,
+      "absolute_error": 3.313049528708145e-05
+    },
+    {
+      "reference": 4,
+      "rounded_expected": 0.1555,
+      "python_score": 0.15553781637553032,
+      "absolute_error": 3.781637553032513e-05
+    },
+    {
+      "reference": 5,
+      "rounded_expected": 0.8875,
+      "python_score": 0.887529683801518,
+      "absolute_error": 2.968380151802119e-05
+    }
+  ],
+  "python_sklearn_max_absolute_error": 5.551115123125783e-17,
+  "android_tolerance": 1e-10,
+  "unicode_version": "15.0.0",
+  "python_version": "3.12.5",
+  "note": "Weights/IDF/intercept unchanged. Positive class from export+guide+reference agreement; original training code absent. Software parity is not research evaluation."
+}

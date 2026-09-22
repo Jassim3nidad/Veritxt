@@ -1,0 +1,19 @@
+{
+  "python_tests": 27,
+  "failures": 0,
+  "scope": "Software regression fixtures only; no research metrics or source approvals fabricated",
+  "checks": [
+    "Documented aggregator/public-archive/social/external sources accepted independent of donor-consent flag",
+    "Donation consent checked only for donations",
+    "Documented permitted use requires a nonidentifying evidence reference",
+    "Pending/not-permitted use and undecided study role remain explicit holds",
+    "Supplementary imports cannot enter the primary training loader",
+    "Existing label/redaction, grouping and train/calibration/validation/final isolation tests pass"
+  ],
+  "android_changes": false,
+  "android_test_evidence": [
+    "development-emulator-results.json",
+    "api26-results.json"
+  ],
+  "development_apk_sha256": "3ca8237395f94f52638c27169024568c48262ff879daebb9231998c7ab02c3f1"
+}

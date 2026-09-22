@@ -2,7 +2,8 @@ package ph.smishguard
 
 import android.Manifest
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
+import androidx.compose.ui.semantics.heading
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -117,7 +118,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                     Text("Check SMS messages for potential financial-institution impersonation in Filipino, English, and Taglish.")
                     InfoCard("Your message stays here", "Processing happens on this phone. Message text is not stored or sent. Leaving the app clears your checking session.")
                     InfoCard("A warning tool", "SmishGuard never blocks, deletes, sends, or changes SMS. It does not replace your messaging app. Checks can miss scams or flag legitimate messages.")
-                    Text("This prototype has no trained model installed yet. It cannot currently assess whether a message is suspicious.")
+                    Text(if (state.modelStatus.startsWith("Experimental")) "Experimental model for manual development testing. Research performance is unverified; automatic warnings and reporting are disabled." else "This build has no usable model. It cannot currently assess whether a message is suspicious.")
                     Text("Incoming SMS scanning is optional and off by default. No permission is needed to paste or share text. RCS and other messaging services are not monitored.")
                     Button(onClick = { scope.launch { app.preferences.onboard() } }, Modifier.fillMaxWidth()) { Text("Continue without permissions") }
                 }
@@ -125,7 +126,8 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                     Screen.HOME -> {
                         Heading("Before you tap,\ncheck the message.")
                         Text("A private space to pause and review a financial SMS.", style = MaterialTheme.typography.bodyLarge)
-                        InfoCard(state.modelStatus, if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
+                        InfoCard("Automatic warnings disabled", "This development build cannot issue model-driven SMS warnings. Reporting is also disabled.")
+                        InfoCard(state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Research performance is unverified. The 0.5 threshold is provisional." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
                         InfoCard(if (permissions.active(preferences!!.scanning)) "Incoming SMS · enabled" else "Incoming SMS · off",
                             if (!permissions.notifications) "Warnings cannot appear because notifications are disabled. Paste and share remain available." else "Optional scanning only applies to new SMS messages after permission is granted.")
                         Button(onClick = { vm.navigate(Screen.CHECK) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Check a message") }
@@ -152,9 +154,13 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                         Heading("Check result")
                         when (val result = state.result) {
                             is Detection.Success -> {
-                                InfoCard(if (result.synthetic) "Synthetic interface fixture" else if (result.suspicious) "Potential financial impersonation" else "Not flagged by this model",
-                                    if (result.synthetic) "This is not a real assessment." else if (result.suspicious) "This message may be suspicious. Pause before acting on requests for money or account access." else "The model did not flag this message. This does not establish that it is legitimate.")
-                                if (result.probability && !result.synthetic) Text("Estimated suspicious-class probability: ${"%.1f".format(result.score * 100)}%. This is a model estimate, not certainty.")
+                                InfoCard(if (result.experimental) "Experimental result" else if (result.synthetic) "Synthetic interface fixture" else if (result.suspicious) "Potential financial impersonation" else "Not flagged by this model",
+                                    if (result.experimental) "Research performance is unverified. This result must not be used as proof that a message is fraudulent or legitimate." else if (result.synthetic) "This is not a real assessment." else if (result.suspicious) "This message may be suspicious. Pause before acting on requests for money or account access." else "The model did not flag this message. This does not establish that it is legitimate.")
+                                if (result.experimental) {
+                                    Text("Uncalibrated model score: ${"%.4f".format(java.util.Locale.ROOT, result.score)}. This is not a likelihood of fraud.")
+                                    Text(if (result.suspicious) "Above provisional threshold (0.5)." else "At or below provisional threshold (0.5).")
+                                    Text("Automatic warnings and reporting are disabled.")
+                                } else if (result.probability && !result.synthetic) Text("Estimated suspicious-class probability: ${"%.1f".format(result.score * 100)}%. This is a model estimate, not certainty.")
                                 else Text("No confidence percentage is available.")
                             }
                             Detection.Unavailable -> InfoCard("Model not installed", "No prediction was made. This prototype needs an evaluated model before it can assess messages.")
@@ -174,7 +180,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                         val result = state.result as? Detection.Success
                         val payload = if (result != null && state.checkedAt != null) ReportPayload.create(state.domain, result, state.checkedAt!!, preferences!!.city, brand) else null
                         if (payload != null) InfoCard("Exact metadata preview", payload.json())
-                        else InfoCard("No report can be prepared", "A real model prediction and a manually selected city are required. There is no score to report when a model is missing.")
+                        else InfoCard("No report can be prepared", "An approved model result and a manually selected city would be required. Experimental, synthetic and unavailable results cannot be reported.")
                         InfoCard("Reporting unavailable", "No reporting endpoint is configured in this build. Nothing will be sent or queued. Offline checks do not depend on this service.")
                         Button(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth()) { Text("Submit report · unavailable") }
                         Text("Future city dashboards will summarize voluntary reports; their counts cannot measure total citywide scam prevalence.")
@@ -193,7 +199,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     var notice by remember { mutableStateOf<String?>(null) }
     val smsRequest = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         scope.launch { app.preferences.scanning(granted) }
-        notice = if (granted) "Incoming scanning enabled. It needs a trained model to assess messages." else "SMS permission was not granted. Use paste or share, or review Android app settings."
+        notice = if (granted) "SMS permission granted. Automatic model-driven warnings remain disabled in this development build." else "SMS permission was not granted. Use paste or share, or review Android app settings."
         refresh()
     }
     val notificationRequest = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { refresh() }
@@ -202,21 +208,24 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
         Text("Scan incoming SMS", Modifier.weight(1f).padding(top = 12.dp))
         Switch(checked = preferences.scanning && permissions.active(true), onCheckedChange = {
             if (it) consentDialog = true else scope.launch { app.preferences.scanning(false) }
-        }, enabled = permissions.telephony, modifier = Modifier.semantics { contentDescription = "Scan incoming SMS" })
+        }, enabled = permissions.telephony, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)
+            .semantics { contentDescription = "Scan incoming SMS" })
     }
     Text("Telephony: ${if (permissions.telephony) "available" else "unavailable"}\nSMS permission: ${if (permissions.sms) "granted" else "not granted"}\nNotifications: ${if (permissions.notifications) "enabled" else "disabled"}")
     notice?.let { Text(it) }
     if (!permissions.notifications) OutlinedButton(onClick = {
-        if (Build.VERSION.SDK_INT >= 33) notificationRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
+        if (Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(app,
+                Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED)
+            notificationRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
         else app.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, app.packageName).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }) { Text("Enable warning notifications") }
-    TextButton(onClick = { app.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${app.packageName}")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }) { Text("Open Android permission settings") }
+    TextButton(onClick = { app.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${app.packageName}".toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }) { Text("Open Android permission settings") }
     Choice("Your city · selected manually", City.entries, preferences.city, { it.label }) { city -> scope.launch { app.preferences.city(city) } }
     InfoCard("Local processing", "Only onboarding, incoming-SMS consent, and your selected city are saved. No scan history or raw message records are kept. Reports are not queued. The app has no internet permission.")
     InfoCard("Know the limits", "Android treats SMS access as a restricted permission. Your installer and device may prevent it, even for a directly installed APK. Force-stopping the app prevents automatic scanning until you open it again. Battery policies and certain protected SMS may also limit delivery. Notifications must be enabled for warnings.")
     OutlinedButton(onClick = { clearDialog = true }, Modifier.fillMaxWidth()) { Text("Clear local preferences and session") }
     if (consentDialog) AlertDialog(onDismissRequest = { consentDialog = false }, title = { Text("Allow incoming SMS checks?") },
-        text = { Text("SmishGuard will receive new SMS text to check locally, then discard it. It will not read your inbox or change messages. No model is included yet, so this build cannot assess new messages. Android may refuse this restricted permission. Notifications are a separate choice.") },
+        text = { Text("SmishGuard will receive new SMS text to check locally, then discard it. It will not read your inbox or change messages. Automatic checks and warnings are disabled until a model is approved for that use. Use manual paste/share for experimental testing. Android may refuse this restricted permission. Notifications are a separate choice.") },
         confirmButton = { TextButton(onClick = {
             consentDialog = false
             if (permissions.sms) scope.launch { app.preferences.scanning(true) } else smsRequest.launch(Manifest.permission.RECEIVE_SMS)
@@ -227,7 +236,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
         dismissButton = { TextButton(onClick = { clearDialog = false }) { Text("Cancel") } })
 }
 
-@Composable private fun Heading(text: String) { Text(text, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.SemiBold) }
+@Composable private fun Heading(text: String) { Text(text, modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.SemiBold) }
 @Composable private fun InfoCard(title: String, body: String) {
     Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

@@ -1,67 +1,125 @@
-# SmishGuard research foundation
+# SmishGuard research and model workflow
 
-No real dataset, trained detector, accuracy, calibration result, or selected research winner is included. Synthetic fixtures are software tests only. Collection remains separate from app scanning.
+As of 21 September 2026, a supplied dataset and full-dataset LR export have been inspected. They replace the previous missing-package assumption, **not** automatic research eligibility. Project/client authorization is recorded as reported authorized in [the authorization record](../docs/project-authorization.md); development does not wait for repeat approval. Dataset use, labels/redaction and model evaluation have separate checks. Read [dataset audit](../docs/dataset-audit.md), [labeling guide](LABELING_GUIDE.md), and [model contract](../docs/model-contract.md). No accuracy, calibration quality, ethics approval or thesis winner is established by software parity.
 
-## Data and ethics
+## Prepared data files
 
-The primary study targets 2,500 messages and requires at least 1,200 for this held-out pipeline. Collection begins only after university ethics approval, a documented consent process, and participant-side redaction. This repository does not implement or authorize collection. No donors, timestamps or labels have been invented.
+- `intake-template.csv`: ready-to-fill UTF-8 header-only input, no invented examples.
+- `dataset-schema.csv`: header-only generated approved-output schema; use the importer to derive binary labels.
+- `research/data/package-audit/original/`: locally preserved ZIP and extracted bytes, ignored by Git and source packaging.
+- `research/data/package-audit/derived/`: private UCI supplementary copy, unverified non-UCI copy and ID-only review ledger. These are **not approved training inputs**.
 
-`dataset-schema.csv` contains headers only. UTF-8 CSV fields:
+Unknown columns, malformed CSV, duplicate IDs, unsupported labels/source types, possible residual URL/email/long identifiers, invalid timestamps and inconsistent URL facts are rejected. Unverified, pending, uncertain, other-scam and nonfinancial rows are held with reasons. Human review remains necessary; regex checks cannot establish privacy or truth. Aggregator, public-archive, social-post and external-collection origins are accepted for individual assessment. Source names alone neither approve nor reject records. Document intended permitted use and study role; preserve UCI as supplementary under the proposal. See [exact source-specific evidence needs](../docs/source-evidence.md).
 
-| Field | Meaning |
-|---|---|
-| id | Unique anonymous research record ID, never a phone/device ID |
-| text_redacted | Independently reviewed, consented and uniformly redacted message |
-| label | Adjudicated 0 (not suspicious) or 1 (financial impersonation) |
-| language | fil, en, or taglish |
-| source_type | Consented donation, research-team donation, or documented institutional publication; provenance stays in controlled research records |
-| consent_verified | Literal true after consent or approved public-source provenance review |
-| redaction_verified | Literal true after human verification of name/account/number/URL redaction |
-| financial_scope | Literal true for the primary study; other scam sectors stay separate |
-| received_at | Optional actual ISO-8601 timestamp with timezone; empty when unknown |
-| annotator_1, annotator_2 | Independent blinded labels before adjudication; optional until completed |
-| adjudication_note | Reviewed nonidentifying justification; no donor details |
+## Setup and software checks
 
-Use the same placeholders for both labels: `zznamezz`, `zzaccountzz`, `zznumberzz`, `zzemailzz`, `zzurlzz`. Redaction must not leave source-specific bracket styles. The automatic lexical normalizer is **not a complete PII redactor**; it cannot reliably identify names or all obfuscated identifiers. Human-verified redaction is required. Train-only fitting applies to vocabulary/IDF/classifiers; label-blind template grouping occurs before partitioning to prevent near-copy leakage.
-
-Structured URL comparisons require approved participant-side extraction of coarse URL facts before full URL removal. Four optional schema columns become mandatory for `text-url`: `url_count` (number of links), `url_max_host_length` (maximum hostname length), `url_digit_fraction` (largest per-host fraction of digits), and `url_max_depth` (maximum hostname dot count). Record actual zeros for linkless messages; leave missing facts empty, never invent zeros. Training normalizes/caps these facts and rejects missing or invalid values. These are research collection fields, **not** additions to the app reporting contract. Never retain a private original URL just to run the comparator. Apply extraction uniformly across both labels; redaction effects are themselves part of shortcut evaluation.
-
-SMS Spam Collection and SmishTank are explicitly rejected from the primary pipeline. Keep licensed external corpora in a separate side-test protocol; no labels or dates are guessed. Below-minimum repeated cross-validation with uncertainty intervals, external side tests, source-held-out tests, and full inter-annotator protocol require further research implementation. The current tool calculates Cohen's kappa when two independent label columns exist; it cannot replace blinded labeling or adjudication.
-
-## Windows commands
-
-Run from the repository root:
+Run from repository root with JDK 17 and Python 3.12. The pinned conversion tokenizer uses Python Unicode 15.0.0.
 
 ```powershell
 python -m venv research\.venv
 research\.venv\Scripts\python.exe -m pip install -r research\requirements.txt
-$env:PYTHONPATH = 'research'
+$env:PYTHONPATH='research'
 research\.venv\Scripts\python.exe -m unittest discover -s research\tests -v
-research\.venv\Scripts\python.exe -m smishguard.parity
 ```
 
-Real-data commands, only once an approved dataset exists:
+Synthetic fixtures remain under tests/androidTest only. `python -m smishguard.software_fixtures` exercises the existing unigram exporter without research claims. The supplied real model is **not** synthetic; it is unverified and experimental.
+
+## Reproduce package audit and unchanged-weight conversion
 
 ```powershell
-research\.venv\Scripts\python.exe -m smishguard.train research\data\approved.csv research\runs\lr-group --model lr --split group --condition deployment
-research\.venv\Scripts\python.exe -m smishguard.evaluate research\data\approved.csv research\runs\lr-group
+$package = 'C:\Users\Jassim Trinidad\Downloads\smishguard_model_package-20260920T144757Z-1-001.zip'
+research\.venv\Scripts\python.exe -m smishguard.audit_package $package
+research\.venv\Scripts\python.exe -m smishguard.convert_supplied research\data\package-audit\original\model_export_final.json research\data\package-audit\original\MODEL_INTEGRATION.md
+.\scripts\build.ps1 -Variant development -EmulatorTests
+research\.venv\Scripts\python.exe scripts\package.py --variant development
 ```
 
-Output directories must be new. Training creates a frozen manifest, model, calibration and validation-derived threshold. It does not transform final-test messages. Final evaluation is separate, verifies dataset hash, refuses to overwrite an existing final report, and never automatically approves deployment or selects a winner. Pickles are trusted local outputs only; never load a downloaded model pickle.
+Conversion checks the five rounded references (absolute tolerance 0.00005), computes safe full-precision probes, preserves every coefficient/IDF/intercept, freezes Unicode tables and writes the model only into `src/development/assets/`. The baseline debug build stays model-free. No dataset or original guide is copied into APK assets. Conversion never retrains, marks calibration evaluated, enables warnings or configures reporting.
 
-Repeat the prespecified experiment matrix using the same dataset, seed and split strategy: `--model lr|nb|svm`; `--split random|group|time`; `--condition deployment|text-only|text-url|placeholders|shape|punctuation`; `--analyzer word|char`. Only word-unigram deployment exports are currently Android compatible. Other combinations remain research-only. Empty-vocabulary or one-class partitions fail explicitly and must be reported as invalid, not replaced by favorable seeds. Time splits reject missing timestamps and keep equal timestamps together. Group splits keep whole connected template components together. Random/time splits record remaining group overlap rather than pretending they are group-disjoint.
+## Import genuinely reviewed primary data
 
-Train/validation/calibration/test target proportions are 55/15/15/15; group granularity changes actual counts. Validation selects threshold by maximum F1 over 0.05–0.95 (ties choose higher cutoff). Calibration fits a separate sigmoid. This is a declared baseline threshold policy, not a thesis-approved cost optimum. Final outputs include precision, recall, F1, trapezoidal PR-AUC, average precision, ROC-AUC, FPR/FNR, Brier, log loss, ten-bin ECE/reliability data, confusion counts and hypothetical 0.1/1/5% base-rate PPV. No smartphone latency or memory is fabricated.
-
-## Transformer comparisons
-
-`smishguard.transformer_compare` preserves XLM-RoBERTa and RoBERTa-Tagalog comparison support with the same frozen split IDs and a separate final-test action. It requires a vetted local **safetensors** checkpoint and tokenizer, `torch` and `transformers`; those heavyweight optional dependencies/checkpoints were not installed or run in this milestone. Select and freeze their compatible versions and model licenses before the real experiment. The adapter records installed versions and checkpoint hashes, rejects remote custom code, never uploads models, and defaults to deterministic CPU training. Three epochs, batch 8, 256-token truncation and AdamW 2e-5 are explicit starting settings, not selected results.
+Project authorization is already recorded. This import operation checks data-specific permitted use, redaction, resolved labels and the selected study role. It does not require another client go-ahead or treat the letter as data licensing. No supplied-package row is automatically relabeled or cleared.
 
 ```powershell
-research\.venv\Scripts\python.exe -m smishguard.transformer_compare research\data\approved.csv research\runs\lr-group research\runs\xlmr-group --family xlm-roberta --checkpoint C:\models\vetted-xlmr
-# Run the same command with --final-test only after freezing research choices.
+$reviewReference = Read-Host 'Controlled record of this dataset intake review'
+research\.venv\Scripts\python.exe -m smishguard.import_data research\data\reviewed-intake.csv research\data\approved-v1 --review-reference $reviewReference --study-role primary
 ```
 
-For RoBERTa-Tagalog, use `--family roberta-tagalog` and its independently vetted checkpoint. Preprocessing comparisons that preserve full multilingual text, calamanCy, structured-URL fusion with transformers, hyperparameter search and mobile transformer export remain explicit extensions. The initial adapter supports deployment/text-only conditions and does not claim to complete all transformer experiments.
+Output directory must be new. The new template adds `permitted_use_status` (`pending`, `documented`, `not_permitted`), `permitted_use_reference` (opaque reference to the actual evidence), and `study_role` (`primary`, `supplementary`, `undecided`). Existing intake files must add these truthfully; do not infer them from the client letter. Donation records additionally need verified donation consent; other origins use their documented permitted-use basis. A `documented` declaration must cover the selected research activity, not necessarily redistribution. The legacy output column `approval_reference` and CLI alias store the intake review reference, not ethics clearance.
 
-Method references: [scikit-learn calibration](https://scikit-learn.org/stable/modules/calibration.html), [Hugging Face training](https://huggingface.co/docs/transformers/training). These are implementation guidance; the supplied thesis documents determine the study scope.
+For separately reviewed supplementary financial-binary records, use `--study-role supplementary` and a separate output directory. Primary training refuses those rows. General nonfinancial UCI messages remain in their private supplementary collection for a separately specified evaluation task; never invent financial labels to force them through the primary schema. Review `import-report.json`: eligibility/exclusions and agreement use original independent labels. Do not replace missing dates with collection dates. Training requires >=1,200 eligible records and both classes in all four partitions; report unique texts and independent template groups alongside row counts. The current supplied package is not certified to meet that minimum. A below-minimum alternative needs the separately finalized small-sample protocol, not a lowered CLI guard.
+
+## Baselines, frozen selection, untouched final partition
+
+```powershell
+$dataset = 'research\data\approved-v1\approved.csv'
+$experiment = 'research\runs\baseline-group-v1'
+research\.venv\Scripts\python.exe -m smishguard.compare $dataset $experiment --split group --data-history previously_used
+$selectedName = (Get-Content (Join-Path $experiment 'selection.json') -Raw | ConvertFrom-Json).selected_run
+$selectedRun = Join-Path $experiment $selectedName
+research\.venv\Scripts\python.exe -m smishguard.evaluate $dataset $selectedRun --selection (Join-Path $experiment 'selection.json')
+```
+
+LR, Multinomial NB and linear SVM are fitted **from scratch**, using identical deterministic splits. Only training text fits vocabulary, IDF and classifier. A separate calibration partition fits a sigmoid; validation chooses the threshold (maximum F1 over 0.05..0.95, ties higher), then compares candidates by validation trapezoidal PR-AUC (ties LR, NB, SVM). The selection hashes the frozen artifact/manifest/config/export. Final evaluation rejects changed data/selected files and refuses to overwrite its final report. It transforms final text only after selection. Do not defeat this boundary by copying runs, deleting reports or selecting after looking at final results.
+
+The supplied export was fitted on all supplied rows. Never score it on those same rows and call that held-out performance. `--data-history previously_used` explicitly labels any new partition as retrospective; it cannot undo earlier use of the data. `prospectively_reserved` is only for genuinely reserved new data under the team's documented protocol, not a way to rename these supplied rows. Preserve a future independent collection for confirmation.
+
+| Split | Interpretation |
+|---|---|
+| `group` | Label-blind normalized exact/near-copy components and manual groups kept disjoint across train/validation/calibration/test. Grouping uses the full corpus solely to prevent overlap, not to learn features. |
+| `random` | Deliberately permissive stratified comparison; duplicates/templates may cross partitions. Never present as leakage-controlled. |
+| `time` | Chronological-only comparison; templates may still overlap. Requires genuine receipt timestamps with timezone. |
+| `time-group` | Chronological boundaries with every component spanning partitions purged entirely; excluded IDs are recorded. Both classes must survive in each partition. |
+
+All six pairwise group-overlap counts are recorded. Group splits target 55/15/15/15%; unequal group sizes change counts. Same-time rows stay together. Nonviable partitions fail; do not search seeds for favorable scores. The supplied `date_collected` has unresolved meaning and is date-only, so chronology is **not available** for it.
+
+For the deliberately permissive comparison use a fresh directory:
+
+```powershell
+research\.venv\Scripts\python.exe -m smishguard.compare $dataset research\runs\baseline-random-v1 --split random --data-history previously_used
+# Evaluate its frozen candidate only as a declared comparison, with --allow-permissive-comparison.
+```
+
+Freeze the experiment matrix before opening any final partition. Use the same seed/data/split for each condition. `compare --condition text-only|text-url|placeholders|shape|punctuation` preserves URL ablation and shortcut checks; `--analyzer char` adds character n-grams. `text-url` requires measured coarse facts, never guessed zeros or full retained URLs. `source`, notes, institution claims, attack type, IDs, timestamps and annotation fields are never model inputs. Main word baselines currently use versioned ASCII-normalized unigrams; character baselines use 3–5 grams. These are declared research baselines, not a claim to reproduce the missing original bigram training/CV code.
+
+Final reports include precision, recall, F1, trapezoidal PR-AUC, average precision, ROC-AUC, FPR/FNR, confusion counts, Brier/log loss/ECE/reliability bins and explicitly hypothetical base-rate sensitivity. English/Taglish/Filipino support is reported separately; subgroup metrics require >=20 records and >=5 of each class, otherwise only support and an insufficient-data explanation are emitted. This reporting floor is not statistical power assurance. Phone latency/memory remain unmeasured.
+
+## Export and Python-to-Android parity for a newly trained candidate
+
+The `deployment` word-unigram training command automatically exports frozen `model.json` through the shared validated exporter. Other conditions/analyzers remain research-only. Do not overwrite the supplied development model with an incompatible export.
+
+```powershell
+research\.venv\Scripts\python.exe -m smishguard.export_parity $selectedRun
+$parityDir = (Resolve-Path (Join-Path $selectedRun 'parity')).Path
+$env:JAVA_TOOL_OPTIONS='-Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir'
+.\gradlew.bat :app:testDebugUnitTest "-PmodelParityDir=$parityDir" --console=plain
+.\scripts\build.ps1 -Variant development
+```
+
+Export parity uses safe synthetic probe texts against real fitted parameters. Neither a passed test nor a fitted sigmoid establishes calibration quality, threshold approval, model licensing or permission to issue warnings. This milestone's development model policy always disables automatic warnings and reporting.
+
+## Pending research
+
+No original CV scripts, fold manifests, seeds, CI/bootstrap method, model-comparison records or calibration evidence were supplied. The guide's accuracy/F1/CI and realistic-traffic assertions cannot be reproduced or adopted as results. Source-held-out and prospective confirmation require additional protocol/data. XLM-RoBERTa/RoBERTa-Tagalog comparison scaffolding remains present but unexecuted without vetted licensed checkpoints/dependencies and eligible data; calamanCy/mobile transformer export remain pending. No model winner is claimed.
+
+## Source tracing and private blinded review packets
+
+The official-host investigation and exact/whitespace-only matches are recorded in [source-evidence.md](../docs/source-evidence.md); source versions and member hashes are pinned in `source_matching.py`. No source URL is taken from an SMS. Published license labels are separate from acquisition-chain confirmation, privacy review and target-task labels.
+
+Private packets for all 1,276 supplied rows already exist locally at `research/data/review-v1/`. The coordinator mapping includes source/original labels and must never reach annotators or Git. `redaction-review.csv` contains anonymous IDs and original text for a restricted human reviewer; reviewed text and reviewer fields start blank. The two shuffled pending annotator sheets contain IDs only and are not ready for labeling. No labels, dates or redaction sign-offs were generated.
+
+```powershell
+$env:PYTHONPATH='research'
+# On a fresh checkout/private package, use a NEW output directory:
+research\.venv\Scripts\python.exe -m smishguard.review_packets prepare research\data\package-audit\original\smishguard_dataset.csv research\data\review-v1
+# Downloads only three explicitly pinned official Kaggle datasets; fails on changed member hashes:
+research\.venv\Scripts\python.exe -m smishguard.source_matching research\data\review-v1 --download
+# AFTER a human completes redaction-review.csv; only verified rows are released:
+research\.venv\Scripts\python.exe -m smishguard.review_packets release research\data\review-v1 research\data\review-v1-released
+```
+
+Give annotator A only `annotator-a.csv`, annotator B only `annotator-b.csv`, and each the labeling guide. Do not share coordinator mappings, old labels, model outputs, source notes or the other's answers. Each independently records category, language and financial scope. Keep uncertainty; use the existing intake/adjudication workflow to combine both responses without replacing their original labels. Formula-like cells in the redaction display are escaped, and release rejects unsafe prefixes/residual URL/email/long-identifier patterns. Human review is still essential.
+
+Safe header-only files under `research/templates/` can be shared publicly. All populated packets/source downloads stay ignored. See [repository sharing](../docs/repository-sharing.md): the public checkout omits the supplied model asset and generated APKs, while the existing local offline build remains unchanged.
+
+No new real-data comparison has run: the exact dependency is a completed permitted-use/study-role review and independently labeled, redaction-verified primary intake with the required post-filter sample support. UCI remains supplementary; unknown dates do not block group-based evaluation. Once reviewed inputs exist, use the comparison/selection/final-evaluation commands above. Do not substitute the auto-derived package labels just to make the command run.
