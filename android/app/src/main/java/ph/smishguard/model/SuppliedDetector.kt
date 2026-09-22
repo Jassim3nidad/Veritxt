@@ -72,6 +72,14 @@ class SuppliedDetector private constructor(
     override val status = "Experimental model · unverified performance"
     override suspend fun detect(text: String): Detection {
         if (text.isBlank() || text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
+        val features = featureValues(text)
+        var margin = bias
+        for ((i, value) in features) margin += weights[i] * value
+        val score = if (margin >= 0) 1.0 / (1.0 + exp(-margin)) else exp(margin) / (1.0 + exp(margin))
+        if (!score.isFinite()) return Detection.Failure
+        return Detection.Success(score > .5, score, experimental = true)
+    }
+    internal suspend fun featureValues(text: String): Map<Int, Double> {
         val tokens = tokenizer.tokens(text)
         val counts = HashMap<Int, Double>()
         fun add(term: String) { vocabulary[term]?.let { counts[it] = (counts[it] ?: 0.0) + 1.0 } }
@@ -82,11 +90,8 @@ class SuppliedDetector private constructor(
         var norm = 0.0
         counts.replaceAll { i, count -> (count * idf[i]).also { norm += it * it } }
         norm = sqrt(norm)
-        var margin = bias
-        if (norm > 0) for ((i, value) in counts) margin += weights[i] * value / norm
-        val score = if (margin >= 0) 1.0 / (1.0 + exp(-margin)) else exp(margin) / (1.0 + exp(margin))
-        if (!score.isFinite()) return Detection.Failure
-        return Detection.Success(score > .5, score, experimental = true)
+        if (norm > 0) counts.replaceAll { _, value -> value / norm }
+        return counts
     }
     companion object {
         fun parse(json: String): SuppliedDetector {

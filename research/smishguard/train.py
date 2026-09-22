@@ -104,6 +104,7 @@ def main(argv=None):
     with open(args.output/"research-model.pkl", "wb") as f:
         pickle.dump(artifact, f)
     metadata = dict(model=args.model, split=args.split, seed=args.seed, condition=args.condition, analyzer=args.analyzer,
+        split_policy_version='sg-group-stratified-v2: 20 folds allocated 11/3/3/3 when >=20 groups and >=20 records per class; otherwise group shuffle; reject nonviable partitions',
         preprocessing_version=VERSION, dataset_sha256=hashlib.sha256(args.dataset.read_bytes()).hexdigest(),
         versions=dict(python=platform.python_version(), numpy=np.__version__, scipy=scipy.__version__, sklearn=sklearn.__version__),
         threshold_policy="maximum validation F1 over 0.05..0.95 step 0.01; ties prefer higher threshold",

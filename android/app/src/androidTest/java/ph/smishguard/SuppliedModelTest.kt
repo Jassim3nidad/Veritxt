@@ -23,12 +23,25 @@ class SuppliedModelTest {
         assertEquals(1, Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON))
         assertEquals(PackageManager.PERMISSION_DENIED, context.checkSelfPermission(Manifest.permission.INTERNET))
         val detector = ModelLoader.parse(source()) as SuppliedDetector
+        val metadata = JSONObject(source())
+        val vocabulary = metadata.getJSONArray("vocabulary")
+        val indices = (0 until vocabulary.length()).associate { vocabulary.getString(it) to it }
+        val idf = metadata.getJSONArray("idf")
         assertFalse(detector.automaticWarningsAllowed)
         val cases = JSONArray(instrumentation.context.assets.open("supplied-parity.json").bufferedReader().use { it.readText() })
         for (i in 0 until cases.length()) {
             val case = cases.getJSONObject(i); val text = case.getString("text")
             val expectedTokens = case.getJSONArray("tokens")
             assertEquals(List(expectedTokens.length()) { expectedTokens.getString(it) }, detector.tokenizer.tokens(text))
+            val tokens = List(expectedTokens.length()) { expectedTokens.getString(it) }
+            val terms = tokens + tokens.zipWithNext { a, b -> "$a $b" }
+            val expected = terms.groupingBy { it }.eachCount().mapNotNull { (term, count) ->
+                indices[term]?.let { it to count * idf.getDouble(it) }
+            }.toMap()
+            val norm = kotlin.math.sqrt(expected.values.sumOf { it * it })
+            val actual = detector.featureValues(text)
+            assertEquals(expected.keys, actual.keys)
+            expected.forEach { (index, value) -> assertEquals(value / norm, actual.getValue(index), 1e-10) }
             val output = detector.detect(text)
             if (!case.getBoolean("valid_input")) { assertEquals(Detection.Failure, output); continue }
             val result = output as Detection.Success
@@ -38,6 +51,14 @@ class SuppliedModelTest {
             assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
         }
         assertEquals(Detection.Failure, detector.detect("a".repeat(10001)))
+        val boundary = JSONObject(source()).apply {
+            put("bias", 0.0)
+            put("weights", JSONArray(List(vocabulary.length()) { 0.0 }))
+        }
+        val atThreshold = (ModelLoader.parse(boundary.toString()) as SuppliedDetector)
+            .detect("fictional boundary probe") as Detection.Success
+        assertEquals(0.5, atThreshold.score, 0.0)
+        assertFalse(atThreshold.suspicious)
     }
     @Test fun unsupportedAndMalformedModelsFailClosed() {
         assumeTrue(BuildConfig.BUILD_TYPE == "development")

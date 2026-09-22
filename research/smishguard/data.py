@@ -54,7 +54,7 @@ def timestamp(value):
 
 def split_rows(rows, groups, strategy, seed):
     import numpy as np
-    from sklearn.model_selection import train_test_split, GroupShuffleSplit
+    from sklearn.model_selection import train_test_split, GroupShuffleSplit, StratifiedGroupKFold
     ids = np.arange(len(rows))
     y = np.array([int(r["label"]) for r in rows])
     if strategy in {"time", "time-group"}:
@@ -77,6 +77,12 @@ def split_rows(rows, groups, strategy, seed):
         validation, held = split(held, 2/3)
         calibration, test = split(held, .5)
         partitions = [train, validation, calibration, test]
+        # Fixed fold allocation targets 55/15/15/15 without searching favorable seeds.
+        # SGKF approximates class balance while keeping every component indivisible.
+        if len(np.unique(groups)) >= 20 and min(np.bincount(y, minlength=2)) >= 20:
+            folds = [b for _, b in StratifiedGroupKFold(n_splits=20, shuffle=True,
+                     random_state=seed).split(ids, y, groups)]
+            partitions = [np.concatenate(folds[a:b]) for a,b in ((0,11),(11,14),(14,17),(17,20))]
     else:
         raise ValueError("Unknown split strategy")
     excluded = []

@@ -174,8 +174,9 @@ class ResearchWorkflowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);run=root/"lr";run.mkdir();dataset=root/"fixture.csv"
             dataset.write_text("SOFTWARE_FIXTURE_ONLY")
-            write_json(run/"splits.json",{k:[rows[i]["id"] for i in v] for k,v in splits.items()})
-            write_json(run/"run.json",dict(dataset_sha256=hashlib.sha256(dataset.read_bytes()).hexdigest(),evaluation_scope="synthetic_software_test_only"))
+            write_json(run/"splits.json",{**{k:[rows[i]["id"] for i in v] for k,v in splits.items()},'groups':{r['id']:i for i,r in enumerate(rows)}})
+            for r in rows: r['source_ref']='fixture_source'
+            write_json(run/"run.json",dict(dataset_sha256=hashlib.sha256(dataset.read_bytes()).hexdigest(),evaluation_scope="synthetic_software_test_only",seed=42,preprocessing_version='sg-ascii-v1',condition='deployment',analyzer='word'))
             with (run/"research-model.pkl").open("wb") as f:pickle.dump(artifact,f)
             write_json(run/"model.json",export_linear(artifact["vectorizer"],artifact["model"],artifact["calibrator"],artifact["threshold"],synthetic=True))
             selection=root/"selection.json";write_json(selection,dict(selected_run="lr",sha256=seals(run),split="group"))
