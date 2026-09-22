@@ -1,5 +1,9 @@
 # SmishGuard — experimental model development milestone
 
+Thesis completion materials: [gap analysis](docs/thesis-gap-analysis.md), [completion plan](docs/thesis-completion-plan.md), [requirements matrix](docs/requirements-traceability-matrix.md), [current verification](docs/verification-20260923.md), [reproducibility guide](docs/reproducibility-guide.md), [Chapters 3–5 drafting support](docs/thesis-drafting-materials.md) and [defense materials](docs/defense-materials.md). Research performance remains pending independent evidence. Xiaomi installation is blocked by reported secure FRP; no bypass or repeated installation is part of this work.
+
+The latest private package is under `deliverables/thesis-20260923/`; older deliverables are preserved. The development APK contains the supplied model and is not cleared for public redistribution. Source-only sharing excludes that model and all private research artifacts.
+
 Native Kotlin/Compose research prototype for Philippine financial-institution impersonation in SMS. **Version 0.2.0-dev includes the supplied LR model for offline manual paste/share testing.** The interface identifies its output as an uncalibrated model score with unverified research performance and a provisional 0.5 threshold. Automatic model-driven SMS inference/warnings and reporting remain disabled. The separate default `debug` variant still says **Model not installed**. No dataset is bundled in either APK. Read the [package audit](docs/dataset-audit.md) before using the data for research.
 
 Project/client authorization is recorded as **reported authorized to proceed**, supported by the signed client-request letter. See [separate authorization and data/model statuses](docs/project-authorization.md) and [source-specific evidence still needed](docs/source-evidence.md). Development is not blocked by unresolved dataset research eligibility.

@@ -71,3 +71,7 @@ Physical-device SMS delivery, installer permission behavior and manufacturer bac
 ## Source investigation update
 
 Official-host candidate versions/licenses and content overlap are now recorded in [source-evidence.md](source-evidence.md) and [source-match-summary.json](source-match-summary.json). All 1,090 Kaggle-labeled rows match the union of two inspected collections; all 103 archive-labeled rows match a third. This supersedes the earlier absence of externally checked source evidence, without automatically assigning row licenses, labels or research eligibility. The supplied ZIP itself remains unchanged. Private anonymous review packets cover all 1,276 rows.
+
+## Reproduction and freeze on 23 September 2026
+
+The package audit was rerun into a fresh private directory; parsed results exactly match `dataset-audit.json`. The original input bytes were preserved. `dataset-freeze-summary.json` adds message-length quantiles, mean, source totals and explicitly defined overlapping URL/phone-like/financial-keyword indicators. A private anonymous record/hash/group manifest preserves membership without text; its hash is in that summary. This freezes supplied bytes, not approved labels or eligibility. See `data-card.md` for held/excluded/supplementary roles. No real-data model performance was calculated.

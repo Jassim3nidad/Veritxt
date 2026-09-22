@@ -1,5 +1,7 @@
 # SmishGuard research and model workflow
 
+Completion update: run `research\.venv\Scripts\python.exe scripts/verify_research.py` for the currently permitted fixture-only workflow. See [reproducibility guide](../docs/reproducibility-guide.md), [annotation response protocol](../docs/annotation-protocol.md) and [data card](../docs/data-card.md). The group split policy is now versioned with stratified group folds where support permits; preserve old manifests. Evaluation adds accuracy/specificity, fixed-prediction cluster bootstrap, anonymous errors and artifact metadata. No real research metrics have been generated.
+
 As of 21 September 2026, a supplied dataset and full-dataset LR export have been inspected. They replace the previous missing-package assumption, **not** automatic research eligibility. Project/client authorization is recorded as reported authorized in [the authorization record](../docs/project-authorization.md); development does not wait for repeat approval. Dataset use, labels/redaction and model evaluation have separate checks. Read [dataset audit](../docs/dataset-audit.md), [labeling guide](LABELING_GUIDE.md), and [model contract](../docs/model-contract.md). No accuracy, calibration quality, ethics approval or thesis winner is established by software parity.
 
 ## Prepared data files

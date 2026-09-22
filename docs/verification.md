@@ -1,5 +1,7 @@
 # Verification — supplied-model development milestone
 
+Latest independent rerun and thesis-tooling changes: [23 September 2026 verification](verification-20260923.md). Counts below are historical unless explicitly reproduced there. Current Xiaomi state and pending tests are in [the physical-device checklist](physical-device-checklist.md).
+
 Updated 21 September 2026. The supplied dataset/model package has been inspected and technically integrated; previous no-package statements describe the [historical milestone](verification-20260920.md), not current inputs. No research performance, calibration quality or approval for automatic warnings is established.
 
 ## Three separate model states

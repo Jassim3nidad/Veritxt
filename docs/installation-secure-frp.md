@@ -1,5 +1,9 @@
 # Same-phone installation investigation — 2026-09-22
 
+## Current status update — 2026-09-23
+
+The team now reports Xiaomi M2103K19G / Android 13 / MIUI 14.0.6 with `secure_frp_mode=1`, `user_setup_complete=1` and `device_provisioned=1`. Restart did not clear the restriction. Xiaomi support is being contacted. **Installation is blocked by device state, not an established APK failure.** These are user-supplied findings, not new readings from this workstation. No new installation or protected-setting change was attempted. Keep support correspondence private. Use [the post-resolution checklist](physical-device-checklist.md) after official resolution; do not repeat the older collection/restart/install steps while the restriction remains active. The investigation below is preserved as historical evidence, including its older APK checksum.
+
 Status: **Blocked pending authorized phone connection or owner-collected evidence**. No physical phone was listed by local ADB. No device settings, accounts or logs were inspected, and no installation attempt was made on the phone. Installation, opening and offline manual scanning remain pending.
 
 Remote tester update: use [the phone-only / standalone Windows guide](remote-phone-diagnostics.md). The script now defaults to `platform-tools/adb.exe` beside itself, not a developer's local SDK. Existing SDK users must pass `-Adb` explicitly. The tester can use his own computer; connection to the project coordinator's laptop is unnecessary.

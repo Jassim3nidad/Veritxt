@@ -1,0 +1,148 @@
+{
+  "recorded_at_utc": "2026-09-22T16:25:31.307647+00:00",
+  "source_commit": "314a5d8981b9a46d2d83f98deac06b40ce5e0927",
+  "python": "3.12.5",
+  "os": "Windows",
+  "java": "Temurin 17.0.16",
+  "gradle": "8.13",
+  "agp": "8.13.2",
+  "sdk_compile_target": 36,
+  "sdk_minimum": 26,
+  "build_tools": "35.0.0",
+  "manuscript_inputs": [
+    {
+      "filename": "SmishGuardPH_Chapter1_Introduction_1.docx",
+      "sha256": "9254297b3e952018ca5f094c7be31d0335a24f614fe3d3f3d4db46d67b743f5a"
+    },
+    {
+      "filename": "SmishGuardPH_Chapter2_RRL_1.docx",
+      "sha256": "a390f1eee50f3297400fbb536f796c7419ac7dd6cf8fe7f6108584624c5a767a"
+    },
+    {
+      "filename": "SmishGuard_ProjectBrief_Client.docx",
+      "sha256": "70133e3672cf493d53a066a9cc218f982d4466356b7b84b63830c0dd8f31e01c"
+    }
+  ],
+  "supplied_audit_reproduced_equal": true,
+  "model_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+  "apk_sha256": "fdc2b16aaab58f10e75df38bed33473e9dde423f4907c9d99cfeaa5c769a3762",
+  "tests": {
+    "jvm_development": {
+      "tests": 7,
+      "skipped": 1,
+      "failures": 0,
+      "errors": 0,
+      "passed": 6
+    },
+    "jvm_debug": {
+      "tests": 7,
+      "skipped": 1,
+      "failures": 0,
+      "errors": 0,
+      "passed": 6
+    },
+    "api26": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/api26-results.json",
+      "evidence_sha256": "296a33028500aaa61d1bbe84e7db7887a71e330901d49238fa1239ebf6d02feb"
+    },
+    "api36": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/development-emulator-results.json",
+      "evidence_sha256": "c898cc5f51ee0a401e9169dcded40b0661f5eace86feddf04a50d9ff68dda3d5"
+    },
+    "python": {
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0,
+      "command": "research\\.venv\\Scripts\\python.exe scripts/verify_research.py"
+    }
+  },
+  "lint": {
+    "development": {
+      "errors": 0,
+      "warnings": 5
+    },
+    "debug": {
+      "errors": 0,
+      "warnings": 5
+    }
+  },
+  "dependency_consistency": "pip check passed; Gradle development runtime dependency graph resolved; no external CVE scan performed",
+  "failures": [
+    {
+      "stage": "API36 intermediate rerun",
+      "test": "AccessibilityTest.labeledControlsAndHeadingsRemainReachable",
+      "passed_tests": 15,
+      "failed_tests": 1,
+      "reason": "Settings heading not found immediately after navigation",
+      "resolution": "Explicit focus and observable navigation waits added; subsequent full API36 suite passed",
+      "private_record": "research/data/thesis-audit-20260923/api36-failed-accessibility.json"
+    }
+  ],
+  "physical_device_tests": "Pending: user-reported secure FRP; no install attempted",
+  "research_performance": "Pending independent reviewed labels and eligible data",
+  "conversion_reproduced_byte_identical": true,
+  "conversion_report": {
+    "source_sha256": "3ec2fa27951588447fa59800bfb5de0e7d0b61526bb1ff1352358db755ce768a",
+    "converted_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+    "feature_count": 5000,
+    "reference_rounding_tolerance": 5e-05,
+    "guide_references": [
+      {
+        "reference": 1,
+        "rounded_expected": 0.9081,
+        "python_score": 0.9080637871179464,
+        "absolute_error": 3.6212882053576756e-05
+      },
+      {
+        "reference": 2,
+        "rounded_expected": 0.4698,
+        "python_score": 0.46976542254368137,
+        "absolute_error": 3.457745631862963e-05
+      },
+      {
+        "reference": 3,
+        "rounded_expected": 0.7279,
+        "python_score": 0.7279331304952871,
+        "absolute_error": 3.313049528708145e-05
+      },
+      {
+        "reference": 4,
+        "rounded_expected": 0.1555,
+        "python_score": 0.15553781637553032,
+        "absolute_error": 3.781637553032513e-05
+      },
+      {
+        "reference": 5,
+        "rounded_expected": 0.8875,
+        "python_score": 0.887529683801518,
+        "absolute_error": 2.968380151802119e-05
+      }
+    ],
+    "python_sklearn_max_absolute_error": 5.551115123125783e-17,
+    "android_tolerance": 1e-10,
+    "unicode_version": "15.0.0",
+    "python_version": "3.12.5",
+    "note": "Weights/IDF/intercept unchanged. Positive class from export+guide+reference agreement; original training code absent. Software parity is not research evaluation."
+  },
+  "packaging_commit": "629bc95",
+  "source_archive_checks": {
+    "members": 134,
+    "zip_crc": "passed",
+    "tracked_membership": "passed",
+    "required_android_preferences_source": "present",
+    "raw_message_matches": 0,
+    "learned_numeric_token_matches": 0,
+    "credential_pattern_matches": 0
+  },
+  "operation_notes": [
+    "Initial source packaging conservatively rejected the legitimate Android data source directory; exclusion narrowed to research/data and research/runs, packaging then passed.",
+    "One staged whitespace check found an extra final blank line; corrected before commit.",
+    "Read-only document/output helpers initially hit Windows default encoding errors; rerun with UTF-8 succeeded. These were helper failures, not app test results."
+  ]
+}

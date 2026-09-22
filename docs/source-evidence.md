@@ -48,3 +48,7 @@ Current public source matches do not resolve label semantics: broad source `spam
 3. **Complete the prepared reviews:** human redaction sign-off, then two independent blinded labels and adjudication/scope decisions. If these records already exist, provide them keyed to the coordinator mapping. Explain `date_collected`; provide genuine receipt timestamps only where known. Original training/split scripts are optional evidence for reproducing the old guide's claims, not a prerequisite for fresh group-based baselines.
 
 Private preparation is at `research/data/review-v1/`: 1,276 anonymous IDs, restricted redaction queue and coordinator mapping, and two independently shuffled ID-only pending annotation sheets. Run the release command only after human review; annotators then receive reviewed text with no source, old label, notes, timestamp or model score. [Workflow and commands](../research/README.md). Physical-device testing remains pending.
+
+## Completion review on 23 September 2026
+
+Source evidence above remains the dated inspection record; no new source permission, consent, acquisition history or external download was inferred in this pass. The supplied package audit was reproduced exactly. Personal/social records remain excluded from model development until their specific evidence and human reviews are complete. The private freeze manifest and new annotation validator do not clear any source. Complete the exact files in `annotation-protocol.md`; source overlap remains correspondence, not proof of acquisition.

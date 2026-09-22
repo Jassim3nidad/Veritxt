@@ -1,0 +1,34 @@
+{
+  "dataset_sha256": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b",
+  "manifest_sha256": "b82d0e75a97b9bc9507e948a9051dfa9fa8bf8a8ce2c2cb0c7f418aa8a10fc9c",
+  "rows": 1276,
+  "message_length_characters": {
+    "min": 4.0,
+    "p25": 149.0,
+    "median": 167.5,
+    "p75": 298.25,
+    "p95": 451.25,
+    "max": 718.0
+  },
+  "mean_length_characters": 215.53369905956112,
+  "indicators": {
+    "url": 120,
+    "phone_like": 147,
+    "financial_keyword": 1192
+  },
+  "indicator_patterns": {
+    "url": "https?://|www\\.",
+    "phone_like": "\\d(?:[ ()+.-]*\\d){6,}",
+    "financial_keyword": "\\b(?:bank|account|wallet|payment|bayad|pera|loan|otp|gcash|maya|bpi|bdo|remittance)\\b"
+  },
+  "note": "Overlapping lexical indicators, not verified phone numbers, financial scope or privacy clearance. Language counts remain supplied labels, not independent language identification.",
+  "sources": {
+    "Facebook": 1,
+    "Reddit r/ScammersPH": 2,
+    "Personal (received)": 10,
+    "Public PH SMS spam dataset (archive.zip)": 103,
+    "UCI SMS Spam Collection (public baseline)": 70,
+    "Kaggle: Tagalog-SMS / Text-Messages.csv (cited in BantayText, DLSU)": 1090
+  },
+  "eligibility": "No records cleared by this operation; all held for review. See dataset-audit.json for exclusions and proposed roles."
+}
