@@ -46,7 +46,8 @@ names = subprocess.check_output(['git','ls-files','-z'],cwd=root).decode().split
 files = [root/name for name in names if name and (root/name).is_file()]
 for path in files:
     relative=path.relative_to(root)
-    if (set(relative.parts)&{'build','.venv','__pycache__','data','runs','deliverables','.idea','.gradle'}
+    if (set(relative.parts)&{'build','.venv','__pycache__','deliverables','.idea','.gradle'}
+        or relative.as_posix().startswith(('research/data/','research/runs/'))
         or path.name in {'local.properties','model.json'}
         or path.suffix.lower() in {'.apk','.zip','.docx','.xlsx','.pem','.key','.jks','.keystore','.pkl'}
         or path.name.startswith('.env')):
