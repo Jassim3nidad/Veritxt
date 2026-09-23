@@ -1,0 +1,102 @@
+[
+  {
+    "suite": {
+      "name": "ph.smishguard.AccessibilityTest",
+      "tests": "17",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "5",
+      "time": "57.09",
+      "timestamp": "2026-09-23T15:28:32",
+      "hostname": "localhost"
+    },
+    "cases": [
+      {
+        "class": "ph.smishguard.AccessibilityTest",
+        "name": "labeledControlsAndHeadingsRemainReachable",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.DevelopmentFlowTest",
+        "name": "suppliedModelShareShowsExperimentalResultAndCannotReport",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.FlowsTest",
+        "name": "sharedTextAndClear",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.FlowsTest",
+        "name": "navigationDiscardsInput",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.FlowsTest",
+        "name": "clipboardPasteWorksWithoutSmsPermission",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.FlowsTest",
+        "name": "emptyInputAndMissingModel",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.FlowsTest",
+        "name": "invalidFailureAndSyntheticResultsStayHonest",
+        "status": "failed",
+        "failure_summary": "ComposeTimeoutException at FlowsTest.kt:113; result heading not reached within 10000 ms"
+      },
+      {
+        "class": "ph.smishguard.FlowsTest",
+        "name": "deniedPermissionsStillAllowManualCheck",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.ModemSmsTest",
+        "name": "modemDeliveryMultipartConsentAndSyntheticSuppression",
+        "status": "skipped"
+      },
+      {
+        "class": "ph.smishguard.NotificationBehaviorTest",
+        "name": "privateNotificationConstructionAndBlockedChannel",
+        "status": "skipped"
+      },
+      {
+        "class": "ph.smishguard.NotificationBehaviorTest",
+        "name": "runtimeDenialSuppressesWarning",
+        "status": "skipped"
+      },
+      {
+        "class": "ph.smishguard.OfflineModelTest",
+        "name": "exportedSklearnModelsRunOfflineAndStaySynthetic",
+        "status": "skipped"
+      },
+      {
+        "class": "ph.smishguard.PrivacyLifecycleTest",
+        "name": "backgroundAndRecreateDiscardText",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.SmsDecodingTest",
+        "name": "platformDecodesMultipartUcs2InBroadcastOrder",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.SuppliedModelTest",
+        "name": "unsupportedAndMalformedModelsFailClosed",
+        "status": "passed"
+      },
+      {
+        "class": "ph.smishguard.SuppliedModelTest",
+        "name": "offlinePythonParityAndDevelopmentPolicy",
+        "status": "skipped"
+      },
+      {
+        "class": "ph.smishguard.VisualReviewTest",
+        "name": "captureStaticScreens",
+        "status": "passed"
+      }
+    ]
+  }
+]

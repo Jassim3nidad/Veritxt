@@ -1,0 +1,16 @@
+[
+  {
+    "archive": "smishguard_backend_clean.zip",
+    "sha256": "0d24a646c1f79691b95f589a6685134d908d9fc0272fe0baf8b3f2e5e72f7f24",
+    "members": 7,
+    "integrity": "passed",
+    "path_and_type_checks": "passed"
+  },
+  {
+    "archive": "smishguard_model_evidence.zip",
+    "sha256": "5f59877ce5b89c283b2b04269c3b8614cfe19245070899278ec81ed316447506",
+    "members": 12,
+    "integrity": "passed",
+    "path_and_type_checks": "passed"
+  }
+]

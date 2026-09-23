@@ -36,3 +36,11 @@ Official references checked 17 September 2026:
 ## Supplied asset review
 
 Only converted model parameters and technical metadata are bundled in the development APK. The dataset, original guide and parity probes are excluded. The supplied vocabulary has two identifier-like numeric terms flagged in the aggregate audit; their ownership/redaction status remains unresolved and needs team review before broader distribution. No raw message examples are printed in the audit. App storage marker checks establish only the tested paths; they are not forensic memory-erasure or packet-capture claims.
+
+## Safe backend/evidence handoff
+
+The private deployed model contains identifier-like numeric vocabulary terms inherited from training data. The model therefore remains excluded from the public repository. Future retraining should remove standalone numeric tokens of five or more digits and re-run parity and evaluation tests.
+
+Known numeric vocabulary literals were omitted from repository-bound evidence; full reference SMS examples and the literal intercept were also omitted. Original ZIPs were unchanged; the private training ZIP was never accessed. Backend accepts metadata fixtures only, rejects unknown keys without echoing their names, stores no client IP column, suppresses development access logs and has no remote font resources. Demo rows are stored with a server-only flag and excluded from the normal report view. No real reports were submitted.
+
+Android reporting remains disabled and INTERNET permission absent. No retention/authentication/deployment assurance follows from the prototype; every [reporting-readiness gate](reporting-readiness.md) remains pending. Metadata itself may be sensitive; access/error/proxy logs require future review. The staged checker now examines index bytes without opening private data/models; pattern checks supplement manual review and cannot prove arbitrary text contains no personal data.

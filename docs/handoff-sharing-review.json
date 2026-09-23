@@ -1,0 +1,248 @@
+{
+  "scope": "Index snapshot before adding this report; values omitted; no filesystem source archive or release generated",
+  "staged_files_reviewed": 47,
+  "tracked_archive_members": 164,
+  "private_tracked_paths": 0,
+  "credential_pattern_findings": 0,
+  "staged_mobile_literal_findings": 0,
+  "staged_full_reference_sms_matches": 0,
+  "in_memory_source_archive_integrity": "passed",
+  "ignore_probes_passed": 11,
+  "manifest": [
+    {
+      "path": ".gitignore",
+      "bytes": 707,
+      "sha256": "343f1efc36cb2a5e22b6d95a0114219b5e8220470d645180597957090dc52009"
+    },
+    {
+      "path": "README.md",
+      "bytes": 10841,
+      "sha256": "c9b57e10cfc19cae59f8bdc3ecc6b00578a9d4b319424a81c0598ad85c69fd15"
+    },
+    {
+      "path": "backend/.gitignore",
+      "bytes": 35,
+      "sha256": "df58e1ffaa79b3aa27f28613084f3fe67e8eccf01eb9ac4039a1d7639427f3bd"
+    },
+    {
+      "path": "backend/README.md",
+      "bytes": 5508,
+      "sha256": "33afeebfa26890ba3c384169c39a8033902c347838e5a5b59bb97fad0cdac13a"
+    },
+    {
+      "path": "backend/app.py",
+      "bytes": 10444,
+      "sha256": "aee50e1a0fd1b4de9efe700281c82bbf50d4ad879d46c2e3b78c3a02595be4f5"
+    },
+    {
+      "path": "backend/requirements.txt",
+      "bytes": 109,
+      "sha256": "0a0bb81231f97be434b1b9a4c136262ad2c2b9049a49a0631aa7508546c767d1"
+    },
+    {
+      "path": "backend/seed.py",
+      "bytes": 2721,
+      "sha256": "8fb19911eef49dd58d6ab02d764289778a2354c89d1e7c9b18e8c5b9fa0f1fdd"
+    },
+    {
+      "path": "backend/templates/dashboard.html",
+      "bytes": 8123,
+      "sha256": "46c7ae552e2849cc9773c735a15d316831b5718b4188214d16e7d11fba448b8f"
+    },
+    {
+      "path": "backend/test_backend.py",
+      "bytes": 13410,
+      "sha256": "f38eebf0180d3e2e2e7ef463712ff3e22148c2dd85e73034631fb16d2a4c9765"
+    },
+    {
+      "path": "docs/api26-results.json",
+      "bytes": 580,
+      "sha256": "6678336fe1f18b27f9ac1f6f686776534e0dbd4962f61cfd5eeaf5058b0da0b4"
+    },
+    {
+      "path": "docs/development-emulator-results.json",
+      "bytes": 2068,
+      "sha256": "268b7a10bedc189ddf42bd9bc9090cabe4266224a64f34ed4a063cba4565dcdd"
+    },
+    {
+      "path": "docs/handoff-apk-safety.json",
+      "bytes": 392,
+      "sha256": "57e0f618ab6ab63fee1357dd497f27d33049e41c9d498b9662410fae1e1f45e6"
+    },
+    {
+      "path": "docs/handoff-connected-initial-results.json",
+      "bytes": 2859,
+      "sha256": "996c495ef1d6ca0ff761dbc1f486d3a6a21d9ecdecd98957405ca6c884a3ed84"
+    },
+    {
+      "path": "docs/handoff-connected-results.json",
+      "bytes": 2976,
+      "sha256": "0abad6fbd106829ec35ab2e696eea204c5c62ec826002a79be2e5735a34c6b94"
+    },
+    {
+      "path": "docs/handoff-dependency-audit.json",
+      "bytes": 414,
+      "sha256": "a50cc2179b78579e888c0e3d8aee1388c8b38b665cbd151343f51e0869610dfd"
+    },
+    {
+      "path": "docs/handoff-initial-emulator-failure.json",
+      "bytes": 1461,
+      "sha256": "5779c30fc395c383ea0ada70bf578bac7c1eb2e98bd2a359021ef76d553d94f2"
+    },
+    {
+      "path": "docs/handoff-jvm-results.json",
+      "bytes": 611,
+      "sha256": "3e45d68ecf75ba2e4550611baa1be693b2c27380b96953e5590b8360a75641f9"
+    },
+    {
+      "path": "docs/handoff-retry-emulator-failure.json",
+      "bytes": 2068,
+      "sha256": "d938d43e328063754cf00e80d49b4cebc0c363ba62e601666c7be1bc70ad233a"
+    },
+    {
+      "path": "docs/model-card.md",
+      "bytes": 4156,
+      "sha256": "d2438437a7d12fb5e38da85e9f5bcd5b0fc496937271a147f974522ec47270d0"
+    },
+    {
+      "path": "docs/model-contract.md",
+      "bytes": 6674,
+      "sha256": "12fc3823d113dea094bd6b322a6b3d140f494ba688a8e06a6ae45ae7e165e7c5"
+    },
+    {
+      "path": "docs/privacy.md",
+      "bytes": 7659,
+      "sha256": "907f79464f5818bd503e1714bc83cdd0cd5b074e483c525d9736cbb356e24ffc"
+    },
+    {
+      "path": "docs/reporting-readiness.md",
+      "bytes": 1719,
+      "sha256": "407c5165fb045740d111ba95003a4fe170090c00e727e34c2f7d517916f6b62e"
+    },
+    {
+      "path": "docs/repository-sharing.md",
+      "bytes": 3242,
+      "sha256": "23a391a039dd5b8b968290d63e28f723b66da0e2afd42d5a3e6675e2b34d8057"
+    },
+    {
+      "path": "docs/requirements-traceability-matrix.md",
+      "bytes": 7595,
+      "sha256": "384bb2aa1216fe545fcd9ba4e9b99be8e5f55a372662a4ce81065d876d726a84"
+    },
+    {
+      "path": "docs/safe-handoff-archive-audit.json",
+      "bytes": 445,
+      "sha256": "edfd4c689b4fd21983743a5c88ef24240a59db74848a414e52edef6dac95bc9e"
+    },
+    {
+      "path": "docs/thesis-drafting-materials.md",
+      "bytes": 10365,
+      "sha256": "e44c00953612586b681c8f0375b30aaca1c9ac260a3b8237f40e5b0141a76946"
+    },
+    {
+      "path": "docs/thesis-gap-analysis.md",
+      "bytes": 6918,
+      "sha256": "78e0f44a04c083afbd8e919930b90372f7206f83f5c717a627ac1503b1b9b629"
+    },
+    {
+      "path": "docs/thesis-safe-handoff-support.md",
+      "bytes": 3818,
+      "sha256": "eb009fa6157a2d28bb4d18e8da42756661655868c5004bd8d95efa4da133a4ae"
+    },
+    {
+      "path": "docs/verification-safe-handoff.md",
+      "bytes": 9731,
+      "sha256": "77a6201e6d5e233bf9fe55f5e79fa63e017e9b685a076ec0983c84c79c31ad91"
+    },
+    {
+      "path": "docs/verification.md",
+      "bytes": 11925,
+      "sha256": "4a84e3110c2525cd04de5301973561158874689e788dcde03dc90fcedb4ef6d7"
+    },
+    {
+      "path": "research/README.md",
+      "bytes": 15472,
+      "sha256": "569c6b5a82bc51bf2318bfb895905823bcee6cd50e9f30c44ddd40ea7560ce1a"
+    },
+    {
+      "path": "research/model_evidence/MODEL_EVALUATION.md",
+      "bytes": 5617,
+      "sha256": "1ad3ba77ecce6e31f2bdc471afffc53244deea8c3fd21edda8b140b1605e7bae"
+    },
+    {
+      "path": "research/model_evidence/MODEL_INTEGRATION.md",
+      "bytes": 2298,
+      "sha256": "4f1859d097623f257c5589b11ba82098b9c61bcd94131db2f0c4888d186e468e"
+    },
+    {
+      "path": "research/model_evidence/README.md",
+      "bytes": 2719,
+      "sha256": "f1958807003b152f365a2ac40b4f492d0cb9857e892a02e63105c2d19859c2be"
+    },
+    {
+      "path": "research/model_evidence/THRESHOLD_POLICY.md",
+      "bytes": 1902,
+      "sha256": "58644316ba328d96cc5f3c1d19a26fc79f4457c2f6663754a2758d7a91adfaf3"
+    },
+    {
+      "path": "research/model_evidence/comparative_analysis_v2.csv",
+      "bytes": 443,
+      "sha256": "7bd5e5e8bf9ccec88ce9134053e6f1798a98dc93f107bc9c4a3648db9cacacf3"
+    },
+    {
+      "path": "research/model_evidence/comparative_analysis_v2.py",
+      "bytes": 3990,
+      "sha256": "5b70aaf328c96abc808d8538bfface22a09655566a54e3815bdfd4f16fca0312"
+    },
+    {
+      "path": "research/model_evidence/lr_5seed_bootstrap.py",
+      "bytes": 2575,
+      "sha256": "9129bd84b306e54c9f1865af499c708621055708d22c1df9c501f39689bb3727"
+    },
+    {
+      "path": "research/model_evidence/lr_5seed_results.csv",
+      "bytes": 516,
+      "sha256": "1c1eba5a6cc2d3934dc50fdc02d780fe35c96593ee1ee03833b044c7a9481891"
+    },
+    {
+      "path": "research/model_evidence/lr_best_params.json",
+      "bytes": 86,
+      "sha256": "393873787822e33683e2fbe34b60af8049a6e6bf6748a056cf51e683334ed874"
+    },
+    {
+      "path": "research/model_evidence/lr_tuned.py",
+      "bytes": 3672,
+      "sha256": "f967140ed62aee2ad2a9adf27f05aa39f41e7301ab042feabd72930aeb05fd81"
+    },
+    {
+      "path": "research/model_evidence/lr_tuned_5seed_results.csv",
+      "bytes": 499,
+      "sha256": "995aec873eff8c24f5666160dce5c831ea3f0b090ebf3dd93e68e553f93ebd7e"
+    },
+    {
+      "path": "research/model_evidence/train_final_lr.py",
+      "bytes": 2125,
+      "sha256": "48c8f01638e0275f73b4011625ea2bb6a155390d82cbf7cc9948fcf90ec64e06"
+    },
+    {
+      "path": "scripts/check_staged.py",
+      "bytes": 2329,
+      "sha256": "4b641bb873ff67adba8473d1623248cb2dcd8e7a5db05b56011f034b1baac679"
+    },
+    {
+      "path": "scripts/emulator_verify.py",
+      "bytes": 8615,
+      "sha256": "fa21d46bd61970011c6d2f8397edc5e46cfdaf6932547e3a182d91e970ab73ed"
+    },
+    {
+      "path": "scripts/package.py",
+      "bytes": 4120,
+      "sha256": "b7c2e9ebe304ecf8f1d2374990b73653f6f03a39e9f7f09d8bdfb51b97610654"
+    },
+    {
+      "path": "scripts/verify_safe_handoff.py",
+      "bytes": 7413,
+      "sha256": "58fd30c5b0a7021429a3924007b144502beb2dc5c5635b2fb3a5cc50ef3bafd3"
+    }
+  ]
+}

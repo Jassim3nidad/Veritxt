@@ -14,3 +14,9 @@ The supplied model's redistribution provenance remains unresolved and its vocabu
 4. Private review packets, raw datasets and consent records must use a controlled team handoff, never GitHub. Only the header templates and generator are included here.
 
 Automatic warnings/reporting remain disabled. Physical-device testing remains pending. Pulling code or passing tests grants no dataset permission or research-performance status.
+
+## Safe handoff sharing checks
+
+The training demo ZIP, named dataset/model exports, SQLite databases/sidecars, joblib outputs and .env files are excluded from sharing. `python scripts/check_staged.py` reads only staged Git bytes and checks forbidden paths, credential patterns and mobile-number-like literals; it no longer opens local private datasets or models. This avoids accessing private source material merely to run a sharing check. It cannot recognize all arbitrary raw messages, so inspect every staged file and verify sanitized evidence with `python scripts/verify_safe_handoff.py` as well.
+
+No source ZIP or APK release is part of this handoff. Archive checks inspect the two explicitly supplied safe ZIPs, local build membership and an in-memory archive of the reviewed Git index. Existing private deliverables are left untouched. Never attach a model-bearing APK to GitHub.

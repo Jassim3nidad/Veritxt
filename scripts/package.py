@@ -48,8 +48,11 @@ for path in files:
     relative=path.relative_to(root)
     if (set(relative.parts)&{'build','.venv','__pycache__','deliverables','.idea','.gradle'}
         or relative.as_posix().startswith(('research/data/','research/runs/'))
-        or path.name in {'local.properties','model.json'}
-        or path.suffix.lower() in {'.apk','.zip','.docx','.xlsx','.pem','.key','.jks','.keystore','.pkl'}
+        or path.name in {'local.properties','model.json','smishguard_dataset.csv',
+                         'model_export_final.json','model_export_v2.json'}
+        or path.suffix.lower() in {'.apk','.zip','.docx','.xlsx','.pem','.key','.jks','.keystore','.pkl',
+                                  '.joblib','.db','.sqlite','.sqlite3'}
+        or path.name.endswith(('.db-journal','.db-wal','.db-shm'))
         or path.name.startswith('.env')):
         raise SystemExit('Unsafe tracked source archive member; review index before packaging')
 archive = output / "SmishGuard-source.zip"

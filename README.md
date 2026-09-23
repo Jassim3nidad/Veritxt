@@ -1,6 +1,6 @@
 # SmishGuard — experimental model development milestone
 
-Thesis completion materials: [gap analysis](docs/thesis-gap-analysis.md), [completion plan](docs/thesis-completion-plan.md), [requirements matrix](docs/requirements-traceability-matrix.md), [current verification](docs/verification-20260923.md), [reproducibility guide](docs/reproducibility-guide.md), [Chapters 3–5 drafting support](docs/thesis-drafting-materials.md) and [defense materials](docs/defense-materials.md). Research performance remains pending independent evidence. Xiaomi installation is blocked by reported secure FRP; no bypass or repeated installation is part of this work.
+Thesis completion materials: [gap analysis](docs/thesis-gap-analysis.md), [completion plan](docs/thesis-completion-plan.md), [requirements matrix](docs/requirements-traceability-matrix.md), [current verification](docs/verification-safe-handoff.md), [reproducibility guide](docs/reproducibility-guide.md), [Chapters 3–5 drafting support](docs/thesis-drafting-materials.md) and [defense materials](docs/defense-materials.md). Research performance remains pending independent evidence. Xiaomi installation is blocked by reported secure FRP; no bypass or repeated installation is part of this work.
 
 The latest private package is under `deliverables/thesis-20260923/`; older deliverables are preserved. The development APK contains the supplied model and is not cleared for public redistribution. Source-only sharing excludes that model and all private research artifacts.
 
@@ -77,8 +77,16 @@ Share plain text from the existing messaging app using Android **Share → Smish
 - `docs/privacy.md`: data lifecycle, conservative domain policy and permission limitations.
 - `docs/model-contract.md`: portable inference schema and deployment procedure.
 - `docs/verification.md`: actual checks, remaining checks and requirement mapping.
-- `backend/`: future voluntary-reporting/dashboard scope only.
+- `backend/`: tested local reporting-readiness prototype; Android remains disconnected.
 
 For research setup and commands, see [research/README.md](research/README.md). No app scans feed the research dataset. Collection requires the separate consent, redaction and ethics process described in the supplied thesis documents.
 
 Build references checked during implementation: [AGP 8.13 compatibility](https://developer.android.com/build/releases/agp-8-13-0-release-notes), [Kotlin compatibility](https://developer.android.com/build/kotlin-support), [Compose BOM](https://developer.android.com/develop/ui/compose/bom), [BOM mapping](https://developer.android.com/develop/ui/compose/bom/bom-mapping). SMS policy references are linked in `docs/privacy.md`.
+
+## Safe backend and model evidence handoff
+
+Training and evaluation procedure documented with reproducible scripts and supplied result tables; dataset-dependent reproduction was not independently rerun in this handoff.
+
+[Sanitized evidence](research/model_evidence/README.md) preserves aggregate tables and scripts, with numerical conflicts and CV limitations explicitly recorded. [Backend setup](backend/README.md) is local-only; [all deployment gates](docs/reporting-readiness.md) remain pending. Offline manual scanning and Android model integration are implemented. Calibration is not established; prospective evaluation is pending; automatic warnings are disabled/unapproved; Android reporting is disabled; public backend deployment is not approved. Xiaomi installation remains blocked by secure FRP and physical-device SMS testing remains pending. No approved Chapters 1 or 2 were rewritten.
+
+Current verification includes unresolved API 36 UI test timeouts; it is not an all-green test report. See [exact results and skips](docs/verification-safe-handoff.md). API 26 focused checks and the backend/research suites passed.

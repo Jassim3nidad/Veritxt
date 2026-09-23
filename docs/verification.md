@@ -92,3 +92,7 @@ Reported project/client go-ahead and signed request letter recorded separately f
 ## Source/review-packet update
 
 30 Python tests pass, including blinded preparation/release, withholding unreviewed text, spreadsheet formula handling and conservative source matching. Pinned official downloads reproduced identical member/archive hashes and aggregate matches. No APK rebuild or unrelated Android tests were run: app/model bytes are unchanged. The public Git tree excludes the private model asset and generated deliverables; see repository-sharing.md. Real-data baseline comparison remains dependent on reviewed intake, not repeat project authorization.
+
+## Safe handoff verification
+
+See verification-safe-handoff.md for fresh backend, research, Android and privacy checks. Older results below/above retain their original date and scope. Procedure-level evaluation evidence is now supplied; no dataset-dependent rerun, calibration or prospective validation is implied.

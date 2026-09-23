@@ -1,0 +1,7 @@
+{
+  "variant": "development",
+  "api": "36",
+  "status": "incomplete",
+  "ui_lifecycle_decoding": "ph.smishguard.FlowsTest:....\r\nError in invalidFailureAndSyntheticResultsStayHonest(ph.smishguard.FlowsTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:809)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:378)\r\n\tat ph.smishguard.FlowsTest.invalidFailureAndSyntheticResultsStayHonest(FlowsTest.kt:113)\r\n.\r\nph.smishguard.PrivacyLifecycleTest:.\r\nph.smishguard.SmsDecodingTest:.\r\nph.smishguard.DevelopmentFlowTest:.\r\n\r\nTime: 70.169\r\nThere was 1 failure:\r\n1) invalidFailureAndSyntheticResultsStayHonest(ph.smishguard.FlowsTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:809)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:378)\r\n\tat ph.smishguard.FlowsTest.invalidFailureAndSyntheticResultsStayHonest(FlowsTest.kt:113)\r\n\r\nFAILURES!!!\r\nTests run: 9,  Failures: 1",
+  "scope": "Emulator software checks only; not research accuracy or physical-device results"
+}

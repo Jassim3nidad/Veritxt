@@ -1,0 +1,16 @@
+{
+  "debug": {
+    "integrity": "passed",
+    "dataset_database_zip_members": 0,
+    "contains_existing_private_model": false,
+    "public_release": false,
+    "internet_permission": false
+  },
+  "development": {
+    "integrity": "passed",
+    "dataset_database_zip_members": 0,
+    "contains_existing_private_model": true,
+    "public_release": false,
+    "internet_permission": false
+  }
+}

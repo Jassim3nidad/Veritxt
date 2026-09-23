@@ -17,7 +17,7 @@ Reviewed local sources: `SmishGuardPH_Chapter1_Introduction_1.docx` (Objectives;
 | Requires researchers | Dataset eligibility, redaction, independent annotations, acquisition lineage | `source-evidence.md`, `annotation-protocol.md`; no complete approved primary dataset |
 | Requires researchers | Ethics evidence for new collection and consent forms | Chapter 1/brief require university ethics approval before collection; client go-ahead is a distinct recorded status |
 | Requires researchers | Experiment matrix, checkpoints, thresholds, small-sample protocol | Five families in Chapter 1; transformer adapter exists but no vetted local checkpoints or valid comparisons |
-| Requires researchers | Collection form, reporting service/dashboard and partner acceptance | Promised in manuscript/brief; only future contract exists in `backend/README.md`; endpoint, access, retention and operational governance unresolved |
+| Requires researchers | Collection form, reporting service/dashboard and partner acceptance | Promised in manuscript/brief; a local readiness prototype now exists in `backend/README.md`; Android remains disconnected; endpoint, access, retention and operational governance unresolved |
 
 ## Scope inconsistencies requiring explicit resolution
 
@@ -31,3 +31,11 @@ Reviewed local sources: `SmishGuardPH_Chapter1_Introduction_1.docx` (Objectives;
 8. Manuscript novelty statements such as “first” and broad absence-of-prior-work claims need a documented literature search. Chapter 2's “last five years” statement also needs qualification for older statutory sources. No novelty or causal policy claim is certified here.
 
 Owners below are roles for the team to assign; no person has been assigned work or signed approval by this audit.
+
+## Safe handoff reassessment
+
+The local Flask prototype now exists and is tested; Android remains disconnected and all reporting deployment gates remain pending. Procedure-level model scripts and result tables are supplied. This closes the absence-of-methods-documentation gap, not prospective performance or calibration gaps. The evidence package's five-seed means and RF values conflict with its CSVs; its highest-CV-variability claim is contradicted by Naive Bayes. Inner CV pre-vectorizes outside folds, and tuning uses overlapping repeated splits. Researchers must reconcile run provenance and correct methodology before adopting definitive results.
+
+Physical Xiaomi installation remains blocked by secure_frp_mode=1. Device SMS delivery, vendor battery behavior, usability, real-world performance, ethics/data rights, independent labels, manuscript scope alignment and partner acceptance remain unfinished. No FRP bypass, bootloader change, firmware flash or factory reset is part of this work. Approved Chapters 1 and 2 remain untouched; suggested wording belongs in the separate supporting document.
+
+Current API 36 verification has unresolved large-font Settings and intermittent result-flow timeouts. API 26 focused checks passed; do not use that to erase API 36 failures. These software-test gaps are separate from secure-FRP physical testing.

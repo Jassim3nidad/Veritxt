@@ -125,3 +125,7 @@ Give annotator A only `annotator-a.csv`, annotator B only `annotator-b.csv`, and
 Safe header-only files under `research/templates/` can be shared publicly. All populated packets/source downloads stay ignored. See [repository sharing](../docs/repository-sharing.md): the public checkout omits the supplied model asset and generated APKs, while the existing local offline build remains unchanged.
 
 No new real-data comparison has run: the exact dependency is a completed permitted-use/study-role review and independently labeled, redaction-verified primary intake with the required post-filter sample support. UCI remains supplementary; unknown dates do not block group-based evaluation. Once reviewed inputs exist, use the comparison/selection/final-evaluation commands above. Do not substitute the auto-derived package labels just to make the command run.
+
+## Supplied procedure evidence
+
+model_evidence/ contains sanitized scripts, aggregate tables, hyperparameters and reviewed documentation. Do not run its dataset-dependent scripts in this handoff. CSV arithmetic and static checks are distinct from reproducing experiments. See model_evidence/MODEL_EVALUATION.md for conflicting summary values, pre-vectorized inner CV, overlapping selection/test splits and missing threshold-procedure artifacts.

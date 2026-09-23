@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMISHGUARD Reports</title>
+<style>
+  :root {
+    --ink: #16211c;
+    --paper: #f4f2ea;
+    --signal: #c4491d;
+    --signal-dim: #f0d9c9;
+    --guard: #2f4d3a;
+    --guard-dim: #dbe6dd;
+    --line: #d8d3c4;
+    --muted: #6b6659;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.masthead { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid var(--ink); padding-bottom: 20px; margin-bottom: 28px; }
+  .masthead h1 { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.01em; margin: 0; }
+  .masthead .tag { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+  .masthead .locale { text-align: right; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .notice { border: 1px solid var(--signal); background: var(--signal-dim); color: var(--signal); padding: 12px 16px; border-radius: 3px; font-size: 13.5px; margin-bottom: 28px; }
+  .stat-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 44px; }
+  .stat { background: var(--paper); padding: 22px 18px; }
+  .stat .num { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 32px; line-height: 1; }
+  .stat .label { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .section-title { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 18px; margin: 0 0 14px; display: flex; align-items: baseline; gap: 10px; }
+  .section-title .count { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); font-weight: 400; }
+  .cols { display: grid; grid-template-columns: 1.7fr 1fr; gap: 40px; }
+  .side > div + div { margin-top: 36px; }
+  .feed { border-top: 1px solid var(--line); }
+  .feed-row { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .feed-row .domain { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; overflow-wrap: anywhere; }
+  .feed-row .domain.none { color: var(--muted); font-family: 'Inter', sans-serif; font-style: italic; }
+  .feed-row .meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .feed-row .when { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .badge { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 3px 9px; border-radius: 3px; white-space: nowrap; }
+  .badge.sus { background: var(--signal-dim); color: var(--signal); }
+  .badge.ok  { background: var(--guard-dim); color: var(--guard); }
+  .demo-tag { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; border: 1px solid var(--line); color: var(--muted); padding: 1px 5px; border-radius: 3px; margin-left: 6px; }
+  .bars { border-top: 1px solid var(--line); }
+  .bar-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .bar-row .mono { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; overflow-wrap: anywhere; }
+  .bar-track { height: 4px; background: var(--line); margin-top: 6px; }
+  .bar-fill { height: 4px; background: var(--signal); }
+  .bar-fill.guard { background: var(--guard); }
+  .empty { padding: 32px 0; color: var(--muted); font-size: 14px; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); line-height: 1.6; }
+  @media (max-width: 760px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .cols { grid-template-columns: 1fr; }
+    header.masthead { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .masthead .locale { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <h1>SMISHGUARD</h1>
+      <div class="tag">Voluntary reports - no message text, phone numbers or device data</div>
+    </div>
+    <div class="locale">Cavite research prototype<br>Local research use only</div>
+  </header>
+
+  <p>{% if demo_view %}Invented demo data only. <a href="/">View voluntary reports</a>{% else %}Voluntary reports only. <a href="/?demo=1">View invented demo data</a>{% endif %}</p>
+
+  {% if demo_count %}
+  <div class="notice">
+    <strong>{{ demo_count }} of {{ total }} rows are demo data</strong>, invented by seed.py and not real reports.
+    Do not present these numbers as findings.
+  </div>
+  {% endif %}
+
+  <div class="stat-row">
+    <div class="stat"><div class="num">{{ total }}</div><div class="label">Reports</div></div>
+    <div class="stat"><div class="num">{{ suspicious }}</div><div class="label">Marked suspicious</div></div>
+    <div class="stat"><div class="num">{{ last_24h }}</div><div class="label">Last 24 hours</div></div>
+    <div class="stat"><div class="num">{{ last_7d }}</div><div class="label">Last 7 days</div></div>
+    <div class="stat"><div class="num">{{ no_domain }}</div><div class="label">No reportable domain</div></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="section-title">Recent reports <span class="count">latest 25 of {{ total }}</span></div>
+      <div class="feed">
+        {% for r in recent %}
+        <div class="feed-row">
+          <div>
+            {% if r.domain %}<div class="domain">{{ r.domain }}</div>
+            {% else %}<div class="domain none">no reportable domain</div>{% endif %}
+            <div class="meta">{{ r.brand }} &middot; {{ r.city }}{% if r.demo %}<span class="demo-tag">demo</span>{% endif %}</div>
+          </div>
+          <span class="badge {{ 'sus' if r.suspicious else 'ok' }}" title="Uncalibrated model score, not a probability">
+            {{ 'suspicious' if r.suspicious else 'not suspicious' }} &middot; {{ r.score }}
+          </span>
+          <span class="when">{{ r.date_hour }}</span>
+        </div>
+        {% else %}
+        <div class="empty">No rows in this view.</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="side">
+      <div>
+        <div class="section-title">By city</div>
+        <div class="bars">
+          {% for name, count in by_city %}
+          <div class="bar-row">
+            <div>{{ name }}<div class="bar-track"><div class="bar-fill guard" style="width: {{ (count / by_city[0][1] * 100) | round }}%"></div></div></div>
+            <span>{{ count }}</span>
+          </div>
+          {% else %}<div class="empty">-</div>{% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Brand named <span class="count">suspicious only</span></div>
+        <div class="bars">
+          {% for name, count in by_brand %}
+          <div class="bar-row">
+            <div>{{ name }}<div class="bar-track"><div class="bar-fill" style="width: {{ (count / by_brand[0][1] * 100) | round }}%"></div></div></div>
+            <span>{{ count }}</span>
+          </div>
+          {% else %}<div class="empty">-</div>{% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Most reported domains <span class="count">suspicious only</span></div>
+        <div class="bars">
+          {% for name, count in top_domains %}
+          <div class="bar-row"><span class="mono">{{ name }}</span><span>{{ count }}</span></div>
+          {% else %}<div class="empty">-</div>{% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Counts are voluntary reports, not total scam prevalence in any city, and one person may report more than once.
+    Scores are uncalibrated model scores, not probabilities. "No reportable domain" means the app sent no domain,
+    not that the message had no link. Times are rounded to the hour by the app before sending.
+  </footer>
+
+</div>
+</body>
+</html>

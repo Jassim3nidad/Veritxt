@@ -5,7 +5,7 @@
 | Status | Supplied model in this milestone |
 |---|---|
 | Technically integrated | Converted without retraining or changing vocabulary, IDF, coefficients or intercept; reference scores reproduced; Android parity/offline checks recorded in verification |
-| Experimentally evaluated | **Unverified.** Full-dataset fit; no reproducible evaluation/splits/calibration evidence supplied |
+| Experimentally evaluated | Procedure-level scripts and result tables supplied; conflicts documented in [evidence review](../research/model_evidence/MODEL_EVALUATION.md). Deployed full-data artifact remains unverified on prospective data |
 | Approved for user-facing automatic warnings | **No.** Detector policy denies automatic SMS inference; reporting also disabled |
 
 `0.2.0-dev` / package `ph.smishguard.dev` is a distinct development build for manual paste/share checks. The ordinary debug build has no model asset. Missing, invalid and inference-failure paths remain available. Neither synthetic fixtures nor unverified supplied results can form report payloads.
@@ -16,7 +16,7 @@ The conversion command in [research README](../research/README.md) validates con
 
 The deployed math is raw unigram/bigram counts times supplied IDF, L2 normalization, dot product plus intercept, then sigmoid. Classification is **strictly score > 0.5**, not >=. Unknown terms contribute zero; all-unknown nonempty input uses the intercept. Empty/blank and >10,000 UTF-16-unit inputs fail gracefully in Android. No URL normalization, placeholder substitution, accent stripping, stemming or URL fetch is inserted into this supplied model's tokenizer.
 
-Python `str.lower()` and Unicode `\b\w+\b` differ from Android/JVM regex and Unicode versions. Conversion freezes Python 3.12 / Unicode 15.0.0 word-character ranges, full lowercase mappings, cased/case-ignorable ranges and Greek final-sigma context. Android uses these tables, including single letters, ñ, accents, digits, underscores and supplementary code points. Unknown tokens are retained while forming consecutive bigrams so they cannot incorrectly bridge known neighbors. The original training Python version was not supplied; compatibility is against the documented algorithm, five references and this pinned reference implementation, not an invented claim about unavailable training code.
+Python `str.lower()` and Unicode `\b\w+\b` differ from Android/JVM regex and Unicode versions. Conversion freezes Python 3.12 / Unicode 15.0.0 word-character ranges, full lowercase mappings, cased/case-ignorable ranges and Greek final-sigma context. Android uses these tables, including single letters, ñ, accents, digits, underscores and supplementary code points. Unknown tokens are retained while forming consecutive bigrams so they cannot incorrectly bridge known neighbors. The original training Python version was not supplied; compatibility is against the documented algorithm, five references and this pinned reference implementation, not an assertion that the later supplied scripts establish the original environment or exact artifact reproduction.
 
 Schema v2 separates `provenance` (user-supplied source hash and claimed training rows), `technical_compatibility=reference_verified`, `evaluation_status=unverified`, `calibration_status=uncalibrated`, `intended_use=manual_development`, `automatic_warnings_approved=false` and `synthetic=false`. The parser validates these combinations rather than treating software compatibility as evaluation. This v2 contract intentionally does not accept an approval flag flipped to true. A future reviewed deployment policy needs explicit implementation and evidence.
 
@@ -33,3 +33,11 @@ Fifteen safe full-precision probes cover English/Taglish, single-character and U
 The supplied source export has 5,000 features; converted asset is under the existing 8 MB loader bound. Only the necessary model and Unicode metadata enter the development APK. Raw dataset and original guide remain in ignored private research storage. Learned feature tokens can retain training information; the audit identifies numeric-token candidates for review. No pasted/shared text is persisted or transmitted by the app.
 
 No retraining, calibration-quality claim, warning-threshold approval, research winner or physical-device performance follows from parity. New research fitting uses approved data and the frozen split/selection workflow; the already-used supplied rows cannot become prospective validation by being reshuffled.
+
+## Safe handoff evidence update
+
+Training and evaluation procedure documented with reproducible scripts and supplied result tables; dataset-dependent reproduction was not independently rerun in this handoff.
+
+The tuned script records C=2, L2, liblinear, balanced; default comparison fits use C=1. Evidence reports 1,276 rows (1,054 ham / 222 smishing), consistent with the earlier aggregate audit. Source keys coef/idf/vocabulary/classes/ngram_range/intercept are converted; runtime schema uses weights/bias and ordered vocabulary. ModelLoader is an object in SuppliedDetector.kt, not a separate ModelLoader.kt file. No private model or policy metadata was changed.
+
+See the [evaluation discrepancy ledger](../research/model_evidence/MODEL_EVALUATION.md): LR single-split 0.9453 accuracy, 0.8163 precision, 0.8889 recall and 0.8511 F1 are supplied procedure results; handoff five-seed claims conflict with its CSVs. Neither establishes calibration, real-world accuracy, prospective validation or automatic-warning approval. The [two-tier caution proposal](../research/model_evidence/THRESHOLD_POLICY.md) is unimplemented and requires review/usability tests. Strict >0.5 remains unchanged.

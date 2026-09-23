@@ -1,16 +1,12 @@
 {
   "variant": "development",
   "api": "36",
-  "status": "passed",
-  "ui_lifecycle_decoding": "ph.smishguard.FlowsTest:......\r\nph.smishguard.PrivacyLifecycleTest:.\r\nph.smishguard.SmsDecodingTest:.\r\nph.smishguard.DevelopmentFlowTest:.\r\n\r\nTime: 34.457\r\n\r\nOK (9 tests)",
-  "notification_denied": "ph.smishguard.NotificationBehaviorTest:.\r\n\r\nTime: 0.022\r\n\r\nOK (1 test)",
-  "offline_sklearn_exports": "ph.smishguard.OfflineModelTest:.\r\nph.smishguard.SuppliedModelTest:..\r\n\r\nTime: 2.081\r\n\r\nOK (3 tests)",
-  "modem_sms": "ph.smishguard.ModemSmsTest:.\r\n\r\nTime: 8.117\r\n\r\nOK (1 test)",
-  "notification_granted_and_channel_blocked": "ph.smishguard.NotificationBehaviorTest:.\r\n\r\nTime: 0.116\r\n\r\nOK (1 test)",
-  "accessibility_large_text": "ph.smishguard.AccessibilityTest:.\r\n\r\nTime: 3.452\r\n\r\nOK (1 test)",
-  "private_storage": {
-    "files_inspected": 2,
-    "raw_fixture_markers_found": 0
-  },
-  "scope": "Emulator software checks only; supplied-model compatibility and synthetic fixtures are not research accuracy or physical-device results"
+  "status": "incomplete",
+  "ui_lifecycle_decoding": "ph.smishguard.FlowsTest:......\r\nph.smishguard.PrivacyLifecycleTest:.\r\nph.smishguard.SmsDecodingTest:.\r\nph.smishguard.DevelopmentFlowTest:.\r\n\r\nTime: 36.258\r\n\r\nOK (9 tests)",
+  "notification_denied": "ph.smishguard.NotificationBehaviorTest:.\r\n\r\nTime: 0.016\r\n\r\nOK (1 test)",
+  "offline_sklearn_exports": "ph.smishguard.OfflineModelTest:.\r\nph.smishguard.SuppliedModelTest:..\r\n\r\nTime: 1.891\r\n\r\nOK (3 tests)",
+  "modem_sms": "ph.smishguard.ModemSmsTest:.\r\n\r\nTime: 8.243\r\n\r\nOK (1 test)",
+  "notification_granted_and_channel_blocked": "ph.smishguard.NotificationBehaviorTest:.\r\n\r\nTime: 0.028\r\n\r\nOK (1 test)",
+  "accessibility_large_text": "ph.smishguard.AccessibilityTest:\r\nError in labeledControlsAndHeadingsRemainReachable(ph.smishguard.AccessibilityTest):\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:809)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:378)\r\n\tat ph.smishguard.AccessibilityTest.labeledControlsAndHeadingsRemainReachable(AccessibilityTest.kt:25)\r\n\r\n\r\nTime: 12.884\r\nThere was 1 failure:\r\n1) labeledControlsAndHeadingsRemainReachable(ph.smishguard.AccessibilityTest)\r\nandroidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms\r\n\tat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:809)\r\n\tat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:378)\r\n\tat ph.smishguard.AccessibilityTest.labeledControlsAndHeadingsRemainReachable(AccessibilityTest.kt:25)\r\n\r\nFAILURES!!!\r\nTests run: 1,  Failures: 1",
+  "scope": "Emulator software checks only; not research accuracy or physical-device results"
 }

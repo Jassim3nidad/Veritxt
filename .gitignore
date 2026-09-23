@@ -22,3 +22,16 @@ android/app/src/main/assets/model.json
 *.pem
 *.p12
 *.key
+smishguard_training_demo.zip
+**/smishguard_training_demo.zip
+**/smishguard_dataset.csv
+**/model_export_final.json
+**/model_export_v2.json
+**/smishguard_reports.db
+**/*.db
+**/.env
+# Training scripts in the evidence handoff must never publish fitted artifacts.
+**/*.joblib
+**/*.db-journal
+**/*.db-wal
+**/*.db-shm

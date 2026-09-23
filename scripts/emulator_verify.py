@@ -120,10 +120,12 @@ def main():
         command("shell", "settings", "put", "system", "font_scale", prior_font if prior_font != "null" else "1.0")
         command("shell", "cmd", "connectivity", "airplane-mode", "enable" if prior_airplane else "disable")
         command("shell", "svc", "wifi", "enable" if prior_wifi else "disable")
+        # A failing test must not leave granted permissions/preferences behind for
+        # the ordinary instrumentation suite's denied-permission precondition.
+        command("shell", "pm", "clear", PACKAGE)
     results["scope"] = "Emulator software checks only; supplied-model compatibility and synthetic fixtures are not research accuracy or physical-device results"
     target.write_text(json.dumps(results, indent=2), encoding="utf-8")
     # Leave the delivered app clean, with no test consent or blocked test channel.
-    command("shell", "pm", "clear", PACKAGE)
     command("shell", "am", "start", "-n", PACKAGE + "/" + NAMESPACE + ".MainActivity")
     print("Emulator verification complete; evidence: " + str(target.relative_to(ROOT)), flush=True)
 
