@@ -25,7 +25,14 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     private val mutable = MutableStateFlow(CheckState())
     val state = mutable.asStateFlow()
     private var job: Job? = null
-    init { viewModelScope.launch { mutable.value = mutable.value.copy(modelStatus = app.detector().status) } }
+    init {
+        viewModelScope.launch {
+            // Loading can suspend while the user navigates, edits or clears a
+            // session. Read the current state only after loading has completed.
+            val status = app.detector().status
+            mutable.value = mutable.value.copy(modelStatus = status)
+        }
+    }
     fun edit(text: String) {
         job?.cancel()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,

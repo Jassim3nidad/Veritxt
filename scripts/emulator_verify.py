@@ -22,6 +22,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--serial", default="emulator-5554")
     parser.add_argument("--variant", choices=["debug", "development"], default="debug")
+    parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
     args = parser.parse_args()
     PACKAGE = NAMESPACE + (".dev" if args.variant == "development" else "")
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
@@ -41,9 +42,19 @@ def main():
     target = ROOT / ("docs/development-emulator-results.json" if args.variant == "development" else "docs/emulator-results.json")
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
-        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, RUNNER, timeout=180).decode(errors="replace")
+        diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
+        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=180).decode(errors="replace")
         results[label] = output.strip()
         if "FAILURES!!!" in output or "OK (" not in output or "INSTRUMENTATION_FAILED" in output:
+            if args.diagnostics:
+                destination = ROOT / "deliverables/api36-reliability" / ("specialized-" + str(time.time_ns()))
+                destination.mkdir(parents=True, exist_ok=True)
+                (destination / "instrumentation.log").write_text(output, encoding="utf-8")
+                for name in ("accessibility", "result-flow"):
+                    for suffix in ("txt", "png"):
+                        capture = subprocess.run(adb + ["exec-out", "run-as", PACKAGE, "cat", f"files/reliability/{name}.{suffix}"], capture_output=True, timeout=30)
+                        if capture.returncode == 0:
+                            (destination / f"{name}.{suffix}").write_bytes(capture.stdout)
             raise RuntimeError(label + " failed:\n" + output)
         results[label] = output.strip()
         print(label + ": passed", flush=True)
@@ -52,7 +63,7 @@ def main():
         command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
-        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest"] + (["DevelopmentFlowTest"] if args.variant == "development" else []))))
+        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"] + (["DevelopmentFlowTest"] if args.variant == "development" else []))))
         run_test("notification_denied", NAMESPACE + ".NotificationBehaviorTest#runtimeDenialSuppressesWarning", ("-e", "denied", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "enable")
         command("shell", "svc", "wifi", "disable")

@@ -7,6 +7,9 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowCompat
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -14,6 +17,16 @@ import org.junit.Test
 
 class FlowsTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    private fun scrollToVisible(text: String): SemanticsNodeInteraction {
+        val node = compose.onNodeWithText(text, substring = false)
+        // Native IME insets can relocate a focused field after Compose is idle.
+        // Re-evaluate the viewport condition; do not rely on one earlier scroll.
+        compose.waitUntil(10000) {
+            node.performScrollTo()
+            node.isDisplayed()
+        }
+        return node.assertIsDisplayed()
+    }
     @org.junit.After fun clearDetector() { (compose.activity.application as SoftwareTestApp).testDetector = null }
     @Before fun resetPreferences() {
         val app = compose.activity.application as SoftwareTestApp
@@ -96,26 +109,51 @@ class FlowsTest {
     }
     @Test fun invalidFailureAndSyntheticResultsStayHonest() {
         val app = compose.activity.application as SoftwareTestApp
+        val invocations = java.util.concurrent.atomic.AtomicInteger()
         val cases = listOf(
             ph.smishguard.model.Detection.InvalidModel to "Unsupported or invalid model",
             ph.smishguard.model.Detection.Failure to "Could not complete the check",
             ph.smishguard.model.Detection.Success(true, .99, probability = true, synthetic = true) to "Synthetic interface fixture"
         )
         try {
-            for ((result, heading) in cases) {
+            for ((index, entry) in cases.withIndex()) {
+                val (result, heading) = entry
                 app.testDetector = object : ph.smishguard.model.Detector {
                     override val status = "Software fixture"
-                    override suspend fun detect(text: String) = result
+                    override suspend fun detect(text: String): ph.smishguard.model.Detection {
+                        invocations.incrementAndGet()
+                        return result
+                    }
                 }
-                compose.onNodeWithText("Check", substring = false).performClick()
+                compose.onNode(isSelectable() and hasText("Check")).assertIsDisplayed()
+                    .performSemanticsAction(SemanticsActions.OnClick) { org.junit.Assert.assertTrue(it()) }
                 compose.onNodeWithText("SMS message").performTextInput("SGTEST result privacy marker")
-                compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
+                // Finish the native keyboard interaction before scrolling to a
+                // control outside the focused text field's viewport.
+                compose.activityRule.scenario.onActivity {
+                    WindowCompat.getInsetsController(it.window, it.window.decorView)
+                        .hide(WindowInsetsCompat.Type.ime())
+                }
+                compose.waitUntil(10000) {
+                    ViewCompat.getRootWindowInsets(compose.activity.window.decorView)
+                        ?.isVisible(WindowInsetsCompat.Type.ime()) == false
+                }
+                // IME appearance and scroll relocation can move a physical tap's
+                // coordinates. Activate the same button callback deterministically.
+                scrollToVisible("Check message").assertIsEnabled()
+                    .performSemanticsAction(SemanticsActions.OnClick) { org.junit.Assert.assertTrue(it()) }
                 compose.waitUntil(10000) { compose.onAllNodesWithText(heading).fetchSemanticsNodes().isNotEmpty() }
+                org.junit.Assert.assertEquals("Exactly one inference per scan", index + 1, invocations.get())
                 compose.onNodeWithText("SGTEST result privacy marker").assertDoesNotExist()
                 compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
-                compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
+                scrollToVisible("Review reporting options")
+                    .performSemanticsAction(SemanticsActions.OnClick) { org.junit.Assert.assertTrue(it()) }
                 compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()
             }
+        } catch (error: Throwable) {
+            recordReliabilitySnapshot(compose.activity, "result-flow", error,
+                "detectorInvocations=${invocations.get()}\n" + compose.onRoot(useUnmergedTree = true).printToString())
+            throw error
         } finally { app.testDetector = null }
     }
 }
