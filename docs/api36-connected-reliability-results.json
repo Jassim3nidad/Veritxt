@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-24",
+  "api": 36,
+  "variant": "development",
+  "counts": {
+    "passed": 15,
+    "failed": 0,
+    "skipped": 5
+  },
+  "cases": [
+    {
+      "class": "ph.smishguard.AccessibilityTest",
+      "test": "labeledControlsAndHeadingsRemainReachable",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.DevelopmentFlowTest",
+      "test": "suppliedModelShareShowsExperimentalResultAndCannotReport",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.FlowsTest",
+      "test": "sharedTextAndClear",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.FlowsTest",
+      "test": "navigationDiscardsInput",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.FlowsTest",
+      "test": "clipboardPasteWorksWithoutSmsPermission",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.FlowsTest",
+      "test": "emptyInputAndMissingModel",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.FlowsTest",
+      "test": "invalidFailureAndSyntheticResultsStayHonest",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.FlowsTest",
+      "test": "deniedPermissionsStillAllowManualCheck",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.ModelInitializationTest",
+      "test": "lateModelStatusPreservesManualInput",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.ModelInitializationTest",
+      "test": "lateModelStatusPreservesSettingsNavigation",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.ModelInitializationTest",
+      "test": "lateModelStatusPreservesClearedSession",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.ModemSmsTest",
+      "test": "modemDeliveryMultipartConsentAndSyntheticSuppression",
+      "status": "skipped"
+    },
+    {
+      "class": "ph.smishguard.NotificationBehaviorTest",
+      "test": "privateNotificationConstructionAndBlockedChannel",
+      "status": "skipped"
+    },
+    {
+      "class": "ph.smishguard.NotificationBehaviorTest",
+      "test": "runtimeDenialSuppressesWarning",
+      "status": "skipped"
+    },
+    {
+      "class": "ph.smishguard.OfflineModelTest",
+      "test": "exportedSklearnModelsRunOfflineAndStaySynthetic",
+      "status": "skipped"
+    },
+    {
+      "class": "ph.smishguard.PrivacyLifecycleTest",
+      "test": "backgroundAndRecreateDiscardText",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.SmsDecodingTest",
+      "test": "platformDecodesMultipartUcs2InBroadcastOrder",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.SuppliedModelTest",
+      "test": "unsupportedAndMalformedModelsFailClosed",
+      "status": "passed"
+    },
+    {
+      "class": "ph.smishguard.SuppliedModelTest",
+      "test": "offlinePythonParityAndDevelopmentPolicy",
+      "status": "skipped"
+    },
+    {
+      "class": "ph.smishguard.VisualReviewTest",
+      "test": "captureStaticScreens",
+      "status": "passed"
+    }
+  ],
+  "scope": "JUnit XML counts; skipped setup-dependent cases are exercised separately by the specialized suite."
+}

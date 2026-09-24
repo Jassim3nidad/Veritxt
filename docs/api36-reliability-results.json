@@ -1,0 +1,1696 @@
+{
+  "date": "2026-09-24",
+  "api": 36,
+  "scope": "Emulator software reliability only. Repetitions are not unique tests or research metrics. Private diagnostic files remain local.",
+  "baseline_commit": "6e33360ae41d4a6673122f26072267a26cb4b17c",
+  "controlled_initialization_regression": {
+    "before": {
+      "passed": 0,
+      "failed": 3
+    },
+    "after": {
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "repeat_stages": [
+    {
+      "stage": "original actions",
+      "local_directory": "deliverables/api36-reliability/baseline",
+      "counts": {
+        "accessibility": {
+          "passed": 3,
+          "failed": 0
+        },
+        "result-flow": {
+          "passed": 2,
+          "failed": 1
+        }
+      },
+      "runs": [
+        {
+          "case": "accessibility",
+          "run": 1,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 2,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 3,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 1,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 2,
+          "font_scale": "1.0",
+          "status": "failed",
+          "evidence": [
+            "result-flow-2.txt",
+            "result-flow-2.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 3,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        }
+      ],
+      "local_artifact_hashes": [
+        {
+          "name": "accessibility-1.log",
+          "sha256": "a9cd95d8bf045c6c78a47e46b6ddd58c8465804e9cc25447e52dde9f981ef73a"
+        },
+        {
+          "name": "accessibility-2.log",
+          "sha256": "1112922666b42308f3ee070d1bb19c06bfcfa6547156e114872545ba045a9762"
+        },
+        {
+          "name": "accessibility-3.log",
+          "sha256": "e9230b4105aa63062f1255651fd403ac10460f75b3f0127562e3f19d60a24ee7"
+        },
+        {
+          "name": "result-flow-1.log",
+          "sha256": "f475306b9b783bc77e4d386e0c27b448c9c7f61dfb047b58bc073b4cff776e90"
+        },
+        {
+          "name": "result-flow-2.log",
+          "sha256": "b1a24dc97da8bc8e7a981873b3131b297399066d4d4f4829d21a44f621d7a892"
+        },
+        {
+          "name": "result-flow-2.png",
+          "sha256": "31de0fe7c5234d9e92610e4cb3ecba9456e8f8b006d1c1816d6b778db810737c"
+        },
+        {
+          "name": "result-flow-2.txt",
+          "sha256": "b4ca7b894338938eade0c7e836be62bf47631dbbfbe94fcb247d1f63745f8371"
+        },
+        {
+          "name": "result-flow-3.log",
+          "sha256": "15c1aac7fe344d8e02ef86e2d9166ebfd3430ae0f683c404de6036dd43fff4e0"
+        },
+        {
+          "name": "results.json",
+          "sha256": "7dab26ea0a90064a1ac67227028b32754153c33d774f1f567ec09173b42e7f92"
+        }
+      ]
+    },
+    {
+      "stage": "original actions with permissions",
+      "local_directory": "deliverables/api36-reliability/baseline/granted",
+      "counts": {
+        "accessibility": {
+          "passed": 3,
+          "failed": 0
+        },
+        "result-flow": {
+          "passed": 2,
+          "failed": 1
+        }
+      },
+      "runs": [
+        {
+          "case": "accessibility",
+          "run": 1,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 2,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 3,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 1,
+          "font_scale": "1.0",
+          "status": "failed",
+          "evidence": [
+            "result-flow-1.txt",
+            "result-flow-1.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 2,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 3,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        }
+      ],
+      "local_artifact_hashes": [
+        {
+          "name": "accessibility-1.log",
+          "sha256": "437738768d3d8c99634e173c907bd945ae03362869326aa514540c4596aa7ffb"
+        },
+        {
+          "name": "accessibility-2.log",
+          "sha256": "0aa0c8fe60e1ca14a83dc79309a084ff4a81cb9f2b6017d7364184a559525b95"
+        },
+        {
+          "name": "accessibility-3.log",
+          "sha256": "d2238442e5154b1a2d8bfc83b5c936712c3dab89df1bb86eefb0bab5cc33037a"
+        },
+        {
+          "name": "result-flow-1.log",
+          "sha256": "e0c169791727c9c1f76236cbb647d1ba18a9a89fc3155cb130bb70ccc5894430"
+        },
+        {
+          "name": "result-flow-1.png",
+          "sha256": "31de0fe7c5234d9e92610e4cb3ecba9456e8f8b006d1c1816d6b778db810737c"
+        },
+        {
+          "name": "result-flow-1.txt",
+          "sha256": "348bba8c64494dfe13c08c9ba009d07450a036770193f7166c33d7ce8439b9e9"
+        },
+        {
+          "name": "result-flow-2.log",
+          "sha256": "0204ce3840cb084a8a5c0092a0998c0dcf51695ae183e319732533e2a6aec663"
+        },
+        {
+          "name": "result-flow-3.log",
+          "sha256": "4a263bda53a01209b62bb168bc097591c27b4955736d0956088348d8ddea03a7"
+        },
+        {
+          "name": "results.json",
+          "sha256": "6b887dacb5bc526ecd987d5a07e7bd53cdf69f594611ec71a789c5c78d47b805"
+        }
+      ]
+    },
+    {
+      "stage": "semantic action only",
+      "local_directory": "deliverables/api36-reliability/fixed",
+      "counts": {
+        "accessibility": {
+          "passed": 10,
+          "failed": 0
+        },
+        "result-flow": {
+          "passed": 9,
+          "failed": 1
+        }
+      },
+      "runs": [
+        {
+          "case": "accessibility",
+          "run": 1,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 2,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 3,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 4,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 5,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 6,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 7,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 8,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 9,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "accessibility",
+          "run": 10,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 1,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 2,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 3,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 4,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 5,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 6,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 7,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 8,
+          "font_scale": "1.0",
+          "status": "failed",
+          "evidence": [
+            "result-flow-8.txt",
+            "result-flow-8.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 9,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        },
+        {
+          "case": "result-flow",
+          "run": 10,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": []
+        }
+      ],
+      "local_artifact_hashes": [
+        {
+          "name": "accessibility-1.log",
+          "sha256": "f0ac7faabd31454cde54e51a2137ee05b29df9f9c1eb16ad53252f86a90e07a3"
+        },
+        {
+          "name": "accessibility-10.log",
+          "sha256": "6b00341c6d5db03ed828718e61305df3e49db7e7f570e488d8f8fce5da7f67bc"
+        },
+        {
+          "name": "accessibility-2.log",
+          "sha256": "2f310ca6625120fdc44b64d995a7568cc1333bffb3230d4497d5e4f0a3f3420b"
+        },
+        {
+          "name": "accessibility-3.log",
+          "sha256": "16af09e48a526587a03fd46e7558f3edd930aa3821c4390b9ca40088073946c9"
+        },
+        {
+          "name": "accessibility-4.log",
+          "sha256": "58fe52c30fc7df4ef83ea93921da1725092f8a2773b078762f9f91fe2b653517"
+        },
+        {
+          "name": "accessibility-5.log",
+          "sha256": "da6ec14e9a8e106484dde3085536cbc979e98e599365331c8a93238c816d9bd2"
+        },
+        {
+          "name": "accessibility-6.log",
+          "sha256": "a4be978172c7fbbf80420c85a8ce87fe851d8a260bb8d1ba657c9984ecfd401e"
+        },
+        {
+          "name": "accessibility-7.log",
+          "sha256": "9fb67625c1b8f869d8944f5f62b76fb53f125d381fd83ac3616842ea4bbde5b5"
+        },
+        {
+          "name": "accessibility-8.log",
+          "sha256": "027c023605259fb25fdd74af89c69214448d643b28d42d392a0aec805cc65e0f"
+        },
+        {
+          "name": "accessibility-9.log",
+          "sha256": "47f34b95a31d299a258dcdc65981ed077b48c3d802a56cc7126919c049eb4c70"
+        },
+        {
+          "name": "result-flow-1.log",
+          "sha256": "0dd3a21604e61e404d77177a2216326e51a49e1c5948dc80d9dd65ce38ddf032"
+        },
+        {
+          "name": "result-flow-10.log",
+          "sha256": "2a7e7a01e0909cbbc6f8698e84ecb459056a12e53b0c41509b147bd3ed17c4c0"
+        },
+        {
+          "name": "result-flow-2.log",
+          "sha256": "f4f3cd7f8d002d6c1eff49c5fa56f87a4f33dd9211f56a4a41dc32928900d91c"
+        },
+        {
+          "name": "result-flow-3.log",
+          "sha256": "ab870f33ab3e760f553ef9e7c7571f2ecdeabb300c5414fb9d250234341f55e1"
+        },
+        {
+          "name": "result-flow-4.log",
+          "sha256": "be758a67e28c7ebe0c66a553d2426ff1cd92adf716259ffc592fedb63b035f77"
+        },
+        {
+          "name": "result-flow-5.log",
+          "sha256": "b2c70cf2c622868e0ae8c4e8a4aa4c7f9b60b7c896694c5431c4268a319fb89e"
+        },
+        {
+          "name": "result-flow-6.log",
+          "sha256": "ee601035e189f7769aa1d9aa9ffefcb283d89f5b9d6c0f724f3fd1c7b0020e63"
+        },
+        {
+          "name": "result-flow-7.log",
+          "sha256": "dc89b93fbff1a0e1c6702c22dc30df016ff116ac1487a20c57cacb008188b6ab"
+        },
+        {
+          "name": "result-flow-8.log",
+          "sha256": "770def2d9763d01f16e69ea1862883b647bb7107a6ad921da4c7362deaafacdb"
+        },
+        {
+          "name": "result-flow-8.png",
+          "sha256": "7472558b07ede3cbcca742156807de2b404add14eaa09c8707a210fc506994bd"
+        },
+        {
+          "name": "result-flow-8.txt",
+          "sha256": "7aab8f41419d14cd98e1734c2a62680a934b62f6194b47798da15305bde1d551"
+        },
+        {
+          "name": "result-flow-9.log",
+          "sha256": "6b1cc3c20b8685e536079fec4ac9b6f2866709506f29a1b5d348f6aa8cf9df73"
+        },
+        {
+          "name": "results.json",
+          "sha256": "1b9491a22f5f953cd9198caa1ead3253fe7c71916f0e1fd5f56d2be3026dfae2"
+        }
+      ]
+    },
+    {
+      "stage": "visibility wait before state fix",
+      "local_directory": "deliverables/api36-reliability/fixed/visible",
+      "counts": {
+        "accessibility": {
+          "passed": 5,
+          "failed": 5
+        },
+        "result-flow": {
+          "passed": 10,
+          "failed": 0
+        }
+      },
+      "runs": [
+        {
+          "case": "accessibility",
+          "run": 1,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-1.txt",
+            "accessibility-1.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 2,
+          "font_scale": "2.0",
+          "status": "failed",
+          "evidence": [
+            "accessibility-2.txt",
+            "accessibility-2.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 3,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-3.txt",
+            "accessibility-3.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 4,
+          "font_scale": "2.0",
+          "status": "failed",
+          "evidence": [
+            "accessibility-4.txt",
+            "accessibility-4.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 5,
+          "font_scale": "2.0",
+          "status": "failed",
+          "evidence": [
+            "accessibility-5.txt",
+            "accessibility-5.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 6,
+          "font_scale": "2.0",
+          "status": "failed",
+          "evidence": [
+            "accessibility-6.txt",
+            "accessibility-6.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 7,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-7.txt",
+            "accessibility-7.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 8,
+          "font_scale": "2.0",
+          "status": "failed",
+          "evidence": [
+            "accessibility-8.txt",
+            "accessibility-8.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 9,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-9.txt",
+            "accessibility-9.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 10,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-10.txt",
+            "accessibility-10.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 1,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-1.txt",
+            "result-flow-1.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 2,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-2.txt",
+            "result-flow-2.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 3,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-3.txt",
+            "result-flow-3.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 4,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-4.txt",
+            "result-flow-4.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 5,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-5.txt",
+            "result-flow-5.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 6,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-6.txt",
+            "result-flow-6.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 7,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-7.txt",
+            "result-flow-7.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 8,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-8.txt",
+            "result-flow-8.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 9,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-9.txt",
+            "result-flow-9.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 10,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-10.txt",
+            "result-flow-10.png"
+          ]
+        }
+      ],
+      "local_artifact_hashes": [
+        {
+          "name": "accessibility-1.log",
+          "sha256": "10af15a3699f3fb090102f4a64a6e5961695ab49675ba0d574e0c966a6dfd784"
+        },
+        {
+          "name": "accessibility-1.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-1.txt",
+          "sha256": "ebc25447dc0480e85ea1ea30d542692a44952edac8742c891e3c8e7202b60786"
+        },
+        {
+          "name": "accessibility-10.log",
+          "sha256": "2a55f0c98c76d0383b6421ac0f8da82d0b24ab60ed473570b81901d4dc8766b6"
+        },
+        {
+          "name": "accessibility-10.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-10.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-2.log",
+          "sha256": "4dcc0a57c42a255bb11b26e86e8d816b32ab174a2a47a19b47cd4ea2d2416044"
+        },
+        {
+          "name": "accessibility-2.png",
+          "sha256": "734e7dce5b0ec60885af6aa40ad77ad107b9a43a7a5a6e84f6edf55d3a476d41"
+        },
+        {
+          "name": "accessibility-2.txt",
+          "sha256": "986257d9711e7a0280deac9b1ae52f17c4626c5a39fcb47558f548396b02d13b"
+        },
+        {
+          "name": "accessibility-3.log",
+          "sha256": "fee1da9d26a1efd4c8c20743b08f5f54ae3582483bc729a1927ce3ae945253a3"
+        },
+        {
+          "name": "accessibility-3.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-3.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-4.log",
+          "sha256": "687c84c49802a9e901760457875e139cf31835e6ae66504cf16cbdb40d494f3e"
+        },
+        {
+          "name": "accessibility-4.png",
+          "sha256": "734e7dce5b0ec60885af6aa40ad77ad107b9a43a7a5a6e84f6edf55d3a476d41"
+        },
+        {
+          "name": "accessibility-4.txt",
+          "sha256": "d380f8c8f8a33fa1286ea7020c10a1ebbf9a70b7b0409b5d0ee262c8054ff24f"
+        },
+        {
+          "name": "accessibility-5.log",
+          "sha256": "d438d5c0e6c6bc56ce10a9482ca1c35fc5d37e15a327b53569ce05970fdebedf"
+        },
+        {
+          "name": "accessibility-5.png",
+          "sha256": "734e7dce5b0ec60885af6aa40ad77ad107b9a43a7a5a6e84f6edf55d3a476d41"
+        },
+        {
+          "name": "accessibility-5.txt",
+          "sha256": "b781c3ad5e6de09c81881bfaaae9bdefc043948ca82801c557fb396d5bb38ab1"
+        },
+        {
+          "name": "accessibility-6.log",
+          "sha256": "29e33b3cfcf2e299864ca593ae47a20366503cb43ceec6c9c29b924818a91cae"
+        },
+        {
+          "name": "accessibility-6.png",
+          "sha256": "734e7dce5b0ec60885af6aa40ad77ad107b9a43a7a5a6e84f6edf55d3a476d41"
+        },
+        {
+          "name": "accessibility-6.txt",
+          "sha256": "b273d284b005c110e145aa22ed938779490c526131a8cb366d4277c7d8ecabc3"
+        },
+        {
+          "name": "accessibility-7.log",
+          "sha256": "1caeac59fd33f1aed2c97c5a40900d73d5d62eb0c2c1f686263bc1e163edb506"
+        },
+        {
+          "name": "accessibility-7.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-7.txt",
+          "sha256": "ba354e5a033f7e9fdfc34d9c2f36d448640ccccff47c1a3c9c186c7e95564be7"
+        },
+        {
+          "name": "accessibility-8.log",
+          "sha256": "5b39967b64e953bb3d8a8c2daa00fa3f7e7affe03e440f649edd8b4cd0c33e8d"
+        },
+        {
+          "name": "accessibility-8.png",
+          "sha256": "734e7dce5b0ec60885af6aa40ad77ad107b9a43a7a5a6e84f6edf55d3a476d41"
+        },
+        {
+          "name": "accessibility-8.txt",
+          "sha256": "5f92aacd3e91043273764ddf406a0392b4ec6117173f46067ee36288f63692af"
+        },
+        {
+          "name": "accessibility-9.log",
+          "sha256": "caa2be97037f5c8a8e82d51253718e3ac65b7adb505d9e36bb52e8822bcc8e24"
+        },
+        {
+          "name": "accessibility-9.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-9.txt",
+          "sha256": "cfb0e58ac16526d2316e7a7bac6b2ecbd391de265cd559a94d59590219e231a2"
+        },
+        {
+          "name": "result-flow-1.log",
+          "sha256": "669a85732c5e229f9b0d63a6523d475f5f6bfb5b505d1959372005eaa4400cc5"
+        },
+        {
+          "name": "result-flow-1.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-1.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-10.log",
+          "sha256": "b4063d81ca7a719f93c02cb600fa75f4583c4f8c2232784b005b2cc22d6b0346"
+        },
+        {
+          "name": "result-flow-10.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-10.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-2.log",
+          "sha256": "c4da722e73bcc871d917261677d310d9e8195526fa7b643ea7221d4590896104"
+        },
+        {
+          "name": "result-flow-2.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-2.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-3.log",
+          "sha256": "c4d3f365f7f0b5d6a2a8231693a800d586c0da765eca5f6bba0589b01b918e83"
+        },
+        {
+          "name": "result-flow-3.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-3.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-4.log",
+          "sha256": "10edc0637dba29a9e88d8f05559591e8194a4e5ca2b7e9beeeecfd65ab12a35b"
+        },
+        {
+          "name": "result-flow-4.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-4.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-5.log",
+          "sha256": "10edc0637dba29a9e88d8f05559591e8194a4e5ca2b7e9beeeecfd65ab12a35b"
+        },
+        {
+          "name": "result-flow-5.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-5.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-6.log",
+          "sha256": "b291cc439bd1e57ae464760c5496264e78a4d06228f24f49dfe850a1a41a7943"
+        },
+        {
+          "name": "result-flow-6.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-6.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-7.log",
+          "sha256": "5cad2c3482d30fe26a1128bf1cd87130e3b8f32d635c5e0c73a283b8fdf7a771"
+        },
+        {
+          "name": "result-flow-7.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-7.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-8.log",
+          "sha256": "a47da772094713ecf493d902f2c31ae67d4cde8fcfaf52ab8c63194b6be876fe"
+        },
+        {
+          "name": "result-flow-8.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-8.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-9.log",
+          "sha256": "beea5a09634f0e7c6f6f95841b7dc2204d36eda5c862ac7e81139894d8f8001f"
+        },
+        {
+          "name": "result-flow-9.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-9.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "results.json",
+          "sha256": "800bee7c3fdc28c117d6216642779b0e0e2113744b5c9724aa9baabc325c0b4e"
+        }
+      ]
+    },
+    {
+      "stage": "state fix before keyboard dismissal",
+      "local_directory": "deliverables/api36-reliability/fixed/final",
+      "counts": {
+        "accessibility": {
+          "passed": 10,
+          "failed": 0
+        },
+        "result-flow": {
+          "passed": 9,
+          "failed": 1
+        }
+      },
+      "runs": [
+        {
+          "case": "accessibility",
+          "run": 1,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-1.txt",
+            "accessibility-1.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 2,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-2.txt",
+            "accessibility-2.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 3,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-3.txt",
+            "accessibility-3.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 4,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-4.txt",
+            "accessibility-4.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 5,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-5.txt",
+            "accessibility-5.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 6,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-6.txt",
+            "accessibility-6.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 7,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-7.txt",
+            "accessibility-7.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 8,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-8.txt",
+            "accessibility-8.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 9,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-9.txt",
+            "accessibility-9.png"
+          ]
+        },
+        {
+          "case": "accessibility",
+          "run": 10,
+          "font_scale": "2.0",
+          "status": "passed",
+          "evidence": [
+            "accessibility-10.txt",
+            "accessibility-10.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 1,
+          "font_scale": "1.0",
+          "status": "failed",
+          "evidence": [
+            "result-flow-1.txt",
+            "result-flow-1.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 2,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-2.txt",
+            "result-flow-2.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 3,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-3.txt",
+            "result-flow-3.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 4,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-4.txt",
+            "result-flow-4.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 5,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-5.txt",
+            "result-flow-5.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 6,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-6.txt",
+            "result-flow-6.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 7,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-7.txt",
+            "result-flow-7.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 8,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-8.txt",
+            "result-flow-8.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 9,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-9.txt",
+            "result-flow-9.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 10,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-10.txt",
+            "result-flow-10.png"
+          ]
+        }
+      ],
+      "local_artifact_hashes": [
+        {
+          "name": "accessibility-1.log",
+          "sha256": "86d13cee7a9ff8bcddc43a96d71b87a01180c628cf9e6a0c7028ed14b527bf02"
+        },
+        {
+          "name": "accessibility-1.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-1.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-10.log",
+          "sha256": "40854f23bc2c5694076c9ff5325da5e25b0a9397961580568de25e3fc6d6b5b3"
+        },
+        {
+          "name": "accessibility-10.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-10.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-2.log",
+          "sha256": "0b339aac41a64475be5eb5b5db3f257c6c54697984635c6ad3bb590755445200"
+        },
+        {
+          "name": "accessibility-2.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-2.txt",
+          "sha256": "4abac98379a5e5793acb8dd83eb411255fc56cab60914becae272b9645b2650a"
+        },
+        {
+          "name": "accessibility-3.log",
+          "sha256": "6931c11d191a02e6dbc36a98267bc23bbe0e77f84cb8c42b05e29f67c45205ab"
+        },
+        {
+          "name": "accessibility-3.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-3.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-4.log",
+          "sha256": "cd6b5808a481acbbff5cd4272c792c7718e5c11647c0a09be95279b84374cead"
+        },
+        {
+          "name": "accessibility-4.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-4.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-5.log",
+          "sha256": "ff42fd17c684926e65acef62e07a50260c252ee3bfeccedef7848b7ab0f0b187"
+        },
+        {
+          "name": "accessibility-5.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-5.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-6.log",
+          "sha256": "a2290ea7f9cf6cc255572917222f5cfe98524cccb6b7c585ffb94b515b6e431c"
+        },
+        {
+          "name": "accessibility-6.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-6.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-7.log",
+          "sha256": "ad477c6872bac3e4fc7925b57751537bbfdacc9675c983986e3bb3cc9c5fbde4"
+        },
+        {
+          "name": "accessibility-7.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-7.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-8.log",
+          "sha256": "10c41f7b0aa6f910bb5a48fb9697b0830f62f032110272313e8275191ccfc370"
+        },
+        {
+          "name": "accessibility-8.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-8.txt",
+          "sha256": "4272e77962636088a5aa7363c03328a053419c4dc246e9123f1d455a81506d27"
+        },
+        {
+          "name": "accessibility-9.log",
+          "sha256": "3567e91812d6b3b41f4770a17b62562babaa94d9c4d3c457fa8d0726fd5cd2cc"
+        },
+        {
+          "name": "accessibility-9.png",
+          "sha256": "faa3fba481b8fcc37c7afef83652fc8acea47bf812d2ba7af88c9a7d3bc0c1c3"
+        },
+        {
+          "name": "accessibility-9.txt",
+          "sha256": "ec7aaa65fc45ef8b26d025f3dea17b4e8a9f19a083686105ac1197ea4934b9be"
+        },
+        {
+          "name": "result-flow-1.log",
+          "sha256": "979bb31c7fa628db1328f52e70a75e43f3849356fa5eea663b9cb19900d28d6a"
+        },
+        {
+          "name": "result-flow-1.png",
+          "sha256": "7472558b07ede3cbcca742156807de2b404add14eaa09c8707a210fc506994bd"
+        },
+        {
+          "name": "result-flow-1.txt",
+          "sha256": "bc1244a50c855418ebe658b50dd6002d7bd791c54ca3d84263f68186747db4d3"
+        },
+        {
+          "name": "result-flow-10.log",
+          "sha256": "0120218a55fef5f7d7152139f20f988293a431c5a2bc518bbefee0180439f1c0"
+        },
+        {
+          "name": "result-flow-10.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-10.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-2.log",
+          "sha256": "bdcbe9957f03098c8e892b8aaa6b495948f6a72c26b0c7adcf3022c9494ae8d1"
+        },
+        {
+          "name": "result-flow-2.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-2.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-3.log",
+          "sha256": "0aad71473f81f13ce45e9c132bc4d05b18a9aeb504af2dc4d5a32e000f7dd09a"
+        },
+        {
+          "name": "result-flow-3.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-3.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-4.log",
+          "sha256": "113377089a1c73aec40c63fac2a31b3729799aa9ee2993450e640a2e4f3296f3"
+        },
+        {
+          "name": "result-flow-4.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-4.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-5.log",
+          "sha256": "1005de3cc6ded4b38dadeac8e8652ae104d55700c63e9db5ffec71f5947df47c"
+        },
+        {
+          "name": "result-flow-5.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-5.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-6.log",
+          "sha256": "f76ab13568f770db04e32abf890c963fe4286389ef65bf11b41cfcbfef23488a"
+        },
+        {
+          "name": "result-flow-6.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-6.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-7.log",
+          "sha256": "ed066111b3f302bab58e08020fe8d0a264723f613942bcfc7588d52b6cc270a8"
+        },
+        {
+          "name": "result-flow-7.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-7.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-8.log",
+          "sha256": "234da5f984f4c6470d568342a61120c711c98c46722e1909ec44540994f839a8"
+        },
+        {
+          "name": "result-flow-8.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-8.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-9.log",
+          "sha256": "0dc2bbb2e1763edb7b3c8a3070487127d328ef7f05e6f483ed2547d457024c5e"
+        },
+        {
+          "name": "result-flow-9.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-9.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "results.json",
+          "sha256": "459f867115a0c0aac30ad0acce44750aafedf8ad5a691dc93f1b6c1e6e95815e"
+        }
+      ]
+    },
+    {
+      "stage": "keyboard dismissal and state fix",
+      "local_directory": "deliverables/api36-reliability/fixed/ime",
+      "counts": {
+        "result-flow": {
+          "passed": 10,
+          "failed": 0
+        }
+      },
+      "runs": [
+        {
+          "case": "result-flow",
+          "run": 1,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-1.txt",
+            "result-flow-1.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 2,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-2.txt",
+            "result-flow-2.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 3,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-3.txt",
+            "result-flow-3.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 4,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-4.txt",
+            "result-flow-4.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 5,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-5.txt",
+            "result-flow-5.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 6,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-6.txt",
+            "result-flow-6.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 7,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-7.txt",
+            "result-flow-7.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 8,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-8.txt",
+            "result-flow-8.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 9,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-9.txt",
+            "result-flow-9.png"
+          ]
+        },
+        {
+          "case": "result-flow",
+          "run": 10,
+          "font_scale": "1.0",
+          "status": "passed",
+          "evidence": [
+            "result-flow-10.txt",
+            "result-flow-10.png"
+          ]
+        }
+      ],
+      "local_artifact_hashes": [
+        {
+          "name": "result-flow-1.log",
+          "sha256": "f5a1cd59230382dc0eae5e79ba9ba4a66336b85a3fbe346c63da66b1fc45ed90"
+        },
+        {
+          "name": "result-flow-1.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-1.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-10.log",
+          "sha256": "9eb3540ae5c9ff687259ec5f379fae6ded7f61f165e2b8f07ca7e9845eb307c8"
+        },
+        {
+          "name": "result-flow-10.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-10.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-2.log",
+          "sha256": "e0a2feec3573f57a7111ff4e7250561d93c165e33e6ccabd619259b921bec0f9"
+        },
+        {
+          "name": "result-flow-2.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-2.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-3.log",
+          "sha256": "72851a15b3c5a91ea3f830d6537ab0bc0af8f4ac4447f38f22c020b6084910a9"
+        },
+        {
+          "name": "result-flow-3.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-3.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-4.log",
+          "sha256": "016775fcd376610e2fd876c4c08774475072420739b6ea0afac0817fb9fe407d"
+        },
+        {
+          "name": "result-flow-4.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-4.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-5.log",
+          "sha256": "85a78fbdcafb70df7dfab9bc1ff2237e796e1c9970743b17ee5049408973f1c9"
+        },
+        {
+          "name": "result-flow-5.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-5.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-6.log",
+          "sha256": "f06341b6a6ef27ea8d85ad6a2b296ea18448f895c3aed0e990e1a3312d820559"
+        },
+        {
+          "name": "result-flow-6.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-6.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-7.log",
+          "sha256": "6e1a5bcf7593ecb4110d755a109d739c60d298a015a2803db62d1b4ac631a46b"
+        },
+        {
+          "name": "result-flow-7.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-7.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-8.log",
+          "sha256": "a77ac68243b847f5b0441f47bf9ba519c89fb8ced5c2e6cba7da51c9ae51438f"
+        },
+        {
+          "name": "result-flow-8.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-8.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "result-flow-9.log",
+          "sha256": "878aa163350f8e0418bc23fe4c6163d3fbd6d30d98bc500fefaf40c2d16ea9c2"
+        },
+        {
+          "name": "result-flow-9.png",
+          "sha256": "4fd2027f35e32f5a22a4f0d96f7f1bae3e6643a440f8db13b325184c3057d7ee"
+        },
+        {
+          "name": "result-flow-9.txt",
+          "sha256": "0a9a624171643114cfaf323f17cfce8b92e2bd680fafa2e289997892ce31ef04"
+        },
+        {
+          "name": "results.json",
+          "sha256": "c99e4ff33fe7b0384b8036a40a5d691729d23c956dc99aa8d727a7e18079995a"
+        }
+      ]
+    }
+  ],
+  "final_isolated_results": {
+    "accessibility": {
+      "passed": 10,
+      "failed": 0,
+      "font_scale": 2.0
+    },
+    "result-flow": {
+      "passed": 10,
+      "failed": 0
+    }
+  },
+  "excluded_attempts": [
+    "diagnostic setup encoding error",
+    "emulator unavailable at preflight; zero tests executed",
+    "intermediate test compilation error; no successful build claimed"
+  ],
+  "implementation_commit": "ef8639ddfc3a960f653774e5b54d0aaa14fb3a71",
+  "final_regression_counts": {
+    "api36_specialized": {
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    "api36_ordinary": {
+      "passed": 15,
+      "failed": 0,
+      "skipped": 5
+    },
+    "api26_focused": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    "jvm_per_variant": {
+      "passed": 6,
+      "failed": 0,
+      "skipped": 1
+    },
+    "research": {
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0
+    },
+    "backend": {
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0
+    },
+    "safe_handoff": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "lint_per_variant": {
+    "errors": 0,
+    "warnings": 5
+  },
+  "privacy": {
+    "private_storage_files_checked": 2,
+    "raw_fixture_markers_found": 0,
+    "ignore_probes_passed": 10,
+    "android_internet_permission": false,
+    "reporting_enabled": false
+  }
+}

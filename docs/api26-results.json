@@ -3,7 +3,7 @@
   "variant": "development",
   "status": "passed",
   "offline_setup": "Airplane mode on; Wi-Fi service disabled via standard Settings",
-  "offline_parity_and_invalid_models": "ph.smishguard.SuppliedModelTest:..\r\n\r\nTime: 1.838\r\n\r\nOK (2 tests)",
-  "development_flow_and_accessibility": "ph.smishguard.DevelopmentFlowTest:.\r\nph.smishguard.AccessibilityTest:.\r\n\r\nTime: 8.194\r\n\r\nOK (2 tests)",
+  "offline_parity_and_invalid_models": "ph.smishguard.SuppliedModelTest:..\r\n\r\nTime: 1.765\r\n\r\nOK (2 tests)",
+  "development_flow_and_accessibility": "ph.smishguard.DevelopmentFlowTest:.\r\nph.smishguard.AccessibilityTest:.\r\n\r\nTime: 5.062\r\n\r\nOK (2 tests)",
   "scope": "Focused API 26 emulator checks only; not SMS delivery, physical-device or research results. Offline setup and test outcomes recorded separately."
 }

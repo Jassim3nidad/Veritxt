@@ -1,6 +1,6 @@
 # Verification — supplied-model development milestone
 
-Latest independent rerun and thesis-tooling changes: [23 September 2026 verification](verification-20260923.md). Counts below are historical unless explicitly reproduced there. Current Xiaomi state and pending tests are in [the physical-device checklist](physical-device-checklist.md).
+Latest independent rerun: [24 September API 36 reliability follow-up](api36-reliability.md), resolving the later safe-handoff Settings and result-flow failures. The [23 September verification](verification-20260923.md) and counts below retain their historical scope. Current Xiaomi state and pending tests are in [the physical-device checklist](physical-device-checklist.md).
 
 Updated 21 September 2026. The supplied dataset/model package has been inspected and technically integrated; previous no-package statements describe the [historical milestone](verification-20260920.md), not current inputs. No research performance, calibration quality or approval for automatic warnings is established.
 
@@ -96,3 +96,7 @@ Reported project/client go-ahead and signed request letter recorded separately f
 ## Safe handoff verification
 
 See verification-safe-handoff.md for fresh backend, research, Android and privacy checks. Older results below/above retain their original date and scope. Procedure-level evaluation evidence is now supplied; no dataset-dependent rerun, calibration or prospective validation is implied.
+
+## API 36 reliability resolution — 24 September 2026
+
+The model-status initialization now preserves current navigation/input after asynchronous loading. Tests synchronize keyboard dismissal and scrolling without longer sleeps or weaker assertions. Each affected test passed 10 final isolated repeats; the specialized suite passed 19 tests, and ordinary instrumentation passed 15 with 5 skips. Three controlled state-race regressions failed before the fix and pass after it. See [root causes, commands, evidence and remaining limits](api36-reliability.md). Earlier handoff failures have not been deleted. Reporting, model thresholds and automatic-warning policy are unchanged.

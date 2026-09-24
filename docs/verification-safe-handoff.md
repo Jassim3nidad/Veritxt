@@ -1,5 +1,15 @@
 # Safe handoff verification — 23 September 2026
 
+## Follow-up resolution — 24 September 2026
+
+The API 36 Settings and result-flow failures recorded below are **resolved for the exercised emulator paths** by implementation commit `ef8639ddfc3a960f653774e5b54d0aaa14fb3a71`. A late model-status update overwrote current navigation/input; status is now awaited before copying current state. Result-flow instrumentation now waits for keyboard dismissal and visible controls. No research threshold, reporting policy or model parameters changed.
+
+Final evidence: each affected test passed 10 isolated repeats; the API 36 specialized suite passed 19 tests, and ordinary instrumentation passed 15 with 5 explicit skips. API 26 passed 4 focused tests. Both JVM variants passed 6 with 1 skip each; research 38, backend 45 and safe-handoff 8 all passed. Both APK builds and lint passed (0 errors, 5 existing warnings per variant). The three controlled state-race tests failed before the production fix and passed afterward.
+
+[Root causes, exact commands, repeat history, sanitized evidence and remaining limitations](api36-reliability.md) are the current verification record. Earlier failures and failure JSON files are retained below as historical evidence, not rewritten as successful runs. Physical Xiaomi testing remains blocked by secure FRP; reporting and automatic warnings remain disabled.
+
+## Historical handoff report — 23 September 2026
+
 This report distinguishes this run's checks from supplied experiment claims and historical evidence. No private training ZIP was accessed, no dataset-dependent training was run, and no private model was changed. Android source, threshold and user-visible warning/reporting behavior are unchanged.
 
 ## Independently checked in this run
