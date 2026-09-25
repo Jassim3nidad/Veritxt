@@ -1,0 +1,49 @@
+{
+  "model_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+  "intercept_only_percent": 33.63167064101184,
+  "probes": [
+    {
+      "probe_category": "random_letters",
+      "token_count": 1,
+      "nonzero_features": 0,
+      "raw_score_percent": 33.63167064101184
+    },
+    {
+      "probe_category": "keyboard_mash",
+      "token_count": 1,
+      "nonzero_features": 0,
+      "raw_score_percent": 33.63167064101184
+    },
+    {
+      "probe_category": "unknown_words",
+      "token_count": 2,
+      "nonzero_features": 0,
+      "raw_score_percent": 33.63167064101184
+    },
+    {
+      "probe_category": "short_english",
+      "token_count": 1,
+      "nonzero_features": 1,
+      "raw_score_percent": 28.22577365438558
+    },
+    {
+      "probe_category": "short_reply_unknown",
+      "token_count": 1,
+      "nonzero_features": 0,
+      "raw_score_percent": 33.63167064101184
+    },
+    {
+      "probe_category": "short_tagalog_unknown",
+      "token_count": 1,
+      "nonzero_features": 0,
+      "raw_score_percent": 33.63167064101184
+    },
+    {
+      "probe_category": "otp_software_probe",
+      "token_count": 9,
+      "nonzero_features": 14,
+      "raw_score_percent": 39.10681922059169
+    }
+  ],
+  "scope": "Invented software inputs; no labels, vocabulary or private messages exported"
+}

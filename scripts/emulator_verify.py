@@ -23,6 +23,7 @@ def main():
     parser.add_argument("--serial", default="emulator-5554")
     parser.add_argument("--variant", choices=["debug", "development"], default="debug")
     parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
+    parser.add_argument("--output", type=Path, help="Optional separate sanitized verification record")
     args = parser.parse_args()
     PACKAGE = NAMESPACE + (".dev" if args.variant == "development" else "")
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
@@ -40,6 +41,8 @@ def main():
     prior_font = command("shell", "settings", "get", "system", "font_scale").decode().strip()
     results = {"variant": args.variant, "api": command("shell", "getprop", "ro.build.version.sdk").decode().strip()}
     target = ROOT / ("docs/development-emulator-results.json" if args.variant == "development" else "docs/emulator-results.json")
+    if args.output is not None:
+        target = args.output
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
@@ -63,7 +66,7 @@ def main():
         command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
-        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"] + (["DevelopmentFlowTest"] if args.variant == "development" else []))))
+        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"] + (["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"] if args.variant == "development" else []))))
         run_test("notification_denied", NAMESPACE + ".NotificationBehaviorTest#runtimeDenialSuppressesWarning", ("-e", "denied", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "enable")
         command("shell", "svc", "wifi", "disable")
@@ -138,7 +141,7 @@ def main():
     target.write_text(json.dumps(results, indent=2), encoding="utf-8")
     # Leave the delivered app clean, with no test consent or blocked test channel.
     command("shell", "am", "start", "-n", PACKAGE + "/" + NAMESPACE + ".MainActivity")
-    print("Emulator verification complete; evidence: " + str(target.relative_to(ROOT)), flush=True)
+    print("Emulator verification complete; evidence: " + str(target), flush=True)
 
 
 if __name__ == "__main__":

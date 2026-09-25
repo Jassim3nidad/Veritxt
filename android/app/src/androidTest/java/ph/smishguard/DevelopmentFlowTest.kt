@@ -25,10 +25,12 @@ class DevelopmentFlowTest {
         }
         compose.waitUntil(10000) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.waitUntil(10000) { compose.onAllNodesWithText("Experimental result").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("phishing model score", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText(text).assertDoesNotExist()
-        compose.onNodeWithText("Uncalibrated model score:", substring = true).assertExists()
+        compose.onNodeWithText("phishing model score", substring = true).assertExists()
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
+        compose.onNodeWithText("Experimental score; not a verified probability.").assertExists()
+        compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
         compose.onNodeWithText("Automatic warnings and reporting are disabled.").assertExists()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
         compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()

@@ -71,6 +71,14 @@ class SuppliedDetector private constructor(
 ) : Detector {
     override val status = "Experimental model · unverified performance"
     override suspend fun detect(text: String): Detection {
+        if (text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
+        val words = tokenizer.tokens(Assessability.textOutsideLinks(text))
+        if (!Assessability.canAssess(words) { vocabulary.containsKey(it) }) return Detection.UnableToAssess
+        return rawDetection(text)
+    }
+    // Preserve the original mathematical path for independent export parity checks.
+    // Production callers must use detect(), which applies abstention first.
+    internal suspend fun rawDetection(text: String): Detection {
         if (text.isBlank() || text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
         val features = featureValues(text)
         var margin = bias

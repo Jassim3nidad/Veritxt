@@ -40,7 +40,7 @@ class FlowsTest {
     @Test fun emptyInputAndMissingModel() {
         compose.onNodeWithText("Check a message").performScrollTo().performClick()
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.onNodeWithText("Enter a message to check.").assertExists()
+        compose.onNodeWithText("Unable to assess").assertExists()
         compose.onNodeWithText("SMS message").performTextInput("Kumusta po, pakiverify ang account. ".repeat(40))
         compose.waitForIdle()
         // Invoke the accessible action after long-input/IME scrolling settles.
@@ -56,7 +56,8 @@ class FlowsTest {
             }
             throw AssertionError("Missing-model UI not reached: $summary", error)
         }
-        compose.onNodeWithText("No prediction was made. This prototype needs an evaluated model before it can assess messages.").assertExists()
+        compose.onNodeWithText("No usable model is bundled. No prediction was made.").assertExists()
+        compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
         compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()
     }
@@ -111,7 +112,7 @@ class FlowsTest {
         val app = compose.activity.application as SoftwareTestApp
         val invocations = java.util.concurrent.atomic.AtomicInteger()
         val cases = listOf(
-            ph.smishguard.model.Detection.InvalidModel to "Unsupported or invalid model",
+            ph.smishguard.model.Detection.InvalidModel to "Model not installed",
             ph.smishguard.model.Detection.Failure to "Could not complete the check",
             ph.smishguard.model.Detection.Success(true, .99, probability = true, synthetic = true) to "Synthetic interface fixture"
         )
@@ -146,6 +147,7 @@ class FlowsTest {
                 org.junit.Assert.assertEquals("Exactly one inference per scan", index + 1, invocations.get())
                 compose.onNodeWithText("SGTEST result privacy marker").assertDoesNotExist()
                 compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
+                scrollToVisible("What does this mean?").performClick()
                 scrollToVisible("Review reporting options")
                     .performSemanticsAction(SemanticsActions.OnClick) { org.junit.Assert.assertTrue(it()) }
                 compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()

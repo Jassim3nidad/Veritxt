@@ -25,6 +25,7 @@ object Preprocessing {
 }
 
 sealed interface Detection {
+    data object UnableToAssess : Detection
     data object Unavailable : Detection
     data object InvalidModel : Detection
     data object Failure : Detection

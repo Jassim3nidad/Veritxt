@@ -1,0 +1,15 @@
+{
+  "approved_dataset_files_found": 0,
+  "saved_training_split_files_found": 0,
+  "candidate_retrained": false,
+  "data_card_eligibility": "Not established; reviews pending",
+  "review_packet_rows": 1276,
+  "review_status_completeness": {
+    "redaction_status": {
+      "nonblank": 1276
+    }
+  },
+  "redaction_status_counts": {
+    "pending": 1276
+  }
+}

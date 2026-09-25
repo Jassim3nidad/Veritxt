@@ -49,7 +49,10 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus)
     }
     fun scan() {
-        if (mutable.value.text.isBlank()) { mutable.value = mutable.value.copy(error = "Enter a message to check."); return }
+        if (mutable.value.text.isBlank()) {
+            mutable.value = mutable.value.copy(text = "", result = Detection.UnableToAssess, error = null)
+            return
+        }
         if (mutable.value.busy) return
         job = viewModelScope.launch {
             mutable.value = mutable.value.copy(busy = true, error = null)
@@ -60,12 +63,12 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
                         app.detector().detect(text) to SafeDomain.fromMessage(text)
                     }
                 }
-                mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", busy = false,
+                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", busy = false,
                     result = resultAndDomain.first, domain = resultAndDomain.second, checkedAt = ZonedDateTime.now())
             } catch (_: kotlinx.coroutines.TimeoutCancellationException) {
-                mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", busy = false, result = Detection.Failure)
+                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", busy = false, result = Detection.Failure)
             } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", busy = false, result = Detection.Failure) }
+            catch (_: Exception) { mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", busy = false, result = Detection.Failure) }
         }
     }
 }

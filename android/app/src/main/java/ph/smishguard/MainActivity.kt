@@ -29,6 +29,11 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import ph.smishguard.model.ResultCopy
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -134,43 +139,22 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                         Text("Never share an OTP, PIN, or password. Verify requests using your bank’s official app or a number you already trust.")
                         Text("Research prototype · On-device processing", style = MaterialTheme.typography.labelMedium)
                     }
-                    Screen.CHECK -> {
-                        Heading("Check a message")
-                        Text("Type, paste, or share an SMS here. Links are never opened or fetched.")
+                    Screen.CHECK, Screen.RESULT -> {
+                        Heading("Test a message")
+                        Text("Manual check · automatic protection and reporting are off", style = MaterialTheme.typography.bodySmall)
                         OutlinedTextField(value = state.text, onValueChange = vm::edit, modifier = Modifier.fillMaxWidth(),
                             label = { Text("SMS message") }, placeholder = { Text("Paste the message you want to check…") },
-                            minLines = 7, maxLines = 12, enabled = !state.busy,
+                            minLines = 4, maxLines = 7, enabled = !state.busy,
                             keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, keyboardType = KeyboardType.Password),
                             supportingText = { Text("${state.text.length} / 10,000 characters · cleared after checking") })
                         state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-                        Button(onClick = vm::scan, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) {
+                        val keyboard = LocalSoftwareKeyboardController.current
+                        Button(onClick = { keyboard?.hide(); vm.scan() }, enabled = !state.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
                             if (state.busy) { CircularProgressIndicator(Modifier.size(20.dp)); Spacer(Modifier.width(12.dp)) }
                             Text(if (state.busy) "Checking on your phone…" else "Check message")
                         }
-                        OutlinedButton(onClick = { vm.edit("") }, modifier = Modifier.fillMaxWidth()) { Text("Clear message") }
-                        Text("${state.modelStatus}. A low score would not guarantee legitimacy.", style = MaterialTheme.typography.bodySmall)
-                    }
-                    Screen.RESULT -> {
-                        Heading("Check result")
-                        when (val result = state.result) {
-                            is Detection.Success -> {
-                                InfoCard(if (result.experimental) "Experimental result" else if (result.synthetic) "Synthetic interface fixture" else if (result.suspicious) "Potential financial impersonation" else "Not flagged by this model",
-                                    if (result.experimental) "Research performance is unverified. This result must not be used as proof that a message is fraudulent or legitimate." else if (result.synthetic) "This is not a real assessment." else if (result.suspicious) "This message may be suspicious. Pause before acting on requests for money or account access." else "The model did not flag this message. This does not establish that it is legitimate.")
-                                if (result.experimental) {
-                                    Text("Uncalibrated model score: ${"%.4f".format(java.util.Locale.ROOT, result.score)}. This is not a likelihood of fraud.")
-                                    Text(if (result.suspicious) "Above provisional threshold (0.5)." else "At or below provisional threshold (0.5).")
-                                    Text("Automatic warnings and reporting are disabled.")
-                                } else if (result.probability && !result.synthetic) Text("Estimated suspicious-class probability: ${"%.1f".format(result.score * 100)}%. This is a model estimate, not certainty.")
-                                else Text("No confidence percentage is available.")
-                            }
-                            Detection.Unavailable -> InfoCard("Model not installed", "No prediction was made. This prototype needs an evaluated model before it can assess messages.")
-                            Detection.InvalidModel -> InfoCard("Unsupported or invalid model", "This model cannot be used. No prediction was made. Contact the research team for a compatible build.")
-                            else -> InfoCard("Could not complete the check", "No prediction was made. Try checking the message again.")
-                        }
-                        Text("Verify suspicious requests through the institution’s official app, website entered independently, or a known phone number. Do not use contact details supplied by the suspicious message.")
-                        Text("Message text has been cleared.", style = MaterialTheme.typography.labelMedium)
-                        OutlinedButton(onClick = { vm.navigate(Screen.REPORT) }, Modifier.fillMaxWidth()) { Text("Review reporting options") }
-                        Button(onClick = { vm.navigate(Screen.CHECK) }, Modifier.fillMaxWidth()) { Text("Check another message") }
+                        state.result?.let { CompactResult(it) { vm.navigate(Screen.REPORT) } }
+                        if (state.text.isNotEmpty()) TextButton(onClick = { vm.edit("") }) { Text("Clear message") }
                     }
                     Screen.REPORT -> {
                         Heading("Your choice to report")
@@ -190,6 +174,53 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
             }
         }
     }
+}
+
+
+@Composable private fun CompactResult(result: Detection, report: () -> Unit) {
+    var explain by remember(result) { mutableStateOf(false) }
+    Card(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer)) {
+        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            when (result) {
+                is Detection.Success -> if (result.synthetic) {
+                    Text("Synthetic interface fixture", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
+                    Text("Software test only; no assessment.")
+                } else {
+                    Text(ResultCopy.heading(result), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+                    Text(ResultCopy.score(result.score), style = MaterialTheme.typography.bodyLarge)
+                    Text(ResultCopy.DISCLAIMER, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
+                }
+                Detection.UnableToAssess -> {
+                    Text("Unable to assess", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
+                    Text("Enter an SMS message with meaningful text.", fontStyle = FontStyle.Italic)
+                }
+                Detection.Unavailable, Detection.InvalidModel -> {
+                    Text("Model not installed", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
+                    Text(if (result == Detection.InvalidModel) "The bundled model is invalid or unsupported. No prediction was made."
+                        else "No usable model is bundled. No prediction was made.")
+                }
+                Detection.Failure -> {
+                    Text("Could not complete the check", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
+                    Text("No prediction was made. Try checking the message again.")
+                }
+            }
+        }
+    }
+    TextButton(onClick = { explain = true }, modifier = Modifier.heightIn(min = 48.dp)) { Text("What does this mean?") }
+    if (explain) AlertDialog(onDismissRequest = { explain = false },
+        title = { Text("About this result") },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text("The score is experimental, not a verified probability or chance of fraud. Research performance is unverified. Likely phishing means the model score is strictly above the unchanged 50% threshold. No phishing detected does not establish that a message is safe.")
+                Text("Unable to assess means there is no usable model word outside links or numbers, or the input is blank or obvious keyboard mashing. It can also occur for meaningful words this model does not know. Short messages are allowed; no minimum word count is required.")
+                Text("Verify suspicious requests through an official app, a website entered independently, or a phone number you already know. Never share an OTP, PIN, or password. Do not rely on contact details in the message.")
+                Text("Automatic warnings and reporting are disabled.")
+                Text("Message text is cleared after checking and when you leave the app. No scan history is saved.")
+                TextButton(onClick = { explain = false; report() }) { Text("Review reporting options") }
+            }
+        },
+        confirmButton = { TextButton(onClick = { explain = false }) { Text("Close") } })
 }
 
 @Composable private fun SettingsContent(app: SmishGuardApp, preferences: Preferences, permissions: PermissionState, refresh: () -> Unit, clear: () -> Unit) {

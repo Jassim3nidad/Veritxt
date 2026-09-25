@@ -42,7 +42,7 @@ class SuppliedModelTest {
             val actual = detector.featureValues(text)
             assertEquals(expected.keys, actual.keys)
             expected.forEach { (index, value) -> assertEquals(value / norm, actual.getValue(index), 1e-10) }
-            val output = detector.detect(text)
+            val output = detector.rawDetection(text)
             if (!case.getBoolean("valid_input")) { assertEquals(Detection.Failure, output); continue }
             val result = output as Detection.Success
             assertEquals(case.getDouble("score"), result.score, 1e-10)
@@ -56,7 +56,7 @@ class SuppliedModelTest {
             put("weights", JSONArray(List(vocabulary.length()) { 0.0 }))
         }
         val atThreshold = (ModelLoader.parse(boundary.toString()) as SuppliedDetector)
-            .detect("fictional boundary probe") as Detection.Success
+            .rawDetection("fictional boundary probe") as Detection.Success
         assertEquals(0.5, atThreshold.score, 0.0)
         assertFalse(atThreshold.suspicious)
     }

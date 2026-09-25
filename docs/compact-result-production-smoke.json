@@ -1,0 +1,12 @@
+{
+  "api": 36,
+  "emulator": true,
+  "instrumentation": false,
+  "installed_sha256_matches_deliverable": true,
+  "compact_result": true,
+  "missing_model_result": false,
+  "score_visible": true,
+  "message_cleared": true,
+  "reporting_and_warnings_disabled": true,
+  "process_fatal_exceptions": 0
+}
