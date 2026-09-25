@@ -1,5 +1,7 @@
 # Verification — supplied-model development milestone
 
+Latest research-only handoff: [25 September candidate review verification](verification-candidate-review.md). Android/model/backend code was preserved; no Android test rerun or candidate adoption is implied. API 36 reliability evidence below remains historical and unchanged.
+
 Latest independent rerun: [24 September API 36 reliability follow-up](api36-reliability.md), resolving the later safe-handoff Settings and result-flow failures. The [23 September verification](verification-20260923.md) and counts below retain their historical scope. Current Xiaomi state and pending tests are in [the physical-device checklist](physical-device-checklist.md).
 
 Updated 21 September 2026. The supplied dataset/model package has been inspected and technically integrated; previous no-package statements describe the [historical milestone](verification-20260920.md), not current inputs. No research performance, calibration quality or approval for automatic warnings is established.

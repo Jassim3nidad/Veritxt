@@ -8,6 +8,24 @@ def git(*args):
     return subprocess.run(['git', *args], check=True, capture_output=True).stdout
 
 
+def forbidden_path(name):
+    path = Path(name)
+    return (any(p in {'runs', 'deliverables', '.venv', '.idea', '.gradle',
+                     'build', '__pycache__'} for p in path.parts)
+            or ('data' in path.parts and not (
+                name.startswith('android/app/src/main/java/ph/smishguard/data/') and path.suffix == '.kt'))
+            or path.suffix.lower() in {'.apk', '.zip', '.docx', '.jpg', '.jpeg', '.xlsx',
+                '.pkl', '.pickle', '.joblib', '.jks', '.keystore', '.pem', '.key', '.db',
+                '.sqlite', '.sqlite3', '.onnx', '.tflite', '.pt', '.pth', '.safetensors'}
+            or path.name in {'smishguard_dataset.csv', 'fresh_test_messages.csv',
+                             'candidate_parity_cases.json', 'local.properties'}
+            or (path.name.startswith('model_export_') and path.suffix == '.json')
+            or path.name.startswith('MODEL_INTEGRATION_calibrated')
+            or path.name.endswith(('.db-journal', '.db-wal', '.db-shm'))
+            or (path.name.startswith('.env') and path.name != '.env.example')
+            or name.endswith('/assets/model.json'))
+
+
 def main():
     names = git('diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z').decode().split('\0')
     names = [n for n in names if n]
@@ -18,14 +36,7 @@ def main():
     mobile_pattern = rb'(?<![\w.])(?:\+?63|0)[ -]?9(?:[ -]?\d){9}(?!\d)'
     findings = []
     for name in names:
-        path = Path(name)
-        if (name.startswith(('research/data/', 'research/runs/', 'deliverables/'))
-            or any(p in {'.venv','.idea','.gradle','build','__pycache__'} for p in path.parts)
-            or path.suffix.lower() in {'.apk','.zip','.docx','.jpg','.jpeg','.xlsx','.pkl','.joblib','.jks','.keystore','.pem','.key','.db','.sqlite','.sqlite3'}
-            or path.name in {'smishguard_dataset.csv','model_export_final.json','model_export_v2.json'}
-            or path.name.endswith(('.db-journal', '.db-wal', '.db-shm'))
-            or (path.name.startswith('.env') and path.name != '.env.example')
-            or name.endswith('/assets/model.json') or path.name == 'local.properties'):
+        if forbidden_path(name):
             findings.append((name, 'private/generated path'))
             continue
         data = git('show', ':'+name)

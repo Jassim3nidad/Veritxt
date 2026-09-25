@@ -20,3 +20,5 @@ The handoff reports Python 3.14.3 and scikit-learn 1.8.0 as a later reproduction
 Logistic Regression was selected for compact, portable on-device inference, not because it won accuracy or because its score was calibrated. Default-vs-tuned differences are small; tuning suggests the default was already near-optimal within these supplied comparisons, not a meaningful breakthrough. Do not change expected parity values merely to make changed model weights pass.
 
 See MODEL_EVALUATION.md for conflicts, MODEL_INTEGRATION.md for actual Android schema conversion, and THRESHOLD_POLICY.md for the unimplemented proposal.
+
+The later [candidate review](../candidate_review/README.md) preserves this directory unchanged apart from this pointer. Candidate aggregate results live separately to avoid mixing them with the shipped-model procedure or overwriting sanitized evidence. Candidate status: under review, not deployed.

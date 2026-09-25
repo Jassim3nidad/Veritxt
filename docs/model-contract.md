@@ -1,5 +1,7 @@
 # Versioned offline model contract
 
+25 September candidate review: `lr-calibrated-2` is **under review, not deployed**. [Supplied aggregate evidence and methodology findings](../research/candidate_review/README.md) do not alter this contract, calibration metadata, threshold, reference scores or Android behavior.
+
 ## Three different statuses
 
 | Status | Supplied model in this milestone |

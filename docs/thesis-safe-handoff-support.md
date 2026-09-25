@@ -1,5 +1,7 @@
 # Proposed manuscript support: Chapters 3, 4 and 5
 
+25 September supplement: [candidate evidence review and adoption checklist](../research/candidate_review/README.md), with [independent software verification](verification-candidate-review.md). The candidate remains under review, not deployed. Supplied grouped results report everyday false alarms falling from about 4.5% to 0.5%, alongside primary scam recall falling from about 0.883 to 0.861. No equivalence claim follows from seed variation. Saved fresh-case scores miss SSS ayuda, courier/parcel and a job-themed outside-scope example; fresh labels/independence remain unverified. These are candidate-procedure claims and arithmetic, not shipped-model or prospective performance. Independent labels, permissions, leakage-controlled selection/calibration, unseen evaluation, Android parity and usability/safety remain pending. Reporting stays disabled; physical Xiaomi testing stays blocked by secure FRP.
+
 Separate drafting material; no approved Chapters 1 or 2 were edited.
 
 ## Chapter 3 methodology

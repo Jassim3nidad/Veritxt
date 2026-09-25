@@ -1,5 +1,7 @@
 # Supplied experimental model card
 
+The later `lr-calibrated-2` candidate is **under review, not deployed**; its supplied results are separately recorded in the [candidate review](../research/candidate_review/README.md). They are not results for the artifact described by this card. This review changes no shipped weights or status flags.
+
 Version: SmishGuard 0.2.0-dev, converted schema 2. Intended use: authorized local manual paste/share software testing only. Research performance, calibration and automatic warning approval are unverified. Never describe the score as a fraud probability or guarantee.
 
 Model: supplied binary logistic regression, raw term-frequency TF-IDF, L2 normalization, word unigrams/bigrams, sigmoid score. Tokenization uses frozen Python Unicode 15.0.0 behavior, preprocessing `python-unicode-word-v2`. Positive class is `smishing`; decision is strict score >0.5. Unknown terms are ignored; empty feature vectors use the intercept. Empty/blank and over-10,000 UTF-16-code-unit Android inputs fail. Safe probes check compatibility, not language accuracy.

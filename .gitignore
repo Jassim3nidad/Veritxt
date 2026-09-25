@@ -35,3 +35,21 @@ smishguard_training_demo.zip
 **/*.db-journal
 **/*.db-wal
 **/*.db-shm
+# Candidate review: raw inputs, fitted exports and message-bearing probes stay private.
+data/
+# This existing package contains Kotlin source, not research data.
+!android/app/src/main/java/ph/smishguard/data/
+model_export_*.json
+MODEL_INTEGRATION_calibrated*.md
+smishguard_PRIVATE_*.zip
+fresh_test_messages.csv
+candidate_parity_cases.json
+*.pkl
+*.pickle
+*.sqlite
+*.sqlite3
+*.onnx
+*.tflite
+*.pt
+*.pth
+*.safetensors

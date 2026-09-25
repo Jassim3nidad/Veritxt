@@ -5,3 +5,6 @@ gradlew text eol=lf
 *.jar binary
 *.apk binary
 *.zip binary
+# Preserve source hashes for the two reviewed supplied aggregate tables.
+research/candidate_review/calibration_metrics.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+research/candidate_review/reliability.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

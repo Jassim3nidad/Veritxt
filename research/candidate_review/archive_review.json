@@ -1,0 +1,295 @@
+{
+  "archive_name": "smishguard_repo_update.zip",
+  "archive_sha256": "a3d41169f4562a0d75bb787f430a9555c26139879452dd7655269485a6d302e0",
+  "starting_commit": "a604e18eb2801bb557bbc54b500df965bb3c5750",
+  "crc": "passed",
+  "members": 28,
+  "python_syntax_passed": 10,
+  "unsafe_paths": 0,
+  "symlinks": 0,
+  "encrypted_members": 0,
+  "unexpected_binary_members": 0,
+  "scope": "Only the explicitly supplied shareable archive was opened. Nothing was extracted wholesale. Pattern matches are review signals, not proof of personal data or a complete privacy audit.",
+  "files": [
+    {
+      "member": "HANDOFF.md",
+      "size": 6578,
+      "sha256": "229d1dc22e711b9849a2cb169720f58df22ade282aaa9ec5624fcac6f7ffbee3",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "instructions/claims require review; no automatic adoption",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/app.py",
+      "size": 10048,
+      "sha256": "25ce1cd06164f002c070dc4712f0f42cc7d76d34f052bb194d34a01ec2341960",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "older backend; retain hardened 45-test implementation and pinned dependencies",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/seed.py",
+      "size": 2721,
+      "sha256": "8fb19911eef49dd58d6ab02d764289778a2354c89d1e7c9b18e8c5b9fa0f1fdd",
+      "repository_comparison": "line-endings-only",
+      "decision": "retain existing; no copy",
+      "reason": "line endings only",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/test_backend.py",
+      "size": 9679,
+      "sha256": "db3039aa9852849ebf2ea971496aee74d9103f9e61156a60e9c93aedd065edc2",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "older backend; retain hardened 45-test implementation and pinned dependencies",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/requirements.txt",
+      "size": 14,
+      "sha256": "bf8e22efe0dc59e74cc0e0d7a406ff60071bc0d927bf6e1001a4ade8c958a58d",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "older backend; retain hardened 45-test implementation and pinned dependencies",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/README.md",
+      "size": 3923,
+      "sha256": "f1a5b54308e6028bc6fe15a5cd568eb254da19cfb1da435b85c5f10948727578",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "older backend; retain hardened 45-test implementation and pinned dependencies",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/.gitignore",
+      "size": 35,
+      "sha256": "df58e1ffaa79b3aa27f28613084f3fe67e8eccf01eb9ac4039a1d7639427f3bd",
+      "repository_comparison": "line-endings-only",
+      "decision": "retain existing; no copy",
+      "reason": "line endings only",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "backend/templates/dashboard.html",
+      "size": 8216,
+      "sha256": "f5aa8611c3f00b5321fd2ccb8a86f5896c230c57e490f965434dbb722ccaa03e",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "older backend; retain hardened 45-test implementation and pinned dependencies",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/comparative_analysis_v2.py",
+      "size": 3990,
+      "sha256": "5b70aaf328c96abc808d8538bfface22a09655566a54e3815bdfd4f16fca0312",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/lr_tuned.py",
+      "size": 3672,
+      "sha256": "f967140ed62aee2ad2a9adf27f05aa39f41e7301ab042feabd72930aeb05fd81",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/lr_5seed_bootstrap.py",
+      "size": 2575,
+      "sha256": "9129bd84b306e54c9f1865af499c708621055708d22c1df9c501f39689bb3727",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/build_supplementary_ham.py",
+      "size": 9662,
+      "sha256": "3a8acc9884bb178d9295cbf2ddb36c21325a7d8d17522007e4a3bb099e000e94",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "automatic source-category labels, heuristic redaction and private source inputs; conflicts with reviewed intake",
+      "mobile_pattern_count": 3,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/train_calibrated_lr.py",
+      "size": 40171,
+      "sha256": "d770f4d6f312c901595573f4ca749eca5f40b3f213a73495bad6217a1d23cc4d",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "duplicate candidate pipeline; private inputs; emits weights, guide text and raw probes; method reviewed without execution",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/evaluate_fresh_messages.py",
+      "size": 2789,
+      "sha256": "50695d5b876952cbcc8451fafa3d1f4a0ac4815fd0e463a8924368951c8bd603",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "requires private model, prints message excerpts; no independent new inference authorized",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/run_training_demo.py",
+      "size": 5405,
+      "sha256": "a5dd10632116657bdbf42428f95527917a0628b433d34f1637cf3616b220c1bb",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "executes six private-data stages and writes exports; not a safe public demo",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/fresh_test_messages.csv",
+      "size": 3635,
+      "sha256": "b896b5f729d9ad2449258e14b102eef6ff45e766832ea741b9f5807204cb51fd",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "raw message text and phone-shaped literal; authorship, labels and redaction unverified; no publication",
+      "mobile_pattern_count": 1,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/candidate_parity_cases.json",
+      "size": 5417,
+      "sha256": "1f5d27bfd7d279385bd7b5ff66a5da773116afbf7c94eadcb7d5bdb130cabf62",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "raw message text and phone-shaped literal; authorship, labels and redaction unverified; no publication",
+      "mobile_pattern_count": 1,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/comparative_analysis_v2.csv",
+      "size": 449,
+      "sha256": "fe8722904b1ca905c9ed6657c62536239bd89a9726708a70182eecb8ec80976b",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/lr_5seed_results.csv",
+      "size": 522,
+      "sha256": "6bed78f0bb80b3256a320aa373118fe1dd3e09d6abf2aa272d8769ffc2e858a7",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/lr_tuned_5seed_results.csv",
+      "size": 505,
+      "sha256": "d42374ad651abe370f329c8fa931fc7f6da15b67a50db0839ea32b562b137c15",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/calibration_metrics.csv",
+      "size": 7248,
+      "sha256": "d0b131278f1e3379539b9e69efd8f3503db529b21bc40ebfc73ebd9736cfeebe",
+      "repository_comparison": "absent",
+      "decision": "accepted unchanged",
+      "reason": "aggregate numeric evidence only; supplied, not reproduced",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/reliability.csv",
+      "size": 1138,
+      "sha256": "1d1beb7a687ceebe144fe2b69916eb93dfd2f3c9d8a287887db875c39a760c5f",
+      "repository_comparison": "absent",
+      "decision": "accepted unchanged",
+      "reason": "aggregate numeric evidence only; supplied, not reproduced",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/lr_best_params.json",
+      "size": 91,
+      "sha256": "307728f22cf1420fec796dcc1406f93d5a5b01c553321e0250878b87067653f9",
+      "repository_comparison": "byte-identical",
+      "decision": "retain existing; no copy",
+      "reason": "byte-identical duplicate",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/calibration_report.md",
+      "size": 7023,
+      "sha256": "324746201883bdd5f0c499d8a0457a337a6963c5746e2e56f571a53bf09f83ef",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "reviewed summary replaces unqualified statistical claims, message examples and fitted calibration parameters",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/MODEL_EVALUATION.md",
+      "size": 5267,
+      "sha256": "bb4815129588b9b2e00729478cb283f83553727cc2b2be9ddae2a8b7359187d7",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "existing file differs; preserve reviewed repository version",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/THRESHOLD_POLICY.md",
+      "size": 4817,
+      "sha256": "8b4c6686c18babfe9ab44d1b0315acb7d11e6d7dc04fefaa38f3101112383056",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "existing file differs; preserve reviewed repository version",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/README.md",
+      "size": 7572,
+      "sha256": "a667b763e413fd8f2a7ea29c1645166c8bd42a90bd9fab650583e625e7787fdd",
+      "repository_comparison": "different",
+      "decision": "retain existing; no copy",
+      "reason": "existing file differs; preserve reviewed repository version",
+      "mobile_pattern_count": 1,
+      "credential_pattern_count": 0
+    },
+    {
+      "member": "training/DEMO.md",
+      "size": 3857,
+      "sha256": "c2db8c770bca0350777722eadac69c3b34a3f91e2e00e07cf9e0f557068a9138",
+      "repository_comparison": "absent",
+      "decision": "exclude; reviewed only",
+      "reason": "instructions/claims require review; no automatic adoption",
+      "mobile_pattern_count": 0,
+      "credential_pattern_count": 0
+    }
+  ]
+}

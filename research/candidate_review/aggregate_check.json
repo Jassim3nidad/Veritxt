@@ -1,0 +1,293 @@
+{
+  "status": "supplied aggregates checked; no inference or training reproduced",
+  "metric_rows": 30,
+  "reliability_rows": 20,
+  "pooled_observations_not_unique_messages": {
+    "raw": [
+      1216,
+      222
+    ],
+    "calibrated": [
+      1216,
+      222
+    ]
+  },
+  "summary": {
+    "grouped/primary only/raw": {
+      "accuracy": {
+        "mean": 0.9647172140265264,
+        "sample_sd": 0.016552510982550925
+      },
+      "precision": {
+        "mean": 0.919674993186054,
+        "sample_sd": 0.036959019391596716
+      },
+      "recall": {
+        "mean": 0.8833333333333333,
+        "sample_sd": 0.06130281310346638
+      },
+      "f1": {
+        "mean": 0.9008796870063911,
+        "sample_sd": 0.048563094172966934
+      },
+      "brier": {
+        "mean": 0.035172581204879864,
+        "sample_sd": 0.00384558787668187
+      },
+      "log_loss": {
+        "mean": 0.1600852044884924,
+        "sample_sd": 0.007744394866437066
+      },
+      "ece": {
+        "mean": 0.09659494008157027,
+        "sample_sd": 0.011172537060112628
+      },
+      "avg_score_legit": {
+        "mean": 0.1215193346459983,
+        "sample_sd": 0.005584834051301194
+      },
+      "avg_score_scam": {
+        "mean": 0.8262441827440611,
+        "sample_sd": 0.030031842770164185
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.0880814988440535,
+        "sample_sd": 0.01677107005499948
+      },
+      "everyday_avg_score": {
+        "mean": 0.2650005034135455,
+        "sample_sd": 0.014296036660314947
+      }
+    },
+    "grouped/primary only/calibrated": {
+      "accuracy": {
+        "mean": 0.969565574576342,
+        "sample_sd": 0.013542219529201939
+      },
+      "precision": {
+        "mean": 0.9467164792298386,
+        "sample_sd": 0.02611709383923995
+      },
+      "recall": {
+        "mean": 0.8833333333333333,
+        "sample_sd": 0.06130281310346638
+      },
+      "f1": {
+        "mean": 0.9132427061896342,
+        "sample_sd": 0.04060864362054471
+      },
+      "brier": {
+        "mean": 0.02476755105404162,
+        "sample_sd": 0.00849563620571634
+      },
+      "log_loss": {
+        "mean": 0.09117957162592552,
+        "sample_sd": 0.028564201387187443
+      },
+      "ece": {
+        "mean": 0.02234148748630793,
+        "sample_sd": 0.0028812590278560557
+      },
+      "avg_score_legit": {
+        "mean": 0.03132806544778719,
+        "sample_sd": 0.0019143035660479616
+      },
+      "avg_score_scam": {
+        "mean": 0.870582046440568,
+        "sample_sd": 0.04605828353987793
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.0452963024399484,
+        "sample_sd": 0.0196356291175846
+      },
+      "everyday_avg_score": {
+        "mean": 0.12127711975290435,
+        "sample_sd": 0.016533252289979775
+      }
+    },
+    "grouped/with everyday/raw": {
+      "accuracy": {
+        "mean": 0.9621607431208775,
+        "sample_sd": 0.012432896560977316
+      },
+      "precision": {
+        "mean": 0.9113595706618962,
+        "sample_sd": 0.024305848394631714
+      },
+      "recall": {
+        "mean": 0.8788888888888888,
+        "sample_sd": 0.057159357267666376
+      },
+      "f1": {
+        "mean": 0.8941558441558441,
+        "sample_sd": 0.03605212114932806
+      },
+      "brier": {
+        "mean": 0.03188882654327335,
+        "sample_sd": 0.0054570136587618005
+      },
+      "log_loss": {
+        "mean": 0.13984841396535846,
+        "sample_sd": 0.01232720548405533
+      },
+      "ece": {
+        "mean": 0.06798592323443099,
+        "sample_sd": 0.008612218855236173
+      },
+      "avg_score_legit": {
+        "mean": 0.09594115791931448,
+        "sample_sd": 0.004121648191827317
+      },
+      "avg_score_scam": {
+        "mean": 0.8325540800971224,
+        "sample_sd": 0.03621124542831888
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.007179750761148957,
+        "sample_sd": 0.0068243433089510055
+      },
+      "everyday_avg_score": {
+        "mean": 0.08719598458296567,
+        "sample_sd": 0.006484126785615669
+      }
+    },
+    "grouped/with everyday/calibrated": {
+      "accuracy": {
+        "mean": 0.964680989301505,
+        "sample_sd": 0.012380088265327327
+      },
+      "precision": {
+        "mean": 0.9406475491053214,
+        "sample_sd": 0.022844152387258246
+      },
+      "recall": {
+        "mean": 0.8607070707070708,
+        "sample_sd": 0.057349813620747286
+      },
+      "f1": {
+        "mean": 0.8982983354982943,
+        "sample_sd": 0.03754253628992576
+      },
+      "brier": {
+        "mean": 0.028609246703001256,
+        "sample_sd": 0.009394055818688178
+      },
+      "log_loss": {
+        "mean": 0.10202417428319038,
+        "sample_sd": 0.03138547843065485
+      },
+      "ece": {
+        "mean": 0.026201199313102764,
+        "sample_sd": 0.007061156589616243
+      },
+      "avg_score_legit": {
+        "mean": 0.02364067761281147,
+        "sample_sd": 0.0032613126035503596
+      },
+      "avg_score_scam": {
+        "mean": 0.8403069026521709,
+        "sample_sd": 0.050738756735177484
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.005421092752490949,
+        "sample_sd": 0.00589152593025093
+      },
+      "everyday_avg_score": {
+        "mean": 0.013410788391179559,
+        "sample_sd": 0.004660898966456124
+      }
+    },
+    "random/with everyday/raw": {
+      "accuracy": {
+        "mean": 0.946875,
+        "sample_sd": 0.007096055517415996
+      },
+      "precision": {
+        "mean": 0.8672791880980034,
+        "sample_sd": 0.03650196178688061
+      },
+      "recall": {
+        "mean": 0.8266666666666667,
+        "sample_sd": 0.05067446333773945
+      },
+      "f1": {
+        "mean": 0.8451231998654649,
+        "sample_sd": 0.02219597301733876
+      },
+      "brier": {
+        "mean": 0.04002873674037307,
+        "sample_sd": 0.005062252289491687
+      },
+      "log_loss": {
+        "mean": 0.15966140947997345,
+        "sample_sd": 0.012531897358645247
+      },
+      "ece": {
+        "mean": 0.07177140621332542,
+        "sample_sd": 0.011462056450326585
+      },
+      "avg_score_legit": {
+        "mean": 0.0995605343059368,
+        "sample_sd": 0.00907130759689836
+      },
+      "avg_score_scam": {
+        "mean": 0.7800362692954285,
+        "sample_sd": 0.04090354100613934
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.008571428571428572,
+        "sample_sd": 0.007063046178186347
+      },
+      "everyday_avg_score": {
+        "mean": 0.08618765731397192,
+        "sample_sd": 0.007256466899787828
+      }
+    },
+    "random/with everyday/calibrated": {
+      "accuracy": {
+        "mean": 0.95,
+        "sample_sd": 0.010111077426206863
+      },
+      "precision": {
+        "mean": 0.9019406125789105,
+        "sample_sd": 0.02613832523900348
+      },
+      "recall": {
+        "mean": 0.8044444444444444,
+        "sample_sd": 0.07269078770576054
+      },
+      "f1": {
+        "mean": 0.8485129704055535,
+        "sample_sd": 0.036642123118332946
+      },
+      "brier": {
+        "mean": 0.0399889781463835,
+        "sample_sd": 0.008113626240220797
+      },
+      "log_loss": {
+        "mean": 0.13463588235612428,
+        "sample_sd": 0.03527530349629058
+      },
+      "ece": {
+        "mean": 0.03489141222057367,
+        "sample_sd": 0.007372824025262522
+      },
+      "avg_score_legit": {
+        "mean": 0.02946175509973789,
+        "sample_sd": 0.007339877623547218
+      },
+      "avg_score_scam": {
+        "mean": 0.7759991914961937,
+        "sample_sd": 0.049393748864120915
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.005714285714285714,
+        "sample_sd": 0.006208764195431094
+      },
+      "everyday_avg_score": {
+        "mean": 0.015260255387667732,
+        "sample_sd": 0.003922178408220717
+      }
+    }
+  }
+}
