@@ -1,0 +1,37 @@
+{
+  "file": "SmishGuard-0.2.0-dev-model-included-20260925-ce4c9752edb1.apk",
+  "sha256": "ce4c9752edb161f7293e38a7f1ebd9f775089e845550fba868bfbfac7843411f",
+  "package": "package: name='ph.smishguard.dev' versionCode='2' versionName='0.2.0-dev' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'",
+  "variant": "development",
+  "model_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+  "model_metadata": {
+    "schema_version": 2,
+    "intended_use": "manual_development",
+    "evaluation_status": "unverified",
+    "calibration_status": "uncalibrated",
+    "automatic_warnings_approved": false,
+    "synthetic": false,
+    "threshold": 0.5,
+    "threshold_comparison": "strict_greater"
+  },
+  "zip_crc": "passed",
+  "signature": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1",
+  "permissions": "package: ph.smishguard.dev\nuses-permission: name='android.permission.RECEIVE_SMS'\nuses-permission: name='android.permission.POST_NOTIFICATIONS'\npermission: ph.smishguard.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\nuses-permission: name='ph.smishguard.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'",
+  "jvm_tests": [
+    {
+      "name": "ph.smishguard.CoreTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "ph.smishguard.ExportParityTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "1"
+    }
+  ],
+  "physical_phone_tested": false
+}

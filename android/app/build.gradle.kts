@@ -1,3 +1,5 @@
+import java.security.MessageDigest
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -39,6 +41,27 @@ tasks.withType<Test>().configureEach {
     }
 }
 configurations.getByName("developmentImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+
+// This private asset is intentionally absent from public checkouts. A development
+// APK must never silently fall back to the model-free debug experience.
+val verifyDevelopmentModel by tasks.registering {
+    val model = layout.projectDirectory.file("src/development/assets/model.json")
+    // Always check, including incremental builds after the local asset is removed.
+    doLast {
+        check(model.asFile.isFile) {
+            "Development model missing: place the existing approved 0.2.0-dev asset at " +
+                "android/app/src/development/assets/model.json. Do not substitute a candidate model."
+        }
+        val digest = MessageDigest.getInstance("SHA-256")
+            .digest(model.asFile.readBytes()).joinToString("") { "%02x".format(it) }
+        check(digest == "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2") {
+            "Development model differs from the approved experimental 0.2.0-dev asset."
+        }
+    }
+}
+tasks.matching { it.name == "preDevelopmentBuild" || it.name == "mergeDevelopmentAssets" }
+    .configureEach { dependsOn(verifyDevelopmentModel) }
+
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2025.12.01"))
     implementation("androidx.compose.material3:material3")

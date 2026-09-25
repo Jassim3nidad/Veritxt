@@ -12,7 +12,7 @@ The supplied model's redistribution provenance remains unresolved and its vocabu
 
 1. Use JDK 17 and the pinned Gradle wrapper; create local Android SDK configuration. `scripts/build.ps1` builds the default model-free debug app.
 2. Create `research/.venv`, install `research/requirements.txt`, set `PYTHONPATH=research`, and run Python tests. These need no private dataset.
-3. To reproduce local development-model parity, obtain the original package through the team's authorized private channel. Follow the audit/conversion commands in research/README.md. The generated development asset remains ignored. Without it, the app correctly remains in its missing-model state; model-specific instrumentation needs the asset.
+3. To reproduce local development-model parity, obtain the existing converted 0.2.0-dev asset through the team's authorized private channel and place it at `android/app/src/development/assets/model.json`. The asset remains ignored. Development builds now reject a missing or different asset; debug builds remain model-free. Use `scripts/build.ps1 -Variant development`. See [model installation investigation](model-install-investigation.md) for the required digest, regression check and verified private APK. Do not substitute the candidate under review.
 4. Private review packets, raw datasets and consent records must use a controlled team handoff, never GitHub. Only the header templates and generator are included here.
 
 Automatic warnings/reporting remain disabled. Physical-device testing remains pending. Pulling code or passing tests grants no dataset permission or research-performance status.
