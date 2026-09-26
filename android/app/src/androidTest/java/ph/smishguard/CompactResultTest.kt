@@ -39,6 +39,8 @@ class CompactResultTest {
             scan(result)
             compose.onNodeWithText("Test a message").assertExists()
             compose.onNodeWithText("SMS message").assertExists()
+            compose.onNode(isSelectable() and hasText("Check")).assertIsSelected()
+            compose.onNodeWithText("Check message", substring = false).assertHeightIsAtLeast(48.dp)
             compose.onNodeWithText(ResultCopy.heading(result)).assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
             compose.onNodeWithText(ResultCopy.score(result.score)).assertExists()
             compose.onNodeWithText(ResultCopy.DISCLAIMER).assertExists()
