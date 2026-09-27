@@ -37,10 +37,10 @@ class CompactResultTest {
         for (suspicious in listOf(true, false)) {
             val result = Detection.Success(suspicious, if (suspicious) .9229 else .1234, experimental = true)
             scan(result)
-            compose.onNodeWithText("Test a message").assertExists()
-            compose.onNodeWithText("SMS message").assertExists()
+            compose.onNodeWithText("Check result").assertExists()
+            compose.onNodeWithText("SMS message").assertDoesNotExist()
             compose.onNode(isSelectable() and hasText("Check")).assertIsSelected()
-            compose.onNodeWithText("Check message", substring = false).assertHeightIsAtLeast(48.dp)
+            compose.onNodeWithText("Check another message", substring = false).assertHeightIsAtLeast(48.dp)
             compose.onNodeWithText(ResultCopy.heading(result)).assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
             compose.onNodeWithText(ResultCopy.score(result.score)).assertExists()
             compose.onNodeWithText(ResultCopy.DISCLAIMER).assertExists()
@@ -58,6 +58,7 @@ class CompactResultTest {
         compose.onNodeWithText("Unable to assess").assertExists()
         compose.onNodeWithText("Enter an SMS message with meaningful text.").assertExists()
         compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
+        compose.onNodeWithText("Check another message").performScrollTo().performClick()
         compose.onNodeWithText("SMS message").performTextInput("Hi")
         compose.onNodeWithText("Unable to assess").assertDoesNotExist()
         compose.onNodeWithText("What does this mean?").assertDoesNotExist()
@@ -68,7 +69,7 @@ class CompactResultTest {
         compose.onNodeWithText("Unable to assess").assertExists()
         compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
         scan(Detection.InvalidModel)
-        compose.onNodeWithText("Model not installed").assertExists()
+        compose.onNodeWithText("Model unavailable").assertExists()
         compose.onNodeWithText("The bundled model is invalid or unsupported. No prediction was made.").assertExists()
         compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
     }
@@ -84,8 +85,8 @@ class CompactResultTest {
         }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Test a message").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.waitUntil(10000) { compose.onAllNodesWithText("phishing model score", substring = true).fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithText("Test a message").performScrollTo()
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("Check result").performScrollTo()
         recordReliabilitySnapshot(compose.activity, "compact-result", null, "Synthetic test; input cleared; shipped model")
     }
 }

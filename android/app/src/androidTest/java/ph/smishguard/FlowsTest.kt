@@ -41,13 +41,14 @@ class FlowsTest {
         compose.onNodeWithText("Check a message").performScrollTo().performClick()
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
         compose.onNodeWithText("Unable to assess").assertExists()
+        compose.onNodeWithText("Check another message").performScrollTo().performClick()
         compose.onNodeWithText("SMS message").performTextInput("Kumusta po, pakiverify ang account. ".repeat(40))
         compose.waitForIdle()
         // Invoke the accessible action after long-input/IME scrolling settles.
         compose.onNodeWithText("Check message", substring = false).performScrollTo()
             .performSemanticsAction(SemanticsActions.OnClick) { it() }
         try {
-            compose.waitUntil(10000) { compose.onAllNodesWithText("Model not installed", substring = false).fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(10000) { compose.onAllNodesWithText("Model unavailable", substring = false).fetchSemanticsNodes().isNotEmpty() }
         } catch (error: Exception) {
             var summary = ""
             compose.activityRule.scenario.onActivity {
@@ -112,7 +113,7 @@ class FlowsTest {
         val app = compose.activity.application as SoftwareTestApp
         val invocations = java.util.concurrent.atomic.AtomicInteger()
         val cases = listOf(
-            ph.smishguard.model.Detection.InvalidModel to "Model not installed",
+            ph.smishguard.model.Detection.InvalidModel to "Model unavailable",
             ph.smishguard.model.Detection.Failure to "Could not complete the check",
             ph.smishguard.model.Detection.Success(true, .99, probability = true, synthetic = true) to "Synthetic interface fixture"
         )

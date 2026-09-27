@@ -39,6 +39,15 @@ class AccessibilityTest {
             compose.waitUntil(10000) { compose.onAllNodesWithText("SMS message").fetchSemanticsNodes().size == 1 }
             compose.onNodeWithText("SMS message").performScrollTo().assertIsDisplayed().assertHeightIsAtLeast(48.dp)
             compose.onNodeWithText("Check message", substring = false).performScrollTo().assertIsDisplayed()
+            compose.onNodeWithText("Check message", substring = false)
+                .performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
+            compose.waitUntil(10000) { compose.onAllNodesWithText("Unable to assess").fetchSemanticsNodes().size == 1 }
+            compose.onNodeWithText("Unable to assess").assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
+            compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
+            compose.onNodeWithText("Check another message").performScrollTo().assertIsDisplayed().assertHeightIsAtLeast(48.dp)
+            recordReliabilitySnapshot(compose.activity, "accessible-result", null, "Empty-input result; no message content")
+            compose.onNodeWithText("Check another message").performClick()
+            compose.onNodeWithText("SMS message").performScrollTo().assertIsDisplayed()
             // Retain physical hit-target coverage after the screen/scroll has settled.
             compose.onNode(isSelectable() and hasText("Home")).assertIsDisplayed().performClick().assertIsSelected()
             settings.assertIsDisplayed().performClick().assertIsSelected()

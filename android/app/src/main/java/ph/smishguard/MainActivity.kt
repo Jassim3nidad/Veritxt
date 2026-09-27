@@ -23,11 +23,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.LocalSaveableStateRegistry
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -54,7 +52,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         consumeShare(intent)
         setContent {
-            NeoTheme {
+            SmishGuardTheme {
                 // No Compose saveable state, including text field state, enters activity bundles.
                 CompositionLocalProvider(LocalSaveableStateRegistry provides null) {
                     SmishGuardUi(application as SmishGuardApp, vm)
@@ -85,7 +83,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     val preferences by app.preferences.flow.collectAsStateWithLifecycle(initialValue = null)
     val scope = rememberCoroutineScope()
     val scroll = rememberScrollState()
-    LaunchedEffect(state.screen, preferences?.onboarded) { scroll.scrollTo(0) }
+    LaunchedEffect(state.screen, state.result, preferences?.onboarded) { scroll.scrollTo(0) }
     var permissions by remember { mutableStateOf(PermissionState.read(app)) }
     val owner = LocalLifecycleOwner.current
     DisposableEffect(owner) {
@@ -97,57 +95,75 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     }
     BackHandler(state.screen != Screen.HOME) { vm.endSession() }
     Scaffold(bottomBar = {
-        if (preferences?.onboarded == true) NavigationBar(containerColor = MaterialTheme.colorScheme.surface, modifier = Modifier.neoOutline()) {
+        if (preferences?.onboarded == true) NavigationBar(containerColor = MaterialTheme.colorScheme.surface, modifier = Modifier.navigationDivider()) {
             listOf(Screen.HOME to "Home", Screen.CHECK to "Check", Screen.SETTINGS to "Settings").forEach { (screen, label) ->
                 NavigationBarItem(selected = state.screen == screen || (screen == Screen.CHECK && state.screen == Screen.RESULT), onClick = { vm.navigate(screen) },
-                    icon = { NavGlyph(screen) }, label = { Text(label) })
+                    icon = { NavGlyph(screen) }, label = { Text(label) },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                        selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        indicatorColor = MaterialTheme.colorScheme.surfaceContainer))
             }
         }
     }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(scroll).padding(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("SMISHGUARD", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+        Column(Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(scroll).padding(horizontal = 24.dp, vertical = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)) {
+            Text("SmishGuard", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold)
             when {
                 preferences == null -> CircularProgressIndicator()
                 preferences?.onboarded != true -> {
                     Heading("A moment to check.\nA little more clarity.")
                     Text("Check SMS messages for potential financial-institution impersonation in Filipino, English, and Taglish.")
-                    InfoCard("Your message stays here", "Processing happens on this phone. Message text is not stored or sent. Leaving the app clears your checking session.")
-                    InfoCard("A warning tool", "SmishGuard never blocks, deletes, sends, or changes SMS. It does not replace your messaging app. Checks can miss scams or flag legitimate messages.")
+                    InfoSection("Your message stays here", "Processing happens on this phone. Message text is not stored or sent. Leaving the app clears your checking session.")
+                    InfoSection("A warning tool", "SmishGuard never blocks, deletes, sends, or changes SMS. It does not replace your messaging app. Checks can miss scams or flag legitimate messages.")
                     Text(if (state.modelStatus.startsWith("Loading")) "Loading model status. Please wait before checking." else if (state.modelStatus.startsWith("Experimental")) "Experimental model for manual development testing. Research performance is unverified; automatic warnings and reporting are disabled." else "This build has no usable model. It cannot currently assess whether a message is suspicious.")
                     Text("Incoming SMS scanning is optional and off by default. No permission is needed to paste or share text. RCS and other messaging services are not monitored.")
-                    NeoButton(onClick = { scope.launch { app.preferences.onboard() } }, Modifier.fillMaxWidth()) { Text("Continue without permissions") }
+                    PrimaryAction(onClick = { scope.launch { app.preferences.onboard() } }, Modifier.fillMaxWidth()) { Text("Continue without permissions") }
                 }
                 else -> when (state.screen) {
                     Screen.HOME -> {
                         Heading("Before you tap,\ncheck the message.")
                         Text("A private space to pause and review a financial SMS.", style = MaterialTheme.typography.bodyLarge)
-                        NeoButton(onClick = { vm.navigate(Screen.CHECK) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Check a message") }
-                        InfoCard("Automatic warnings disabled", "This development build cannot issue model-driven SMS warnings. Reporting is also disabled.", NeoYellow)
-                        InfoCard(state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Research performance is unverified. The 0.5 threshold is provisional." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
-                        InfoCard("Manual checks - no permissions needed", "Paste or share a message to check it on this phone. Automatic protection remains off, regardless of Android permissions.")
+                        PrimaryAction(onClick = { vm.navigate(Screen.CHECK) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Check a message") }
+                        InfoSection("Automatic warnings disabled", "Reporting is also disabled. Use manual checks to review a message.")
+                        InfoSection(if (state.modelStatus == "Model not installed") "Model unavailable" else state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Scores are uncalibrated and performance is unverified." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
+                        Text("No SMS permission is needed to paste or share.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Text("Never share an OTP, PIN, or password. Verify requests using your bank’s official app or a number you already trust.")
                         Text("Research prototype · On-device processing", style = MaterialTheme.typography.labelMedium)
                     }
                     Screen.CHECK, Screen.RESULT -> {
-                        Heading("Test a message")
-                        Text("Manual check · automatic protection and reporting are off", style = MaterialTheme.typography.bodySmall)
-                        OutlinedTextField(value = state.text, onValueChange = vm::edit, modifier = Modifier.fillMaxWidth(),
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(10.dp),
-                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = MaterialTheme.colorScheme.primary, unfocusedBorderColor = MaterialTheme.colorScheme.onSurface, unfocusedContainerColor = MaterialTheme.colorScheme.surface, focusedContainerColor = MaterialTheme.colorScheme.surface),
-                            label = { Text("SMS message") }, placeholder = { Text("Paste the message you want to check…") },
-                            minLines = 4, maxLines = 7, enabled = !state.busy,
-                            keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, keyboardType = KeyboardType.Password),
-                            supportingText = { Text("${state.text.length} / 10,000 characters · cleared after checking") })
-                        state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-                        val keyboard = LocalSoftwareKeyboardController.current
-                        NeoButton(onClick = { keyboard?.hide(); vm.scan() }, enabled = !state.busy, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
-                            if (state.busy) { CircularProgressIndicator(Modifier.size(20.dp)); Spacer(Modifier.width(12.dp)) }
-                            Text(if (state.busy) "Checking on your phone…" else "Check message")
+                        val result = state.result
+                        if (result == null) {
+                            Heading("Test a message")
+                            Text("Paste or share an SMS to review it privately.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            OutlinedTextField(value = state.text, onValueChange = vm::edit, modifier = Modifier.fillMaxWidth(),
+                                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                                    focusedContainerColor = MaterialTheme.colorScheme.surfaceContainer),
+                                label = { Text("SMS message") }, placeholder = { Text("Paste your message here") },
+                                minLines = 6, maxLines = 10, enabled = !state.busy,
+                                keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, keyboardType = KeyboardType.Password),
+                                supportingText = { Text("${state.text.length} / 10,000 characters") })
+                            state.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                            val keyboard = LocalSoftwareKeyboardController.current
+                            PrimaryAction(onClick = { keyboard?.hide(); vm.scan() }, enabled = !state.busy, modifier = Modifier.fillMaxWidth()) {
+                                if (state.busy) { CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary); Spacer(Modifier.width(12.dp)) }
+                                Text(if (state.busy) "Checking on your phone..." else "Check message")
+                            }
+                            Text("Text is cleared after checking. Automatic warnings and reporting are off.",
+                                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            if (state.text.isNotEmpty()) TextButton(onClick = { vm.edit("") }) { Text("Clear message") }
+                        } else {
+                            Text("Check result", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            CompactResult(result) { vm.navigate(Screen.REPORT) }
+                            PrimaryAction(onClick = { vm.edit("") }, modifier = Modifier.fillMaxWidth()) { Text("Check another message") }
                         }
-                        state.result?.let { CompactResult(it) { vm.navigate(Screen.REPORT) } }
-                        if (state.text.isNotEmpty()) TextButton(onClick = { vm.edit("") }) { Text("Clear message") }
                     }
                     Screen.REPORT -> {
                         Heading("Your choice to report")
@@ -156,10 +172,10 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                         Choice("Impersonated brand (optional)", Brand.entries, brand, { it.label }) { brand = it }
                         val result = state.result as? Detection.Success
                         val payload = if (result != null && state.checkedAt != null) ReportPayload.create(state.domain, result, state.checkedAt!!, preferences!!.city, brand) else null
-                        if (payload != null) InfoCard("Exact metadata preview", payload.json())
-                        else InfoCard("No report can be prepared", "An approved model result and a manually selected city would be required. Experimental, synthetic and unavailable results cannot be reported.")
-                        InfoCard("Reporting unavailable", "No reporting endpoint is configured in this build. Nothing will be sent or queued. Offline checks do not depend on this service.")
-                        NeoButton(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth()) { Text("Submit report · unavailable") }
+                        if (payload != null) InfoSection("Exact metadata preview", payload.json())
+                        else InfoSection("No report can be prepared", "An approved model result and a manually selected city would be required. Experimental, synthetic and unavailable results cannot be reported.")
+                        InfoSection("Reporting unavailable", "No reporting endpoint is configured in this build. Nothing will be sent or queued. Offline checks do not depend on this service.")
+                        PrimaryAction(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth()) { Text("Submit report · unavailable") }
                         Text("Future city dashboards will summarize voluntary reports; their counts cannot measure total citywide scam prevalence.")
                     }
                     Screen.SETTINGS -> SettingsContent(app, preferences!!, permissions, { permissions = PermissionState.read(app) }, { vm.endSession() })
@@ -172,33 +188,29 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
 
 @Composable private fun CompactResult(result: Detection, report: () -> Unit) {
     var explain by remember(result) { mutableStateOf(false) }
-    NeoCard(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }, tone = when {
-        result is Detection.Success && !result.synthetic -> if (result.suspicious) NeoCoral else NeoMint
-        else -> NeoYellow
-    }) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            when (result) {
-                is Detection.Success -> if (result.synthetic) {
-                    Text("Synthetic interface fixture", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
-                    Text("Software test only; no assessment.")
-                } else {
-                    Text(ResultCopy.heading(result), Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-                    Text(ResultCopy.score(result.score), style = MaterialTheme.typography.bodyLarge)
-                    Text(ResultCopy.DISCLAIMER, style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic)
-                }
-                Detection.UnableToAssess -> {
-                    Text("Unable to assess", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
-                    Text("Enter an SMS message with meaningful text.", fontStyle = FontStyle.Italic)
-                }
-                Detection.Unavailable, Detection.InvalidModel -> {
-                    Text("Model not installed", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
-                    Text(if (result == Detection.InvalidModel) "The bundled model is invalid or unsupported. No prediction was made."
-                        else "No usable model is bundled. No prediction was made.")
-                }
-                Detection.Failure -> {
-                    Text("Could not complete the check", Modifier.semantics { heading() }, style = MaterialTheme.typography.titleLarge)
-                    Text("No prediction was made. Try checking the message again.")
-                }
+    Column(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        when (result) {
+            is Detection.Success -> if (result.synthetic) {
+                Heading("Synthetic interface fixture")
+                Text("Software test only; no assessment.")
+            } else {
+                Heading(ResultCopy.heading(result))
+                Text(ResultCopy.score(result.score), style = MaterialTheme.typography.titleLarge)
+                Text(ResultCopy.DISCLAIMER, style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Detection.UnableToAssess -> {
+                Heading("Unable to assess")
+                Text("Enter an SMS message with meaningful text.")
+            }
+            Detection.Unavailable, Detection.InvalidModel -> {
+                Heading("Model unavailable")
+                Text(if (result == Detection.InvalidModel) "The bundled model is invalid or unsupported. No prediction was made."
+                    else "No usable model is bundled. No prediction was made.")
+            }
+            Detection.Failure -> {
+                Heading("Could not complete the check")
+                Text("No prediction was made. Try checking the message again.")
             }
         }
     }
@@ -230,7 +242,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     }
     val notificationRequest = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { refresh() }
     Heading("Privacy & settings")
-    InfoCard("Automatic protection & reporting - off", "This build supports manual testing only. Permission choices below do not enable automatic model warnings or reporting.")
+    InfoSection("Automatic protection & reporting - off", "This build supports manual testing only. Permission choices below do not enable automatic model warnings or reporting.")
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Text("Scan incoming SMS", Modifier.weight(1f).padding(top = 12.dp))
         Switch(checked = preferences.scanning && permissions.active(true), onCheckedChange = {
@@ -240,7 +252,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     }
     Text("Telephony: ${if (permissions.telephony) "available" else "unavailable"}\nSMS permission: ${if (permissions.sms) "granted" else "not granted"}\nNotifications: ${if (permissions.notifications) "enabled" else "disabled"}")
     notice?.let { Text(it) }
-    if (!permissions.notifications) NeoSecondaryButton(onClick = {
+    if (!permissions.notifications) SecondaryAction(onClick = {
         if (Build.VERSION.SDK_INT >= 33 && androidx.core.content.ContextCompat.checkSelfPermission(app,
                 Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED)
             notificationRequest.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -248,9 +260,9 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     }) { Text("Enable warning notifications") }
     TextButton(onClick = { app.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${app.packageName}".toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }) { Text("Open Android permission settings") }
     Choice("Your city · selected manually", City.entries, preferences.city, { it.label }) { city -> scope.launch { app.preferences.city(city) } }
-    InfoCard("Local processing", "Only onboarding, incoming-SMS consent, and your selected city are saved. No scan history or raw message records are kept. Reports are not queued. The app has no internet permission.")
-    InfoCard("Know the limits", "Android treats SMS access as a restricted permission. Your installer and device may prevent it, even for a directly installed APK. Force-stopping the app prevents automatic scanning until you open it again. Battery policies and certain protected SMS may also limit delivery. Notifications must be enabled for warnings.")
-    NeoSecondaryButton(onClick = { clearDialog = true }, Modifier.fillMaxWidth()) { Text("Clear local preferences and session") }
+    InfoSection("Local processing", "Only onboarding, incoming-SMS consent, and your selected city are saved. No scan history or raw message records are kept. Reports are not queued. The app has no internet permission.")
+    InfoSection("Know the limits", "Android treats SMS access as a restricted permission. Your installer and device may prevent it, even for a directly installed APK. Force-stopping the app prevents automatic scanning until you open it again. Battery policies and certain protected SMS may also limit delivery. Notifications must be enabled for warnings.")
+    SecondaryAction(onClick = { clearDialog = true }, Modifier.fillMaxWidth()) { Text("Clear local preferences and session") }
     if (consentDialog) AlertDialog(onDismissRequest = { consentDialog = false }, title = { Text("Allow incoming SMS checks?") },
         text = { Text("SmishGuard will receive new SMS text to check locally, then discard it. It will not read your inbox or change messages. Automatic checks and warnings are disabled until a model is approved for that use. Use manual paste/share for experimental testing. Android may refuse this restricted permission. Notifications are a separate choice.") },
         confirmButton = { TextButton(onClick = {
@@ -263,13 +275,13 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
         dismissButton = { TextButton(onClick = { clearDialog = false }) { Text("Cancel") } })
 }
 
-@Composable private fun Heading(text: String) { Text(text, modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Black) }
-@Composable private fun InfoCard(title: String, body: String, tone: Color = NeoMint) {
-    NeoCard(Modifier.fillMaxWidth(), tone) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-            Text(body, style = MaterialTheme.typography.bodyMedium)
-        }
+@Composable private fun Heading(text: String) { Text(text, modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.SemiBold) }
+@Composable private fun InfoSection(title: String, body: String) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+        Spacer(Modifier.height(4.dp))
+        Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 @Composable private fun <T> Choice(label: String, choices: List<T>, selected: T, display: (T) -> String, change: (T) -> Unit) {
@@ -277,7 +289,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     Column {
         Text(label, style = MaterialTheme.typography.labelLarge)
         Box {
-            NeoSecondaryButton(onClick = { expanded = true }, Modifier.fillMaxWidth()) { Text(display(selected)) }
+            SecondaryAction(onClick = { expanded = true }, Modifier.fillMaxWidth()) { Text(display(selected)) }
             DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                 choices.forEach { choice -> DropdownMenuItem(text = { Text(display(choice)) }, onClick = { expanded = false; change(choice) }) }
             }

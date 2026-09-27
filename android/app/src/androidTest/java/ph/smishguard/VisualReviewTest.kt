@@ -1,6 +1,7 @@
 package ph.smishguard
 
 import android.graphics.Bitmap
+import androidx.compose.ui.graphics.asAndroidBitmap
 import android.view.WindowManager
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.SemanticsActions
@@ -33,12 +34,16 @@ class VisualReviewTest {
             compose.onNodeWithText("Settings").performClick()
             compose.waitUntil(10000) { compose.onAllNodesWithText("Privacy & settings").fetchSemanticsNodes().isNotEmpty() }
             capture("settings")
+            compose.onNodeWithContentDescription("Scan incoming SMS").performScrollTo().performClick()
+            compose.onNodeWithText("Allow incoming SMS checks?").assertExists()
+            capture("permission-consent")
+            compose.onNodeWithText("Keep off").performClick()
             val testApp = app as SoftwareTestApp
             for ((name, result) in listOf(
                 "likely-phishing" to Detection.Success(true, .9229, experimental = true),
                 "no-phishing-detected" to Detection.Success(false, .1234, experimental = true),
                 "unable-to-assess" to Detection.UnableToAssess,
-                "model-not-installed" to Detection.Unavailable,
+                "model-unavailable" to Detection.Unavailable,
                 "invalid-model" to Detection.InvalidModel,
                 "loading-error" to Detection.Failure
             )) {
@@ -54,9 +59,15 @@ class VisualReviewTest {
                 compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
                 compose.waitUntil(10000) { compose.onAllNodesWithText("What does this mean?").fetchSemanticsNodes().isNotEmpty() }
                 if (result !is Detection.Success) compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
-                compose.onNodeWithText("Test a message").performScrollTo()
+                compose.onNodeWithText("Check result").performScrollTo()
                 capture(name)
             }
+            compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
+            capture("explanation")
+            compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
+            compose.onNodeWithText("Submit report", substring = true).performScrollTo().assertIsNotEnabled()
+            compose.onNodeWithText("Your choice to report").performScrollTo()
+            capture("reporting-disabled")
             testApp.testDetector = null
         } finally {
             (app as SoftwareTestApp).testDetector = null
@@ -70,7 +81,10 @@ class VisualReviewTest {
         // Draw the settled test-owned view, avoiding a stale compositor frame
         // immediately after a screen transition. No user message is captured.
         lateinit var bitmap: Bitmap
-        instrumentation.runOnMainSync {
+        if (name == "permission-consent" || name == "explanation") {
+            // Dialogs own a separate window and are absent from the activity decor.
+            bitmap = compose.onNode(isDialog()).captureToImage().asAndroidBitmap()
+        } else instrumentation.runOnMainSync {
             val view = compose.activity.window.decorView
             bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
             view.draw(android.graphics.Canvas(bitmap))
