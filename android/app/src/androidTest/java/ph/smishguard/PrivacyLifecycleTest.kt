@@ -27,4 +27,44 @@ class PrivacyLifecycleTest {
             assertTrue(it.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)
         }
     }
+
+    @Test fun checkedMessageIsTransientAndClearsAtEveryExit() {
+        val app = compose.activity.application as SoftwareTestApp
+        app.testDetector = ph.smishguard.model.MissingDetector()
+        val message = "Invented SMS for result privacy testing.\nSecond line stays intact."
+        try {
+            runBlocking { app.preferences.onboard() }
+            for (exit in listOf("another", "settings", "report", "background", "recreate")) {
+                compose.activityRule.scenario.onActivity {
+                    val vm = androidx.lifecycle.ViewModelProvider(it)[CheckViewModel::class.java]
+                    vm.share(message)
+                    vm.scan()
+                }
+                compose.waitUntil(10000) { compose.onAllNodesWithText(message).fetchSemanticsNodes().isNotEmpty() &&
+                    compose.onAllNodesWithText("Checked message").fetchSemanticsNodes().isNotEmpty() }
+                compose.onNodeWithText(message).assertExists()
+                compose.activityRule.scenario.onActivity {
+                    assertEquals("", androidx.lifecycle.ViewModelProvider(it)[CheckViewModel::class.java].state.value.text)
+                    assertTrue(it.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)
+                }
+                when (exit) {
+                    "another" -> compose.onNodeWithText("Check another message").performScrollTo().performClick()
+                    "settings" -> compose.onNodeWithText("Settings").performClick()
+                    "report" -> compose.activityRule.scenario.onActivity {
+                        androidx.lifecycle.ViewModelProvider(it)[CheckViewModel::class.java].navigate(Screen.REPORT)
+                    }
+                    "background" -> {
+                        compose.activityRule.scenario.moveToState(Lifecycle.State.CREATED)
+                        compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+                    }
+                    else -> compose.activityRule.scenario.recreate()
+                }
+                compose.waitForIdle()
+                compose.onNodeWithText(message).assertDoesNotExist()
+                compose.activityRule.scenario.onActivity {
+                    assertEquals("", androidx.lifecycle.ViewModelProvider(it)[CheckViewModel::class.java].state.value.checkedMessage)
+                }
+            }
+        } finally { app.testDetector = null }
+    }
 }

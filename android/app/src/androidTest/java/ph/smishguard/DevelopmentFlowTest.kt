@@ -26,7 +26,7 @@ class DevelopmentFlowTest {
         compose.waitUntil(10000) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
         compose.waitUntil(10000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithText(text).assertDoesNotExist()
+        compose.onNodeWithText(text).assertExists()
         compose.onNodeWithText("Model score:", substring = true).assertExists()
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
         compose.onNodeWithText("Experimental score; not a verified probability.").assertExists()

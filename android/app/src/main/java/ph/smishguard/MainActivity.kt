@@ -156,12 +156,12 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                                 if (state.busy) { CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary); Spacer(Modifier.width(12.dp)) }
                                 Text(if (state.busy) "Checking on your phone..." else "Check message")
                             }
-                            Text("Text is cleared after checking. Automatic warnings and reporting are off.",
+                            Text("Your message stays on this result only. Automatic warnings and reporting are off.",
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             if (state.text.isNotEmpty()) TextButton(onClick = { vm.edit("") }) { Text("Clear message") }
                         } else {
                             Text("Check result", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                            CompactResult(result) { vm.navigate(Screen.REPORT) }
+                            CompactResult(result, state.checkedMessage) { vm.navigate(Screen.REPORT) }
                             PrimaryAction(onClick = { vm.edit("") }, modifier = Modifier.fillMaxWidth()) { Text("Check another message") }
                         }
                     }
@@ -186,7 +186,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
 }
 
 
-@Composable private fun CompactResult(result: Detection, report: () -> Unit) {
+@Composable private fun CompactResult(result: Detection, checkedMessage: String, report: () -> Unit) {
     var explain by remember(result) { mutableStateOf(false) }
     Column(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         when (result) {
@@ -214,6 +214,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
             }
         }
     }
+    if (checkedMessage.isNotEmpty()) InfoSection("Checked message", checkedMessage)
     TextButton(onClick = { explain = true }, modifier = Modifier.heightIn(min = 48.dp)) { Text("What does this mean?") }
     if (explain) AlertDialog(onDismissRequest = { explain = false },
         title = { Text("About this result") },
@@ -223,7 +224,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                 Text("Unable to assess means there is no usable model word outside links or numbers, or the input is blank or obvious keyboard mashing. It can also occur for meaningful words this model does not know. Short messages are allowed; no minimum word count is required.")
                 Text("Verify suspicious requests through an official app, a website entered independently, or a phone number you already know. Never share an OTP, PIN, or password. Do not rely on contact details in the message.")
                 Text("Automatic warnings and reporting are disabled.")
-                Text("Message text is cleared after checking and when you leave the app. No scan history is saved.")
+                Text("Your checked message is shown only for this result. It is cleared when you check another message, navigate away, or leave the app. No scan history is saved.")
                 TextButton(onClick = { explain = false; report() }) { Text("Review reporting options") }
             }
         },

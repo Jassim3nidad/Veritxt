@@ -32,3 +32,11 @@ The required 12ui installer was attempted but failed on this Windows host with s
 The first unit run caught an expected-copy typo at 100% in a changed test assertion; it was corrected without changing score calculations. No physical-device validation or new research evaluation was performed. Specialized skipped checks remain outstanding rather than being counted as passes.
 
 Final plain-debug API 36 connected suite: 16 passed, 10 explicit skips, zero failures/errors. Additional skips are development-model-only checks because debug deliberately ships without a model.
+
+## Checked-message follow-up - 27 September 2026
+
+At the user's request, results now show the exact submitted message below the classification and score. A separate in-memory checkedMessage field retains the submitted snapshot while that result is open; the editable input remains cleared. Line breaks and long text are preserved. Empty input has no message preview. The preview also accompanies unavailable/unassessable/error results so the submitted text remains identifiable without implying an assessment succeeded.
+
+Check another message, editing/sharing a new message, navigation (including reporting), app backgrounding and activity recreation clear this transient preview. No message history, disk persistence, saved-instance data, network access or report payload fields were added. The on-screen privacy explanation now states this result-session lifetime. A new lifecycle test covers every exit and verifies screenshot protection remains enabled. Model, score calculation, threshold and disabled warning/reporting policies are unchanged; retraining remains postponed.
+
+Follow-up verification: development build/lint passed; 10 unit tests passed with one private-parity skip; API 36 emulator suite passed 22 tests with five specialized skips and no failures. A separate shipped-model screenshot check passed using invented SMS text. Packaged shipped-model hash and signature verified; INTERNET permission remains absent.

@@ -146,7 +146,7 @@ class FlowsTest {
                     .performSemanticsAction(SemanticsActions.OnClick) { org.junit.Assert.assertTrue(it()) }
                 compose.waitUntil(10000) { compose.onAllNodesWithText(heading).fetchSemanticsNodes().isNotEmpty() }
                 org.junit.Assert.assertEquals("Exactly one inference per scan", index + 1, invocations.get())
-                compose.onNodeWithText("SGTEST result privacy marker").assertDoesNotExist()
+                compose.onNodeWithText("SGTEST result privacy marker").assertExists()
                 compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
                 scrollToVisible("What does this mean?").performClick()
                 scrollToVisible("Review reporting options")

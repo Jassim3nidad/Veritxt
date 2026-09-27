@@ -17,7 +17,7 @@ import java.time.ZonedDateTime
 
 enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS }
 data class CheckState(val screen: Screen = Screen.HOME, val text: String = "", val busy: Boolean = false,
-    val error: String? = null, val result: Detection? = null, val domain: String? = null,
+    val checkedMessage: String = "", val error: String? = null, val result: Detection? = null, val domain: String? = null,
     val checkedAt: ZonedDateTime? = null, val modelStatus: String = "Loading model status…")
 
 class CheckViewModel(application: android.app.Application) : AndroidViewModel(application) {
@@ -36,13 +36,13 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     fun edit(text: String) {
         job?.cancel()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
-            result = null, domain = null, checkedAt = null,
+            checkedMessage = "", result = null, domain = null, checkedAt = null,
             error = if (text.length > MAX_MESSAGE_LENGTH) "Limit is 10,000 characters. Extra text was removed; review before checking." else null)
     }
     fun share(text: String) { endSession(Screen.CHECK); edit(text) }
     fun navigate(screen: Screen) {
         if (screen in setOf(Screen.HOME, Screen.CHECK, Screen.SETTINGS)) endSession(screen)
-        else mutable.value = mutable.value.copy(screen = screen)
+        else mutable.value = mutable.value.copy(screen = screen, checkedMessage = "")
     }
     fun endSession(screen: Screen = Screen.HOME) {
         job?.cancel(); job = null
@@ -50,25 +50,25 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     }
     fun scan() {
         if (mutable.value.text.isBlank()) {
-            mutable.value = mutable.value.copy(text = "", result = Detection.UnableToAssess, error = null)
+            mutable.value = mutable.value.copy(text = "", checkedMessage = "", result = Detection.UnableToAssess, error = null)
             return
         }
         if (mutable.value.busy) return
+        val submittedText = mutable.value.text
         job = viewModelScope.launch {
             mutable.value = mutable.value.copy(busy = true, error = null)
             try {
                 val resultAndDomain = withContext(Dispatchers.Default) {
                     withTimeout(7000) {
-                        val text = mutable.value.text
-                        app.detector().detect(text) to SafeDomain.fromMessage(text)
+                        app.detector().detect(submittedText) to SafeDomain.fromMessage(submittedText)
                     }
                 }
-                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", busy = false,
+                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", checkedMessage = submittedText, busy = false,
                     result = resultAndDomain.first, domain = resultAndDomain.second, checkedAt = ZonedDateTime.now())
             } catch (_: kotlinx.coroutines.TimeoutCancellationException) {
-                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", busy = false, result = Detection.Failure)
+                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", checkedMessage = submittedText, busy = false, result = Detection.Failure)
             } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", busy = false, result = Detection.Failure) }
+            catch (_: Exception) { mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", checkedMessage = submittedText, busy = false, result = Detection.Failure) }
         }
     }
 }
