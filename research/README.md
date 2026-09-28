@@ -1,5 +1,7 @@
 # SmishGuard research and model workflow
 
+29 September: [pre-training comparison protocol](../docs/algorithm-comparison-protocol.md) and [data-review prerequisites/commands](../docs/comparison-data-review.md) prepare a common LR/NB/linear-SVM comparison. The team confirmed pending data; no new research models or winner were produced. Use `smishguard.fair_compare` for the planned comparison of all three frozen candidates, rather than the older single-selected-candidate workflow below.
+
 25 September: [candidate review](candidate_review/README.md) adds two supplied aggregate tables and private-input-free arithmetic checks. `lr-calibrated-2` is under review, not deployed. Its retrospective results do not establish the shipped model's performance. Existing training/intake gates remain in force; the supplied demo and new trainers were reviewed without execution and not integrated.
 
 Completion update: run `research\.venv\Scripts\python.exe scripts/verify_research.py` for the currently permitted fixture-only workflow. See [reproducibility guide](../docs/reproducibility-guide.md), [annotation response protocol](../docs/annotation-protocol.md) and [data card](../docs/data-card.md). The group split policy is now versioned with stratified group folds where support permits; preserve old manifests. Evaluation adds accuracy/specificity, fixed-prediction cluster bootstrap, anonymous errors and artifact metadata. No real research metrics have been generated.

@@ -1,9 +1,15 @@
 """One portable export implementation shared by research and software fixtures."""
 import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import LinearSVC
 from .preprocessing import VERSION
 
 
 def export_linear(vectorizer, model, calibrator, threshold, *, synthetic):
+    algorithm = {LogisticRegression: "lr", MultinomialNB: "nb", LinearSVC: "svm"}.get(type(model))
+    if algorithm is None:
+        raise ValueError("Unsupported algorithm; do not mislabel an offline export")
     if list(model.classes_) != [0, 1] or list(calibrator.classes_) != [0, 1]:
         raise ValueError("Binary class order must be [0, 1]")
     if vectorizer.analyzer != "word" or vectorizer.ngram_range != (1, 1) or vectorizer.norm != "l2" or vectorizer.sublinear_tf or vectorizer.binary:
@@ -18,7 +24,7 @@ def export_linear(vectorizer, model, calibrator, threshold, *, synthetic):
         raise ValueError("Vocabulary incompatible with Android preprocessing")
     if not np.isfinite(np.r_[weights, bias, vectorizer.idf_, calibrator.coef_.ravel(), calibrator.intercept_, threshold]).all() or not 0 <= threshold <= 1:
         raise ValueError("Invalid numeric model parameters")
-    return dict(schema_version=1, preprocessing_version=VERSION,
+    return dict(schema_version=1, algorithm=algorithm, preprocessing_version=VERSION,
         feature_type="word-unigram-tfidf-l2", vocabulary=vocabulary,
         idf=vectorizer.idf_.tolist(), weights=weights.tolist(), bias=float(bias),
         classes=["not_suspicious", "suspicious"], threshold=float(threshold),

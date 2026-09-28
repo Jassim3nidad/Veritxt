@@ -23,7 +23,7 @@ def forbidden_path(name):
             or path.name.startswith('MODEL_INTEGRATION_calibrated')
             or path.name.endswith(('.db-journal', '.db-wal', '.db-shm'))
             or (path.name.startswith('.env') and path.name != '.env.example')
-            or name.endswith('/assets/model.json'))
+            or name.endswith(('/assets/model.json', '/assets/review.properties')))
 
 
 def main():

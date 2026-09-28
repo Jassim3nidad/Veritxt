@@ -9,7 +9,7 @@ import ph.smishguard.model.*
 
 class AssessabilityModelTest {
     private fun model(): SuppliedDetector {
-        assumeTrue(BuildConfig.BUILD_TYPE == "development")
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr"))
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         return ModelLoader.parse(context.assets.open("model.json").bufferedReader().use { it.readText() }) as SuppliedDetector
     }

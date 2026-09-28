@@ -21,11 +21,11 @@ def main():
     global PACKAGE, RUNNER
     parser = argparse.ArgumentParser()
     parser.add_argument("--serial", default="emulator-5554")
-    parser.add_argument("--variant", choices=["debug", "development"], default="debug")
+    parser.add_argument("--variant", choices=["debug", "development", "lr"], default="debug")
     parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
     parser.add_argument("--output", type=Path, help="Optional separate sanitized verification record")
     args = parser.parse_args()
-    PACKAGE = NAMESPACE + (".dev" if args.variant == "development" else "")
+    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr"}[args.variant]
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
     adb = ["adb", "-s", args.serial]
     def command(*parts, timeout=60):
@@ -43,6 +43,8 @@ def main():
     target = ROOT / ("docs/development-emulator-results.json" if args.variant == "development" else "docs/emulator-results.json")
     if args.output is not None:
         target = args.output
+    elif args.variant == "lr":
+        target = ROOT / "docs/comparison-lr-emulator-results.json"
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
@@ -66,11 +68,13 @@ def main():
         command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
-        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"] + (["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"] if args.variant == "development" else []))))
+        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"] + (["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"] if args.variant in {"development", "lr"} else []))))
         run_test("notification_denied", NAMESPACE + ".NotificationBehaviorTest#runtimeDenialSuppressesWarning", ("-e", "denied", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "enable")
         command("shell", "svc", "wifi", "disable")
-        run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant == "development" else ""), ("-e", "offline", "true"))
+        run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant in {"development", "lr"} else ""), ("-e", "offline", "true"))
+        if args.variant == "lr":
+            run_test("comparison_latency_policy", NAMESPACE + ".ComparisonRuntimeTest", ("-e", "offline", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "disable")
         command("shell", "pm", "grant", PACKAGE, "android.permission.RECEIVE_SMS")
         command("shell", "pm", "grant", PACKAGE, "android.permission.POST_NOTIFICATIONS")

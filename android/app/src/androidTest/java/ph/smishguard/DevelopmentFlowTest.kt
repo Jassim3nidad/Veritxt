@@ -11,7 +11,7 @@ import org.junit.Assume.assumeTrue
 class DevelopmentFlowTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun suppliedModelShareShowsExperimentalResultAndCannotReport() {
-        assumeTrue(BuildConfig.BUILD_TYPE == "development")
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
         runBlocking { app.preferences.onboard() }

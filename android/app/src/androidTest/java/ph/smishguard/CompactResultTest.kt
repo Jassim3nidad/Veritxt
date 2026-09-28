@@ -78,7 +78,7 @@ class CompactResultTest {
     }
 
     @Test fun shippedModelSyntheticScanScreenshot() {
-        org.junit.Assume.assumeTrue(BuildConfig.BUILD_TYPE == "development")
+        org.junit.Assume.assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
         runBlocking { app.preferences.onboard() }

@@ -1,0 +1,31 @@
+# Offline algorithm comparison protocol v1 — 29 September 2026
+
+Written before new training or inspection of final-test predictions. Primary endpoint: phishing F1; secondary endpoints: phishing precision, recall, false-positive rate (FPR), confusion matrix, average precision, calibration diagnostics, model bytes and scan latency. LR is a baseline, not the presumed winner. Do not combine historical supplied scores with this experiment.
+
+## Eligibility and freeze
+
+Use only the existing reviewed primary intake contract: documented permitted use, verified redaction, financial scope, independent resolved labels and review reference. Label 1 means financial phishing; 0 means legitimate. Hold uncertain/disputed records; exclude out-of-scope and supplementary-only records. Preserve the import exclusion report. Do not infer clearance from project authorization. Require at least 1,200 eligible records under the existing study protocol; report independent group counts as well. Current data card establishes no eligible corpus; training remains pending.
+
+Freeze dataset bytes, import/exclusion report, review references and prior-use history locally. Sort by stable ID. Compute label-blind connected template groups using existing normalized exact matches, declared template groups and character similarity >=0.85. Review grouping before training. Freeze one group split (seed 20260929, existing 20-fold allocation 11/3/3/3: train/validation/calibration/test). Both classes must occur in every partition. No favorable seed search. No temporal claims with unverified dates. All three candidates use the identical manifest and final-test records. Previously used records remain retrospective even when reshuffled; a genuinely unseen prospective set requires independently documented reservation and no overlap with development groups.
+
+## Models and selection
+
+Compare LogisticRegression (L2, liblinear, max_iter=2000), MultinomialNB and LinearSVC (L2, squared hinge, dual=auto, max_iter=10000). Equal three-value grids: C in [0.1, 1, 10] for LR/SVM; alpha in [0.1, 1, 10] for NB. No class weighting. No fourth algorithm: these already have exact offline linear exports; a transformer adds deployment and sample-size costs without a current research need.
+
+Use sg-ascii-v1 preprocessing, raw-count word-unigram TF-IDF, smooth IDF, L2 normalization, max_features=50000 for every candidate. This loses accents, some language distinctions and URL identity; document that limitation. Fit vocabulary and IDF separately inside each of five fixed StratifiedGroupKFold training folds. Reuse identical folds for all candidates. Select hyperparameters by mean inner-fold average precision, ties taking the first grid value. Reject nonviable folds; do not silently change folds or seeds. Refit only on the outer training partition.
+
+Fit a sigmoid on raw margins using the separate calibration partition. Tune each decision threshold on validation only: highest F1 over 0.05..0.95 in 0.01 steps, ties prefer the higher threshold. Freeze all three complete artifacts, thresholds, versions, hashes and protocol hash before opening final-test predictions. Validation candidate selection is descriptive and never drops other candidates from the final comparison. No refitting on validation/calibration/test. Sigmoid fitting is not independent proof of calibration; the app must retain its experimental-score disclaimer. Never display raw SVM margins as percentages.
+
+## Final evaluation and uncertainty
+
+Open the same final partition once for all three frozen candidates. Report precision, recall, F1, FPR, TN/FP/FN/TP; Brier, log loss and ten-bin reliability diagnostics for sigmoid outputs with support counts. Brier/log loss also depend on discrimination, not calibration alone. Report 95% cluster bootstrap intervals (2,000 fixed-prediction resamples, seed 20260929), including paired F1 differences on the same sampled groups. Suppress uncertainty estimates with fewer than 20 independent groups or fewer than five positive/negative groups. These conditional intervals do not cover fitting uncertainty, sampling bias or population shift. Do not call a close ranking decisive when paired intervals include zero. Do not retune after inspecting final results; any revision requires a new independently reserved test set.
+
+Report abstention separately: primary research metrics cover the frozen mathematical classifier on all eligible test messages; Android refuses meaningless or all-unknown input. Report deployment coverage and conditional confusion matrices before drawing app-performance conclusions. No synthetic software fixture scores are research evidence.
+
+## Deployment and reporting
+
+Use shared minimalist UI and distinct debug-signed application IDs: ph.smishguard.lr, ph.smishguard.nb, ph.smishguard.svm. Each build requires a local review manifest binding algorithm, model version and SHA-256 to its sole model asset. Fail on missing/mismatched assets. Preserve the older supplied LR as a separately identified historical experimental artifact; never call it the newly trained comparison baseline. NB/SVM research APKs wait for eligible training and model review; do not relabel LR or ship synthetic classifiers as research models.
+
+Measure portable JSON bytes and emulator warm scan p50/p95 over permitted fixed probes, 20 warmups and 200 scans; record API/device and keep model loading outside the timed section. Emulator timings are not physical-phone claims. Verify Python/JVM/Android parity, missing/invalid models, abstention, share/paste, lifecycle, offline mode, absent INTERNET permission and disabled reporting/automatic warnings. Publish only reviewed source and aggregate results; private artifacts/APKs stay ignored. Existing physical-device restrictions remain in force.
+
+References: [scikit-learn leakage guidance](https://scikit-learn.org/1.6/common_pitfalls.html) and [disjoint calibration data](https://scikit-learn.org/1.6/modules/generated/sklearn.calibration.CalibratedClassifierCV.html). Protocol changes must be versioned before any corresponding final-test inspection.

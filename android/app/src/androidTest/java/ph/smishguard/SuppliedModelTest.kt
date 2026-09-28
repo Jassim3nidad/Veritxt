@@ -17,7 +17,7 @@ import java.time.ZonedDateTime
 class SuppliedModelTest {
     private fun source(): String = InstrumentationRegistry.getInstrumentation().targetContext.assets.open("model.json").bufferedReader().use { it.readText() }
     @Test fun offlinePythonParityAndDevelopmentPolicy() = runBlocking {
-        assumeTrue(BuildConfig.BUILD_TYPE == "development")
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr"))
         assumeTrue(InstrumentationRegistry.getArguments().getString("offline") == "true")
         val instrumentation = InstrumentationRegistry.getInstrumentation(); val context = instrumentation.targetContext
         assertEquals(1, Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON))
@@ -61,7 +61,7 @@ class SuppliedModelTest {
         assertFalse(atThreshold.suspicious)
     }
     @Test fun unsupportedAndMalformedModelsFailClosed() {
-        assumeTrue(BuildConfig.BUILD_TYPE == "development")
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr"))
         val original = source()
         val changes: List<(JSONObject) -> Unit> = listOf(
             { it.put("schema_version", 999) }, { it.put("threshold_comparison", "greater_or_equal") },

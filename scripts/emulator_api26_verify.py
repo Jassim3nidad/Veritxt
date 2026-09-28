@@ -1,5 +1,6 @@
 """Focused API 26 emulator checks; synthetic inputs, no research performance."""
 import json
+import argparse
 from pathlib import Path
 import subprocess
 import re
@@ -16,6 +17,14 @@ def command(*args):
 
 
 def main():
+    global PACKAGE, ADB
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--variant", choices=["development", "lr"], default="development")
+    parser.add_argument("--serial", default="emulator-5556")
+    parser.add_argument("--output", type=Path, default=ROOT / "docs/api26-results.json")
+    args = parser.parse_args()
+    PACKAGE = "ph.smishguard.dev" if args.variant == "development" else "ph.smishguard.lr"
+    ADB = ["adb", "-s", args.serial]
     assert command("shell", "getprop", "ro.kernel.qemu") == "1"
     assert command("shell", "getprop", "ro.build.version.sdk") == "26"
     assert command("shell", "getprop", "sys.boot_completed") == "1"
@@ -23,7 +32,7 @@ def main():
                 for scope, key in [("global", "airplane_mode_on"), ("global", "wifi_on"),
                                    ("system", "font_scale")]}
     original["wifi_enabled"] = "Wi-Fi is enabled" in command("shell", "dumpsys", "wifi")
-    results = {"api": 26, "variant": "development", "status": "incomplete"}
+    results = {"api": 26, "variant": args.variant, "status": "incomplete"}
     def radio_setting(action, enabled):
         # This API 26 image denies svc wifi/data to shell; use ordinary Settings UI.
         command("shell", "am", "start", "-a", "android.settings." + action)
@@ -42,8 +51,8 @@ def main():
             left, top, right, bottom = map(int, re.findall(r"\d+", node.get("bounds")))
             command("shell", "input", "tap", str((left + right)//2), str((top + bottom)//2))
     try:
-        command("install", "-r", str(ROOT / "android/app/build/outputs/apk/development/app-development.apk"))
-        command("install", "-r", str(ROOT / "android/app/build/outputs/apk/androidTest/development/app-development-androidTest.apk"))
+        command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/{args.variant}/app-{args.variant}.apk"))
+        command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         radio_setting("AIRPLANE_MODE_SETTINGS", True)
         radio_setting("WIFI_SETTINGS", False)
@@ -69,7 +78,7 @@ def main():
         radio_setting("AIRPLANE_MODE_SETTINGS", original["airplane_mode_on"] == "1")
         radio_setting("WIFI_SETTINGS", original["wifi_enabled"])
         results["scope"] = "Focused API 26 emulator checks only; not SMS delivery, physical-device or research results. Offline setup and test outcomes recorded separately."
-        (ROOT / "docs/api26-results.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
+        args.output.write_text(json.dumps(results, indent=2), encoding="utf-8")
     command("shell", "pm", "clear", PACKAGE)
 
 
