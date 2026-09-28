@@ -17,7 +17,7 @@ Read the complete implementation-relevant text of `SmishGuardPH_Chapter1_Introdu
 | Five research model families vs first phone runtime | LR, NB and linear SVM comparison/export foundation implemented. Transformer comparison adapter/protocol retained separately; transformer phone export is deferred. No winner chosen. |
 | Brief wants linkless report counts but the allowed contract permits only nullable domain | Null can mean linkless **or unreportable URL**. Backend documentation forbids equating null-domain counts with proven linkless counts. Changing the metadata contract requires a later research decision. |
 | Raw messages must not be stored, while a research dataset must exist | App scanning and dataset collection remain separate. Python reads only independently consented, reviewed, redacted data. No app donation/collection flow exists. |
-| Target of 2,500 and minimum 1,200 samples | Training command rejects a primary held-out run below 1,200. The documented repeated cross-validation/small-sample fallback needs a separately finalized protocol; it is not fabricated here. |
+| Target of 2,500 and minimum 1,200 samples | Sourced to supplied Chapter 1 and a proposal feasibility table; formal applicability/approval and the financial-only interpretation are not established. The implementation guard remains unchanged pending a versioned decision. This is not a universal statistical minimum. See [source trace and mismatch](sample-size-provenance.md). |
 
 ## Architecture
 

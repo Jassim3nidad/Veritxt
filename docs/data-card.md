@@ -1,5 +1,7 @@
 # Supplied dataset data card
 
+29 September preparation: [reproduced audit and separate handoff inventory](dataset-preparation-audit.md) and [current team tasks](dataset-team-task-sheet.md). The 1,200 guard is a sourced feasibility target whose approved applicability and financial-only interpretation remain unresolved, not a universal statistical requirement; see [source trace](sample-size-provenance.md).
+
 Snapshot: `dataset-audit.json` plus `dataset-freeze-summary.json`. A private anonymous per-record/group manifest is stored under ignored `research/data/thesis-audit-20260923/manifest-v2.json`; its hash is public. Original private bytes were preserved. Hashes are identifiers, not anonymization guarantees, so the row-level manifest also stays private.
 
 The supplied corpus has 1,276 records: 1,054 inherited ham and 222 inherited smishing labels; 1,149 supplied English and 127 Taglish values. These are not independently verified target-task or language labels. The audit reports exact/normalized duplicate groups, missingness, heuristic near-copy groups, conflicting-label groups and source counts. The supplement adds character-length quantiles and overlapping URL/phone-like/financial-keyword indicators with explicit regex definitions. Indicators are not verified PII or financial scope.

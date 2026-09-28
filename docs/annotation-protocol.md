@@ -1,5 +1,7 @@
 # Independent annotation preparation
 
+29 September preparation: use the [team workflow](team-review-workflow.md) for documented annotation-access filtering, immutable released sheets, separately returned responses, and category/language/scope adjudication. Existing IDs and pending reviews were reused. The lower-level historical commands below remain available but do not replace that access review.
+
 Use `research/LABELING_GUIDE.md` for the four categories and edge cases. A URL, urgency, claimed institution or inherited source label alone is not sufficient evidence. Genuine OTP/advisory language can be legitimate; financial impersonation without a URL can be phishing; unrelated scams remain `other_spam_scam`; insufficient context is `uncertain`.
 
 ## Private files the team must complete

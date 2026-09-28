@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "source_sha256": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b",
+  "mapping_sha256": "d3b5eb5f0fa473cef223833f8293fdeb64b0090de4ada97d1b4d244df02f0647",
+  "primary": {
+    "rows": 1276,
+    "duplicate_ids": 0,
+    "missing": {
+      "attack_type": 0,
+      "claimed_institution": 70,
+      "date_collected": 78,
+      "id": 0,
+      "label": 0,
+      "language": 0,
+      "message_text": 0,
+      "notes": 3,
+      "official_domain": 70,
+      "source": 0,
+      "spoofed_url": 1111
+    },
+    "missing_labels": 0,
+    "invalid_labels": 0,
+    "inherited_labels": {
+      "ham": 1054,
+      "smishing": 222
+    },
+    "exact": {
+      "groups": 1272,
+      "duplicate_groups": 4,
+      "excess_rows": 4,
+      "conflicting_label_groups": 0,
+      "cross_source_groups": 0
+    },
+    "normalized": {
+      "groups": 1249,
+      "duplicate_groups": 20,
+      "excess_rows": 27,
+      "conflicting_label_groups": 0,
+      "cross_source_groups": 3
+    },
+    "templates": {
+      "groups": 940,
+      "duplicate_groups": 133,
+      "excess_rows": 336,
+      "conflicting_label_groups": 2,
+      "cross_source_groups": 21
+    },
+    "potential_identifiers": {
+      "email": 3,
+      "long_digit_or_phone": 147,
+      "url": 120,
+      "name_salutation": 1,
+      "obfuscated_link": 2,
+      "short_code_context": 55
+    },
+    "any_identifier_candidate": 285
+  },
+  "existing_packets": {
+    "redaction_status": {
+      "pending": 1276
+    },
+    "redaction_reviewer_present": 0,
+    "a": {
+      "rows": 1276,
+      "messages_present": 0,
+      "categories_present": 0
+    },
+    "b": {
+      "rows": 1276,
+      "messages_present": 0,
+      "categories_present": 0
+    }
+  },
+  "source_snapshot_hashes": {
+    "tagalog": "7757fb9cf70b9c1e0101e384886706da52110f6c17aeafef10a104e38fdfc0a7",
+    "marketing": "a3724dca065ee8ed23eb18fb6382657e2559f2b0c0364aaf9c14277af1974e32",
+    "bwandowando": "3012700e9f774f87b6922cd88e41155b41d0bf9923f04af456683f2859941d5f"
+  },
+  "source_overlap": {
+    "rows_with_candidate_match": 1193,
+    "multiple_candidate_sources": 21,
+    "matches_equal_prior_ledger": true,
+    "candidates": {
+      "tagalog": {
+        "exact": 477
+      },
+      "marketing": {
+        "exact": 304,
+        "whitespace_only": 329
+      },
+      "bwandowando": {
+        "whitespace_only": 50,
+        "exact": 54
+      }
+    }
+  },
+  "exclusion_scenarios": {
+    "without_uci": {
+      "excluded": 70,
+      "remaining_candidates": 1206,
+      "exact_unique": 1202,
+      "template_groups": 870,
+      "inherited_labels": {
+        "smishing": 222,
+        "ham": 984
+      },
+      "established_eligible_records": 0
+    },
+    "without_uci_explicit_other": {
+      "excluded": 71,
+      "remaining_candidates": 1205,
+      "exact_unique": 1201,
+      "template_groups": 869,
+      "inherited_labels": {
+        "smishing": 221,
+        "ham": 984
+      },
+      "established_eligible_records": 0
+    },
+    "also_hold_personal_social": {
+      "excluded": 83,
+      "remaining_candidates": 1193,
+      "exact_unique": 1189,
+      "template_groups": 859,
+      "inherited_labels": {
+        "smishing": 210,
+        "ham": 983
+      },
+      "established_eligible_records": 0
+    },
+    "also_hold_mixed_label_templates": {
+      "excluded": 105,
+      "remaining_candidates": 1171,
+      "exact_unique": 1169,
+      "template_groups": 857,
+      "inherited_labels": {
+        "smishing": 193,
+        "ham": 978
+      },
+      "established_eligible_records": 0
+    }
+  },
+  "established_eligible_records": 0,
+  "eligibility_note": "This audit clears no records; use the separately reviewed import report for actual eligibility. Zero cleared here is not proof all rows are unusable.",
+  "grouping": "sg-ascii-v1 plus SequenceMatcher >=0.85 connected components; review candidates, not confirmed campaign identity",
+  "identifier_patterns": {
+    "email": "[\\w.+-]+@[\\w.-]+\\.[a-z]{2,}",
+    "long_digit_or_phone": "\\d(?:[ ()+.-]*\\d){6,}",
+    "url": "https?://|www\\.",
+    "name_salutation": "\\b(?:hi|dear|hello|mr|ms|mrs)\\.?\\s+[A-Z][a-z]+",
+    "obfuscated_link": "hxxps?[:\\[]|\\[dot\\]|\\(dot\\)|\\[\\.\\]",
+    "short_code_context": "\\b(?:otp|pin|code)\\b[^\\n]{0,30}\\d{4,6}\\b"
+  },
+  "review_note": "Patterns overlap; candidates only. Names/obfuscation may be missed. No automatic redaction or review attestation.",
+  "separate_handoffs": {
+    "supplementary_everyday_ham": {
+      "rows": 1050,
+      "duplicate_ids": 0,
+      "missing": {
+        "attack_type": 0,
+        "claimed_institution": 1050,
+        "date_collected": 0,
+        "id": 0,
+        "label": 0,
+        "language": 0,
+        "message_text": 0,
+        "notes": 0,
+        "official_domain": 1050,
+        "source": 0,
+        "spoofed_url": 1050
+      },
+      "missing_labels": 0,
+      "invalid_labels": 0,
+      "inherited_labels": {
+        "ham": 1050,
+        "smishing": 0
+      },
+      "exact": {
+        "groups": 1050,
+        "duplicate_groups": 0,
+        "excess_rows": 0,
+        "conflicting_label_groups": 0,
+        "cross_source_groups": 0
+      },
+      "normalized": {
+        "groups": 1028,
+        "duplicate_groups": 20,
+        "excess_rows": 22,
+        "conflicting_label_groups": 0,
+        "cross_source_groups": 1
+      },
+      "templates": {
+        "groups": 718,
+        "duplicate_groups": 111,
+        "excess_rows": 332,
+        "conflicting_label_groups": 0,
+        "cross_source_groups": 5
+      },
+      "potential_identifiers": {
+        "email": 5,
+        "long_digit_or_phone": 257,
+        "url": 165,
+        "name_salutation": 0,
+        "obfuscated_link": 0,
+        "short_code_context": 40
+      },
+      "any_identifier_candidate": 452,
+      "sha256": "65e30dbcf5162a4d0f849952f77b55971f63570ab57cd0369e44499d81f8bf19",
+      "exact_overlap_primary": 0,
+      "normalized_overlap_primary": 0,
+      "combined_template_overlap_primary": 0,
+      "established_eligible_records": 0,
+      "independently_unseen": false
+    },
+    "previously_exposed_probes": {
+      "rows": 34,
+      "duplicate_ids": 0,
+      "missing": {
+        "attack_type": 34,
+        "claimed_institution": 34,
+        "date_collected": 34,
+        "id": 0,
+        "label": 0,
+        "language": 34,
+        "message_text": 0,
+        "notes": 34,
+        "official_domain": 34,
+        "source": 0,
+        "spoofed_url": 34
+      },
+      "missing_labels": 0,
+      "invalid_labels": 0,
+      "inherited_labels": {
+        "ham": 20,
+        "smishing": 14
+      },
+      "exact": {
+        "groups": 34,
+        "duplicate_groups": 0,
+        "excess_rows": 0,
+        "conflicting_label_groups": 0,
+        "cross_source_groups": 0
+      },
+      "normalized": {
+        "groups": 34,
+        "duplicate_groups": 0,
+        "excess_rows": 0,
+        "conflicting_label_groups": 0,
+        "cross_source_groups": 0
+      },
+      "templates": {
+        "groups": 34,
+        "duplicate_groups": 0,
+        "excess_rows": 0,
+        "conflicting_label_groups": 0,
+        "cross_source_groups": 0
+      },
+      "potential_identifiers": {
+        "email": 0,
+        "long_digit_or_phone": 3,
+        "url": 0,
+        "name_salutation": 0,
+        "obfuscated_link": 0,
+        "short_code_context": 2
+      },
+      "any_identifier_candidate": 5,
+      "sha256": "b896b5f729d9ad2449258e14b102eef6ff45e766832ea741b9f5807204cb51fd",
+      "exact_overlap_primary": 0,
+      "normalized_overlap_primary": 0,
+      "combined_template_overlap_primary": 0,
+      "established_eligible_records": 0,
+      "independently_unseen": false
+    }
+  },
+  "supplement_to_exposed_probes": {
+    "left_rows": 1050,
+    "right_rows": 34,
+    "exact_right_rows": 0,
+    "normalized_right_rows": 0,
+    "direct_template_match_right_rows": 0,
+    "method": "Direct cross-corpus sg-ascii-v1/SequenceMatcher >=0.85; no unseen-status inference"
+  }
+}

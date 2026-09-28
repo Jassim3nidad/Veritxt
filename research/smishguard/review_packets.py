@@ -66,11 +66,13 @@ def prepare(source, output):
     return len(rows)
 
 
-def release(packet, output):
+def release(packet, output, *, accessible_ids=None):
     private_output(packet); private_output(output)
     mapping = json.loads((packet / "coordinator/mapping.json").read_text(encoding="utf-8"))
     manifest = json.loads((packet / "coordinator/manifest.json").read_text(encoding="utf-8"))
     expected = {r['anonymous_id'] for r in mapping}
+    if accessible_ids is not None and not set(accessible_ids) <= expected:
+        raise ValueError("Access review includes unknown IDs")
     with (packet / "redaction-review.csv").open(encoding="utf-8-sig", newline="") as f:
         reader = csv.DictReader(f)
         if reader.fieldnames != list(REDACTION_FIELDS): raise ValueError("Unexpected review schema")
@@ -79,9 +81,12 @@ def release(packet, output):
         raise ValueError("Review IDs must match the coordinator ledger exactly once")
     reviewed = []
     for r in rows:
+        if None in r or any(value is None for value in r.values()):
+            raise ValueError("Malformed redaction row")
         if r['redaction_status'] not in {'pending', 'verified', 'excluded'}:
             raise ValueError("Unknown redaction status")
         if r['redaction_status'] != 'verified': continue
+        if accessible_ids is not None and r['id'] not in accessible_ids: continue
         text = r['text_redacted']
         if not TOKEN.fullmatch(r['reviewer_id']) or not text.strip() or len(text) > 10000 or IDENTIFIER.search(text):
             raise ValueError("Verified row needs reviewer and reviewed text without residual URL/email/long identifiers")
@@ -95,6 +100,8 @@ def release(packet, output):
         write_csv(output / f"annotator-{who}.csv", ANNOTATION_FIELDS, order)
     (output / "release.json").write_text(json.dumps(dict(rows=len(reviewed), withheld=len(rows)-len(reviewed),
         redaction_review_sha256=hashlib.sha256((packet/'redaction-review.csv').read_bytes()).hexdigest(),
+        annotation_access_filtered=accessible_ids is not None,
+        sheets_sha256={who:hashlib.sha256((output/f'annotator-{who}.csv').read_bytes()).hexdigest() for who in ('a','b')},
         scope="Blinded annotation preparation only; not data-use clearance or training eligibility")), encoding="utf-8")
     return len(reviewed)
 

@@ -1,5 +1,7 @@
 # SmishGuard research and model workflow
 
+Dataset-preparation handoff: [team task sheet](../docs/dataset-team-task-sheet.md), [1,200-rule source trace](../docs/sample-size-provenance.md), and [current private-review workflow](../docs/team-review-workflow.md). Existing anonymous IDs/review packets are reused; no source permissions, independent labels or redaction attestations are inferred.
+
 29 September: [pre-training comparison protocol](../docs/algorithm-comparison-protocol.md) and [data-review prerequisites/commands](../docs/comparison-data-review.md) prepare a common LR/NB/linear-SVM comparison. The team confirmed pending data; no new research models or winner were produced. Use `smishguard.fair_compare` for the planned comparison of all three frozen candidates, rather than the older single-selected-candidate workflow below.
 
 25 September: [candidate review](candidate_review/README.md) adds two supplied aggregate tables and private-input-free arithmetic checks. `lr-calibrated-2` is under review, not deployed. Its retrospective results do not establish the shipped model's performance. Existing training/intake gates remain in force; the supplied demo and new trainers were reviewed without execution and not integrated.

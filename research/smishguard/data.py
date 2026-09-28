@@ -2,6 +2,7 @@
 import csv
 from datetime import datetime
 from difflib import SequenceMatcher
+from collections import Counter
 from .preprocessing import normalize
 
 def read_dataset(path, study_role="primary"):
@@ -27,6 +28,7 @@ def template_groups(rows, similarity=0.85):
     Caller records group membership and similarity policy, then manually audits templates.
     """
     texts = [normalize(r["text_redacted"]) for r in rows]
+    characters = [Counter(text) for text in texts]
     parent = list(range(len(rows)))
     def root(i):
         while parent[i] != i:
@@ -35,12 +37,20 @@ def template_groups(rows, similarity=0.85):
         return i
     for i in range(len(rows)):
         for j in range(i):
+            # An edge within an existing component cannot change membership.
+            if root(i) == root(j):
+                continue
             if (texts[i] == texts[j] or (rows[i].get("template_group") and
                     rows[i].get("template_group") == rows[j].get("template_group"))):
                 parent[root(i)] = root(j)
                 continue
             # Length upper bound makes obvious nonmatches inexpensive.
             if 2 * min(len(texts[i]), len(texts[j])) / max(1, len(texts[i])+len(texts[j])) < similarity:
+                continue
+            # Matching blocks cannot exceed the multiset character intersection.
+            # This is an upper bound, not a different similarity/grouping policy.
+            common = sum(min(count, characters[j].get(char, 0)) for char, count in characters[i].items())
+            if 2 * common / max(1, len(texts[i])+len(texts[j])) < similarity:
                 continue
             if texts[i] == texts[j] or SequenceMatcher(None, texts[i], texts[j], autojunk=False).ratio() >= similarity:
                 parent[root(i)] = root(j)

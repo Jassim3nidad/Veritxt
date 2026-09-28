@@ -87,9 +87,11 @@ def main(argv=None):
     parser.add_argument("--seed", type=int, default=20260917)
     parser.add_argument("--data-history", choices=["previously_used", "prospectively_reserved"], required=True)
     args = parser.parse_args(argv)
+    if args.data_history == "prospectively_reserved":
+        raise ValueError("Use smishguard.fair_compare with reviewed --assignments for prospective evaluation; this legacy random-partition workflow cannot establish unseen status")
     rows = read_dataset(args.dataset)
     if len(rows) < 1200:
-        raise ValueError("Below the study's 1,200-message minimum. Use a separately approved small-sample protocol; no held-out research claim produced.")
+        raise ValueError("Below the configured 1,200 eligible-record guard. Its methodology applicability is pending; see docs/sample-size-provenance.md. No universal statistical minimum or held-out research claim is implied.")
     args.output.mkdir(parents=True, exist_ok=False)
     groups = template_groups(rows)
     splits = split_rows(rows, groups, args.split, args.seed)

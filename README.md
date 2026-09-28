@@ -1,5 +1,7 @@
 # SmishGuard — experimental model development milestone
 
+Dataset team handoff: [specific human tasks and private file locations](docs/dataset-team-task-sheet.md), [completed automated audit](docs/dataset-preparation-audit.md), and [provenance of the 1,200-record rule](docs/sample-size-provenance.md). Existing review IDs/packets were preserved; no independent labels, permissions or unseen status were fabricated.
+
 29 September comparison preparation: [protocol](docs/algorithm-comparison-protocol.md), [review prerequisites](docs/comparison-data-review.md), and [results/build status](docs/algorithm-comparison-results.md). Shared minimalist UI is preserved. Separate `lr`, `nb`, `svm` build types have distinct application IDs and require privately reviewed model assets. Only the previously permitted historical LR is currently available for an experimental comparison-variant APK; no new research training or winning-algorithm claim has been made.
 
 Thesis completion materials: [gap analysis](docs/thesis-gap-analysis.md), [completion plan](docs/thesis-completion-plan.md), [requirements matrix](docs/requirements-traceability-matrix.md), [current verification](docs/verification-safe-handoff.md), [reproducibility guide](docs/reproducibility-guide.md), [Chapters 3–5 drafting support](docs/thesis-drafting-materials.md) and [defense materials](docs/defense-materials.md). Research performance remains pending independent evidence. Xiaomi installation is blocked by reported secure FRP; no bypass or repeated installation is part of this work.

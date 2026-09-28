@@ -2,6 +2,10 @@
 
 Written before new training or inspection of final-test predictions. Primary endpoint: phishing F1; secondary endpoints: phishing precision, recall, false-positive rate (FPR), confusion matrix, average precision, calibration diagnostics, model bytes and scan latency. LR is a baseline, not the presumed winner. Do not combine historical supplied scores with this experiment.
 
+29 September provenance clarification, before any research training: the 1,200 guard below implements a supplied methodology target with a stricter financial-only eligibility interpretation. Approval of the controlling version and that interpretation is not established. See [sample-size provenance](sample-size-provenance.md). The guard remains configured pending a recorded decision; it is not a universal statistical rule.
+
+Prospective-cohort preparation clarification, also before training: when new test records are separately reserved, use one reviewed complete `--assignments` manifest for all algorithms, with an actual reservation reference, complete unique IDs, both classes per partition and no crossing template component. The seeded 11/3/3/3 allocation below remains the retrospective default. Do not randomly mix reserved and previously used records and call the resulting test prospective. Record the applicable allocation policy before fitting; the validator cannot prove historical unseen status.
+
 ## Eligibility and freeze
 
 Use only the existing reviewed primary intake contract: documented permitted use, verified redaction, financial scope, independent resolved labels and review reference. Label 1 means financial phishing; 0 means legitimate. Hold uncertain/disputed records; exclude out-of-scope and supplementary-only records. Preserve the import exclusion report. Do not infer clearance from project authorization. Require at least 1,200 eligible records under the existing study protocol; report independent group counts as well. Current data card establishes no eligible corpus; training remains pending.

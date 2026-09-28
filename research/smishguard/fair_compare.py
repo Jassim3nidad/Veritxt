@@ -24,6 +24,7 @@ from .linear_export import export_linear
 from .preprocessing import VERSION, normalize
 from .train import margin, write_json
 from .uncertainty import cluster_intervals
+from .intake import TOKEN
 
 SEED = 20260929
 NAMES = ("lr", "nb", "svm")
@@ -78,14 +79,38 @@ def tune(texts, y, folds, name):
     return pipe, trials, best["value"]
 
 
-def prepare(dataset, output, history, exclusion_report):
+def reviewed_assignments(path, rows, groups):
+    record = json.loads(path.read_text(encoding="utf-8"))
+    partitions = ("train", "validation", "calibration", "test")
+    if (not isinstance(record, dict) or set(record) != {*partitions, "reservation_reference"}
+            or not isinstance(record["reservation_reference"], str) or not TOKEN.fullmatch(record["reservation_reference"])):
+        raise ValueError("Assignments require four partitions and an opaque reservation evidence reference")
+    if any(not isinstance(record[key], list) or not all(isinstance(value, str) for value in record[key]) for key in partitions):
+        raise ValueError("Assignment partitions must be lists of record IDs")
+    assigned = [value for key in partitions for value in record[key]]
+    index = {row["id"]: i for i, row in enumerate(rows)}
+    if len(assigned) != len(index) or len(set(assigned)) != len(assigned) or set(assigned) != set(index):
+        raise ValueError("Assignments must cover every eligible record exactly once")
+    splits = {key:[index[value] for value in record[key]] for key in partitions}
+    seen = set()
+    for ids in splits.values():
+        present = {groups[i] for i in ids}
+        if seen & present or {rows[i]["label"] for i in ids} != {"0", "1"}:
+            raise ValueError("Reserved assignment has crossing template groups or missing class support")
+        seen.update(present)
+    return splits
+
+
+def prepare(dataset, output, history, exclusion_report, assignments=None):
+    if history == "prospectively_reserved" and assignments is None:
+        raise ValueError("Prospective evaluation requires reviewed frozen assignments; a new random split cannot establish unseen status")
     rows = sorted(read_dataset(dataset), key=lambda row: row["id"])
     if len(rows) < 1200:
-        raise ValueError("Require 1,200 eligible primary records; no small-sample bypass")
+        raise ValueError("Configured guard requires 1,200 eligible primary records; methodology applicability is pending. See docs/sample-size-provenance.md; this is not a universal statistical minimum.")
     if len({row["id"] for row in rows}) != len(rows):
         raise ValueError("Duplicate record IDs")
     groups = np.asarray(template_groups(rows))
-    splits = split_rows(rows, groups, "group", SEED)
+    splits = reviewed_assignments(assignments, rows, groups) if assignments else split_rows(rows, groups, "group", SEED)
     training = splits["train"]
     texts = [normalize(rows[i]["text_redacted"]) for i in training]
     y = np.array([int(rows[i]["label"]) for i in training])
@@ -121,6 +146,8 @@ def prepare(dataset, output, history, exclusion_report):
     files = ["splits.json"] + [f"{name}/{file}" for name in NAMES for file in ("research-model.pkl", "model.json")]
     write_json(output / "freeze.json", dict(protocol_sha256=digest(PROTOCOL), dataset_sha256=digest(dataset),
         exclusion_report_sha256=exclusion_hash, seed=SEED, preprocessing=VERSION, history=history,
+        assignment_sha256=digest(assignments) if assignments else None,
+        assignment_policy="reviewed complete group-isolated manifest; unseen status is human evidence" if assignments else "seeded retrospective group split",
         partition_support={part: dict(records=len(ids), groups=len(set(groups[ids])),
             phishing=sum(rows[i]["label"] == "1" for i in ids), legitimate=sum(rows[i]["label"] == "0" for i in ids))
             for part, ids in splits.items()},
@@ -202,12 +229,13 @@ def main():
     prepare_parser.add_argument("output", type=Path)
     prepare_parser.add_argument("--history", required=True, choices=["previously_used", "prospectively_reserved"])
     prepare_parser.add_argument("--exclusion-report", required=True, type=Path)
+    prepare_parser.add_argument("--assignments", type=Path, help="Reviewed frozen partition JSON; required for a prospectively reserved cohort")
     evaluate_parser = sub.add_parser("evaluate")
     evaluate_parser.add_argument("dataset", type=Path)
     evaluate_parser.add_argument("output", type=Path)
     args = parser.parse_args()
     if args.command == "prepare":
-        prepare(args.dataset, args.output, args.history, args.exclusion_report)
+        prepare(args.dataset, args.output, args.history, args.exclusion_report, args.assignments)
     else:
         evaluate(args.dataset, args.output)
 
