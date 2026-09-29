@@ -1,4 +1,4 @@
-param([switch]$ConnectedTests, [switch]$EmulatorTests, [ValidateSet("debug", "development", "lr", "nb", "svm")][string]$Variant = "debug", [string]$ModelParityDir)
+param([switch]$ConnectedTests, [switch]$EmulatorTests, [ValidateSet("debug", "development", "lr", "lrCandidate", "nb", "svm")][string]$Variant = "debug", [string]$ModelParityDir)
 $ErrorActionPreference = 'Stop'
 Push-Location (Split-Path $PSScriptRoot -Parent)
 try {
@@ -6,7 +6,7 @@ try {
     # The path is intentionally nonexistent so Java falls back to TCP for its NIO pipe.
     $priorJavaOptions = $env:JAVA_TOOL_OPTIONS
     $env:JAVA_TOOL_OPTIONS = "$priorJavaOptions -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir".Trim()
-    $variantTask = (Get-Culture).TextInfo.ToTitleCase($Variant)
+    $variantTask = $Variant.Substring(0, 1).ToUpperInvariant() + $Variant.Substring(1)
     $gradleOptions = @("-PinstrumentedBuild=$Variant", '--console=plain')
     if ($ModelParityDir) { $gradleOptions += "-PmodelParityDir=$ModelParityDir" }
     & .\gradlew.bat ":app:assemble$variantTask" ":app:lint$variantTask" ":app:test${variantTask}UnitTest" @gradleOptions

@@ -1,5 +1,7 @@
 # Dataset source evidence — inspected 21 September 2026
 
+29 September complete-package update: the new CSV has `id`, `text`, `label`, `source_category`, and `source`. Its source strings attribute 1,446 records to Tagalog-SMS, 972 to PH Spam + Marketing SMS, 90 to Philippine Spam/Scam SMS, and 13 to Facebook/Reddit/personal receipt. These are supplied attributions, not verified licenses, donation consent, row-level source matches, redaction attestations or independent annotations. No completed review records are supplied. The notebook, run metadata and per-seed results add procedure evidence; the notebook contains zero saved outputs and zero execution counts. Existing review packets and authorization statuses were preserved. See [complete-package findings](mark-complete-findings.md).
+
 Project/client authorization remains **reported authorized to proceed**; it is not requested again. Dataset **eligibility not yet verified** is separate from source identification, permitted-use documentation, annotation/redaction and model evaluation.
 
 ## Supplied-file inspection

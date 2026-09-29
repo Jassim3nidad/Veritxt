@@ -16,7 +16,7 @@ Once these inputs exist, the prepared commands below use private outputs. Do not
 
 ```powershell
 $env:PYTHONPATH='research'
-research\.venv\Scripts\python.exe -m smishguard.fair_compare prepare research/data/REVIEWED/approved.csv research/runs/comparison-v1 --history previously_used --exclusion-report research/data/REVIEWED/import-report.json
+research\.venv\Scripts\python.exe -m smishguard.fair_compare prepare research/data/REVIEWED/approved.csv research/runs/comparison-v1 --history previously_used --exclusion-report research/data/REVIEWED/import-report.json --exposure-review research/data/REVIEWED/comparison-exposure-review.csv
 # Review the freeze, all three candidates, and the recorded prior-use scope first.
 research\.venv\Scripts\python.exe -m smishguard.fair_compare evaluate research/data/REVIEWED/approved.csv research/runs/comparison-v1
 ```

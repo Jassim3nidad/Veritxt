@@ -62,6 +62,29 @@ class FairComparisonTests(unittest.TestCase):
         result = fair.paired_f1_intervals(np.array([0, 1]), {}, np.array([0, 1]))
         self.assertIsNone(result["intervals"])
 
+    def test_exposed_records_cannot_be_renamed_unseen(self):
+        rows = [dict(id="SOFTWARE_A"), dict(id="SOFTWARE_B")]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "review.csv"
+            path.write_text("id,prior_use_status,evidence_reference\nSOFTWARE_A,exposed,TEST_ONLY\nSOFTWARE_B,never_used,TEST_ONLY\n")
+            with self.assertRaisesRegex(ValueError, "cannot be called"):
+                fair.exposure_review(path, rows, {"test": [0]}, "prospectively_reserved")
+            result = fair.exposure_review(path, rows, {"test": [0]}, "previously_used")
+            self.assertEqual(result["test_status_counts"]["exposed"], 1)
+            fair.exposure_review(path, rows, {"test": [1]}, "prospectively_reserved")
+            with self.assertRaisesRegex(ValueError, "exactly once"):
+                fair.exposure_review(path, rows[:1], {"test": [0]}, "previously_used")
+
+    def test_paired_bootstrap_keeps_identical_predictions_paired(self):
+        y = np.array([0, 1] * 30)
+        prediction = np.array([1, 1, 0, 1] * 15)
+        result = fair.paired_f1_intervals(y, {name: prediction for name in fair.NAMES},
+                                        np.repeat(np.arange(30), 2), repetitions=100)
+        for interval in result["intervals"].values():
+            self.assertEqual((interval["low"], interval["high"]), (0, 0))
+        with self.assertRaisesRegex(ValueError, "identical records"):
+            fair.paired_f1_intervals(y, {"lr": prediction}, np.arange(60))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,4 +1,8 @@
-# Offline algorithm comparison protocol v1 — 29 September 2026
+# Offline algorithm comparison protocol v1.1 — 29 September 2026
+
+Handoff correction: the new package's repeated splits expose 504/505 designated first-seed test records to other runs' development partitions. This protocol does not reuse those splits or interpret those records as unseen. Preparation now requires a complete private `--exposure-review` ledger (`research/templates/comparison-exposure-review.csv`), binding every ID to exposed/never_used/unknown and an actual evidence reference. Prospective final records must all be documented never-used, in addition to reviewed group-isolated assignments. This is a declaration guard, not proof of historical non-use. Preserve earlier ledgers and the supplied notebook as historical evidence; do not rewrite exposed as never-used.
+
+The existing nested group folds, separate calibration and threshold partitions, and single common final partition are retained. Evaluation measures the final calibrated, thresholded artifacts for every algorithm. Paired cluster intervals are marginal pairwise intervals conditional on fixed fitted models; they do not provide simultaneous family-wise inference or account for fitting variability. Portable JSON size includes vocabulary/IDF, and full pipeline pickle bytes are reported separately. Host batch time remains separate from measured Android latency. See [handoff findings](mark-complete-findings.md).
 
 Written before new training or inspection of final-test predictions. Primary endpoint: phishing F1; secondary endpoints: phishing precision, recall, false-positive rate (FPR), confusion matrix, average precision, calibration diagnostics, model bytes and scan latency. LR is a baseline, not the presumed winner. Do not combine historical supplied scores with this experiment.
 

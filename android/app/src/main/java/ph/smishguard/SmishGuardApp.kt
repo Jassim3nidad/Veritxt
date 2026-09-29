@@ -8,6 +8,7 @@ import ph.smishguard.model.Detector
 import ph.smishguard.model.ModelLoader
 import ph.smishguard.model.MissingDetector
 import ph.smishguard.model.ComparisonDetector
+import ph.smishguard.model.SuppliedDetector
 import ph.smishguard.privacy.DisabledReportingRepository
 import ph.smishguard.sms.WarningNotifications
 import java.io.FileNotFoundException
@@ -29,7 +30,8 @@ open class SmishGuardApp : Application() {
                 }
                 buffer.toString("UTF-8")
             }
-            if (BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm"))
+            if (BuildConfig.BUILD_TYPE == "lrCandidate") SuppliedDetector.parse(json, candidate = true)
+            else if (BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm"))
                 ComparisonDetector(json, BuildConfig.BUILD_TYPE)
             else ModelLoader.parse(json)
         } catch (_: FileNotFoundException) { MissingDetector() }

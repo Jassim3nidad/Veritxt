@@ -109,7 +109,9 @@ class SafeHandoffTest(unittest.TestCase):
 
     def test_android_safety_and_schema_contract_unchanged(self):
         model = (ROOT / 'android/app/src/main/java/ph/smishguard/model/SuppliedDetector.kt').read_text()
-        self.assertIn('Detection.Success(score > .5', model)
+        self.assertIn('if (candidate) score >= .4 else score > .5', model)
+        self.assertIn('Detection.Success(isSuspicious(score, candidate)', model)
+        # Runtime nextDown/equal/nextUp checks live in CandidatePolicyTest.
         self.assertIn('object ModelLoader', model)
         export = ast.parse((EVIDENCE / 'train_final_lr.py').read_text())
         dictionary = next(n.value for n in export.body if isinstance(n, ast.Assign)
@@ -118,6 +120,7 @@ class SafeHandoffTest(unittest.TestCase):
         self.assertTrue({'coef', 'idf', 'vocabulary', 'classes', 'ngram_range', 'intercept'} <= keys)
         for path in (ROOT / 'android/app/src').rglob('AndroidManifest.xml'):
             self.assertNotIn('android.permission.INTERNET', path.read_text())
+            self.assertNotIn('android.permission.READ_CONTACTS', path.read_text())
         report = (ROOT / 'android/app/src/main/java/ph/smishguard/privacy/Reports.kt').read_text(encoding='utf-8')
         self.assertIn('class DisabledReportingRepository', report)
         self.assertIn('override val available = false', report)

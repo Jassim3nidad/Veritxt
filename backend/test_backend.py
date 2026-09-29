@@ -42,6 +42,17 @@ _DROP = object()
 
 class ContractTest(unittest.TestCase):
 
+    def test_security_headers_cover_pages_and_errors_without_external_resources(self):
+        client = backend.app.test_client()
+        for url in ('/', '/api/health', '/missing'):
+            response = client.get(url)
+            self.assertEqual(response.headers['Cache-Control'], 'no-store')
+            self.assertEqual(response.headers['Referrer-Policy'], 'no-referrer')
+            self.assertEqual(response.headers['X-Content-Type-Options'], 'nosniff')
+            self.assertEqual(response.headers['X-Frame-Options'], 'DENY')
+            self.assertIn("frame-ancestors 'none'", response.headers['Content-Security-Policy'])
+            self.assertNotIn('https:', response.headers['Content-Security-Policy'])
+
     def setUp(self):
         backend.AUTH_TOKEN = None
         self.client = backend.app.test_client()

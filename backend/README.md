@@ -1,5 +1,7 @@
 # SMISHGUARD reporting backend
 
+29 September complete-package review: retained the existing reporting contract and invented demo cohort. Integrated and tested response security headers (local-only CSP, no-store, no-referrer, nosniff, frame denial), including error pages. Did not import the incompatible flagged-URL database, dataset-derived demo seeder, contact downgrade, raw-message explanation routes, or external font requests. All 46 backend tests pass; Android remains disconnected.
+
 A local development prototype prepared for possible future reporting integration after approval and security controls are completed.
 
 Flask accepts local synthetic contract fixtures and shows aggregate views; Android is not connected. It accepts **exactly** the payload defined by

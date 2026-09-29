@@ -20,6 +20,13 @@ android {
         manifestPlaceholders["appLabel"] = "SmishGuard"
     }
     buildTypes {
+        create("lrCandidate") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".lr.candidate"
+            versionNameSuffix = "-lr-candidate-experimental"
+            manifestPlaceholders["appLabel"] = "SmishGuard · LR Candidate"
+            matchingFallbacks += listOf("debug")
+        }
         for ((algorithm, label) in listOf("lr" to "Logistic Regression", "nb" to "Naive Bayes", "svm" to "Linear SVM")) {
             create(algorithm) {
                 initWith(getByName("debug"))
@@ -44,16 +51,55 @@ android {
     }
     testOptions { unitTests.isIncludeAndroidResources = true }
     sourceSets.getByName("test").resources.srcDir("src/androidTest/assets")
+    sourceSets.getByName("test").java.srcDir("src/softwareTest/java")
+    sourceSets.getByName("androidTest").java.srcDir("src/softwareTest/java")
     lint { abortOnError = true }
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 tasks.withType<Test>().configureEach {
+    providers.gradleProperty("candidateParityDir").orNull?.let {
+        systemProperty("smishguard.candidate.parity.dir", it)
+        inputs.dir(it)
+    }
     providers.gradleProperty("modelParityDir").orNull?.let {
         systemProperty("smishguard.parity.dir", it)
         inputs.dir(it)
     }
 }
 configurations.getByName("developmentImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("lrCandidateImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+// Optional private JVM-only source for auditing the handoff's scorer. Never APK assets.
+providers.gradleProperty("candidateParityDir").orNull?.let {
+    android.sourceSets.getByName("test").java.srcDir("$it/supplied")
+}
+val verifyLrCandidateModel by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/lrCandidate/assets").asFile
+        val model = directory.resolve("model.json")
+        val review = directory.resolve("review.properties")
+        check(model.isFile && review.isFile) { "LR candidate blocked: model-content review and private assets required; unresolved identifiers must be reviewed." }
+        val metadata = Properties().apply { review.inputStream().use { load(it) } }
+        check(metadata.getProperty("algorithm") == "lr" && metadata.getProperty("contentReview") == "documented" &&
+            metadata.getProperty("contentReviewReference")?.matches(Regex("[A-Za-z0-9_-]{3,100}")) == true) { "Candidate requires an actual model-content evidence reference" }
+        val digest = MessageDigest.getInstance("SHA-256").digest(model.readBytes()).joinToString("") { "%02x".format(it) }
+        check(digest == metadata.getProperty("sha256")) { "Candidate model changed after content review" }
+        check(!metadata.getProperty("modelVersion").isNullOrBlank() &&
+            metadata.getProperty("sourceSha256")?.matches(Regex("[0-9a-f]{64}")) == true) { "Candidate requires model version and source identity" }
+        val content = JsonSlurper().parse(model) as Map<*, *>
+        check(content["schema_version"] == 3 && content["algorithm"] == "lr" &&
+            content["model_version"] == metadata.getProperty("modelVersion") &&
+            (content["threshold"] as? Number)?.toDouble() == 0.4 &&
+            content["threshold_comparison"] == "greater_or_equal" &&
+            content["calibration_status"] == "fitted_unvalidated" &&
+            content["automatic_warnings_approved"] == false && content["synthetic"] == false) { "Wrong candidate schema or policy" }
+        val provenance = content["provenance"] as? Map<*, *>
+        check(provenance?.get("source_sha256") == metadata.getProperty("sourceSha256")) { "Candidate source identity mismatch" }
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json", "review.properties")) { "Unexpected candidate assets" }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model would contaminate candidate" }
+    }
+}
+tasks.matching { it.name == "preLrCandidateBuild" || it.name == "mergeLrCandidateAssets" }
+    .configureEach { dependsOn(verifyLrCandidateModel) }
 for (algorithm in listOf("lr", "nb", "svm")) {
     configurations.getByName("${algorithm}Implementation").extendsFrom(configurations.getByName("debugImplementation"))
     val verify = tasks.register("verify${algorithm.replaceFirstChar { it.uppercase() }}Model") {

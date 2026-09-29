@@ -1,5 +1,7 @@
 # Supplied dataset data card
 
+29 September complete package is a separate 2,521-row corpus (2,270 ham / 251 smishing), with 742 exact stripped-text matches to the earlier supplied corpus. Its source/category columns do not establish research eligibility. Do not replace the earlier audit below or reuse its anonymous review IDs for unmatched records. The new corpus remains exposed and unreviewed; the notebook's nominal test partition does not establish unseen status. [Full audit and limitations](mark-complete-findings.md).
+
 29 September preparation: [reproduced audit and separate handoff inventory](dataset-preparation-audit.md) and [current team tasks](dataset-team-task-sheet.md). The 1,200 guard is a sourced feasibility target whose approved applicability and financial-only interpretation remain unresolved, not a universal statistical requirement; see [source trace](sample-size-provenance.md).
 
 Snapshot: `dataset-audit.json` plus `dataset-freeze-summary.json`. A private anonymous per-record/group manifest is stored under ignored `research/data/thesis-audit-20260923/manifest-v2.json`; its hash is public. Original private bytes were preserved. Hashes are identifiers, not anonymization guarantees, so the row-level manifest also stays private.

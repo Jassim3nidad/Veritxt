@@ -64,6 +64,20 @@ app.json.ensure_ascii = False   # keep city names readable in responses
 logging.getLogger("werkzeug").setLevel(logging.ERROR)
 
 
+@app.after_request
+def security_headers(response):
+    """Compatible handoff hardening; local resources only, including error pages."""
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data:; form-action 'self'; frame-ancestors 'none'; base-uri 'none'"
+    )
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+
 # --- Storage -------------------------------------------------------------------
 
 def get_db():

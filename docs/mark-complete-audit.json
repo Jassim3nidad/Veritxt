@@ -1,0 +1,170 @@
+{
+  "dataset_rows": 2521,
+  "classes": {
+    "ham": 2270,
+    "smishing": 251
+  },
+  "duplicate_ids": 0,
+  "dataset_sha256": "a544867f72b66c12933e21f162d1579b2ba6809169378d71362b7b60cc99af8c",
+  "identical_dataset_copies": 2,
+  "identical_model_copies": 3,
+  "source_model_sha256": "d6a15d8d2b3c72c2ee1604654c1a526684c1cdae9c4d3bb63f09f7f42e9b3dbe",
+  "source_model_bytes": 292377,
+  "converted_model_bytes": 437027,
+  "converted_model_sha256": "e31d9c0cd950e05eee3ac84372176ab906344516570e04be34302839782015b3",
+  "model_version": "mark-lr-20260929-0351",
+  "feature_count": 5000,
+  "trained_on_rows_claim": 2016,
+  "source_category_counts": {
+    "otp": 150,
+    "notifs": 1036,
+    "ads": 988,
+    "gov": 94,
+    "spam": 240,
+    "own": 13
+  },
+  "schema_numeric_checks": "passed",
+  "positive_class": "smishing: notebook sign correction and reference semantics; classes absent from source JSON",
+  "notebook_outputs": 0,
+  "notebook_execution_counts_present": 0,
+  "vocabulary_review": {
+    "phone_shaped_tokens": 4,
+    "phone_bearing_features": 13,
+    "long_digit_features": 45,
+    "masked_identifier_features": 9
+  },
+  "candidate_packaging": "blocked: unresolved identifier-shaped vocabulary; no review acceptance fabricated",
+  "python_reference_sklearn_cases": 2541,
+  "python_max_absolute_error": 3.3306690738754696e-16,
+  "ordinary_taglish_software_probes": {
+    "count": 3,
+    "above_candidate_threshold": 2,
+    "interpretation": "Invented ordinary-language probes; regression observations, not labeled research performance"
+  },
+  "reconstructed_split_audit": {
+    "normalized_rows": 2521,
+    "duplicates_removed": 0,
+    "normalized_conflicting_label_groups": 0,
+    "role_changing_records": 2087,
+    "first_test_records": 505,
+    "first_test_in_other_development": 504,
+    "first_test_in_other_validation": 169,
+    "split_support": {
+      "42": {
+        "train": 1764,
+        "validation": 252,
+        "test": 505
+      },
+      "7": {
+        "train": 1764,
+        "validation": 252,
+        "test": 505
+      },
+      "123": {
+        "train": 1764,
+        "validation": 252,
+        "test": 505
+      },
+      "2024": {
+        "train": 1764,
+        "validation": 252,
+        "test": 505
+      },
+      "99": {
+        "train": 1764,
+        "validation": 252,
+        "test": 505
+      }
+    }
+  },
+  "recalculated_comparison": {
+    "Logistic Regression": {
+      "precision": 0.8897954093425792,
+      "recall": 0.9319999999999999,
+      "f1": 0.9102502892120253,
+      "accuracy": 0.9817821782178218,
+      "ms": 1.0233110299996042,
+      "kb": 39.778515625,
+      "f1_sample_sd": 0.030262039457690945,
+      "missed": 17,
+      "false_alarms": 29
+    },
+    "Multinomial Naive Bayes": {
+      "precision": 0.9491608942985345,
+      "recall": 0.8119999999999999,
+      "f1": 0.874371780752597,
+      "accuracy": 0.977029702970297,
+      "ms": 1.678309441998863,
+      "kb": 156.8935546875,
+      "f1_sample_sd": 0.027389876322073688,
+      "missed": 47,
+      "false_alarms": 11
+    },
+    "Linear SVM": {
+      "precision": 0.9055555555555556,
+      "recall": 0.9319999999999999,
+      "f1": 0.9177601809954751,
+      "accuracy": 0.9833663366336634,
+      "ms": 1.6072928059984406,
+      "kb": 39.666796875,
+      "f1_sample_sd": 0.0370254127959942,
+      "missed": 17,
+      "false_alarms": 25
+    },
+    "Random Forest": {
+      "precision": 0.9552686202686202,
+      "recall": 0.708,
+      "f1": 0.8100744933151182,
+      "accuracy": 0.9675247524752475,
+      "ms": 63.72314311400078,
+      "kb": 4741.9287109375,
+      "f1_sample_sd": 0.04500817111145982,
+      "missed": 73,
+      "false_alarms": 9
+    },
+    "K-Nearest Neighbors": {
+      "precision": 0.9215257319512639,
+      "recall": 0.884,
+      "f1": 0.9018696181673972,
+      "accuracy": 0.980990099009901,
+      "ms": 4.384793936000278,
+      "kb": 974.15234375,
+      "f1_sample_sd": 0.012878026685262018,
+      "missed": 29,
+      "false_alarms": 19
+    }
+  },
+  "summary_recalculation": "all five rows match rounded means, sample SDs, error totals, host timing and classifier-only sizes",
+  "supplied_rounded_references": {
+    "cases": 9,
+    "max_absolute_error": 4.907515534513518e-05,
+    "tolerance": 0.001,
+    "passed": true
+  },
+  "ci_recalculation": "unavailable: record-level predictions and paired manifests absent",
+  "research_training_executed": false,
+  "supplied_code_executed": "audited reference arithmetic only",
+  "jvm_adapter": {
+    "cases_sha256": "9263ab23341fcac38d9f57913da172ca11dad0c009bad32351a474ba24b13918",
+    "model_sha256": "e31d9c0cd950e05eee3ac84372176ab906344516570e04be34302839782015b3",
+    "cases": 2541,
+    "scored": 2533,
+    "max_absolute_error": 4.440892098500626e-16,
+    "abstained": 8
+  },
+  "jvm_supplied": {
+    "mismatches": 0,
+    "cases_sha256": "9263ab23341fcac38d9f57913da172ca11dad0c009bad32351a474ba24b13918",
+    "model_sha256": "d6a15d8d2b3c72c2ee1604654c1a526684c1cdae9c4d3bb63f09f7f42e9b3dbe",
+    "cases": 2541,
+    "max_absolute_error": 3.3306690738754696e-16
+  },
+  "template_sensitivity_audit": {
+    "records": 2521,
+    "groups": 1884,
+    "groups_with_multiple_records": 245,
+    "largest_group": 66,
+    "excess_rows": 637,
+    "policy": "existing sg-ascii-v1 normalized/template similarity 0.85; automated sensitivity audit, not approved grouping"
+  }
+}

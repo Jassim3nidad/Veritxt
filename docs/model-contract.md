@@ -1,5 +1,7 @@
 # Versioned offline model contract
 
+29 September complete package: schema v3 adds an explicitly selected calibrated LR candidate path; [review and blocker](mark-complete-findings.md). It preserves the source vocabulary, IDF, coefficients, intercept, and separate sigmoid slope/offset with `score >= 0.40`. Its calibration status is `fitted_unvalidated`, output remains an experimental **Model score**, and empty/unassessable input abstains. The generic loader and historical v2 paths do not accept v3; only `lrCandidate` selects it. No source asset or APK is installed until the actual content review is documented. This does not change v2's strict >0.5 behavior below or deploy the earlier `lr-calibrated-2` artifact.
+
 25 September candidate review: `lr-calibrated-2` is **under review, not deployed**. [Supplied aggregate evidence and methodology findings](../research/candidate_review/README.md) do not alter this contract, calibration metadata, threshold, reference scores or Android behavior.
 
 ## Three different statuses

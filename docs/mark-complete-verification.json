@@ -1,0 +1,97 @@
+{
+  "research": {
+    "passed": 62,
+    "failed": 0,
+    "dependency_check": "passed",
+    "scope": "software fixtures only; no real-data fitting"
+  },
+  "backend": {
+    "passed": 46,
+    "failed": 0
+  },
+  "safe_handoff": {
+    "passed": 8,
+    "failed": 0
+  },
+  "isolated_model_guards": {
+    "passed": 13,
+    "failed": 0,
+    "scope": "LR/NB/SVM missing/hash/algorithm; candidate missing/pending/hash/schema"
+  },
+  "candidate_apk": {
+    "status": "not built",
+    "failing_task": ":app:verifyLrCandidateModel",
+    "reason": "unresolved identifier-shaped learned features; no accepted content review or installed candidate asset",
+    "signature": null,
+    "sha256": null
+  },
+  "emulator": {
+    "api": 36,
+    "historical_instrumentation_passed": 27,
+    "candidate_synthetic_policy_passed": 3,
+    "failed": 0,
+    "scope": "historical model + candidate software fixture, not real-candidate Android validation"
+  },
+  "rollback": {
+    "checked_files": 15,
+    "all_hashes_preserved": true
+  },
+  "jvm": {
+    "debug": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 17
+    },
+    "lr": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 17
+    }
+  },
+  "lint": {
+    "debug": {
+      "Warning": 5
+    },
+    "lr": {
+      "Warning": 5
+    }
+  },
+  "builds": {
+    "debug": "passed",
+    "historical_lr": "passed",
+    "lr_android_test": "passed",
+    "candidate": "blocked as intended"
+  },
+  "rebuilt_historical_apk": {
+    "sha256": "4f9e4f5e4f682f9c469182cdd85b7bf933254b645e8fb4bb57c9946b3bd3c521",
+    "model_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+    "assets": [
+      "assets/model.json",
+      "assets/review.properties"
+    ],
+    "permissions": [
+      "package: ph.smishguard.lr",
+      "uses-permission: name='android.permission.RECEIVE_SMS'",
+      "uses-permission: name='android.permission.POST_NOTIFICATIONS'",
+      "permission: ph.smishguard.lr.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+      "uses-permission: name='ph.smishguard.lr.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+    ],
+    "signature": "verified",
+    "scope": "historical regression artifact, not candidate APK"
+  },
+  "known_limitations": [
+    "Candidate content review blocked; no candidate APK verification or device validation",
+    "Two of three ordinary Taglish software probes cross candidate threshold; no prediction overrides",
+    "Five lint dependency/target warnings per variant; no errors",
+    "Real eligible trained NB/SVM export test remains skipped; synthetic export parity passes",
+    "Physical-device testing and defensible prospective research comparison remain pending"
+  ],
+  "resolved_test_setup_failures": [
+    "Initial backend command used research environment without Flask; 46 tests passed in existing backend environment",
+    "Historical static source assertion expected inline threshold expression; updated to preserve historical and candidate boundary checks, runtime tests pass"
+  ]
+}

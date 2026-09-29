@@ -1,5 +1,7 @@
 # SmishGuard research and model workflow
 
+Complete-package audit: [findings](../docs/mark-complete-findings.md). `smishguard.complete_handoff` audits the privately extracted package and creates a private schema-v3 LR conversion/parity set without fitting a model or installing an APK asset. The supplied 2,521-record corpus remains exposed and awaiting source/redaction/label reviews. `fair_compare prepare` now also requires `--exposure-review` using `templates/comparison-exposure-review.csv`; complete actual evidence references, never invent them. See the versioned [comparison protocol](../docs/algorithm-comparison-protocol.md).
+
 Dataset-preparation handoff: [team task sheet](../docs/dataset-team-task-sheet.md), [1,200-rule source trace](../docs/sample-size-provenance.md), and [current private-review workflow](../docs/team-review-workflow.md). Existing anonymous IDs/review packets are reused; no source permissions, independent labels or redaction attestations are inferred.
 
 29 September: [pre-training comparison protocol](../docs/algorithm-comparison-protocol.md) and [data-review prerequisites/commands](../docs/comparison-data-review.md) prepare a common LR/NB/linear-SVM comparison. The team confirmed pending data; no new research models or winner were produced. Use `smishguard.fair_compare` for the planned comparison of all three frozen candidates, rather than the older single-selected-candidate workflow below.

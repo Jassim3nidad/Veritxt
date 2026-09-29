@@ -22,7 +22,7 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, target)
         def reject(name, expected):
-            task = f":app:verify{name.capitalize()}Model"
+            task = f":app:verify{name[0].upper() + name[1:]}Model"
             result = subprocess.run([str(ROOT / "gradlew.bat"), "-p", str(project), task, "--console=plain"],
                                     cwd=ROOT, env=env, capture_output=True, text=True, timeout=240)
             assert result.returncode != 0 and expected in result.stdout + result.stderr, f"Guard failed: {name} {expected}"
@@ -43,6 +43,22 @@ def main():
             review.write_text(prefix + f"sha256={hashlib.sha256(model.read_bytes()).hexdigest()}\n")
             reject(name, "Export algorithm does not match variant")
             print(f"PASS {name}: wrong algorithm rejected", flush=True)
+
+        # Isolated software-only review fixtures, never an actual model acceptance.
+        reject("lrCandidate", "LR candidate blocked")
+        assets = project / "android/app/src/lrCandidate/assets"
+        assets.mkdir(parents=True)
+        model = assets / "model.json"
+        model.write_text("{}")
+        review = assets / "review.properties"
+        review.write_text("algorithm=lr\ncontentReview=pending\n")
+        reject("lrCandidate", "actual model-content evidence reference")
+        prefix = "algorithm=lr\ncontentReview=documented\ncontentReviewReference=SOFTWARE_ONLY\nmodelVersion=software-guard\nsourceSha256=" + "0" * 64 + "\n"
+        review.write_text(prefix + "sha256=wrong\n")
+        reject("lrCandidate", "Candidate model changed")
+        review.write_text(prefix + "sha256=" + hashlib.sha256(model.read_bytes()).hexdigest() + "\n")
+        reject("lrCandidate", "Wrong candidate schema or policy")
+        print("PASS lrCandidate: missing, pending, changed and invalid models rejected (4)", flush=True)
 
 
 if __name__ == "__main__":

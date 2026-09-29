@@ -1,5 +1,6 @@
 """Prepare all candidates, then evaluate one sealed comparison. Private outputs only."""
 import argparse
+import csv
 import hashlib
 import json
 import pickle
@@ -101,7 +102,30 @@ def reviewed_assignments(path, rows, groups):
     return splits
 
 
-def prepare(dataset, output, history, exclusion_report, assignments=None):
+def exposure_review(path, rows, splits, history):
+    """Keep prior use explicit; an assignment cannot reset an exposed record's history."""
+    if path is None:
+        raise ValueError("A complete --exposure-review is required; never infer unseen status")
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        reader = csv.DictReader(stream)
+        if reader.fieldnames != ["id", "prior_use_status", "evidence_reference"]:
+            raise ValueError("Invalid exposure-review schema")
+        records = list(reader)
+    by_id = {record["id"]: record for record in records}
+    if len(by_id) != len(records) or set(by_id) != {row["id"] for row in rows}:
+        raise ValueError("Exposure review must cover each record exactly once")
+    for record in records:
+        if (record["prior_use_status"] not in {"exposed", "never_used", "unknown"}
+                or not TOKEN.fullmatch(record["evidence_reference"])):
+            raise ValueError("Exposure status requires an actual evidence reference")
+    test_status = [by_id[rows[i]["id"]]["prior_use_status"] for i in splits["test"]]
+    if history == "prospectively_reserved" and any(status != "never_used" for status in test_status):
+        raise ValueError("Exposed or unknown final records cannot be called prospectively reserved")
+    return dict(test_status_counts={status: test_status.count(status) for status in ("exposed", "never_used", "unknown")},
+                interpretation="Human evidence required; declarations cannot prove historical non-use")
+
+
+def prepare(dataset, output, history, exclusion_report, assignments=None, exposure_path=None):
     if history == "prospectively_reserved" and assignments is None:
         raise ValueError("Prospective evaluation requires reviewed frozen assignments; a new random split cannot establish unseen status")
     rows = sorted(read_dataset(dataset), key=lambda row: row["id"])
@@ -111,6 +135,7 @@ def prepare(dataset, output, history, exclusion_report, assignments=None):
         raise ValueError("Duplicate record IDs")
     groups = np.asarray(template_groups(rows))
     splits = reviewed_assignments(assignments, rows, groups) if assignments else split_rows(rows, groups, "group", SEED)
+    exposure = exposure_review(exposure_path, rows, splits, history)
     training = splits["train"]
     texts = [normalize(rows[i]["text_redacted"]) for i in training]
     y = np.array([int(rows[i]["label"]) for i in training])
@@ -147,6 +172,7 @@ def prepare(dataset, output, history, exclusion_report, assignments=None):
     write_json(output / "freeze.json", dict(protocol_sha256=digest(PROTOCOL), dataset_sha256=digest(dataset),
         exclusion_report_sha256=exclusion_hash, seed=SEED, preprocessing=VERSION, history=history,
         assignment_sha256=digest(assignments) if assignments else None,
+        exposure_review_sha256=digest(exposure_path), exposure_review=exposure,
         assignment_policy="reviewed complete group-isolated manifest; unseen status is human evidence" if assignments else "seeded retrospective group split",
         partition_support={part: dict(records=len(ids), groups=len(set(groups[ids])),
             phishing=sum(rows[i]["label"] == "1" for i in ids), legitimate=sum(rows[i]["label"] == "0" for i in ids))
@@ -160,21 +186,24 @@ def adequate_groups(y, groups):
     return len(set(groups)) >= 20 and all(len(set(groups[y == label])) >= 5 for label in (0, 1))
 
 
-def paired_f1_intervals(y, predictions, groups):
+def paired_f1_intervals(y, predictions, groups, repetitions=2000):
     if not adequate_groups(y, groups):
         return dict(status="insufficient independent class/group support", intervals=None)
+    if set(predictions) != set(NAMES) or any(len(pred) != len(y) for pred in predictions.values()):
+        raise ValueError("Paired uncertainty requires all three predictions on identical records")
     rng = np.random.default_rng(SEED)
     unique = np.unique(groups)
     pairs = [(a, b) for i, a in enumerate(NAMES) for b in NAMES[i + 1:]]
     samples = {f"{a}-{b}": [] for a, b in pairs}
-    for _ in range(2000):
+    for _ in range(repetitions):
         indices = np.concatenate([np.flatnonzero(groups == group) for group in rng.choice(unique, len(unique), replace=True)])
         if len(np.unique(y[indices])) < 2:
             continue
         f1 = {name: f1_score(y[indices], pred[indices], zero_division=0) for name, pred in predictions.items()}
         for a, b in pairs:
             samples[f"{a}-{b}"].append(f1[a] - f1[b])
-    return dict(status="conditional paired cluster percentile bootstrap; 2000 resamples", seed=SEED,
+    return dict(status=f"conditional paired cluster percentile bootstrap; {repetitions} resamples", seed=SEED,
+                scope="Fixed fitted models; marginal pairwise intervals, not simultaneous family-wise inference or fitting uncertainty",
                 intervals={key: dict(valid_replicates=len(values), low=float(np.quantile(values, .025)),
                                      high=float(np.quantile(values, .975))) for key, values in samples.items()})
 
@@ -207,6 +236,7 @@ def evaluate(dataset, output):
         predictions[name] = scores >= threshold
         result = metrics(y, scores, threshold)
         result.update(threshold=threshold, model_json_bytes=(run / "model.json").stat().st_size,
+                      full_pipeline_pickle_bytes=(run / "research-model.pkl").stat().st_size,
                       host_batch_seconds=elapsed, host_batch_records=len(test), android_latency="pending device measurement",
                       calibration_status="held-out diagnostics only; no independent prospective calibration claim")
         result["confidence_intervals"] = (cluster_intervals(y, scores, groups, threshold, seed=SEED, repetitions=2000)
@@ -230,12 +260,14 @@ def main():
     prepare_parser.add_argument("--history", required=True, choices=["previously_used", "prospectively_reserved"])
     prepare_parser.add_argument("--exclusion-report", required=True, type=Path)
     prepare_parser.add_argument("--assignments", type=Path, help="Reviewed frozen partition JSON; required for a prospectively reserved cohort")
+    prepare_parser.add_argument("--exposure-review", required=True, type=Path,
+                                help="Private per-record prior-use ledger with evidence references")
     evaluate_parser = sub.add_parser("evaluate")
     evaluate_parser.add_argument("dataset", type=Path)
     evaluate_parser.add_argument("output", type=Path)
     args = parser.parse_args()
     if args.command == "prepare":
-        prepare(args.dataset, args.output, args.history, args.exclusion_report, args.assignments)
+        prepare(args.dataset, args.output, args.history, args.exclusion_report, args.assignments, args.exposure_review)
     else:
         evaluate(args.dataset, args.output)
 

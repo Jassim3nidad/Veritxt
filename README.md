@@ -1,5 +1,7 @@
 # SmishGuard — experimental model development milestone
 
+29 September complete-package review: [findings and delivery status](docs/mark-complete-findings.md), [independent aggregate audit](docs/mark-complete-audit.json). The calibrated LR adapter and separate `lrCandidate` build are prepared, but packaging is blocked by unresolved identifier-shaped vocabulary, with no fabricated review acceptance. Historical LR and the minimalist UI remain intact. Comparison preparation now requires a per-record exposure ledger; no new research training was run.
+
 Dataset team handoff: [specific human tasks and private file locations](docs/dataset-team-task-sheet.md), [completed automated audit](docs/dataset-preparation-audit.md), and [provenance of the 1,200-record rule](docs/sample-size-provenance.md). Existing review IDs/packets were preserved; no independent labels, permissions or unseen status were fabricated.
 
 29 September comparison preparation: [protocol](docs/algorithm-comparison-protocol.md), [review prerequisites](docs/comparison-data-review.md), and [results/build status](docs/algorithm-comparison-results.md). Shared minimalist UI is preserved. Separate `lr`, `nb`, `svm` build types have distinct application IDs and require privately reviewed model assets. Only the previously permitted historical LR is currently available for an experimental comparison-variant APK; no new research training or winning-algorithm claim has been made.

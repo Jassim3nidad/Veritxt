@@ -64,10 +64,12 @@ class PythonUnicode private constructor(
     }
 }
 
-/** Experimental full-dataset LR export: software compatibility is not research approval. */
+/** Experimental supplied LR exports: software compatibility is not research approval. */
 class SuppliedDetector private constructor(
     private val vocabulary: Map<String, Int>, private val idf: DoubleArray,
-    private val weights: DoubleArray, private val bias: Double, val tokenizer: PythonUnicode
+    private val weights: DoubleArray, private val bias: Double, val tokenizer: PythonUnicode,
+    private val calibrationA: Double = 1.0, private val calibrationB: Double = 0.0,
+    private val candidate: Boolean = false
 ) : Detector {
     override val status = "Experimental model · unverified performance"
     override suspend fun detect(text: String): Detection {
@@ -83,9 +85,10 @@ class SuppliedDetector private constructor(
         val features = featureValues(text)
         var margin = bias
         for ((i, value) in features) margin += weights[i] * value
+        margin = calibrationA * margin + calibrationB
         val score = if (margin >= 0) 1.0 / (1.0 + exp(-margin)) else exp(margin) / (1.0 + exp(margin))
         if (!score.isFinite()) return Detection.Failure
-        return Detection.Success(score > .5, score, experimental = true)
+        return Detection.Success(isSuspicious(score, candidate), score, experimental = true)
     }
     internal suspend fun featureValues(text: String): Map<Int, Double> {
         val tokens = tokenizer.tokens(text)
@@ -102,17 +105,28 @@ class SuppliedDetector private constructor(
         return counts
     }
     companion object {
-        fun parse(json: String): SuppliedDetector {
+        internal fun isSuspicious(score: Double, candidate: Boolean): Boolean =
+            if (candidate) score >= .4 else score > .5
+
+        fun parse(json: String, candidate: Boolean = false): SuppliedDetector {
             val o = JSONObject(json)
-            require(o.getInt("schema_version") == 2 && o.getString("preprocessing_version") == "python-unicode-word-v2")
+            require(o.getInt("schema_version") == (if (candidate) 3 else 2) && o.getString("preprocessing_version") == "python-unicode-word-v2")
             require(o.getString("feature_type") == "word-unigram-bigram-tfidf-l2")
             require(o.getJSONArray("classes").toString() == "[\"ham\",\"smishing\"]" && o.getString("positive_class") == "smishing")
             require(o.getJSONArray("ngram_range").toString() == "[1,2]" && o.getBoolean("lowercase"))
             require(o.getString("token_pattern") == "\\b\\w+\\b")
             require(o.getString("term_frequency") == "raw" && o.getString("normalization") == "l2" && o.getString("score_transform") == "sigmoid")
-            require(o.getDouble("threshold") == .5 && o.getString("threshold_comparison") == "strict_greater")
+            require(o.getDouble("threshold") == (if (candidate) .4 else .5))
+            require(o.getString("threshold_comparison") == (if (candidate) "greater_or_equal" else "strict_greater"))
             require(!o.getBoolean("synthetic") && !o.getBoolean("automatic_warnings_approved"))
-            require(o.getString("evaluation_status") == "unverified" && o.getString("calibration_status") == "uncalibrated")
+            require(o.getString("evaluation_status") == "unverified")
+            require(o.getString("calibration_status") == (if (candidate) "fitted_unvalidated" else "uncalibrated"))
+            val calibration = if (candidate) {
+                require(o.getString("algorithm") == "lr" && o.getString("model_version").isNotBlank())
+                o.getJSONObject("calibration").let { Pair(it.getDouble("a"), it.getDouble("b")) }.also {
+                    require(it.first.isFinite() && it.first > 0 && it.second.isFinite())
+                }
+            } else Pair(1.0, 0.0)
             require(o.getString("intended_use") == "manual_development" && o.getString("technical_compatibility") == "reference_verified")
             val provenance = o.getJSONObject("provenance")
             require(provenance.getString("kind") == "user_supplied_export")
@@ -127,7 +141,8 @@ class SuppliedDetector private constructor(
                 return DoubleArray(a.length()) { a.getDouble(it).also { value -> require(value.isFinite()) } }
             }
             val idf = array("idf"); require(idf.all { it > 0.0 })
-            return SuppliedDetector(vocabulary, idf, array("weights"), o.getDouble("bias").also { require(it.isFinite()) }, tokenizer)
+            return SuppliedDetector(vocabulary, idf, array("weights"), o.getDouble("bias").also { require(it.isFinite()) },
+                tokenizer, calibration.first, calibration.second, candidate)
         }
     }
 }
