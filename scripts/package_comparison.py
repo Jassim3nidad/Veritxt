@@ -14,16 +14,25 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("algorithm", choices=["lr", "nb", "svm"])
+    parser.add_argument("algorithm", choices=["lr", "nb", "svm", "lrCalibrated4"])
     args = parser.parse_args()
     name = args.algorithm
+    folded = name == "lrCalibrated4"
+    algorithm = "lr" if folded else name
+    package = "ph.smishguard.lr.calibrated4" if folded else f"ph.smishguard.{name}"
     source = ROOT / f"android/app/build/outputs/apk/{name}/app-{name}.apk"
     asset = ROOT / f"android/app/src/{name}/assets/model.json"
     review_path = asset.with_name("review.properties")
     review = dict(line.split("=", 1) for line in review_path.read_text(encoding="utf-8").splitlines() if line and not line.startswith("#"))
     model_hash = hashlib.sha256(asset.read_bytes()).hexdigest()
-    assert review["algorithm"] == name and review["sha256"] == model_hash
-    assert review["manualReview"] == "accepted-experimental"
+    assert review["algorithm"] == algorithm and review["sha256"] == model_hash
+    if folded:
+        assert review["reviewKind"] == "automated-pattern-screen" and review["humanReview"] == "not_recorded"
+        content = json.loads(asset.read_text(encoding="utf-8"))
+        assert content["schema_version"] == 4 and content["calibration_encoding"] == "folded_into_parameters"
+        assert "calibration" not in content and review["modelVersion"] == "lr-calibrated-4"
+    else:
+        assert review["manualReview"] == "accepted-experimental"
     version = review["modelVersion"]
     assert re.fullmatch(r"[A-Za-z0-9._-]+", version), "Unsafe model version filename"
     with zipfile.ZipFile(source) as archive:
@@ -34,21 +43,24 @@ def main():
         assert not any(path.endswith((".csv", ".pkl", ".joblib")) or "/software/" in path for path in archive.namelist())
     sdk = Path(os.environ["LOCALAPPDATA"]) / "Android/Sdk/build-tools/35.0.0"
     badging = subprocess.check_output([str(sdk / "aapt.exe"), "dump", "badging", str(source)], text=True)
-    assert f"package: name='ph.smishguard.{name}'" in badging
+    assert f"package: name='{package}'" in badging
     assert "sdkVersion:'26'" in badging
     permissions = re.findall(r"uses-permission: name='([^']+)'", badging)
     assert "android.permission.INTERNET" not in permissions
     assert set(permissions) <= {"android.permission.RECEIVE_SMS", "android.permission.POST_NOTIFICATIONS",
-                                f"ph.smishguard.{name}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"}
+                                f"{package}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"}
     subprocess.run([str(sdk / "apksigner.bat"), "verify", "--verbose", str(source)], check=True, capture_output=True)
-    target = ROOT / "deliverables/algorithm-comparison-20260929"
+    target = ROOT / ("deliverables/lr-calibrated-4-20261001" if folded else "deliverables/algorithm-comparison-20260929")
     target.mkdir(parents=True, exist_ok=True)
-    output = target / f"SmishGuard-{name}-{version}-experimental-debug.apk"
+    output = target / (f"SmishGuard-{version}-experimental-debug.apk" if folded else
+                       f"SmishGuard-{name}-{version}-experimental-debug.apk")
+    if folded and output.exists() and output.read_bytes() != source.read_bytes():
+        raise ValueError("Preserve existing candidate deliverable; choose a new versioned destination")
     shutil.copyfile(source, output)
-    record = dict(filename=output.name, algorithm=name, model_version=version,
+    record = dict(filename=output.name, algorithm=algorithm, model_version=version,
                   sha256=hashlib.sha256(output.read_bytes()).hexdigest(), apk_bytes=output.stat().st_size,
                   model_sha256=model_hash, model_bytes=asset.stat().st_size, minimum_android="8.0 / API 26",
-                  application_id=f"ph.smishguard.{name}", model_included=True, experimental=True,
+                  application_id=package, model_included=True, experimental=True,
                   checks="APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
                   research_status=("historical artifact; not a newly trained fair-comparison model; no thesis accuracy claim"
                       if json.loads(asset.read_text(encoding="utf-8"))["schema_version"] == 2 else

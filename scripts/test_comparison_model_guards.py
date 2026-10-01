@@ -60,6 +60,33 @@ def main():
         reject("lrCandidate", "Wrong candidate schema or policy")
         print("PASS lrCandidate: missing, pending, changed and invalid models rejected (4)", flush=True)
 
+        # Again, synthetic isolated fixtures only: no human acceptance is generated.
+        reject("lrCalibrated4", "requires private audited assets")
+        assets = project / "android/app/src/lrCalibrated4/assets"
+        assets.mkdir(parents=True)
+        model = assets / "model.json"; review = assets / "review.properties"
+        source_hash = "d91f010a004e1fcfef6e4567389007cb81d16e1f6d0f258c263483b2b60d0d77"
+        fixture = dict(schema_version=4, algorithm="lr", model_version="lr-calibrated-4",
+            calibration_encoding="folded_into_parameters", calibration_status="fitted_unvalidated",
+            evaluation_status="unverified", threshold=.5, threshold_comparison="strict_greater",
+            synthetic=False, automatic_warnings_approved=False,
+            provenance=dict(source_sha256=source_hash), vocabulary=["software"])
+        prefix = ("algorithm=lr\nmodelVersion=lr-calibrated-4\nreviewKind=automated-pattern-screen\n"
+                  "humanReview=not_recorded\nreviewReference=lr-calibrated-4-audit-20261001\nsourceSha256=" + source_hash + "\n")
+        def write_folded(value):
+            model.write_text(json.dumps(value))
+            review.write_text(prefix + "sha256=" + hashlib.sha256(model.read_bytes()).hexdigest() + "\n")
+        write_folded({**fixture, "calibration": dict(a=2, b=0)})
+        reject("lrCalibrated4", "schema/calibration policy mismatch")
+        write_folded({**fixture, "vocabulary": ["ref" + "1" * 5]})
+        reject("lrCalibrated4", "Identifier-pattern content check failed")
+        write_folded({**fixture, "provenance": dict(source_sha256="0" * 64)})
+        reject("lrCalibrated4", "Wrong folded candidate source")
+        write_folded(fixture)
+        model.write_text("{}")
+        reject("lrCalibrated4", "Folded candidate identity mismatch")
+        print("PASS lrCalibrated4: missing, double calibration, identifiers, wrong source and changed assets rejected (5)", flush=True)
+
 
 if __name__ == "__main__":
     main()

@@ -1,5 +1,7 @@
 # SmishGuard — experimental model development milestone
 
+1 October: [LR4 handoff review](docs/lr-calibrated-4-review.md) and [verification](docs/lr-calibrated-4-verification.json). A separate private `lrCalibrated4` experiment uses the supplied folded-calibration LR with provisional strict >0.50 scoring. The prior numeric/masked vocabulary blocker is absent under automated screening; no human research approval is inferred. Scope includes institution-branded casino promotions in the supplied scripts and still needs adviser confirmation. The private data archive remains unopened.
+
 29 September complete-package review: [findings and delivery status](docs/mark-complete-findings.md), [independent aggregate audit](docs/mark-complete-audit.json). The calibrated LR adapter and separate `lrCandidate` build are prepared, but packaging is blocked by unresolved identifier-shaped vocabulary, with no fabricated review acceptance. Historical LR and the minimalist UI remain intact. Comparison preparation now requires a per-record exposure ledger; no new research training was run.
 
 Dataset team handoff: [specific human tasks and private file locations](docs/dataset-team-task-sheet.md), [completed automated audit](docs/dataset-preparation-audit.md), and [provenance of the 1,200-record rule](docs/sample-size-provenance.md). Existing review IDs/packets were preserved; no independent labels, permissions or unseen status were fabricated.

@@ -58,6 +58,11 @@ android/app/src/lr/assets/
 android/app/src/nb/assets/
 android/app/src/svm/assets/
 android/app/src/lrCandidate/assets/
+android/app/src/lrCalibrated4/assets/
+smishguard_repo_update*.zip
+MODEL_INTEGRATION*.md
+fresh_test_messages*.csv
+**/training/train_final_lr.py
 SMISHGUARD_complete.zip
 **/SMISHGUARD_complete.zip
 *.apk

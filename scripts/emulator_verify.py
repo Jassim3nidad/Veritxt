@@ -21,11 +21,11 @@ def main():
     global PACKAGE, RUNNER
     parser = argparse.ArgumentParser()
     parser.add_argument("--serial", default="emulator-5554")
-    parser.add_argument("--variant", choices=["debug", "development", "lr"], default="debug")
+    parser.add_argument("--variant", choices=["debug", "development", "lr", "lrCalibrated4"], default="debug")
     parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
     parser.add_argument("--output", type=Path, help="Optional separate sanitized verification record")
     args = parser.parse_args()
-    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr"}[args.variant]
+    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
     adb = ["adb", "-s", args.serial]
     def command(*parts, timeout=60):
@@ -45,6 +45,8 @@ def main():
         target = args.output
     elif args.variant == "lr":
         target = ROOT / "docs/comparison-lr-emulator-results.json"
+    elif args.variant == "lrCalibrated4":
+        target = ROOT / "docs/lr-calibrated-4-emulator.json"
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
@@ -68,11 +70,18 @@ def main():
         command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
-        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in (["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"] + (["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"] if args.variant in {"development", "lr"} else []))))
+        ui = ["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"]
+        if args.variant in {"development", "lr"}:
+            ui += ["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"]
+        elif args.variant == "lrCalibrated4":
+            ui += ["DevelopmentFlowTest", "CompactResultTest", "CandidatePolicyTest"]
+        run_test("ui_lifecycle_decoding", ",".join(NAMESPACE + "." + c for c in ui))
         run_test("notification_denied", NAMESPACE + ".NotificationBehaviorTest#runtimeDenialSuppressesWarning", ("-e", "denied", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "enable")
         command("shell", "svc", "wifi", "disable")
         run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant in {"development", "lr"} else ""), ("-e", "offline", "true"))
+        if args.variant == "lrCalibrated4":
+            run_test("folded_private_parity", NAMESPACE + ".FoldedCandidateAndroidTest", ("-e", "offline", "true"))
         if args.variant == "lr":
             run_test("comparison_latency_policy", NAMESPACE + ".ComparisonRuntimeTest", ("-e", "offline", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "disable")

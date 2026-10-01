@@ -1,5 +1,7 @@
 # SmishGuard research and model workflow
 
+1 October: [lr-calibrated-4 review](../docs/lr-calibrated-4-review.md). `smishguard.folded_candidate` converts the privately supplied folded LR parameters unchanged, checks the matching guide and publishes aggregates only. It never executes training or opens the private data ZIP. Supplied trainers that apply unconfirmed AI proposals were not enabled. Existing reviewed-data/exposure gates remain; exported calibration is fitted, not independently validated.
+
 Complete-package audit: [findings](../docs/mark-complete-findings.md). `smishguard.complete_handoff` audits the privately extracted package and creates a private schema-v3 LR conversion/parity set without fitting a model or installing an APK asset. The supplied 2,521-record corpus remains exposed and awaiting source/redaction/label reviews. `fair_compare prepare` now also requires `--exposure-review` using `templates/comparison-exposure-review.csv`; complete actual evidence references, never invent them. See the versioned [comparison protocol](../docs/algorithm-comparison-protocol.md).
 
 Dataset-preparation handoff: [team task sheet](../docs/dataset-team-task-sheet.md), [1,200-rule source trace](../docs/sample-size-provenance.md), and [current private-review workflow](../docs/team-review-workflow.md). Existing anonymous IDs/review packets are reused; no source permissions, independent labels or redaction attestations are inferred.

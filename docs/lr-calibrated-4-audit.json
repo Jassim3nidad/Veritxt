@@ -1,0 +1,229 @@
+{
+  "model_version": "lr-calibrated-4",
+  "source_sha256": "d91f010a004e1fcfef6e4567389007cb81d16e1f6d0f258c263483b2b60d0d77",
+  "converted_sha256": "ab7105a11cf62e7cd2b268ad84181ac61ab1ad6f7237973c518b2bd6fdae9e1b",
+  "matching_guide_sha256": "295d411523b6633cca7e1ad6df544af905b52c60480a6d179bc959e92f91a111",
+  "source_bytes": 292072,
+  "converted_bytes": 435574,
+  "content_screen": {
+    "features": 5000,
+    "identifier_pattern_features": 0,
+    "long_digit_features": 0,
+    "masked_identifier_features": 0,
+    "scope": "automated patterns only; no human privacy/research acceptance inferred"
+  },
+  "human_review": "not recorded; no acceptance fabricated",
+  "training_rows_supplied": 2738,
+  "training_data_supplied": {
+    "primary_dataset_rows": 1271,
+    "added_legit_rows": 1415,
+    "added_scam_rows": 52,
+    "reviewed_additions_status": "AI-assisted review, pending human confirmation"
+  },
+  "calibration_encoding": "folded coefficients and intercept; runtime sigmoid once; original fitted objects absent",
+  "threshold": {
+    "value": 0.5,
+    "comparison": "strict_greater",
+    "basis": "matching guide/default evaluation; provisional, not optimized on exposed test table"
+  },
+  "guide_references": 5,
+  "guide_max_rounded_error": 4.704928564747135e-05,
+  "wrong_guide_rejected": true,
+  "supplied_full_precision_cases": 70,
+  "supplied_max_error": 2.220446049250313e-16,
+  "independent_cases": 90,
+  "independent_max_error": 2.7755575615628914e-16,
+  "double_calibration_max_deviation": 0.2200575202645665,
+  "source_hashes": {
+    "train_calibrated_lr.py": "f49f3eebf74e382808d96998f00c5f9af626b351b2caa94c4dbf5323ec5b66bb",
+    "build_supplementary_reviewed.py": "8c500e86664746785f03595cc9de5735a87273e9f14173bf4af49851c6cd3c16",
+    "calibration_report.md": "a27eb5dd128ac77dcb56560f36c2201f004015a4584f23923e6583af91996c1c"
+  },
+  "recalculated_supplied_metrics": {
+    "grouped / primary only / calibrated": {
+      "precision": {
+        "mean": 0.9848587933247753,
+        "sample_sd": 0.013839473213731763
+      },
+      "recall": {
+        "mean": 0.9044158271768366,
+        "sample_sd": 0.021379749836583542
+      },
+      "f1": {
+        "mean": 0.9428289888708032,
+        "sample_sd": 0.015154138429150506
+      },
+      "brier": {
+        "mean": 0.014881994137945555,
+        "sample_sd": 0.003992280212533338
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.02918470294881543,
+        "sample_sd": 0.004590439991501156
+      },
+      "added_scams_held_out": 49,
+      "added_scams_caught": 39
+    },
+    "grouped / primary only / raw": {
+      "precision": {
+        "mean": 0.9848587933247753,
+        "sample_sd": 0.013839473213731763
+      },
+      "recall": {
+        "mean": 0.9044158271768366,
+        "sample_sd": 0.021379749836583542
+      },
+      "f1": {
+        "mean": 0.9428289888708032,
+        "sample_sd": 0.015154138429150506
+      },
+      "brier": {
+        "mean": 0.02641648332486279,
+        "sample_sd": 0.00216014531773837
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.0291396258432401,
+        "sample_sd": 0.004213868380739744
+      },
+      "added_scams_held_out": 49,
+      "added_scams_caught": 39
+    },
+    "grouped / with additions / calibrated": {
+      "precision": {
+        "mean": 0.9754578754578754,
+        "sample_sd": 0.016865735433291357
+      },
+      "recall": {
+        "mean": 0.9089710135924881,
+        "sample_sd": 0.018706109528900713
+      },
+      "f1": {
+        "mean": 0.9409790268071281,
+        "sample_sd": 0.015844887083462305
+      },
+      "brier": {
+        "mean": 0.01681024902656291,
+        "sample_sd": 0.003375892740800592
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.002778339340437277,
+        "sample_sd": 0.0028913700308082265
+      },
+      "added_scams_held_out": 49,
+      "added_scams_caught": 49
+    },
+    "grouped / with additions / raw": {
+      "precision": {
+        "mean": 0.9754578754578754,
+        "sample_sd": 0.016865735433291357
+      },
+      "recall": {
+        "mean": 0.9089710135924881,
+        "sample_sd": 0.018706109528900713
+      },
+      "f1": {
+        "mean": 0.9409790268071281,
+        "sample_sd": 0.015844887083462305
+      },
+      "brier": {
+        "mean": 0.02105807494518668,
+        "sample_sd": 0.002051604383976821
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.002778339340437277,
+        "sample_sd": 0.0028913700308082265
+      },
+      "added_scams_held_out": 49,
+      "added_scams_caught": 49
+    },
+    "random / with additions / calibrated": {
+      "precision": {
+        "mean": 0.9355832449628844,
+        "sample_sd": 0.027270412934530648
+      },
+      "recall": {
+        "mean": 0.9090909090909091,
+        "sample_sd": 0.04821182598999189
+      },
+      "f1": {
+        "mean": 0.9212885154061624,
+        "sample_sd": 0.024114051856947823
+      },
+      "brier": {
+        "mean": 0.017470121501340287,
+        "sample_sd": 0.0035135577964548297
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.0014134275618374558,
+        "sample_sd": 0.0019354153975447565
+      },
+      "added_scams_held_out": 50,
+      "added_scams_caught": 50
+    },
+    "random / with additions / raw": {
+      "precision": {
+        "mean": 0.9236539244244395,
+        "sample_sd": 0.021595692241006607
+      },
+      "recall": {
+        "mean": 0.9227272727272727,
+        "sample_sd": 0.03446761565477979
+      },
+      "f1": {
+        "mean": 0.9225704482476028,
+        "sample_sd": 0.010828436614930456
+      },
+      "brier": {
+        "mean": 0.022900280245616206,
+        "sample_sd": 0.0022345727430759326
+      },
+      "everyday_false_alarm_rate": {
+        "mean": 0.0028268551236749115,
+        "sample_sd": 0.002956395853477299
+      },
+      "added_scams_held_out": 50,
+      "added_scams_caught": 50
+    }
+  },
+  "private_data_archive_opened": false,
+  "training_executed": false,
+  "exposed_diagnostic_sets": {
+    "fresh_test_messages.csv": {
+      "records": 34,
+      "correct_against_supplied_labels": 32,
+      "false_positives": 0,
+      "false_negatives": 2,
+      "status": "exposed diagnostic messages; supplied labels; not independent performance; mathematical scorer before Android abstention"
+    },
+    "fresh_test_messages_v2.csv": {
+      "records": 30,
+      "correct_against_supplied_labels": 26,
+      "false_positives": 1,
+      "false_negatives": 3,
+      "status": "exposed diagnostic messages; supplied labels; not independent performance; mathematical scorer before Android abstention"
+    }
+  },
+  "implemented_scope": "financial-institution impersonation plus institution-branded casino ads; adviser confirmation not established",
+  "report_conflict": "stale write_report literals claim casino exclusion; build_supplementary_reviewed retains 47 primary casino IDs and promotes branded additions",
+  "candidate_review": "automated technical/content screen supports private experiment only; research labels and scope remain provisional",
+  "jvm": {
+    "cases_sha256": "21a1401106d82046dc41eca00d6c539b0360b1faa3669fbb79663c22d01ac29c",
+    "model_sha256": "ab7105a11cf62e7cd2b268ad84181ac61ab1ad6f7237973c518b2bd6fdae9e1b",
+    "cases": 90,
+    "scored": 83,
+    "max_absolute_error": 3.3306690738754696e-16,
+    "abstained": 7
+  },
+  "android": {
+    "cases": 90,
+    "max_absolute_error": 3.3306690738754696e-16,
+    "scored": 83,
+    "abstained": 7,
+    "model_sha256": "ab7105a11cf62e7cd2b268ad84181ac61ab1ad6f7237973c518b2bd6fdae9e1b",
+    "cases_sha256": "21a1401106d82046dc41eca00d6c539b0360b1faa3669fbb79663c22d01ac29c",
+    "warm_scan_p50_ms": 0.20332,
+    "warm_scan_p95_ms": 0.496253,
+    "api": 36,
+    "timing_scope": "emulator; 3 invented probes, 20 warmups, 200 scans; load/UI excluded"
+  }
+}

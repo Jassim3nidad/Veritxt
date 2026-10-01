@@ -20,6 +20,13 @@ android {
         manifestPlaceholders["appLabel"] = "SmishGuard"
     }
     buildTypes {
+        create("lrCalibrated4") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".lr.calibrated4"
+            versionNameSuffix = "-lr-calibrated-4-experimental"
+            manifestPlaceholders["appLabel"] = "SmishGuard · LR Calibrated 4"
+            matchingFallbacks += listOf("debug")
+        }
         create("lrCandidate") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".lr.candidate"
@@ -57,6 +64,10 @@ android {
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 tasks.withType<Test>().configureEach {
+    providers.gradleProperty("foldedParityDir").orNull?.let {
+        systemProperty("smishguard.folded.parity.dir", it)
+        inputs.dir(it)
+    }
     providers.gradleProperty("candidateParityDir").orNull?.let {
         systemProperty("smishguard.candidate.parity.dir", it)
         inputs.dir(it)
@@ -68,6 +79,41 @@ tasks.withType<Test>().configureEach {
 }
 configurations.getByName("developmentImplementation").extendsFrom(configurations.getByName("debugImplementation"))
 configurations.getByName("lrCandidateImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("lrCalibrated4Implementation").extendsFrom(configurations.getByName("debugImplementation"))
+providers.gradleProperty("foldedParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+val verifyLrCalibrated4Model by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/lrCalibrated4/assets").asFile
+        val model = directory.resolve("model.json")
+        val review = directory.resolve("review.properties")
+        check(model.isFile && review.isFile) { "Folded LR candidate requires private audited assets" }
+        val metadata = Properties().apply { review.inputStream().use { load(it) } }
+        val digest = MessageDigest.getInstance("SHA-256").digest(model.readBytes()).joinToString("") { "%02x".format(it) }
+        check(metadata.getProperty("sha256") == digest && metadata.getProperty("modelVersion") == "lr-calibrated-4" &&
+            metadata.getProperty("algorithm") == "lr") { "Folded candidate identity mismatch" }
+        check(metadata.getProperty("reviewKind") == "automated-pattern-screen" && metadata.getProperty("humanReview") == "not_recorded" &&
+            metadata.getProperty("reviewReference") == "lr-calibrated-4-audit-20261001") { "State actual automated review; do not fabricate human approval" }
+        val content = JsonSlurper().parse(model) as Map<*, *>
+        val provenance = content["provenance"] as? Map<*, *>
+        val sourceHash = "d91f010a004e1fcfef6e4567389007cb81d16e1f6d0f258c263483b2b60d0d77"
+        check(provenance?.get("source_sha256") == sourceHash && metadata.getProperty("sourceSha256") == sourceHash) { "Wrong folded candidate source" }
+        check(content["schema_version"] == 4 && content["algorithm"] == "lr" && content["model_version"] == "lr-calibrated-4" &&
+            content["calibration_encoding"] == "folded_into_parameters" && !content.containsKey("calibration") &&
+            !content.containsKey("calibration_a") && !content.containsKey("calibration_b") &&
+            content["calibration_status"] == "fitted_unvalidated" && content["evaluation_status"] == "unverified" &&
+            (content["threshold"] as? Number)?.toDouble() == 0.5 && content["threshold_comparison"] == "strict_greater" &&
+            content["synthetic"] == false && content["automatic_warnings_approved"] == false) { "Folded candidate schema/calibration policy mismatch" }
+        val words = content["vocabulary"] as? List<*> ?: error("Missing vocabulary")
+        val identifier = Regex("\\d{5,}|x{3,}\\d|\\d+x{3,}|\\*{2,}", RegexOption.IGNORE_CASE)
+        check(words.isNotEmpty() && words.all { it is String && !identifier.containsMatchIn(it) }) { "Identifier-pattern content check failed" }
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json", "review.properties")) { "Unexpected folded candidate assets" }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model would contaminate variants" }
+    }
+}
+tasks.matching { it.name == "preLrCalibrated4Build" || it.name == "mergeLrCalibrated4Assets" }
+    .configureEach { dependsOn(verifyLrCalibrated4Model) }
 // Optional private JVM-only source for auditing the handoff's scorer. Never APK assets.
 providers.gradleProperty("candidateParityDir").orNull?.let {
     android.sourceSets.getByName("test").java.srcDir("$it/supplied")

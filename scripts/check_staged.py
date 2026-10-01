@@ -20,7 +20,10 @@ def forbidden_path(name):
             or path.name in {'smishguard_dataset.csv', 'fresh_test_messages.csv',
                              'candidate_parity_cases.json', 'local.properties'}
             or (path.name.startswith('model_export_') and path.suffix == '.json')
-            or path.name.startswith('MODEL_INTEGRATION_calibrated')
+            or (path.name.startswith('MODEL_INTEGRATION') and
+                name != 'research/model_evidence/MODEL_INTEGRATION.md')
+            or path.name.startswith('fresh_test_messages')
+            or (path.name == 'train_final_lr.py' and 'training' in path.parts)
             or path.name.endswith(('.db-journal', '.db-wal', '.db-shm'))
             or (path.name.startswith('.env') and path.name != '.env.example')
             or name.endswith(('/assets/model.json', '/assets/review.properties')))

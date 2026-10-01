@@ -108,9 +108,10 @@ class SuppliedDetector private constructor(
         internal fun isSuspicious(score: Double, candidate: Boolean): Boolean =
             if (candidate) score >= .4 else score > .5
 
-        fun parse(json: String, candidate: Boolean = false): SuppliedDetector {
+        fun parse(json: String, candidate: Boolean = false, folded: Boolean = false): SuppliedDetector {
+            require(!(candidate && folded))
             val o = JSONObject(json)
-            require(o.getInt("schema_version") == (if (candidate) 3 else 2) && o.getString("preprocessing_version") == "python-unicode-word-v2")
+            require(o.getInt("schema_version") == (if (folded) 4 else if (candidate) 3 else 2) && o.getString("preprocessing_version") == "python-unicode-word-v2")
             require(o.getString("feature_type") == "word-unigram-bigram-tfidf-l2")
             require(o.getJSONArray("classes").toString() == "[\"ham\",\"smishing\"]" && o.getString("positive_class") == "smishing")
             require(o.getJSONArray("ngram_range").toString() == "[1,2]" && o.getBoolean("lowercase"))
@@ -120,7 +121,13 @@ class SuppliedDetector private constructor(
             require(o.getString("threshold_comparison") == (if (candidate) "greater_or_equal" else "strict_greater"))
             require(!o.getBoolean("synthetic") && !o.getBoolean("automatic_warnings_approved"))
             require(o.getString("evaluation_status") == "unverified")
-            require(o.getString("calibration_status") == (if (candidate) "fitted_unvalidated" else "uncalibrated"))
+            require(o.getString("calibration_status") == (if (candidate || folded) "fitted_unvalidated" else "uncalibrated"))
+            if (folded) {
+                require(o.getString("algorithm") == "lr" && o.getString("model_version") == "lr-calibrated-4")
+                require(o.getString("calibration_encoding") == "folded_into_parameters")
+                // Applying source a/b here would calibrate twice. Schema v4 forbids it.
+                require(!o.has("calibration") && !o.has("calibration_a") && !o.has("calibration_b"))
+            }
             val calibration = if (candidate) {
                 require(o.getString("algorithm") == "lr" && o.getString("model_version").isNotBlank())
                 o.getJSONObject("calibration").let { Pair(it.getDouble("a"), it.getDouble("b")) }.also {

@@ -1,4 +1,4 @@
-param([switch]$ConnectedTests, [switch]$EmulatorTests, [ValidateSet("debug", "development", "lr", "lrCandidate", "nb", "svm")][string]$Variant = "debug", [string]$ModelParityDir)
+param([switch]$ConnectedTests, [switch]$EmulatorTests, [ValidateSet("debug", "development", "lr", "lrCandidate", "lrCalibrated4", "nb", "svm")][string]$Variant = "debug", [string]$ModelParityDir, [string]$FoldedParityDir)
 $ErrorActionPreference = 'Stop'
 Push-Location (Split-Path $PSScriptRoot -Parent)
 try {
@@ -9,6 +9,10 @@ try {
     $variantTask = $Variant.Substring(0, 1).ToUpperInvariant() + $Variant.Substring(1)
     $gradleOptions = @("-PinstrumentedBuild=$Variant", '--console=plain')
     if ($ModelParityDir) { $gradleOptions += "-PmodelParityDir=$ModelParityDir" }
+    if ($FoldedParityDir) { $gradleOptions += "-PfoldedParityDir=$FoldedParityDir" }
+    if ($EmulatorTests -and $Variant -eq 'lrCalibrated4' -and -not $FoldedParityDir) {
+        throw 'LR4 emulator verification requires -FoldedParityDir pointing to the private parity output.'
+    }
     & .\gradlew.bat ":app:assemble$variantTask" ":app:lint$variantTask" ":app:test${variantTask}UnitTest" @gradleOptions
     if ($LASTEXITCODE -ne 0) { throw 'Android build/checks failed.' }
     if ($ConnectedTests) {
@@ -16,7 +20,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Connected Android tests failed.' }
     }
     if ($EmulatorTests) {
-        if ($Variant -notin @('debug', 'development', 'lr')) { throw 'Use connected tests for new research models; specialized verifier supports the existing historical LR only.' }
+        if ($Variant -notin @('debug', 'development', 'lr', 'lrCalibrated4')) { throw 'Use connected tests for other model variants; this verifier has no corresponding private parity setup.' }
         & .\gradlew.bat ":app:assemble${variantTask}AndroidTest" @gradleOptions
         if ($LASTEXITCODE -ne 0) { throw 'Android test APK build failed.' }
         & research\.venv\Scripts\python.exe scripts\emulator_verify.py --variant $Variant

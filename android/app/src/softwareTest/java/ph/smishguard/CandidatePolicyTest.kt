@@ -7,6 +7,37 @@ import org.junit.Test
 import ph.smishguard.model.*
 
 class CandidatePolicyTest {
+    private fun foldedFixture(): JSONObject = fixture().apply {
+        put("schema_version", 4); put("model_version", "lr-calibrated-4")
+        put("calibration_encoding", "folded_into_parameters")
+        put("threshold", .5); put("threshold_comparison", "strict_greater")
+        remove("calibration")
+    }
+
+    @Test fun foldedParametersAreUsedExactlyOnce() = runBlocking {
+        val detector = SuppliedDetector.parse(foldedFixture().toString(), folded = true)
+        val result = detector.detect("hello account") as Detection.Success
+        val margin = -.2 + (-.4 + 2 * .7) / kotlin.math.sqrt(5.0)
+        assertEquals(1 / (1 + kotlin.math.exp(-margin)), result.score, 1e-12)
+        assertFalse(result.probability); assertTrue(result.experimental)
+        assertFalse(detector.automaticWarningsAllowed)
+        assertEquals(Detection.UnableToAssess, detector.detect(""))
+        assertEquals(Detection.UnableToAssess, detector.detect("xqzvplmkj"))
+        val boundary = foldedFixture().put("bias", 0).put("weights", org.json.JSONArray(listOf(0, 0)))
+        val at = SuppliedDetector.parse(boundary.toString(), folded = true).detect("hello") as Detection.Success
+        assertEquals(.5, at.score, 0.0); assertFalse(at.suspicious)
+    }
+
+    @Test fun foldedSchemaRejectsDoubleCalibrationAndOtherLoaders() {
+        for (key in listOf("calibration", "calibration_a", "calibration_b")) {
+            assertThrows(Exception::class.java) {
+                SuppliedDetector.parse(foldedFixture().put(key, 1).toString(), folded = true)
+            }
+        }
+        assertThrows(Exception::class.java) { SuppliedDetector.parse(foldedFixture().toString(), candidate = true) }
+        assertThrows(Exception::class.java) { ModelLoader.parse(foldedFixture().toString()) }
+        assertThrows(Exception::class.java) { SuppliedDetector.parse(foldedFixture().put("threshold", .4).toString(), folded = true) }
+    }
     // Handcrafted in-memory software fixture; never a fitted model or shipped asset.
     private fun fixture(): JSONObject = JSONObject("""{
         "schema_version":3,"model_version":"software-only","algorithm":"lr",

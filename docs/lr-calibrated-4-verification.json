@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-01",
+  "model_version": "lr-calibrated-4",
+  "private_data_archive_opened": false,
+  "training_executed": false,
+  "software_checks": {
+    "research": {
+      "passed": 65
+    },
+    "backend": {
+      "passed": 46
+    },
+    "safe_handoff": {
+      "passed": 8
+    },
+    "model_build_guards": {
+      "passed": 18
+    },
+    "python_dependencies": "pip check passed"
+  },
+  "android_builds": {
+    "Debug": {
+      "assemble": "passed",
+      "jvm": {
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 3,
+        "passed": 17,
+        "skips": [
+          "ph.smishguard.CandidateDetectorTest",
+          "ph.smishguard.ExportParityTest",
+          "ph.smishguard.FoldedCandidateTest"
+        ]
+      },
+      "lint": {
+        "errors": 0,
+        "warnings": [
+          "OldTargetApi",
+          "GradleDependency",
+          "GradleDependency",
+          "GradleDependency",
+          "GradleDependency"
+        ]
+      }
+    },
+    "LrCalibrated4": {
+      "assemble": "passed",
+      "jvm": {
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 2,
+        "passed": 18,
+        "skips": [
+          "ph.smishguard.CandidateDetectorTest",
+          "ph.smishguard.ExportParityTest"
+        ]
+      },
+      "lint": {
+        "errors": 0,
+        "warnings": [
+          "OldTargetApi",
+          "GradleDependency",
+          "GradleDependency",
+          "GradleDependency",
+          "GradleDependency"
+        ]
+      }
+    }
+  },
+  "emulator": {
+    "api": "36",
+    "status": "passed",
+    "instrumentation_tests_passed": 28,
+    "private_storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "folded_parity": {
+      "cases": 90,
+      "max_absolute_error": 3.3306690738754696e-16,
+      "scored": 83,
+      "abstained": 7,
+      "model_sha256": "ab7105a11cf62e7cd2b268ad84181ac61ab1ad6f7237973c518b2bd6fdae9e1b",
+      "cases_sha256": "21a1401106d82046dc41eca00d6c539b0360b1faa3669fbb79663c22d01ac29c",
+      "warm_scan_p50_ms": 0.20332,
+      "warm_scan_p95_ms": 0.496253,
+      "api": 36,
+      "timing_scope": "emulator; 3 invented probes, 20 warmups, 200 scans; load/UI excluded"
+    },
+    "scope": "Software/inference checks on an emulator; not physical-device, accuracy or prospective calibration validation"
+  },
+  "historical_models_and_apks": {
+    "checked": 15,
+    "unchanged": true
+  },
+  "apk": {
+    "filename": "SmishGuard-lr-calibrated-4-experimental-debug.apk",
+    "algorithm": "lr",
+    "model_version": "lr-calibrated-4",
+    "sha256": "5f50dad2a92b601af810f189ec3c233e35a12821cb4d8b029a5cfa3efe6609ef",
+    "apk_bytes": 12978251,
+    "model_sha256": "ab7105a11cf62e7cd2b268ad84181ac61ab1ad6f7237973c518b2bd6fdae9e1b",
+    "model_bytes": 435574,
+    "minimum_android": "8.0 / API 26",
+    "application_id": "ph.smishguard.lr.calibrated4",
+    "model_included": true,
+    "experimental": true,
+    "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+    "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy",
+    "relative_path": "deliverables/lr-calibrated-4-20261001/SmishGuard-lr-calibrated-4-experimental-debug.apk"
+  },
+  "private_experiment_technical_blockers": [],
+  "research_blockers": [
+    "Adviser-confirmed scope, especially institution-branded casino advertising",
+    "Independent confirmation/adjudication of AI-assisted labels",
+    "Source/use and redaction evidence; automated vocabulary scan is not human acceptance",
+    "Original fitted objects and complete training/test-exposure history",
+    "New reserved group-reviewed confirmation cohort and development-only threshold/calibration selection",
+    "Fair LR/NB/SVM comparison with actual faithful models and common frozen splits"
+  ]
+}
