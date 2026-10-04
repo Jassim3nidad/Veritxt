@@ -65,7 +65,7 @@ def main():
         algorithm='mbert',model_version=version,application_id=package,asset_sha256=asset_hashes,
         onnx_bytes=(assets/'model.onnx').stat().st_size,permissions=permissions,signature_verified=True,
         precision='float32',quantized=False,minimum_android='8.0 / API 26',
-        research_status='later-added exploratory; exposed internal test; not independent validation')
+        research_status='preliminary retrospective; source/rule labels; not independent validation')
     (destination/'mbert-apk-manifest.json').write_text(json.dumps(record,indent=2),encoding='utf-8')
     print(json.dumps(record,indent=2))
 

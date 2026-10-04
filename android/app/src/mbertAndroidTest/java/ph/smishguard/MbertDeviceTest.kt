@@ -22,7 +22,9 @@ class MbertDeviceTest {
         assertEquals(1,Settings.Global.getInt(context.contentResolver,Settings.Global.AIRPLANE_MODE_ON))
         assertEquals(PackageManager.PERMISSION_DENIED,context.checkSelfPermission(Manifest.permission.INTERNET))
         val app=context.applicationContext as SoftwareTestApp;app.testDetector=null
+        val coldStarted=System.nanoTime()
         val detector=app.detector()
+        val coldMillis=(System.nanoTime()-coldStarted)/1e6
         assertTrue("Actual mBERT model must load",detector is MbertDetector)
         val model=detector as MbertDetector
         assertThrows(Exception::class.java) { MbertDetector(context,JSONObject(model.metadata.toString()).put("schema_version",0).toString()) }
@@ -68,7 +70,7 @@ class MbertDeviceTest {
         }.sorted()
         val record=JSONObject().put("cases",cases.length()).put("max_logit_error",maxLogit).put("max_score_error",maxScore).put("max_margin_error",maxMargin)
             .put("near_threshold_cases",near).put("class_changes",flips).put("model_sha256",model.metadata.getString("model_sha256"))
-            .put("model_load_ms",model.modelLoadMillis).put("scored",scored).put("abstained",abstained)
+            .put("model_load_ms",model.modelLoadMillis).put("cold_detector_ms",coldMillis).put("scored",scored).put("abstained",abstained)
             .put("warmups",20).put("scans",200).put("probes",4).put("p50_ms",timings[99]/1e6).put("p95_ms",timings[189]/1e6)
         i.sendStatus(0,Bundle().apply{putString("stream","MBERT_AGGREGATE="+record.toString()+"\n")})
     }

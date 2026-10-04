@@ -14,6 +14,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--serial',default='emulator-5554')
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--apk-dir',type=Path,default=ROOT/'deliverables/comparison-20261001')
     args=p.parse_args()
     output=args.output.resolve()
     if not output.is_relative_to((ROOT/'research/data').resolve()):raise ValueError('Keep execution evidence private')
@@ -35,8 +36,8 @@ def main():
         results=records,physical_device='not tested')
     try:
         for name in names:
-            manifest=json.loads((ROOT/f'deliverables/comparison-20261001/{name}-apk-manifest.json').read_text())
-            apk=ROOT/'deliverables/comparison-20261001'/manifest['filename']
+            manifest=json.loads((args.apk_dir/f'{name}-apk-manifest.json').read_text())
+            apk=args.apk_dir/manifest['filename']
             with apk.open('rb') as f:checksum=hashlib.file_digest(f,'sha256').hexdigest()
             if checksum!=manifest['sha256']:raise ValueError('Preserved APK changed')
             command('install','-r',str(apk),timeout=300)
@@ -58,7 +59,9 @@ def main():
                 if match is None:raise ValueError('Missing recorded benchmark')
                 scored,abstained,size,p50,p95=match.groups()
                 values=dict(scored=int(scored),abstained=int(abstained),model_bytes=int(size),p50_ms=float(p50),p95_ms=float(p95),probes=4,warmups=20,scans=200)
-            values['apk_sha256']=json.loads((ROOT/f'deliverables/comparison-20261001/{name}-apk-manifest.json').read_text())['sha256']
+                load=re.search(r'model_load_ms=([\d.]+)',log)
+                values['model_load_ms']=float(load.group(1)) if load else None
+            values['apk_sha256']=json.loads((args.apk_dir/f'{name}-apk-manifest.json').read_text())['sha256']
             records[name]=values
             output.write_text(json.dumps(result,indent=2),encoding='utf-8')
             print(f'{name}: common-device benchmark passed',flush=True)

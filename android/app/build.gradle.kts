@@ -116,6 +116,14 @@ val verifyMbertModel by tasks.registering {
             content["synthetic"] == false && content["automatic_warnings_approved"] == false &&
             content["evaluation_status"] == "preliminary_retrospective" && content["quantized"] == false) { "mBERT identity/policy mismatch" }
         check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json", "model.onnx", "vocab.txt", "LICENSE.txt")) { "Unexpected mBERT assets" }
+        if ((content["model_version"] as? String)?.startsWith("expanded-20261005-") == true) {
+            val protocol = rootProject.file("docs/expanded-comparison-protocol-20261005.md")
+            val protocolHash = MessageDigest.getInstance("SHA-256").digest(protocol.readBytes()).joinToString("") { "%02x".format(it) }
+            check(content["protocol_sha256"] == protocolHash && content["classes"] == listOf("ham", "smishing") &&
+                content["positive_class"] == "smishing" && content["threshold_comparison"] == "greater_or_equal" &&
+                content["score_transform"] == "sigmoid_of_logit_difference" &&
+                (content["calibration"] as? Map<*, *>)?.get("fit_partition") == "calibration") { "Expanded mBERT protocol/class/calibration mismatch" }
+        }
         check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model contamination" }
     }
 }
@@ -201,7 +209,8 @@ for (algorithm in listOf("lr", "nb", "svm")) {
             check(model.isFile && review.isFile) { "$algorithm requires a privately reviewed model and review.properties; no model-free fallback." }
             val metadata = Properties().apply { review.inputStream().use { load(it) } }
             check(metadata.getProperty("algorithm") == algorithm && !metadata.getProperty("modelVersion").isNullOrBlank()) { "Wrong algorithm or missing model version" }
-            val preliminary = metadata.getProperty("reviewReference") == "preliminary-comparison-20261001"
+            val reference = metadata.getProperty("reviewReference")
+            val preliminary = reference in setOf("preliminary-comparison-20261001", "expanded-comparison-20261005")
             if (preliminary) {
                 check(metadata.getProperty("reviewKind") == "automated-pattern-screen" &&
                     metadata.getProperty("humanReview") == "not_recorded") { "State actual automated review, not human acceptance" }
@@ -215,7 +224,8 @@ for (algorithm in listOf("lr", "nb", "svm")) {
                 check(content["schema_version"] == 1 && content["algorithm"] == algorithm) { "Export algorithm does not match variant" }
                 check(content["synthetic"] == false && content["calibration_evaluated"] == false && content["calibration"] is Map<*, *>) { "Comparison requires an experimental sigmoid export, never a raw-margin percentage or synthetic fixture" }
                 if (preliminary) {
-                    val protocol = rootProject.file("docs/preliminary-comparison-protocol-20261001.md")
+                    val protocol = rootProject.file(if (reference == "expanded-comparison-20261005")
+                        "docs/expanded-comparison-protocol-20261005.md" else "docs/preliminary-comparison-protocol-20261001.md")
                     val protocolHash = MessageDigest.getInstance("SHA-256").digest(protocol.readBytes()).joinToString("") { "%02x".format(it) }
                     check(metadata.getProperty("protocolSha256") == protocolHash && content["protocol_sha256"] == protocolHash &&
                         content["evaluation_status"] == "preliminary_retrospective" && content["label_status"] == "inherited_unconfirmed" &&

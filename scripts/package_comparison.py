@@ -32,13 +32,15 @@ def main():
         content = json.loads(asset.read_text(encoding="utf-8"))
         assert content["schema_version"] == 4 and content["calibration_encoding"] == "folded_into_parameters"
         assert "calibration" not in content and review["modelVersion"] == "lr-calibrated-4"
-    elif review.get("reviewReference") == "preliminary-comparison-20261001":
+    elif review.get("reviewReference") in ("preliminary-comparison-20261001", "expanded-comparison-20261005"):
         assert review["reviewKind"] == "automated-pattern-screen" and review["humanReview"] == "not_recorded"
         content = json.loads(asset.read_text(encoding="utf-8"))
         assert content["algorithm"] == algorithm and content["schema_version"] == 1
         assert content["model_version"] == review["modelVersion"] and content["evaluation_status"] == "preliminary_retrospective"
         assert content["protocol_sha256"] == review["protocolSha256"]
-        assert content["protocol_sha256"] == hashlib.sha256((ROOT/'docs/preliminary-comparison-protocol-20261001.md').read_bytes()).hexdigest()
+        protocol = ('expanded-comparison-protocol-20261005.md' if review['reviewReference']=='expanded-comparison-20261005'
+                    else 'preliminary-comparison-protocol-20261001.md')
+        assert content["protocol_sha256"] == hashlib.sha256((ROOT/'docs'/protocol).read_bytes()).hexdigest()
     else:
         assert review["manualReview"] == "accepted-experimental"
     version = review["modelVersion"]
