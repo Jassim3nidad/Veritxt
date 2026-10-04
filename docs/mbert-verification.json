@@ -1,0 +1,135 @@
+{
+  "apk": {
+    "filename": "SmishGuard-mbert-exploratory-20261002-experimental-debug.apk",
+    "sha256": "5a898829f674af7f2a9958630367d6a12a28c127a8146bbbbf6c267c3b65a075",
+    "apk_bytes": 800401584,
+    "algorithm": "mbert",
+    "model_version": "mbert-exploratory-20261002",
+    "application_id": "ph.smishguard.mbert",
+    "asset_sha256": {
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model.json": "8ba02959be9bbffad426a61b282a394d0fdec2771b0d194d1ac9dbe0218affca",
+      "model.onnx": "ef7a1c242533463c14aff06a1636606532a259c717306806057d7f3ab4ca1f5f",
+      "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+    },
+    "onnx_bytes": 711555082,
+    "permissions": [
+      "android.permission.RECEIVE_SMS",
+      "android.permission.POST_NOTIFICATIONS",
+      "ph.smishguard.mbert.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "signature_verified": true,
+    "precision": "float32",
+    "quantized": false,
+    "minimum_android": "8.0 / API 26",
+    "research_status": "later-added exploratory; exposed internal test; not independent validation"
+  },
+  "training": {
+    "complete": true,
+    "epochs_completed": 2,
+    "selected_epoch": 2,
+    "history": [
+      {
+        "epoch": 1,
+        "validation_average_precision": 0.6779080258355177,
+        "mean_training_loss": 0.32499442283548446
+      },
+      {
+        "epoch": 2,
+        "validation_average_precision": 0.7844845041012488,
+        "mean_training_loss": 0.17091800111582428
+      }
+    ],
+    "seconds": 299.78100000000006,
+    "max_length": 128,
+    "train_length_p95": 180.35000000000002,
+    "train_truncated": 103,
+    "trainable_parameters": 177854978,
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "peak_cuda_bytes": 2227494912,
+    "torch": "2.7.1+cu126"
+  },
+  "export": {
+    "cases": 179,
+    "max_logit_error": 6.794929504394531e-06,
+    "max_score_error": 1.430511474609375e-06,
+    "max_margin_error": 1.0967254638671875e-05,
+    "nearest_threshold_distance": 0.0022729599475860562,
+    "near_threshold_cases": 0,
+    "class_changes": 0,
+    "onnx_bytes": 711555082,
+    "model_sha256": "ef7a1c242533463c14aff06a1636606532a259c717306806057d7f3ab4ca1f5f",
+    "metadata_sha256": "8ba02959be9bbffad426a61b282a394d0fdec2771b0d194d1ac9dbe0218affca",
+    "cases_sha256": "371ebbc93710f4fc440336350815bb6ad499ccd670632e087a77b7855984d7f0",
+    "quantized": false,
+    "onnxruntime": "1.22.0",
+    "providers": [
+      "CPUExecutionProvider"
+    ]
+  },
+  "content": {
+    "base_vocabulary_unchanged": true,
+    "assessability_words": 2008,
+    "identifier_pattern_words": 0,
+    "raw_messages_or_fixtures_in_packaging_allowlist": false,
+    "human_review": "not_recorded",
+    "scope": "Automated structure/hash/pattern checks; fitted weights stay private; no memorization or human privacy clearance claim",
+    "license": "Google BERT Apache-2.0 retained in APK"
+  },
+  "jvm_tokenizer": {
+    "cases": 179,
+    "exact_token_ids_masks_types": true
+  },
+  "jvm": {
+    "tests": 21,
+    "skipped": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  "android": {
+    "cases": 179,
+    "max_logit_error": 6.794929504394531e-06,
+    "max_score_error": 1.5209763066792448e-06,
+    "max_margin_error": 1.1086463928222656e-05,
+    "near_threshold_cases": 0,
+    "class_changes": 0,
+    "model_sha256": "ef7a1c242533463c14aff06a1636606532a259c717306806057d7f3ab4ca1f5f",
+    "model_load_ms": 4562.8951,
+    "scored": 150,
+    "abstained": 50,
+    "warmups": 20,
+    "scans": 200,
+    "probes": 4,
+    "p50_ms": 152.88,
+    "p95_ms": 167.871
+  },
+  "emulator_tests": 24,
+  "emulator": "SmishGuard_Comparison_API36; x86_64; 4 virtual CPUs; 4096 MiB configured RAM; 12 GiB data",
+  "screenshots": {
+    "count": 3,
+    "inputs": "fictional",
+    "inference": "actual bundled model",
+    "path": "deliverables\\comparison-20261001\\screenshots\\mbert"
+  },
+  "storage": {
+    "files_inspected": 2,
+    "raw_fixture_markers_found": 0,
+    "exclusion": "Hash-verified ONNX model cache; no message inputs stored there"
+  },
+  "build": "passed",
+  "lint": {
+    "errors": 0,
+    "warnings": 5
+  },
+  "physical_device": "pending",
+  "prior_failures": [
+    "Export wrapper restored training/dropout mode in Python reference; fixed wrapper eval state; research metrics unchanged",
+    "Original emulator system UI ANR resolved before testing; installation then failed for insufficient storage; retained original AVD and used larger comparison AVD"
+  ],
+  "parity_tolerances": {
+    "logit": 0.0001,
+    "margin": 0.0001,
+    "score": 1e-05
+  },
+  "research": "Later-added exploratory; exposed inherited-label internal evaluation; no independent probability claim"
+}

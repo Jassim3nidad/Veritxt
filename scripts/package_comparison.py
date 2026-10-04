@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("algorithm", choices=["lr", "nb", "svm", "lrCalibrated4"])
+    parser.add_argument("--output-dir", type=Path, help="New private directory beneath deliverables; preserves prior APKs")
     args = parser.parse_args()
     name = args.algorithm
     folded = name == "lrCalibrated4"
@@ -31,6 +32,13 @@ def main():
         content = json.loads(asset.read_text(encoding="utf-8"))
         assert content["schema_version"] == 4 and content["calibration_encoding"] == "folded_into_parameters"
         assert "calibration" not in content and review["modelVersion"] == "lr-calibrated-4"
+    elif review.get("reviewReference") == "preliminary-comparison-20261001":
+        assert review["reviewKind"] == "automated-pattern-screen" and review["humanReview"] == "not_recorded"
+        content = json.loads(asset.read_text(encoding="utf-8"))
+        assert content["algorithm"] == algorithm and content["schema_version"] == 1
+        assert content["model_version"] == review["modelVersion"] and content["evaluation_status"] == "preliminary_retrospective"
+        assert content["protocol_sha256"] == review["protocolSha256"]
+        assert content["protocol_sha256"] == hashlib.sha256((ROOT/'docs/preliminary-comparison-protocol-20261001.md').read_bytes()).hexdigest()
     else:
         assert review["manualReview"] == "accepted-experimental"
     version = review["modelVersion"]
@@ -51,10 +59,13 @@ def main():
                                 f"{package}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"}
     subprocess.run([str(sdk / "apksigner.bat"), "verify", "--verbose", str(source)], check=True, capture_output=True)
     target = ROOT / ("deliverables/lr-calibrated-4-20261001" if folded else "deliverables/algorithm-comparison-20260929")
+    if args.output_dir:
+        target = args.output_dir.resolve()
+        assert target.is_relative_to((ROOT/'deliverables').resolve()), "APK destination must stay private"
     target.mkdir(parents=True, exist_ok=True)
     output = target / (f"SmishGuard-{version}-experimental-debug.apk" if folded else
                        f"SmishGuard-{name}-{version}-experimental-debug.apk")
-    if folded and output.exists() and output.read_bytes() != source.read_bytes():
+    if output.exists() and output.read_bytes() != source.read_bytes():
         raise ValueError("Preserve existing candidate deliverable; choose a new versioned destination")
     shutil.copyfile(source, output)
     record = dict(filename=output.name, algorithm=algorithm, model_version=version,

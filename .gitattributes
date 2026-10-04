@@ -5,6 +5,10 @@ gradlew text eol=lf
 *.jar binary
 *.apk binary
 *.zip binary
+docs/preliminary-comparison-protocol-20261001.md text eol=lf
+research/smishguard/preliminary_compare.py text eol=lf
+docs/mbert-exploratory-protocol-20261002.md text eol=lf
+research/smishguard/mbert_experiment.py text eol=lf
 # Preserve source hashes for the two reviewed supplied aggregate tables.
 research/candidate_review/calibration_metrics.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 research/candidate_review/reliability.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

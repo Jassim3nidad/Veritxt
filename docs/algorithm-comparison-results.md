@@ -1,5 +1,7 @@
 # Algorithm comparison preparation — 29 September 2026
 
+**Later development update:** the user subsequently authorized preliminary work with inherited labels on a source-supported subset. The frozen 1,068-record experiment and later-added mBERT extension are documented in [the four-model comparison](four-model-comparison.md). The dated pending findings below are preserved; final thesis eligibility and independent evaluation remain pending.
+
 **No winning algorithm is established.** The team confirmed the documented pending-data status and instructed that no new research models be trained. Logistic Regression has not been shown to perform best on phishing F1, precision, recall, FPR or calibration under the new fair protocol. Historical supplied result tables are not substituted for a shared, eligible, unseen-test comparison.
 
 ## Thesis comparison table

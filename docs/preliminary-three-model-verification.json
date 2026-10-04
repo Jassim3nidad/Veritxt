@@ -1,0 +1,140 @@
+{
+  "lr": {
+    "apk": {
+      "filename": "SmishGuard-lr-prelim-20261001-lr-1d62dc1a-experimental-debug.apk",
+      "algorithm": "lr",
+      "model_version": "prelim-20261001-lr-1d62dc1a",
+      "sha256": "7f6ce7c5b59bc4729ca6ac9492f4882e0f216bceaa46090ed05a0389540baff5",
+      "apk_bytes": 12981599,
+      "model_sha256": "499026bf1085dd85fbb9673abf2a4180a1f5eacdabc72b1a97d0d3e39b4145ca",
+      "model_bytes": 133068,
+      "minimum_android": "8.0 / API 26",
+      "application_id": "ph.smishguard.lr",
+      "model_included": true,
+      "experimental": true,
+      "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+      "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy"
+    },
+    "android_parity": {
+      "algorithm": "lr",
+      "model_version": "prelim-20261001-lr-1d62dc1a",
+      "cases": 172,
+      "scored": 165,
+      "abstained": 7,
+      "max_score_error": 2.220446049250313e-16,
+      "max_margin_error": 4.440892098500626e-15,
+      "model_sha256": "499026bf1085dd85fbb9673abf2a4180a1f5eacdabc72b1a97d0d3e39b4145ca",
+      "cases_sha256": "e3d0151e5337fbdb1a8b5ed9ca87afd4aa3114e8be355e52809046dc6de94039"
+    },
+    "benchmark": "algorithm=lr probes=4 warmups=20 scans=200 scored=150 abstained=50 model_bytes=133068 p50_ms=0.3456 p95_ms=0.8364",
+    "emulator_tests_passed": 25,
+    "jvm": {
+      "tests": 20,
+      "skipped": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    "storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\comparison-20261001\\screenshots\\lr"
+    }
+  },
+  "nb": {
+    "apk": {
+      "filename": "SmishGuard-nb-prelim-20261001-nb-1d62dc1a-experimental-debug.apk",
+      "algorithm": "nb",
+      "model_version": "prelim-20261001-nb-1d62dc1a",
+      "sha256": "7e926826d421e98fe8f177b32f53ec06b54b6917b988ce07955fdb6d2b4ac94b",
+      "apk_bytes": 12941707,
+      "model_sha256": "926efd18aae10a3186cb2e5870841fb2634bf12e3127c9c34584f15c99dbaf9c",
+      "model_bytes": 130634,
+      "minimum_android": "8.0 / API 26",
+      "application_id": "ph.smishguard.nb",
+      "model_included": true,
+      "experimental": true,
+      "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+      "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy"
+    },
+    "android_parity": {
+      "algorithm": "nb",
+      "model_version": "prelim-20261001-nb-1d62dc1a",
+      "cases": 172,
+      "scored": 165,
+      "abstained": 7,
+      "max_score_error": 3.6637359812630166e-15,
+      "max_margin_error": 4.618527782440651e-14,
+      "model_sha256": "926efd18aae10a3186cb2e5870841fb2634bf12e3127c9c34584f15c99dbaf9c",
+      "cases_sha256": "4e14c58bfe8205f29a323e384462abeb9d7b5695ae1a1bba51e330044cf4cc71"
+    },
+    "benchmark": "algorithm=nb probes=4 warmups=20 scans=200 scored=150 abstained=50 model_bytes=130634 p50_ms=0.3917 p95_ms=1.3334",
+    "emulator_tests_passed": 25,
+    "jvm": {
+      "tests": 20,
+      "skipped": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    "storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\comparison-20261001\\screenshots\\nb"
+    }
+  },
+  "svm": {
+    "apk": {
+      "filename": "SmishGuard-svm-prelim-20261001-svm-1d62dc1a-experimental-debug.apk",
+      "algorithm": "svm",
+      "model_version": "prelim-20261001-svm-1d62dc1a",
+      "sha256": "8a3fe5492e654fbb5ea82bb87ee514a18b7231990787aa55699c6b61a3119d73",
+      "apk_bytes": 12937536,
+      "model_sha256": "7e1ab708f0b0584293cdcdacb887921f39b97b6db9c64b2fab836536f07dfc3c",
+      "model_bytes": 126233,
+      "minimum_android": "8.0 / API 26",
+      "application_id": "ph.smishguard.svm",
+      "model_included": true,
+      "experimental": true,
+      "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+      "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy"
+    },
+    "android_parity": {
+      "algorithm": "svm",
+      "model_version": "prelim-20261001-svm-1d62dc1a",
+      "cases": 172,
+      "scored": 165,
+      "abstained": 7,
+      "max_score_error": 2.220446049250313e-16,
+      "max_margin_error": 8.881784197001252e-16,
+      "model_sha256": "7e1ab708f0b0584293cdcdacb887921f39b97b6db9c64b2fab836536f07dfc3c",
+      "cases_sha256": "5e58b438529d457f8b2914c42ce6c500d69780b7dc3a0bd01197baa7c073ffc9"
+    },
+    "benchmark": "algorithm=svm probes=4 warmups=20 scans=200 scored=150 abstained=50 model_bytes=126233 p50_ms=0.3246 p95_ms=0.7728",
+    "emulator_tests_passed": 25,
+    "jvm": {
+      "tests": 20,
+      "skipped": 2,
+      "failures": 0,
+      "errors": 0
+    },
+    "storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\comparison-20261001\\screenshots\\svm"
+    }
+  }
+}

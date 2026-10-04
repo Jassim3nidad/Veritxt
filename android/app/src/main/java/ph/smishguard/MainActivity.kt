@@ -110,7 +110,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(scroll).padding(horizontal = 24.dp, vertical = 24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)) {
-            Text("SmishGuard", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+            Text(if (BuildConfig.BUILD_TYPE == "mbert") "SmishGuard · mBERT" else if (BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm")) "SmishGuard · ${BuildConfig.BUILD_TYPE.uppercase(java.util.Locale.ROOT)}" else "SmishGuard", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold)
             when {
                 preferences == null -> CircularProgressIndicator()
@@ -129,7 +129,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                         Text("A private space to pause and review a financial SMS.", style = MaterialTheme.typography.bodyLarge)
                         PrimaryAction(onClick = { vm.navigate(Screen.CHECK) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Check a message") }
                         InfoSection("Automatic warnings disabled", "Reporting is also disabled. Use manual checks to review a message.")
-                        InfoSection(if (state.modelStatus == "Model not installed") "Model unavailable" else state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Scores are uncalibrated and performance is unverified." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
+                        InfoSection(if (state.modelStatus == "Model not installed") "Model unavailable" else state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Scores are experimental and performance is unverified." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
                         Text("No SMS permission is needed to paste or share.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Text("Never share an OTP, PIN, or password. Verify requests using your bank’s official app or a number you already trust.")
                         Text("Research prototype · On-device processing", style = MaterialTheme.typography.labelMedium)

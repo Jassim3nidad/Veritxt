@@ -12,6 +12,7 @@ def forbidden_path(name):
     path = Path(name)
     return (any(p in {'runs', 'deliverables', '.venv', '.idea', '.gradle',
                      'build', '__pycache__'} for p in path.parts)
+            or '/src/mbert/assets/' in name
             or ('data' in path.parts and not (
                 name.startswith('android/app/src/main/java/ph/smishguard/data/') and path.suffix == '.kt'))
             or path.suffix.lower() in {'.apk', '.zip', '.docx', '.jpg', '.jpeg', '.xlsx',

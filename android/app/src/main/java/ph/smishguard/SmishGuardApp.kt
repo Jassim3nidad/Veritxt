@@ -30,7 +30,9 @@ open class SmishGuardApp : Application() {
                 }
                 buffer.toString("UTF-8")
             }
-            if (BuildConfig.BUILD_TYPE == "lrCalibrated4") SuppliedDetector.parse(json, folded = true)
+            if (BuildConfig.BUILD_TYPE == "mbert") Class.forName("ph.smishguard.model.MbertDetector")
+                .getConstructor(android.content.Context::class.java, String::class.java).newInstance(this, json) as Detector
+            else if (BuildConfig.BUILD_TYPE == "lrCalibrated4") SuppliedDetector.parse(json, folded = true)
             else if (BuildConfig.BUILD_TYPE == "lrCandidate") SuppliedDetector.parse(json, candidate = true)
             else if (BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm"))
                 ComparisonDetector(json, BuildConfig.BUILD_TYPE)

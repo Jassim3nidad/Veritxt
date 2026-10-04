@@ -55,6 +55,12 @@ class LinearDetector private constructor(
     override val status = if (synthetic) "Synthetic test fixture" else "Model ready · offline"
     override suspend fun detect(text: String): Detection {
         if (text.isBlank() || text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
+        val margin = decisionMargin(text)
+        val score = calibration?.let { (a, b) -> 1.0 / (1.0 + exp(-(a * margin + b))) } ?: margin
+        if (!score.isFinite()) return Detection.Failure
+        return Detection.Success(score >= threshold, score, calibration != null && evaluated, synthetic)
+    }
+    internal suspend fun decisionMargin(text: String): Double {
         val counts = HashMap<Int, Double>()
         for (word in Preprocessing.tokens(text)) {
             currentCoroutineContext().ensureActive()
@@ -65,9 +71,7 @@ class LinearDetector private constructor(
         norm = sqrt(norm)
         var margin = bias
         if (norm > 0) counts.forEach { (i, v) -> margin += weights[i] * v / norm }
-        val score = calibration?.let { (a, b) -> 1.0 / (1.0 + exp(-(a * margin + b))) } ?: margin
-        if (!score.isFinite()) return Detection.Failure
-        return Detection.Success(score >= threshold, score, calibration != null && evaluated, synthetic)
+        return margin
     }
     companion object {
         fun parse(json: String, allowSynthetic: Boolean = false): LinearDetector {

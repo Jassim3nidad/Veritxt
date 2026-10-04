@@ -87,6 +87,13 @@ def main():
         reject("lrCalibrated4", "Folded candidate identity mismatch")
         print("PASS lrCalibrated4: missing, double calibration, identifiers, wrong source and changed assets rejected (5)", flush=True)
 
+        reject('mbert', 'requires its actual private frozen export')
+        assets = project/'android/app/src/mbert/assets'
+        assets.mkdir(parents=True)
+        (assets/'model.json').write_text(json.dumps({'schema_version': 1, 'algorithm': 'lr'}))
+        reject('mbert', 'mBERT identity/policy mismatch')
+        print('PASS mbert: missing export and relabeled LR rejected (2)', flush=True)
+
 
 if __name__ == "__main__":
     main()

@@ -20,6 +20,13 @@ android {
         manifestPlaceholders["appLabel"] = "SmishGuard"
     }
     buildTypes {
+        create("mbert") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".mbert"
+            versionNameSuffix = "-mbert-exploratory"
+            manifestPlaceholders["appLabel"] = "SmishGuard · mBERT"
+            matchingFallbacks += listOf("debug")
+        }
         create("lrCalibrated4") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".lr.calibrated4"
@@ -34,7 +41,7 @@ android {
             manifestPlaceholders["appLabel"] = "SmishGuard · LR Candidate"
             matchingFallbacks += listOf("debug")
         }
-        for ((algorithm, label) in listOf("lr" to "Logistic Regression", "nb" to "Naive Bayes", "svm" to "Linear SVM")) {
+        for ((algorithm, label) in listOf("lr" to "LR", "nb" to "NB", "svm" to "SVM")) {
             create(algorithm) {
                 initWith(getByName("debug"))
                 applicationIdSuffix = ".$algorithm"
@@ -51,6 +58,7 @@ android {
         }
     }
     testBuildType = providers.gradleProperty("instrumentedBuild").getOrElse("debug")
+    if (testBuildType == "mbert") sourceSets.getByName("androidTest").java.srcDir("src/mbertAndroidTest/java")
     buildFeatures { compose = true; buildConfig = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -61,9 +69,14 @@ android {
     sourceSets.getByName("test").java.srcDir("src/softwareTest/java")
     sourceSets.getByName("androidTest").java.srcDir("src/softwareTest/java")
     lint { abortOnError = true }
+    androidResources { noCompress += "onnx" }
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 tasks.withType<Test>().configureEach {
+    providers.gradleProperty("mbertParityDir").orNull?.let {
+        systemProperty("smishguard.mbert.parity.dir", it)
+        inputs.dir(it)
+    }
     providers.gradleProperty("foldedParityDir").orNull?.let {
         systemProperty("smishguard.folded.parity.dir", it)
         inputs.dir(it)
@@ -78,9 +91,41 @@ tasks.withType<Test>().configureEach {
     }
 }
 configurations.getByName("developmentImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("mbertImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+providers.gradleProperty("mbertParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+val verifyMbertModel by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/mbert/assets").asFile
+        val metadata = directory.resolve("model.json")
+        check(metadata.isFile) { "mBERT requires its actual private frozen export; no placeholder fallback" }
+        val content = JsonSlurper().parse(metadata) as Map<*, *>
+        fun sha(name: String): String {
+            val digest = MessageDigest.getInstance("SHA-256")
+            directory.resolve(name).inputStream().use { input ->
+                val block = ByteArray(1024 * 1024)
+                while (true) { val n = input.read(block); if (n < 0) break; digest.update(block, 0, n) }
+            }
+            return digest.digest().joinToString("") { "%02x".format(it) }
+        }
+        check(content["schema_version"] == 5 && content["algorithm"] == "mbert" &&
+            content["base_model"] == "google-bert/bert-base-multilingual-cased" &&
+            content["revision"] == "3f076fdb1ab68d5b2880cb87a0886f315b8146f8" &&
+            content["model_sha256"] == sha("model.onnx") && content["vocab_sha256"] == sha("vocab.txt") &&
+            content["synthetic"] == false && content["automatic_warnings_approved"] == false &&
+            content["evaluation_status"] == "preliminary_retrospective" && content["quantized"] == false) { "mBERT identity/policy mismatch" }
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json", "model.onnx", "vocab.txt", "LICENSE.txt")) { "Unexpected mBERT assets" }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model contamination" }
+    }
+}
+tasks.matching { it.name == "preMbertBuild" || it.name == "mergeMbertAssets" }.configureEach { dependsOn(verifyMbertModel) }
 configurations.getByName("lrCandidateImplementation").extendsFrom(configurations.getByName("debugImplementation"))
 configurations.getByName("lrCalibrated4Implementation").extendsFrom(configurations.getByName("debugImplementation"))
 providers.gradleProperty("foldedParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+providers.gradleProperty("modelParityDir").orNull?.let {
     android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
 }
 val verifyLrCalibrated4Model by tasks.registering {
@@ -156,7 +201,11 @@ for (algorithm in listOf("lr", "nb", "svm")) {
             check(model.isFile && review.isFile) { "$algorithm requires a privately reviewed model and review.properties; no model-free fallback." }
             val metadata = Properties().apply { review.inputStream().use { load(it) } }
             check(metadata.getProperty("algorithm") == algorithm && !metadata.getProperty("modelVersion").isNullOrBlank()) { "Wrong algorithm or missing model version" }
-            check(metadata.getProperty("manualReview") == "accepted-experimental") { "Local model review is required" }
+            val preliminary = metadata.getProperty("reviewReference") == "preliminary-comparison-20261001"
+            if (preliminary) {
+                check(metadata.getProperty("reviewKind") == "automated-pattern-screen" &&
+                    metadata.getProperty("humanReview") == "not_recorded") { "State actual automated review, not human acceptance" }
+            } else check(metadata.getProperty("manualReview") == "accepted-experimental") { "Local model review is required" }
             val digest = MessageDigest.getInstance("SHA-256").digest(model.readBytes()).joinToString("") { "%02x".format(it) }
             check(digest == metadata.getProperty("sha256")) { "Model changed after review" }
             val content = JsonSlurper().parse(model) as Map<*, *>
@@ -165,6 +214,17 @@ for (algorithm in listOf("lr", "nb", "svm")) {
             } else {
                 check(content["schema_version"] == 1 && content["algorithm"] == algorithm) { "Export algorithm does not match variant" }
                 check(content["synthetic"] == false && content["calibration_evaluated"] == false && content["calibration"] is Map<*, *>) { "Comparison requires an experimental sigmoid export, never a raw-margin percentage or synthetic fixture" }
+                if (preliminary) {
+                    val protocol = rootProject.file("docs/preliminary-comparison-protocol-20261001.md")
+                    val protocolHash = MessageDigest.getInstance("SHA-256").digest(protocol.readBytes()).joinToString("") { "%02x".format(it) }
+                    check(metadata.getProperty("protocolSha256") == protocolHash && content["protocol_sha256"] == protocolHash &&
+                        content["evaluation_status"] == "preliminary_retrospective" && content["label_status"] == "inherited_unconfirmed" &&
+                        content["model_version"] == metadata.getProperty("modelVersion") && content["automatic_warnings_approved"] == false &&
+                        content["score_transform"] == "fitted_sigmoid" && content["calibration_fit_partition"] == "calibration" &&
+                        content["threshold_fit_partition"] == "validation") { "Preliminary protocol/identity mismatch" }
+                    val words = content["vocabulary"] as? List<*> ?: error("Missing vocabulary")
+                    check(words.isNotEmpty() && words.all { it is String && it.matches(Regex("[a-z]+")) }) { "Vocabulary content check failed" }
+                }
             }
             check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json", "review.properties")) { "Unexpected files in model assets" }
             check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model asset would contaminate algorithm variants" }
@@ -195,6 +255,7 @@ tasks.matching { it.name == "preDevelopmentBuild" || it.name == "mergeDevelopmen
     .configureEach { dependsOn(verifyDevelopmentModel) }
 
 dependencies {
+    add("mbertImplementation", "com.microsoft.onnxruntime:onnxruntime-android:1.22.0")
     implementation(platform("androidx.compose:compose-bom:2025.12.01"))
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")

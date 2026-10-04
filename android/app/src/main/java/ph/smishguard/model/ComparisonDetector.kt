@@ -18,11 +18,11 @@ class ComparisonDetector(json: String, algorithm: String) : Detector {
             require(metadata.getJSONObject("calibration").getString("method") == "sigmoid")
         } else require(algorithm == "lr" && metadata.getInt("schema_version") == 2)
     }
-    override val status = when (algorithm) {
-        "lr" -> "Logistic Regression · experimental · offline"
-        "nb" -> "Naive Bayes · experimental · offline"
-        else -> "Linear SVM · experimental · offline"
-    }
+    override val status = "Experimental · " + when (algorithm) {
+        "lr" -> "Logistic Regression"
+        "nb" -> "Multinomial Naive Bayes"
+        else -> "Linear SVM"
+    } + " · " + metadata.optString("model_version", "version unavailable")
     override suspend fun detect(text: String): Detection {
         if (text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
         if (metadata.getInt("schema_version") == 1 && !Assessability.canAssess(

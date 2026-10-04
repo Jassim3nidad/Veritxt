@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "started_utc": "2026-10-04T14:30:10.236920+00:00",
+  "emulator": "SmishGuard_Comparison_API36",
+  "api": "36",
+  "memory": [
+    "MemTotal:        4013812 kB",
+    "MemFree:          252648 kB",
+    "MemAvailable:    2034248 kB"
+  ],
+  "virtual_cpus": "4",
+  "conditions": "CPU offline; one app process at a time; same 4 fictional probes, 20 warmups, 200 scans; load excluded",
+  "results": {
+    "lr": {
+      "scored": 150,
+      "abstained": 50,
+      "model_bytes": 133068,
+      "p50_ms": 0.31521,
+      "p95_ms": 0.971249,
+      "probes": 4,
+      "warmups": 20,
+      "scans": 200,
+      "apk_sha256": "7f6ce7c5b59bc4729ca6ac9492f4882e0f216bceaa46090ed05a0389540baff5"
+    },
+    "nb": {
+      "scored": 150,
+      "abstained": 50,
+      "model_bytes": 130634,
+      "p50_ms": 0.368488,
+      "p95_ms": 1.10641,
+      "probes": 4,
+      "warmups": 20,
+      "scans": 200,
+      "apk_sha256": "7e926826d421e98fe8f177b32f53ec06b54b6917b988ce07955fdb6d2b4ac94b"
+    },
+    "svm": {
+      "scored": 150,
+      "abstained": 50,
+      "model_bytes": 126233,
+      "p50_ms": 0.654528,
+      "p95_ms": 1.732461,
+      "probes": 4,
+      "warmups": 20,
+      "scans": 200,
+      "apk_sha256": "8a3fe5492e654fbb5ea82bb87ee514a18b7231990787aa55699c6b61a3119d73"
+    },
+    "mbert": {
+      "cases": 179,
+      "max_logit_error": 6.794929504394531e-06,
+      "max_score_error": 1.5209763066792448e-06,
+      "max_margin_error": 1.1086463928222656e-05,
+      "near_threshold_cases": 0,
+      "class_changes": 0,
+      "model_sha256": "ef7a1c242533463c14aff06a1636606532a259c717306806057d7f3ab4ca1f5f",
+      "model_load_ms": 9830.424217,
+      "scored": 150,
+      "abstained": 50,
+      "warmups": 20,
+      "scans": 200,
+      "probes": 4,
+      "p50_ms": 139.024904,
+      "p95_ms": 160.072064,
+      "apk_sha256": "5a898829f674af7f2a9958630367d6a12a28c127a8146bbbbf6c267c3b65a075"
+    }
+  },
+  "physical_device": "not tested",
+  "finished_utc": "2026-10-04T14:31:34.531615+00:00"
+}

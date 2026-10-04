@@ -21,11 +21,14 @@ def main():
     global PACKAGE, RUNNER
     parser = argparse.ArgumentParser()
     parser.add_argument("--serial", default="emulator-5554")
-    parser.add_argument("--variant", choices=["debug", "development", "lr", "lrCalibrated4"], default="debug")
+    parser.add_argument("--variant", choices=["debug", "development", "lr", "nb", "svm", "mbert", "lrCalibrated4"], default="debug")
     parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
     parser.add_argument("--output", type=Path, help="Optional separate sanitized verification record")
+    parser.add_argument("--demo-screenshots", type=Path, help="Private deliverables directory for fictional real-model screenshots")
     args = parser.parse_args()
-    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
+    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr", "nb": ".nb", "svm": ".svm", "mbert": ".mbert", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
+    comparison = args.variant in {"lr", "nb", "svm"}
+    modern = comparison and json.loads((ROOT / f"android/app/src/{args.variant}/assets/model.json").read_text(encoding="utf-8"))["schema_version"] == 1
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
     adb = ["adb", "-s", args.serial]
     def command(*parts, timeout=60):
@@ -43,14 +46,14 @@ def main():
     target = ROOT / ("docs/development-emulator-results.json" if args.variant == "development" else "docs/emulator-results.json")
     if args.output is not None:
         target = args.output
-    elif args.variant == "lr":
-        target = ROOT / "docs/comparison-lr-emulator-results.json"
+    elif comparison:
+        target = ROOT / f"docs/comparison-{args.variant}-emulator-results.json"
     elif args.variant == "lrCalibrated4":
         target = ROOT / "docs/lr-calibrated-4-emulator.json"
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
-        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=180).decode(errors="replace")
+        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=900 if args.variant == "mbert" else 180).decode(errors="replace")
         results[label] = output.strip()
         if "FAILURES!!!" in output or "OK (" not in output or "INSTRUMENTATION_FAILED" in output:
             if args.diagnostics:
@@ -65,13 +68,17 @@ def main():
             raise RuntimeError(label + " failed:\n" + output)
         results[label] = output.strip()
         print(label + ": passed", flush=True)
+    installed = False
     try:
-        command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/{args.variant}/app-{args.variant}.apk"))
+        command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/{args.variant}/app-{args.variant}.apk"), timeout=300)
+        installed = True
         command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
         ui = ["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"]
-        if args.variant in {"development", "lr"}:
+        if modern or args.variant == "mbert":
+            ui += ["DevelopmentFlowTest", "CompactResultTest"]
+        elif args.variant in {"development", "lr"}:
             ui += ["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"]
         elif args.variant == "lrCalibrated4":
             ui += ["DevelopmentFlowTest", "CompactResultTest", "CandidatePolicyTest"]
@@ -79,10 +86,14 @@ def main():
         run_test("notification_denied", NAMESPACE + ".NotificationBehaviorTest#runtimeDenialSuppressesWarning", ("-e", "denied", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "enable")
         command("shell", "svc", "wifi", "disable")
-        run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant in {"development", "lr"} else ""), ("-e", "offline", "true"))
+        run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant in {"development", "lr"} and not modern else ""), ("-e", "offline", "true"))
+        if modern:
+            run_test("actual_export_parity", NAMESPACE + ".ComparisonExportTest", ("-e", "offline", "true"))
+        if args.variant == "mbert":
+            run_test("mbert_parity_policy_latency", NAMESPACE + ".MbertDeviceTest", ("-e", "offline", "true"))
         if args.variant == "lrCalibrated4":
             run_test("folded_private_parity", NAMESPACE + ".FoldedCandidateAndroidTest", ("-e", "offline", "true"))
-        if args.variant == "lr":
+        if comparison:
             run_test("comparison_latency_policy", NAMESPACE + ".ComparisonRuntimeTest", ("-e", "offline", "true"))
         command("shell", "cmd", "connectivity", "airplane-mode", "disable")
         command("shell", "pm", "grant", PACKAGE, "android.permission.RECEIVE_SMS")
@@ -127,7 +138,7 @@ def main():
         run_test("accessibility_large_text", NAMESPACE + ".AccessibilityTest", ("-e", "largeFont", "true"))
         command("shell", "settings", "put", "system", "font_scale", prior_font if prior_font != "null" else "1.0")
         # Inspect SmishGuard's private files, not Android's separate SMS provider.
-        archive = command("exec-out", "run-as", PACKAGE, "tar", "cf", "-", ".")
+        archive = command("exec-out", "run-as", PACKAGE, "tar", "cf", "-", *(('--exclude=*.onnx',) if args.variant == 'mbert' else ()), ".")
         inspected = 0
         with tarfile.open(fileobj=io.BytesIO(archive)) as files:
             for entry in files:
@@ -139,6 +150,16 @@ def main():
                         raise AssertionError("Raw fixture persisted in app file: " + entry.name)
                 inspected += 1
         results["private_storage"] = {"files_inspected": inspected, "raw_fixture_markers_found": 0}
+        if args.variant == 'mbert': results['private_storage']['exclusion']='Hash-verified ONNX model cache; no message inputs stored there'
+        if args.demo_screenshots:
+            destination = args.demo_screenshots.resolve()
+            if not destination.is_relative_to((ROOT/'deliverables').resolve()):
+                raise ValueError("Screenshots must stay under private deliverables")
+            destination.mkdir(parents=True, exist_ok=True)
+            run_test("fictional_demo_screenshots", NAMESPACE + ".ComparisonDemoTest", ("-e", "diagnostics", "true"))
+            for name in ("comparison-home", "comparison-result-0", "comparison-result-1"):
+                (destination/(name+'.png')).write_bytes(command("exec-out","run-as",PACKAGE,"cat",f"files/reliability/{name}.png"))
+            results["screenshots"] = dict(count=3, inputs="fictional", inference="actual bundled model", path=str(destination.relative_to(ROOT)))
         results["status"] = "passed"
         print("private_storage: passed", flush=True)
     finally:
@@ -149,7 +170,8 @@ def main():
         command("shell", "svc", "wifi", "enable" if prior_wifi else "disable")
         # A failing test must not leave granted permissions/preferences behind for
         # the ordinary instrumentation suite's denied-permission precondition.
-        command("shell", "pm", "clear", PACKAGE)
+        if installed:
+            command("shell", "pm", "clear", PACKAGE)
     results["scope"] = "Emulator software checks only; supplied-model compatibility and synthetic fixtures are not research accuracy or physical-device results"
     target.write_text(json.dumps(results, indent=2), encoding="utf-8")
     # Leave the delivered app clean, with no test consent or blocked test channel.

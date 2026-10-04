@@ -15,7 +15,7 @@ import java.time.ZonedDateTime
 
 class ComparisonRuntimeTest {
     @Test fun bundledModelOfflinePolicyAndWarmLatency() = runBlocking {
-        assumeTrue(BuildConfig.BUILD_TYPE == "lr")
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm"))
         assumeTrue(InstrumentationRegistry.getArguments().getString("offline") == "true")
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
@@ -30,21 +30,23 @@ class ComparisonRuntimeTest {
         assertEquals(Detection.InvalidModel, MissingDetector(true).detect("hello"))
         for (probe in listOf("", "qwerty", "!!!", "123456", "https://account.example/verify"))
             assertEquals(Detection.UnableToAssess, detector.detect(probe))
-        val probes = listOf("Hi", "Bayad na po", "Your payment is received.",
+        val probes = listOf("Hello po", "Bayad na po", "Your payment is received.",
             "Your account is suspended. Verify your password at https://account.example now.")
         repeat(20) { detector.detect(probes[it % probes.size]) }
+        var scored = 0; var abstained = 0
         val samples = LongArray(200) { index ->
             val started = System.nanoTime()
-            val result = detector.detect(probes[index % probes.size]) as Detection.Success
+            val result = detector.detect(probes[index % probes.size])
             val elapsed = System.nanoTime() - started
-            assertTrue(result.experimental)
-            assertFalse(result.probability)
-            assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
+            if (result is Detection.Success) {
+                scored++; assertTrue(result.experimental); assertFalse(result.probability)
+                assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
+            } else { abstained++; assertEquals(Detection.UnableToAssess, result) }
             elapsed
         }.sorted()
         val bytes = context.assets.open("model.json").use { it.readBytes().size }
         instrumentation.sendStatus(0, Bundle().apply {
-            putString("stream", "BENCHMARK algorithm=lr artifact=historical probes=4 warmups=20 scans=200 model_bytes=$bytes p50_ms=${samples[99] / 1e6} p95_ms=${samples[189] / 1e6}\n")
+            putString("stream", "BENCHMARK algorithm=${BuildConfig.BUILD_TYPE} probes=4 warmups=20 scans=200 scored=$scored abstained=$abstained model_bytes=$bytes p50_ms=${samples[99] / 1e6} p95_ms=${samples[189] / 1e6}\n")
         })
     }
 }

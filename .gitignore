@@ -59,6 +59,7 @@ android/app/src/nb/assets/
 android/app/src/svm/assets/
 android/app/src/lrCandidate/assets/
 android/app/src/lrCalibrated4/assets/
+android/app/src/mbert/assets/
 smishguard_repo_update*.zip
 MODEL_INTEGRATION*.md
 fresh_test_messages*.csv

@@ -25,6 +25,8 @@ class ComparisonDetectorTest {
     }
 
     @Test fun manualPolicyAbstainsAndNeverApprovesWarningsOrProbability() = runBlocking {
+        for (placeholder in listOf("zznumberzz", "zzemailzz", "zzurlzz", "zznamezz", "zzaccountzz"))
+            assertFalse(Assessability.usableWord(placeholder))
         for (name in listOf("lr", "nb", "svm")) {
             // In-memory policy fixture only. Never written or bundled as a research model.
             val fixture = JSONObject(resource("software/$name-model.json"))

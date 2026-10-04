@@ -1,0 +1,1142 @@
+{
+  "results": {
+    "lr": {
+      "accuracy": 0.9559748427672956,
+      "specificity": 1.0,
+      "precision": 1.0,
+      "recall": 0.7407407407407407,
+      "f1": 0.851063829787234,
+      "pr_auc": 0.9881794068380803,
+      "average_precision": 0.9883920280679537,
+      "roc_auc": 0.9974747474747475,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.25925925925925924,
+      "brier": 0.017609261610427713,
+      "log_loss": 0.06903752338367518,
+      "reliability_bins": [
+        {
+          "count": 129,
+          "mean_probability": 0.013242144488226446,
+          "observed_positive_rate": 0.007751937984496124
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.13989210609366254,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.20090275076022185,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.4391031204911865,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.5875045128181482,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 3,
+          "mean_probability": 0.6479959900468923,
+          "observed_positive_rate": 0.6666666666666666
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.7412681313397059,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 9,
+          "mean_probability": 0.8546320907472162,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 10,
+          "mean_probability": 0.9758460143846179,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.030481381476333478,
+      "confusion": {
+        "tn": 132,
+        "fp": 0,
+        "fn": 7,
+        "tp": 20
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 1.0
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 1.0
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 1.0
+        }
+      ],
+      "macro_f1": 0.9126167857423255,
+      "class_support": {
+        "ham": 132,
+        "smishing": 27
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 126,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.9205298013245033,
+            "high": 0.9865771812080537
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 1.0,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.3846153846153846,
+            "high": 0.9166666666666666
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.5555555555555556,
+            "high": 0.9565217391304348
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 1.0,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.0
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.08333333333333333,
+            "high": 0.6153846153846154
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9901637730734477,
+            "high": 1.0
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9208980161462579,
+            "high": 1.0
+          }
+        }
+      }
+    },
+    "nb": {
+      "accuracy": 0.9811320754716981,
+      "specificity": 0.9924242424242424,
+      "precision": 0.9615384615384616,
+      "recall": 0.9259259259259259,
+      "f1": 0.9433962264150944,
+      "pr_auc": 0.9801684137667739,
+      "average_precision": 0.9804081410831225,
+      "roc_auc": 0.9935465768799102,
+      "false_positive_rate": 0.007575757575757576,
+      "false_negative_rate": 0.07407407407407407,
+      "brier": 0.0158722932733185,
+      "log_loss": 0.06565562540269952,
+      "reliability_bins": [
+        {
+          "count": 128,
+          "mean_probability": 0.013055147427035344,
+          "observed_positive_rate": 0.0078125
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.13415789919196217,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 3,
+          "mean_probability": 0.21124925260354419,
+          "observed_positive_rate": 0.3333333333333333
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.42226472431239603,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.5339539204911807,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.6629107086383224,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 5,
+          "mean_probability": 0.8486760851959774,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 17,
+          "mean_probability": 0.9931176015646339,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.023532934875469955,
+      "confusion": {
+        "tn": 131,
+        "fp": 1,
+        "fn": 2,
+        "tp": 25
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 0.10900802695471211
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 0.5524861878453039
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 0.8654602675059009
+        }
+      ],
+      "macro_f1": 0.9660377358490566,
+      "class_support": {
+        "ham": 132,
+        "smishing": 27
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 126,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.956514945652174,
+            "high": 1.0
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 0.8181818181818182,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.7646358543417366,
+            "high": 1.0
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.8125,
+            "high": 1.0
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 0.9758064516129032,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.024193548387096774
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.2353641456582629
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9742415223665224,
+            "high": 1.0
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9021235925987139,
+            "high": 1.0
+          }
+        }
+      }
+    },
+    "svm": {
+      "accuracy": 0.9685534591194969,
+      "specificity": 1.0,
+      "precision": 1.0,
+      "recall": 0.8148148148148149,
+      "f1": 0.8979591836734694,
+      "pr_auc": 0.9945489962475911,
+      "average_precision": 0.9946494780466681,
+      "roc_auc": 0.9988776655443322,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.18518518518518517,
+      "brier": 0.02796472169651052,
+      "log_loss": 0.10543611669553753,
+      "reliability_bins": [
+        {
+          "count": 128,
+          "mean_probability": 0.026331329525700727,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 3,
+          "mean_probability": 0.11853315999992219,
+          "observed_positive_rate": 0.3333333333333333
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.23507184352838142,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 4,
+          "mean_probability": 0.3638347645030099,
+          "observed_positive_rate": 0.75
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.4047427802908205,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.554833612960294,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 9,
+          "mean_probability": 0.6334538059465172,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.7771870272730348,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.8497171264128311,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 7,
+          "mean_probability": 0.9552446626702144,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.07319829106297468,
+      "confusion": {
+        "tn": 132,
+        "fp": 0,
+        "fn": 5,
+        "tp": 22
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 1.0
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 1.0
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 1.0
+        }
+      ],
+      "macro_f1": 0.939685911539337,
+      "class_support": {
+        "ham": 132,
+        "smishing": 27
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 126,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.9366118686642145,
+            "high": 0.9938650306748467
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 1.0,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.5263157894736843,
+            "high": 0.96
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.6896551724137931,
+            "high": 0.9795918367346939
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 1.0,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.0
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.04,
+            "high": 0.47368421052631576
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9946207018787664,
+            "high": 1.0
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9577472613951147,
+            "high": 1.0
+          }
+        }
+      }
+    },
+    "mbert": {
+      "accuracy": 0.9622641509433962,
+      "specificity": 0.9772727272727273,
+      "precision": 0.8888888888888888,
+      "recall": 0.8888888888888888,
+      "f1": 0.8888888888888888,
+      "pr_auc": 0.9350626254476153,
+      "average_precision": 0.9359312292645623,
+      "roc_auc": 0.9797979797979798,
+      "false_positive_rate": 0.022727272727272728,
+      "false_negative_rate": 0.1111111111111111,
+      "brier": 0.046128330695910304,
+      "log_loss": 0.167719407209547,
+      "reliability_bins": [
+        {
+          "count": 132,
+          "mean_probability": 0.04687707498669624,
+          "observed_positive_rate": 0.022727272727272728
+        },
+        {
+          "count": 7,
+          "mean_probability": 0.15586750209331512,
+          "observed_positive_rate": 0.7142857142857143
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.2016633301973343,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.4233395457267761,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.8702183961868286,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 16,
+          "mean_probability": 0.9924092292785645,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.05473534313012969,
+      "confusion": {
+        "tn": 129,
+        "fp": 3,
+        "fn": 3,
+        "tp": 24
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 0.03767526490420635
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 0.2831858407079646
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 0.6730401529636713
+        }
+      ],
+      "macro_f1": 0.9330808080808081,
+      "class_support": {
+        "ham": 132,
+        "smishing": 27
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 126,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.9285714285714286,
+            "high": 0.9878787878787879
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 0.6666666666666666,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.6666666666666667,
+            "high": 1.0
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.6956521739130435,
+            "high": 0.9677589134125636
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 0.95,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.05
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.3333333333333333
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9381262589928058,
+            "high": 0.9968711963136846
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.7127157071210125,
+            "high": 0.9895489001038044
+          }
+        }
+      },
+      "raw_softmax_diagnostics": {
+        "accuracy": 0.8742138364779874,
+        "specificity": 1.0,
+        "precision": 1.0,
+        "recall": 0.2592592592592593,
+        "f1": 0.4117647058823529,
+        "pr_auc": 0.9350626254476153,
+        "average_precision": 0.9359312292645623,
+        "roc_auc": 0.9797979797979798,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.7407407407407407,
+        "brier": 0.1114364230027741,
+        "log_loss": 0.5189937639014125,
+        "reliability_bins": [
+          {
+            "count": 147,
+            "mean_probability": 0.0034310119226574898,
+            "observed_positive_rate": 0.10204081632653061
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.13669699430465698,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.2506389319896698,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.48671257495880127,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.5584321618080139,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.7416563034057617,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.8712825775146484,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.9326179027557373,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.12317428358906657,
+        "confusion": {
+          "tn": 132,
+          "fp": 0,
+          "fn": 20,
+          "tp": 7
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 1.0
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 1.0
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 1.0
+          }
+        ]
+      },
+      "host_cpu_test_seconds": 31.52149869999994,
+      "host_cpu_records": 159,
+      "model_safetensors_bytes": 711443456,
+      "deployment": {
+        "records": 159,
+        "scored": 159,
+        "abstained": 0,
+        "coverage": 1.0,
+        "abstained_labels": {
+          "ham": 0,
+          "smishing": 0
+        },
+        "conditional_metrics": {
+          "accuracy": 0.9622641509433962,
+          "specificity": 0.9772727272727273,
+          "precision": 0.8888888888888888,
+          "recall": 0.8888888888888888,
+          "f1": 0.8888888888888888,
+          "pr_auc": 0.9350626254476153,
+          "average_precision": 0.9359312292645623,
+          "roc_auc": 0.9797979797979798,
+          "false_positive_rate": 0.022727272727272728,
+          "false_negative_rate": 0.1111111111111111,
+          "brier": 0.046128330695910304,
+          "log_loss": 0.167719407209547,
+          "reliability_bins": [
+            {
+              "count": 132,
+              "mean_probability": 0.04687707498669624,
+              "observed_positive_rate": 0.022727272727272728
+            },
+            {
+              "count": 7,
+              "mean_probability": 0.15586750209331512,
+              "observed_positive_rate": 0.7142857142857143
+            },
+            {
+              "count": 1,
+              "mean_probability": 0.2016633301973343,
+              "observed_positive_rate": 0.0
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 2,
+              "mean_probability": 0.4233395457267761,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 1,
+              "mean_probability": 0.8702183961868286,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 16,
+              "mean_probability": 0.9924092292785645,
+              "observed_positive_rate": 1.0
+            }
+          ],
+          "expected_calibration_error": 0.05473534313012969,
+          "confusion": {
+            "tn": 129,
+            "fp": 3,
+            "fn": 3,
+            "tp": 24
+          },
+          "hypothetical_base_rates": [
+            {
+              "prevalence": 0.001,
+              "estimated_positive_predictive_value": 0.03767526490420635
+            },
+            {
+              "prevalence": 0.01,
+              "estimated_positive_predictive_value": 0.2831858407079646
+            },
+            {
+              "prevalence": 0.05,
+              "estimated_positive_predictive_value": 0.6730401529636713
+            }
+          ]
+        },
+        "interpretation": "Abstentions excluded from conditional metrics, never counted as correct negatives"
+      }
+    }
+  },
+  "paired_f1": {
+    "method": "paired group bootstrap; 2000 common draws; conditional fixed-model marginal intervals",
+    "seed": 20260929,
+    "intervals": {
+      "lr-nb": {
+        "low": -0.3297252221462748,
+        "high": -0.0014486560138734345,
+        "valid_replicates": 2000
+      },
+      "lr-svm": {
+        "low": -0.19736842105263153,
+        "high": 0.0,
+        "valid_replicates": 2000
+      },
+      "lr-mbert": {
+        "low": -0.240749007936508,
+        "high": 0.06061868686868686,
+        "valid_replicates": 2000
+      },
+      "nb-svm": {
+        "low": -0.0294007265061829,
+        "high": 0.1981237000547344,
+        "valid_replicates": 2000
+      },
+      "nb-mbert": {
+        "low": -0.039319842906045496,
+        "high": 0.21431051587301575,
+        "valid_replicates": 2000
+      },
+      "svm-mbert": {
+        "low": -0.1609338188048833,
+        "high": 0.17393303348325825,
+        "valid_replicates": 2000
+      }
+    },
+    "limitations": "No fitting uncertainty, simultaneous multiplicity correction, independent labels or prospective population claim"
+  },
+  "test_records": 159,
+  "test_groups": 126,
+  "dataset_sha256": "1d62dc1a25d86eeead92ec88109cfdd12d235edef596b51b969cb9a61f80a408",
+  "split_sha256": "12f62d292dc9b4948faa755eedb79fcc499ba32e69c700a38f39f4dfce16339d",
+  "case_view_sha256": "84ac296cd927491a526bb97ba02795bd49237f99faca98f870d9fc7a3da84537",
+  "mbert_freeze_sha256": "6dcbdf20d34050a6db6a05396e7020e069c39049861b09dd1df04648de21837c",
+  "model_id": "google-bert/bert-base-multilingual-cased",
+  "revision": "3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+  "status": "mBERT later-added exploratory; exposed internal evaluation; inherited labels unconfirmed",
+  "baseline_preparation": {
+    "protocol_sha256": "596f9c1353caff543897b13a0690b01166831e748c02d2d0817933a6fc9d2654",
+    "code_sha256": "b3ef2cf90cd8d2d4dd22cb9cbaf15ec0935a2ad231f1ba2a4b8ef7e41050a6db",
+    "primary_sha256": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b",
+    "dataset_sha256": "1d62dc1a25d86eeead92ec88109cfdd12d235edef596b51b969cb9a61f80a408",
+    "split_sha256": "12f62d292dc9b4948faa755eedb79fcc499ba32e69c700a38f39f4dfce16339d",
+    "source_evidence_sha256": "733642863717ca5fa0494a100a543b7fb3c8a0d97db502230f3aeca0ea761f55",
+    "source_credits": {
+      "tagalog": {
+        "ref": "onzero0/tagalog-sms",
+        "version": 1,
+        "member": "tagalog-sms.xlsx",
+        "sha256": "7757fb9cf70b9c1e0101e384886706da52110f6c17aeafef10a104e38fdfc0a7",
+        "author": "ZERO (onzero0)",
+        "license": "CC0 1.0"
+      },
+      "marketing": {
+        "ref": "scottleechua/ph-spam-marketing-sms-w-timestamps",
+        "version": 15,
+        "member": "text-messages.csv",
+        "sha256": "a3724dca065ee8ed23eb18fb6382657e2559f2b0c0364aaf9c14277af1974e32",
+        "author": "Scott Lee Chua",
+        "license": "CC BY 4.0"
+      }
+    },
+    "original_records": 1276,
+    "retained_records": 1068,
+    "held": {
+      "personal_social_or_uci": 83,
+      "no_supported_source_match": 96,
+      "automated_privacy_hold": 11,
+      "normalized_duplicates": 18
+    },
+    "partition_support": {
+      "train": {
+        "records": 574,
+        "groups": 424,
+        "ham": 513,
+        "smishing": 61
+      },
+      "validation": {
+        "records": 163,
+        "groups": 127,
+        "ham": 143,
+        "smishing": 20
+      },
+      "calibration": {
+        "records": 172,
+        "groups": 128,
+        "ham": 158,
+        "smishing": 14
+      },
+      "test": {
+        "records": 159,
+        "groups": 126,
+        "ham": 132,
+        "smishing": 27
+      }
+    },
+    "label_status": "inherited labels, not independently confirmed; user-authorized preliminary development only",
+    "permission_basis": "Direct text from hash-pinned CC0 / CC BY source snapshots; attribution retained; no original acquisition or donor-consent attestation",
+    "human_redaction": "pending; automated minimization only",
+    "history": "previously_used; internal retrospective test",
+    "seed": 20260929
+  },
+  "baseline_selection": {
+    "lr": {
+      "chosen_parameter": 10.0,
+      "trials": [
+        {
+          "value": 0.1,
+          "fold_average_precision": [
+            0.9245926487305798,
+            0.6730936819172113,
+            0.9560412950053045,
+            0.7710317460317461,
+            0.4227649012338007
+          ],
+          "mean": 0.7495048545837285
+        },
+        {
+          "value": 1.0,
+          "fold_average_precision": [
+            0.9790616246498598,
+            0.825925925925926,
+            0.9791276803118911,
+            0.8568033273915627,
+            0.6870923194452606
+          ],
+          "mean": 0.8656021755449
+        },
+        {
+          "value": 10.0,
+          "fold_average_precision": [
+            0.9921568627450981,
+            0.8617424242424241,
+            0.963548912387922,
+            0.9518518518518518,
+            0.796605874407867
+          ],
+          "mean": 0.9131811851270324
+        }
+      ],
+      "threshold": 0.74,
+      "validation_f1": 0.7878787878787878,
+      "model_version": "prelim-20261001-lr-1d62dc1a",
+      "content_screen": {
+        "features": 2008,
+        "identifier_pattern_features": 0,
+        "long_digit_features": 0,
+        "masked_identifier_features": 0,
+        "scope": "automated patterns only; no human privacy/research acceptance inferred"
+      },
+      "human_review": "not_recorded"
+    },
+    "nb": {
+      "chosen_parameter": 0.1,
+      "trials": [
+        {
+          "value": 0.1,
+          "fold_average_precision": [
+            0.9654108309990661,
+            0.8958333333333333,
+            0.9703994668042659,
+            1.0,
+            0.8001248751248751
+          ],
+          "mean": 0.9263537012523081
+        },
+        {
+          "value": 1.0,
+          "fold_average_precision": [
+            0.9749346405228758,
+            0.861111111111111,
+            0.9599610897626278,
+            0.8813131313131314,
+            0.6572871572871573
+          ],
+          "mean": 0.8669214259993808
+        },
+        {
+          "value": 10.0,
+          "fold_average_precision": [
+            0.9192460317460316,
+            0.7652777777777777,
+            0.9411836901774986,
+            0.8194612794612794,
+            0.5052704109307883
+          ],
+          "mean": 0.7900878380186752
+        }
+      ],
+      "threshold": 0.3,
+      "validation_f1": 0.8108108108108109,
+      "model_version": "prelim-20261001-nb-1d62dc1a",
+      "content_screen": {
+        "features": 2008,
+        "identifier_pattern_features": 0,
+        "long_digit_features": 0,
+        "masked_identifier_features": 0,
+        "scope": "automated patterns only; no human privacy/research acceptance inferred"
+      },
+      "human_review": "not_recorded"
+    },
+    "svm": {
+      "chosen_parameter": 10.0,
+      "trials": [
+        {
+          "value": 0.1,
+          "fold_average_precision": [
+            0.9877124183006536,
+            0.8409090909090908,
+            0.9870370370370374,
+            0.9055555555555556,
+            0.7355921855921856
+          ],
+          "mean": 0.8913612574789045
+        },
+        {
+          "value": 1.0,
+          "fold_average_precision": [
+            0.9958333333333333,
+            0.8501683501683501,
+            0.9499278499278503,
+            1.0,
+            0.8687922876125123
+          ],
+          "mean": 0.9329443642084092
+        },
+        {
+          "value": 10.0,
+          "fold_average_precision": [
+            1.0,
+            0.8766233766233766,
+            0.9360579765503041,
+            1.0,
+            0.8734848484848484
+          ],
+          "mean": 0.9372332403317059
+        }
+      ],
+      "threshold": 0.4099999999999999,
+      "validation_f1": 0.7647058823529411,
+      "model_version": "prelim-20261001-svm-1d62dc1a",
+      "content_screen": {
+        "features": 2008,
+        "identifier_pattern_features": 0,
+        "long_digit_features": 0,
+        "masked_identifier_features": 0,
+        "scope": "automated patterns only; no human privacy/research acceptance inferred"
+      },
+      "human_review": "not_recorded"
+    }
+  },
+  "baseline_model_sizes": {
+    "lr": {
+      "model_json_bytes": 133068,
+      "full_pipeline_pickle_bytes": 90056
+    },
+    "nb": {
+      "model_json_bytes": 130634,
+      "full_pipeline_pickle_bytes": 138300
+    },
+    "svm": {
+      "model_json_bytes": 126233,
+      "full_pipeline_pickle_bytes": 90017
+    }
+  },
+  "mbert_training": {
+    "complete": true,
+    "epochs_completed": 2,
+    "selected_epoch": 2,
+    "history": [
+      {
+        "epoch": 1,
+        "validation_average_precision": 0.6779080258355177,
+        "mean_training_loss": 0.32499442283548446
+      },
+      {
+        "epoch": 2,
+        "validation_average_precision": 0.7844845041012488,
+        "mean_training_loss": 0.17091800111582428
+      }
+    ],
+    "seconds": 299.78100000000006,
+    "max_length": 128,
+    "train_length_p95": 180.35000000000002,
+    "train_truncated": 103,
+    "trainable_parameters": 177854978,
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "peak_cuda_bytes": 2227494912,
+    "torch": "2.7.1+cu126"
+  },
+  "mbert_selection": {
+    "max_length": 128,
+    "selected_epoch": 2,
+    "threshold": 0.09,
+    "calibration": {
+      "method": "sigmoid",
+      "a": 1.9890286443665295,
+      "b": 9.645893735282968,
+      "fit_partition": "calibration",
+      "evaluated": false
+    }
+  },
+  "package_reconciliation": {
+    "smishguard_dataset.csv": {
+      "rows": 1276,
+      "sha256": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b",
+      "labels": {
+        "smishing": 222,
+        "ham": 1054
+      },
+      "included": 1068,
+      "excluded": 208,
+      "normalized_text_overlaps_with_selected": 1091,
+      "exact_or_whitespace_supported_source_matches": 1097,
+      "role": "primary source-matched development subset"
+    },
+    "supplementary_everyday_ham.csv": {
+      "rows": 1050,
+      "sha256": "65e30dbcf5162a4d0f849952f77b55971f63570ab57cd0369e44499d81f8bf19",
+      "labels": {
+        "ham": 1050
+      },
+      "included": 0,
+      "excluded": 1050,
+      "normalized_text_overlaps_with_selected": 0,
+      "exact_or_whitespace_supported_source_matches": 823,
+      "role": "excluded from frozen primary-only preliminary experiment; source/label/transform review not completed for these additions"
+    },
+    "supplementary_reviewed.csv": {
+      "rows": 417,
+      "sha256": "6b285819bb64783f155a19ff9774c4cb876a0b3e71258c54577b67031bb50080",
+      "labels": {
+        "ham": 365,
+        "smishing": 52
+      },
+      "included": 0,
+      "excluded": 417,
+      "normalized_text_overlaps_with_selected": 1,
+      "exact_or_whitespace_supported_source_matches": 265,
+      "role": "excluded from frozen primary-only preliminary experiment; source/label/transform review not completed for these additions"
+    },
+    "decision": "Reconciliation after internal-test opening; no records, labels, fitted parameters or partitions changed; prospective evaluation unavailable.",
+    "handoff_dataset_count": "LR4 claims 1271 primary plus 1050 everyday plus 417 reviewed additions = 2738; this comparison uses a distinct explicitly versioned 1068-record subset from the supplied 1276-row primary file, not LR4 training membership.",
+    "review_status": {
+      "primary_review_rows": 65,
+      "addition_review_rows": 605,
+      "nonempty_human_decisions": 0
+    },
+    "handoff_sha256": "491192ed2bae6447acfbbf13b55291b661a7061665d132d1cb18d2a74a2d0ec8"
+  },
+  "limitations": [
+    "Inherited/AI-assisted labels unconfirmed",
+    "mBERT added after baseline test exposure",
+    "Retrospective internal evaluation only",
+    "Human privacy/group/scope review and final thesis eligibility pending",
+    "Physical-device tests pending"
+  ]
+}

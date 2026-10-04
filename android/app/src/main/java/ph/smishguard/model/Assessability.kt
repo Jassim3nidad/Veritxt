@@ -8,6 +8,7 @@ object Assessability {
     fun textOutsideLinks(text: String): String = links.replace(text, " ")
 
     fun usableWord(word: String): Boolean {
+        if (word in setOf("zznumberzz", "zzemailzz", "zzurlzz", "zznamezz", "zzaccountzz")) return false
         if (word.count { it.isLetter() } < 2 || !word.all { it.isLetter() }) return false
         if (word.length >= 4 && word.toSet().size == 1) return false
         if (word.length >= 4 && keyboardRows.any { word in it || word in it.reversed() }) return false
