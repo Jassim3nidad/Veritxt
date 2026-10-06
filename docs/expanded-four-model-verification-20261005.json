@@ -1,0 +1,320 @@
+{
+  "lr": {
+    "algorithm": "lr",
+    "model_version": "expanded-20261005-lr-c3abc4bb",
+    "asset_sha256": {
+      "model.json": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623",
+      "review.properties": "ddec5562eff939263f49ef6375e8eeb9075e2dd404068e594a2af0253988e2f5"
+    },
+    "build": {
+      "exit_code": 0,
+      "seconds": 4.9125415999999404,
+      "log_sha256": "41f38792f81b71cddc212175714b051eb467cb96f4f9081ba612b0eecb765794"
+    },
+    "jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "lint": {
+      "Error": 0,
+      "Warning": 5,
+      "Fatal": 0
+    },
+    "emulator": {
+      "exit_code": 0,
+      "seconds": 100.34490519999997,
+      "log_sha256": "2b27a517882d6c39bd853aabc55936b80d80897d1e2eefdd4624754ca90ad321"
+    },
+    "package": {
+      "exit_code": 0,
+      "seconds": 2.1755545000000893,
+      "log_sha256": "7825231be500a42820de8699d64792237088dc78363397583e985afa6329c0fc"
+    },
+    "emulator_tests": {
+      "ui_lifecycle_decoding": 17,
+      "notification_denied": 1,
+      "offline_sklearn_exports": 1,
+      "actual_export_parity": 1,
+      "comparison_latency_policy": 1,
+      "modem_sms": 1,
+      "notification_granted_and_channel_blocked": 1,
+      "accessibility_large_text": 1,
+      "fictional_demo_screenshots": 1
+    },
+    "emulator_test_total": 25,
+    "emulator_status": "passed",
+    "android_parity": {
+      "algorithm": "lr",
+      "model_version": "expanded-20261005-lr-c3abc4bb",
+      "cases": 461,
+      "scored": 456,
+      "abstained": 5,
+      "max_score_error": 3.885780586188048e-16,
+      "max_margin_error": 3.552713678800501e-15,
+      "model_sha256": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623",
+      "cases_sha256": "d268bcda9eaa2dc8a8e13665a23ba5cc9d20c61a01047fccfd5cfb56e32276e4"
+    },
+    "private_storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\expanded-20261005\\screenshots\\lr"
+    },
+    "parity": {
+      "cases": 461,
+      "python_max_error": 2.220446049250313e-16,
+      "model_sha256": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623"
+    }
+  },
+  "nb": {
+    "algorithm": "nb",
+    "model_version": "expanded-20261005-nb-c3abc4bb",
+    "asset_sha256": {
+      "model.json": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49",
+      "review.properties": "44861770781c06b9ac4cd1783ecc18ebf80926d54ebe73ea4eda7e273eeec6ef"
+    },
+    "build": {
+      "exit_code": 0,
+      "seconds": 61.06669719999991,
+      "log_sha256": "88e466d8bfe12e913069a78aef755259b9679de993f9ca5ab0d2286a3cdce3d3"
+    },
+    "jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "lint": {
+      "Error": 0,
+      "Warning": 5,
+      "Fatal": 0
+    },
+    "emulator": {
+      "exit_code": 0,
+      "seconds": 97.51900740000019,
+      "log_sha256": "b930cb8e41924bdbdcdb64d614b46f65355de30c2abfa26a6ed1d7e5713f9ade"
+    },
+    "package": {
+      "exit_code": 0,
+      "seconds": 1.276329899999837,
+      "log_sha256": "af10d56b9b9243956f85b9d89a9cb29f1c10f6ca651a6e7d960b67574b830c11"
+    },
+    "emulator_tests": {
+      "ui_lifecycle_decoding": 17,
+      "notification_denied": 1,
+      "offline_sklearn_exports": 1,
+      "actual_export_parity": 1,
+      "comparison_latency_policy": 1,
+      "modem_sms": 1,
+      "notification_granted_and_channel_blocked": 1,
+      "accessibility_large_text": 1,
+      "fictional_demo_screenshots": 1
+    },
+    "emulator_test_total": 25,
+    "emulator_status": "passed",
+    "android_parity": {
+      "algorithm": "nb",
+      "model_version": "expanded-20261005-nb-c3abc4bb",
+      "cases": 461,
+      "scored": 456,
+      "abstained": 5,
+      "max_score_error": 1.9984014443252818e-15,
+      "max_margin_error": 3.552713678800501e-14,
+      "model_sha256": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49",
+      "cases_sha256": "b201f9df65c297785a60e49c3bbd9c30c3a66b82c932c552c107510276c956dc"
+    },
+    "private_storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\expanded-20261005\\screenshots\\nb"
+    },
+    "parity": {
+      "cases": 461,
+      "python_max_error": 2.040034807748725e-15,
+      "model_sha256": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49"
+    }
+  },
+  "svm": {
+    "algorithm": "svm",
+    "model_version": "expanded-20261005-svm-c3abc4bb",
+    "asset_sha256": {
+      "model.json": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19",
+      "review.properties": "83bcc81221e5b6c47f6945a778c18613cdd6ec67e2747f59c6922738cd2bc2f7"
+    },
+    "build": {
+      "exit_code": 0,
+      "seconds": 23.12606229999983,
+      "log_sha256": "14b8d391115c22419c793cfec07d8dec8cf42c95ccbf23b867fa17488b88dd2a"
+    },
+    "jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "lint": {
+      "Error": 0,
+      "Warning": 5,
+      "Fatal": 0
+    },
+    "emulator": {
+      "exit_code": 0,
+      "seconds": 78.67575089999991,
+      "log_sha256": "c996705600a0fd1befa269944fbd4b030b1f445852ffa819bbd371c5fd1ef4a5"
+    },
+    "package": {
+      "exit_code": 0,
+      "seconds": 0.8309492000003047,
+      "log_sha256": "0b21c55f39463a14b22160b79fd08d62da6d5a3e586240dfc335f38ff67dc0ca"
+    },
+    "emulator_tests": {
+      "ui_lifecycle_decoding": 17,
+      "notification_denied": 1,
+      "offline_sklearn_exports": 1,
+      "actual_export_parity": 1,
+      "comparison_latency_policy": 1,
+      "modem_sms": 1,
+      "notification_granted_and_channel_blocked": 1,
+      "accessibility_large_text": 1,
+      "fictional_demo_screenshots": 1
+    },
+    "emulator_test_total": 25,
+    "emulator_status": "passed",
+    "android_parity": {
+      "algorithm": "svm",
+      "model_version": "expanded-20261005-svm-c3abc4bb",
+      "cases": 461,
+      "scored": 456,
+      "abstained": 5,
+      "max_score_error": 2.7755575615628914e-16,
+      "max_margin_error": 8.881784197001252e-16,
+      "model_sha256": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19",
+      "cases_sha256": "b35f37964980e3cfb47396da4c4e0a72e355796c6c703c1929713b89a99d31c4"
+    },
+    "private_storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\expanded-20261005\\screenshots\\svm"
+    },
+    "parity": {
+      "cases": 461,
+      "python_max_error": 2.220446049250313e-16,
+      "model_sha256": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19"
+    }
+  },
+  "mbert": {
+    "algorithm": "mbert",
+    "model_version": "expanded-20261005-mbert-c3abc4bb",
+    "asset_sha256": {
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+      "model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+      "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+    },
+    "build": {
+      "exit_code": 0,
+      "seconds": 30.441634499999964,
+      "log_sha256": "13be218836ee0bc5ed1f5a39cde1b189d2f05627911caa610ba08d62e749c678"
+    },
+    "jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "lint": {
+      "Error": 0,
+      "Warning": 5,
+      "Fatal": 0
+    },
+    "emulator": {
+      "exit_code": 0,
+      "seconds": 205.27915989999974,
+      "log_sha256": "e6707eaae7028c8d096067163135eec18000c42c97231cf4916866443a121023"
+    },
+    "package": {
+      "exit_code": 0,
+      "seconds": 12.671158000000105,
+      "log_sha256": "3dd6117636f755342d6475bf9bfb95bcea894ed5adc7c46a8be3587eac946372"
+    },
+    "emulator_tests": {
+      "ui_lifecycle_decoding": 17,
+      "notification_denied": 1,
+      "offline_sklearn_exports": 1,
+      "mbert_parity_policy_latency": 1,
+      "modem_sms": 1,
+      "notification_granted_and_channel_blocked": 1,
+      "accessibility_large_text": 1,
+      "fictional_demo_screenshots": 1
+    },
+    "emulator_test_total": 24,
+    "emulator_status": "passed",
+    "android_parity": {
+      "cases": 468,
+      "max_logit_error": 1.33514404296875e-05,
+      "max_score_error": 4.385687211116984e-06,
+      "max_margin_error": 2.5153160095214844e-05,
+      "near_threshold_cases": 0,
+      "class_changes": 0,
+      "model_sha256": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+      "model_load_ms": 2707.318,
+      "cold_detector_ms": 2788.9532,
+      "scored": 200,
+      "abstained": 0,
+      "warmups": 20,
+      "scans": 200,
+      "probes": 4,
+      "p50_ms": 150.9292,
+      "p95_ms": 158.2461
+    },
+    "jvm_tokenizer": {
+      "cases": 468,
+      "exact_token_ids_masks_types": true
+    },
+    "private_storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0,
+      "exclusion": "Hash-verified ONNX model cache; no message inputs stored there"
+    },
+    "screenshots": {
+      "count": 3,
+      "inputs": "fictional",
+      "inference": "actual bundled model",
+      "path": "deliverables\\expanded-20261005\\screenshots\\mbert"
+    },
+    "parity": {
+      "cases": 468,
+      "max_logit_error": 1.33514404296875e-05,
+      "max_score_error": 4.380941390991211e-06,
+      "max_margin_error": 2.5272369384765625e-05,
+      "nearest_threshold_distance": 0.048527047634124854,
+      "near_threshold_cases": 0,
+      "class_changes": 0,
+      "onnx_bytes": 711555338,
+      "model_sha256": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+      "metadata_sha256": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+      "cases_sha256": "4308a66a52acb22039a8d028345aa0333712106fa6b3114fb6782dc99b0cc7c9",
+      "quantized": false,
+      "onnxruntime": "1.22.0",
+      "providers": [
+        "CPUExecutionProvider"
+      ]
+    }
+  }
+}

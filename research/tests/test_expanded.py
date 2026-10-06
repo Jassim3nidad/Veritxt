@@ -6,7 +6,7 @@ from unittest.mock import patch
 import numpy as np
 from smishguard.data import template_groups, split_rows
 from smishguard.expanded_prepare import clean
-from smishguard.expanded_train import checked, threshold
+from smishguard.expanded_train import checked, threshold, peak_memory
 from smishguard.expanded_evaluate import deployment
 from smishguard.mbert_experiment import redacted_case_view
 from smishguard.preprocessing import normalize
@@ -14,6 +14,10 @@ from smishguard.train import write_json
 from smishguard import fair_compare as fair
 
 class ExpandedBoundaries(unittest.TestCase):
+    @unittest.skipUnless(__import__('os').name=='nt','Windows resource probe')
+    def test_windows_resource_probe_returns_real_measurement(self):
+        self.assertGreater(peak_memory(),0)
+
     def test_common_private_view_preserves_case_and_baseline_identity(self):
         text='Hello <NAME>, code 123 at https://account.example/a. Contact person@example.invalid'
         view=redacted_case_view(clean(text))

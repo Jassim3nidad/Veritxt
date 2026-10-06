@@ -10,6 +10,7 @@ import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
+import org.json.JSONObject
 import ph.smishguard.model.*
 
 /** Fictional text, real bundled models and results. No injected detector or expected labels. */
@@ -21,7 +22,8 @@ class ComparisonDemoTest {
         app.testDetector = null
         val detector = runBlocking { app.preferences.onboard(); app.detector() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Check a message").fetchSemanticsNodes().isNotEmpty() }
-        val versionPrefix=if(BuildConfig.BUILD_TYPE=="mbert") "mbert-exploratory" else "prelim-20261001"
+        val versionPrefix=JSONObject(compose.activity.assets.open("model.json").bufferedReader().use { it.readText() })
+            .getString("model_version")
         compose.waitUntil(120000) { compose.onAllNodesWithText(versionPrefix, substring=true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText(versionPrefix, substring=true).performScrollTo()
         recordReliabilitySnapshot(compose.activity,"comparison-home",null,"Fictional demo; actual algorithm and model version")

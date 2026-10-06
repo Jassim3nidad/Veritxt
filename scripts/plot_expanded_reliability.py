@@ -24,7 +24,9 @@ def main():
     fig.suptitle('SmishGuard · expanded retrospective test\n448 shared records; 10 equal-width bins; marker area reflects bin support',fontsize=13)
     fig.supxlabel('Source/rule labels are unconfirmed. Curves do not establish real-world probability calibration.',fontsize=9)
     fig.savefig(ROOT/'docs/expanded-reliability-20261005.png',dpi=180)
-    fig.savefig(ROOT/'docs/expanded-reliability-20261005.svg')
+    svg=ROOT/'docs/expanded-reliability-20261005.svg'
+    fig.savefig(svg)
+    svg.write_text('\n'.join(line.rstrip() for line in svg.read_text(encoding='utf-8').splitlines())+'\n',encoding='utf-8')
     plt.close(fig)
     print('Reliability PNG and SVG saved from aggregate bins.')
 

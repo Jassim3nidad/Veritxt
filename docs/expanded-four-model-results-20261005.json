@@ -1,0 +1,3187 @@
+{
+  "results": {
+    "lr": {
+      "accuracy": 0.9419642857142857,
+      "specificity": 0.9974489795918368,
+      "precision": 0.96875,
+      "recall": 0.5535714285714286,
+      "f1": 0.7045454545454546,
+      "pr_auc": 0.9430878192223214,
+      "average_precision": 0.9439812370939265,
+      "roc_auc": 0.9866526967930029,
+      "false_positive_rate": 0.002551020408163265,
+      "false_negative_rate": 0.44642857142857145,
+      "brier": 0.025761245797820697,
+      "log_loss": 0.09309046802648978,
+      "reliability_bins": [
+        {
+          "count": 372,
+          "mean_probability": 0.011521532483251232,
+          "observed_positive_rate": 0.010752688172043012
+        },
+        {
+          "count": 9,
+          "mean_probability": 0.129166851719628,
+          "observed_positive_rate": 0.1111111111111111
+        },
+        {
+          "count": 5,
+          "mean_probability": 0.24537539568480002,
+          "observed_positive_rate": 0.2
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.31436793567093424,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.48972659656902073,
+          "observed_positive_rate": 0.5
+        },
+        {
+          "count": 9,
+          "mean_probability": 0.5695656062220896,
+          "observed_positive_rate": 0.1111111111111111
+        },
+        {
+          "count": 11,
+          "mean_probability": 0.6539417637647807,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 4,
+          "mean_probability": 0.7482619434686725,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 7,
+          "mean_probability": 0.8419231431067624,
+          "observed_positive_rate": 0.8571428571428571
+        },
+        {
+          "count": 27,
+          "mean_probability": 0.9645143369068017,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.02528795890257697,
+      "confusion": {
+        "tn": 391,
+        "fp": 1,
+        "fn": 25,
+        "tp": 31
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 0.1784539473684211
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 0.6867088607594938
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 0.9194915254237289
+        }
+      ],
+      "macro_f1": 0.8361836183618362,
+      "threshold": 0.82,
+      "support": {
+        "records": 448,
+        "ham": 392,
+        "smishing": 56,
+        "groups": 251,
+        "positive_groups": 25,
+        "negative_groups": 226
+      },
+      "model_bytes": 180235,
+      "host_cpu_inference_seconds": 0.01696710000010171,
+      "deployment": {
+        "records": 448,
+        "scored": 448,
+        "abstained": 0,
+        "coverage": 1.0,
+        "abstained_labels": {
+          "ham": 0,
+          "smishing": 0
+        },
+        "conditional_metrics": {
+          "accuracy": 0.9419642857142857,
+          "specificity": 0.9974489795918368,
+          "precision": 0.96875,
+          "recall": 0.5535714285714286,
+          "f1": 0.7045454545454546,
+          "pr_auc": 0.9430878192223214,
+          "average_precision": 0.9439812370939265,
+          "roc_auc": 0.9866526967930029,
+          "false_positive_rate": 0.002551020408163265,
+          "false_negative_rate": 0.44642857142857145,
+          "brier": 0.025761245797820697,
+          "log_loss": 0.09309046802648978,
+          "reliability_bins": [
+            {
+              "count": 372,
+              "mean_probability": 0.011521532483251232,
+              "observed_positive_rate": 0.010752688172043012
+            },
+            {
+              "count": 9,
+              "mean_probability": 0.129166851719628,
+              "observed_positive_rate": 0.1111111111111111
+            },
+            {
+              "count": 5,
+              "mean_probability": 0.24537539568480002,
+              "observed_positive_rate": 0.2
+            },
+            {
+              "count": 2,
+              "mean_probability": 0.31436793567093424,
+              "observed_positive_rate": 0.0
+            },
+            {
+              "count": 2,
+              "mean_probability": 0.48972659656902073,
+              "observed_positive_rate": 0.5
+            },
+            {
+              "count": 9,
+              "mean_probability": 0.5695656062220896,
+              "observed_positive_rate": 0.1111111111111111
+            },
+            {
+              "count": 11,
+              "mean_probability": 0.6539417637647807,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 4,
+              "mean_probability": 0.7482619434686725,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 7,
+              "mean_probability": 0.8419231431067624,
+              "observed_positive_rate": 0.8571428571428571
+            },
+            {
+              "count": 27,
+              "mean_probability": 0.9645143369068017,
+              "observed_positive_rate": 1.0
+            }
+          ],
+          "expected_calibration_error": 0.02528795890257697,
+          "confusion": {
+            "tn": 391,
+            "fp": 1,
+            "fn": 25,
+            "tp": 31
+          },
+          "hypothetical_base_rates": [
+            {
+              "prevalence": 0.001,
+              "estimated_positive_predictive_value": 0.1784539473684211
+            },
+            {
+              "prevalence": 0.01,
+              "estimated_positive_predictive_value": 0.6867088607594938
+            },
+            {
+              "prevalence": 0.05,
+              "estimated_positive_predictive_value": 0.9194915254237289
+            }
+          ]
+        },
+        "interpretation": "Abstentions excluded, never scored as correct negatives"
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 251,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.876153158963082,
+            "high": 0.9807077829000891
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 0.8748641304347826,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.3829630788485607,
+            "high": 0.7692307692307692
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.5454545454545454,
+            "high": 0.8571428571428571
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 0.9904974885395706,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.009502511460429363
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.23076923076923078,
+            "high": 0.6170369211514393
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9612447717583064,
+            "high": 0.9972180528038644
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.7881281893126709,
+            "high": 0.9886801707495875
+          },
+          "macro_f1": {
+            "valid_replicates": 2000,
+            "low": 0.7456063881473717,
+            "high": 0.9221048095985999
+          },
+          "brier": {
+            "valid_replicates": 2000,
+            "low": 0.012074585432178151,
+            "high": 0.046800753883084974
+          },
+          "log_loss": {
+            "valid_replicates": 2000,
+            "low": 0.04901381707811039,
+            "high": 0.15644144021130502
+          }
+        }
+      },
+      "by_language": {
+        "English": {
+          "support": {
+            "records": 315,
+            "ham": 270,
+            "smishing": 45,
+            "groups": 158,
+            "positive_groups": 16,
+            "negative_groups": 142
+          },
+          "metrics": {
+            "accuracy": 0.9365079365079365,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "recall": 0.5555555555555556,
+            "f1": 0.7142857142857143,
+            "pr_auc": 0.9570134201535516,
+            "average_precision": 0.9572919694131378,
+            "roc_auc": 0.9869958847736625,
+            "false_positive_rate": 0.0,
+            "false_negative_rate": 0.4444444444444444,
+            "brier": 0.027436431099624972,
+            "log_loss": 0.09988517204068698,
+            "reliability_bins": [
+              {
+                "count": 256,
+                "mean_probability": 0.011640008827353552,
+                "observed_positive_rate": 0.01171875
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.12382122233623932,
+                "observed_positive_rate": 0.25
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.24647751153655553,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.31436793567093424,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.48972659656902073,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 8,
+                "mean_probability": 0.5665451293445718,
+                "observed_positive_rate": 0.125
+              },
+              {
+                "count": 11,
+                "mean_probability": 0.6539417637647807,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.7759662679590951,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.8578674472864689,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 24,
+                "mean_probability": 0.9616778541839835,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.035400416754412176,
+            "confusion": {
+              "tn": 270,
+              "fp": 0,
+              "fn": 20,
+              "tp": 25
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 1.0
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "Filipino/Taglish": {
+          "support": {
+            "records": 133,
+            "ham": 122,
+            "smishing": 11,
+            "groups": 98,
+            "positive_groups": 10,
+            "negative_groups": 88
+          },
+          "metrics": {
+            "accuracy": 0.9548872180451128,
+            "specificity": 0.9918032786885246,
+            "precision": 0.8571428571428571,
+            "recall": 0.5454545454545454,
+            "f1": 0.6666666666666666,
+            "pr_auc": 0.895601262108439,
+            "average_precision": 0.9003968253968253,
+            "roc_auc": 0.988822652757079,
+            "false_positive_rate": 0.00819672131147541,
+            "false_negative_rate": 0.45454545454545453,
+            "brier": 0.02179370166196848,
+            "log_loss": 0.07699774799286481,
+            "reliability_bins": [
+              {
+                "count": 116,
+                "mean_probability": 0.01126006744799094,
+                "observed_positive_rate": 0.008620689655172414
+              },
+              {
+                "count": 5,
+                "mean_probability": 0.13344335522633896,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.24096693227777805,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.5937294212422319,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.7205576189782499,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 5,
+                "mean_probability": 0.8355454214348799,
+                "observed_positive_rate": 0.8
+              },
+              {
+                "count": 3,
+                "mean_probability": 0.9872061986893458,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.023316844828668866,
+            "confusion": {
+              "tn": 121,
+              "fp": 1,
+              "fn": 5,
+              "tp": 6
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 0.06245200921423087
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 0.40197693574958815
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 0.7778958554729012
+              }
+            ]
+          },
+          "note": "descriptive only"
+        }
+      },
+      "by_category": {
+        "Fake prize / reward / refund": {
+          "support": {
+            "records": 11,
+            "ham": 0,
+            "smishing": 11,
+            "groups": 9,
+            "positive_groups": 9,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Fake winnings/credit (gambling lure)": {
+          "support": {
+            "records": 1,
+            "ham": 0,
+            "smishing": 1,
+            "groups": 1,
+            "positive_groups": 1,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Impersonation (bank, e-wallet, government, courier, or brand)": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 15,
+            "positive_groups": 15,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Legit message": {
+          "support": {
+            "records": 391,
+            "ham": 391,
+            "smishing": 0,
+            "groups": 225,
+            "positive_groups": 0,
+            "negative_groups": 225
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Looks legit despite being in a spam source": {
+          "support": {
+            "records": 1,
+            "ham": 1,
+            "smishing": 0,
+            "groups": 1,
+            "positive_groups": 0,
+            "negative_groups": 1
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      },
+      "by_source": {
+        "bwandowando": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 16,
+            "positive_groups": 16,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "marketing": {
+          "support": {
+            "records": 138,
+            "ham": 130,
+            "smishing": 8,
+            "groups": 109,
+            "positive_groups": 8,
+            "negative_groups": 101
+          },
+          "metrics": {
+            "accuracy": 0.9710144927536232,
+            "specificity": 0.9923076923076923,
+            "precision": 0.8333333333333334,
+            "recall": 0.625,
+            "f1": 0.7142857142857143,
+            "pr_auc": 0.8640233395989975,
+            "average_precision": 0.8706845238095238,
+            "roc_auc": 0.985576923076923,
+            "false_positive_rate": 0.007692307692307693,
+            "false_negative_rate": 0.375,
+            "brier": 0.016327278203287825,
+            "log_loss": 0.06081397531004621,
+            "reliability_bins": [
+              {
+                "count": 126,
+                "mean_probability": 0.011215587190405229,
+                "observed_positive_rate": 0.007936507936507936
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.11978510314481337,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.24462622592373476,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.5937294212422319,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.7069775020955477,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 3,
+                "mean_probability": 0.8242134289437079,
+                "observed_positive_rate": 0.6666666666666666
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.9995197360492832,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.016367200579602142,
+            "confusion": {
+              "tn": 129,
+              "fp": 1,
+              "fn": 3,
+              "tp": 5
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 0.07521407081694051
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 0.4507628294036061
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 0.8104738154613467
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "tagalog": {
+          "support": {
+            "records": 266,
+            "ham": 262,
+            "smishing": 4,
+            "groups": 129,
+            "positive_groups": 4,
+            "negative_groups": 125
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      }
+    },
+    "nb": {
+      "accuracy": 0.9107142857142857,
+      "specificity": 0.9897959183673469,
+      "precision": 0.8333333333333334,
+      "recall": 0.3571428571428571,
+      "f1": 0.5,
+      "pr_auc": 0.6975164978676391,
+      "average_precision": 0.7074601317346717,
+      "roc_auc": 0.9362244897959183,
+      "false_positive_rate": 0.01020408163265306,
+      "false_negative_rate": 0.6428571428571429,
+      "brier": 0.06899358671287856,
+      "log_loss": 0.22882321405115702,
+      "reliability_bins": [
+        {
+          "count": 366,
+          "mean_probability": 0.00663489753851251,
+          "observed_positive_rate": 0.04371584699453552
+        },
+        {
+          "count": 36,
+          "mean_probability": 0.136890282276539,
+          "observed_positive_rate": 0.19444444444444445
+        },
+        {
+          "count": 4,
+          "mean_probability": 0.26008720375684496,
+          "observed_positive_rate": 0.5
+        },
+        {
+          "count": 7,
+          "mean_probability": 0.3629824591551407,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 11,
+          "mean_probability": 0.5746744658408067,
+          "observed_positive_rate": 0.36363636363636365
+        },
+        {
+          "count": 2,
+          "mean_probability": 0.6828178012619144,
+          "observed_positive_rate": 0.5
+        },
+        {
+          "count": 5,
+          "mean_probability": 0.7542576005025913,
+          "observed_positive_rate": 0.6
+        },
+        {
+          "count": 3,
+          "mean_probability": 0.849260784615144,
+          "observed_positive_rate": 0.6666666666666666
+        },
+        {
+          "count": 14,
+          "mean_probability": 0.9900050874392272,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.05626876153753921,
+      "confusion": {
+        "tn": 388,
+        "fp": 4,
+        "fn": 36,
+        "tp": 20
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 0.033849129593810444
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 0.26119402985074625
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 0.6481481481481481
+        }
+      ],
+      "macro_f1": 0.7254901960784313,
+      "threshold": 0.63,
+      "support": {
+        "records": 448,
+        "ham": 392,
+        "smishing": 56,
+        "groups": 251,
+        "positive_groups": 25,
+        "negative_groups": 226
+      },
+      "model_bytes": 276959,
+      "host_cpu_inference_seconds": 0.012307899999996152,
+      "deployment": {
+        "records": 448,
+        "scored": 448,
+        "abstained": 0,
+        "coverage": 1.0,
+        "abstained_labels": {
+          "ham": 0,
+          "smishing": 0
+        },
+        "conditional_metrics": {
+          "accuracy": 0.9107142857142857,
+          "specificity": 0.9897959183673469,
+          "precision": 0.8333333333333334,
+          "recall": 0.3571428571428571,
+          "f1": 0.5,
+          "pr_auc": 0.6975164978676391,
+          "average_precision": 0.7074601317346717,
+          "roc_auc": 0.9362244897959183,
+          "false_positive_rate": 0.01020408163265306,
+          "false_negative_rate": 0.6428571428571429,
+          "brier": 0.06899358671287856,
+          "log_loss": 0.22882321405115702,
+          "reliability_bins": [
+            {
+              "count": 366,
+              "mean_probability": 0.00663489753851251,
+              "observed_positive_rate": 0.04371584699453552
+            },
+            {
+              "count": 36,
+              "mean_probability": 0.136890282276539,
+              "observed_positive_rate": 0.19444444444444445
+            },
+            {
+              "count": 4,
+              "mean_probability": 0.26008720375684496,
+              "observed_positive_rate": 0.5
+            },
+            {
+              "count": 7,
+              "mean_probability": 0.3629824591551407,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 11,
+              "mean_probability": 0.5746744658408067,
+              "observed_positive_rate": 0.36363636363636365
+            },
+            {
+              "count": 2,
+              "mean_probability": 0.6828178012619144,
+              "observed_positive_rate": 0.5
+            },
+            {
+              "count": 5,
+              "mean_probability": 0.7542576005025913,
+              "observed_positive_rate": 0.6
+            },
+            {
+              "count": 3,
+              "mean_probability": 0.849260784615144,
+              "observed_positive_rate": 0.6666666666666666
+            },
+            {
+              "count": 14,
+              "mean_probability": 0.9900050874392272,
+              "observed_positive_rate": 1.0
+            }
+          ],
+          "expected_calibration_error": 0.05626876153753921,
+          "confusion": {
+            "tn": 388,
+            "fp": 4,
+            "fn": 36,
+            "tp": 20
+          },
+          "hypothetical_base_rates": [
+            {
+              "prevalence": 0.001,
+              "estimated_positive_predictive_value": 0.033849129593810444
+            },
+            {
+              "prevalence": 0.01,
+              "estimated_positive_predictive_value": 0.26119402985074625
+            },
+            {
+              "prevalence": 0.05,
+              "estimated_positive_predictive_value": 0.6481481481481481
+            }
+          ]
+        },
+        "interpretation": "Abstentions excluded, never scored as correct negatives"
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 251,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.8121061066080879,
+            "high": 0.9752106827341936
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 0.6153846153846154,
+            "high": 0.9697402597402596
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.1523809523809524,
+            "high": 0.7586551724137929
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.2520975319261563,
+            "high": 0.8090021401819154
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 0.9764927821522309,
+            "high": 0.9982582902799472
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0017417097200528656,
+            "high": 0.02350721784776901
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.2413448275862069,
+            "high": 0.8476190476190476
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.8636792402499618,
+            "high": 0.9887252604979098
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.5003707102996753,
+            "high": 0.9275284174062601
+          },
+          "macro_f1": {
+            "valid_replicates": 2000,
+            "low": 0.5791960380236442,
+            "high": 0.8961077278893204
+          },
+          "brier": {
+            "valid_replicates": 2000,
+            "low": 0.020019721700652946,
+            "high": 0.15594376269318508
+          },
+          "log_loss": {
+            "valid_replicates": 2000,
+            "low": 0.07035300482959742,
+            "high": 0.5134684784036941
+          }
+        }
+      },
+      "by_language": {
+        "English": {
+          "support": {
+            "records": 315,
+            "ham": 270,
+            "smishing": 45,
+            "groups": 158,
+            "positive_groups": 16,
+            "negative_groups": 142
+          },
+          "metrics": {
+            "accuracy": 0.8952380952380953,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "recall": 0.2666666666666667,
+            "f1": 0.42105263157894735,
+            "pr_auc": 0.6761624486954324,
+            "average_precision": 0.6921844994547585,
+            "roc_auc": 0.9265020576131687,
+            "false_positive_rate": 0.0,
+            "false_negative_rate": 0.7333333333333333,
+            "brier": 0.08362993088282002,
+            "log_loss": 0.279984775409444,
+            "reliability_bins": [
+              {
+                "count": 254,
+                "mean_probability": 0.00621990787268977,
+                "observed_positive_rate": 0.05905511811023622
+              },
+              {
+                "count": 30,
+                "mean_probability": 0.13587181074598698,
+                "observed_positive_rate": 0.23333333333333334
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.2639006180872761,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 7,
+                "mean_probability": 0.3629824591551407,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 10,
+                "mean_probability": 0.5767496521594768,
+                "observed_positive_rate": 0.3
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.734011360722542,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.8542391539186253,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 10,
+                "mean_probability": 0.9934457807913795,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.07784158357694114,
+            "confusion": {
+              "tn": 270,
+              "fp": 0,
+              "fn": 33,
+              "tp": 12
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 1.0
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "Filipino/Taglish": {
+          "support": {
+            "records": 133,
+            "ham": 122,
+            "smishing": 11,
+            "groups": 98,
+            "positive_groups": 10,
+            "negative_groups": 88
+          },
+          "metrics": {
+            "accuracy": 0.9473684210526315,
+            "specificity": 0.9672131147540983,
+            "precision": 0.6666666666666666,
+            "recall": 0.7272727272727273,
+            "f1": 0.6956521739130435,
+            "pr_auc": 0.7854797047484795,
+            "average_precision": 0.7949618563254928,
+            "roc_auc": 0.9761549925484352,
+            "false_positive_rate": 0.03278688524590164,
+            "false_negative_rate": 0.2727272727272727,
+            "brier": 0.034328561047227736,
+            "log_loss": 0.10765109504468788,
+            "reliability_bins": [
+              {
+                "count": 112,
+                "mean_probability": 0.007576034816360509,
+                "observed_positive_rate": 0.008928571428571428
+              },
+              {
+                "count": 6,
+                "mean_probability": 0.14198263992929902,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.2562737894264139,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.553922602654105,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.6828178012619144,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.7593191604476035,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.8467715999634033,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.9814033540588466,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.030885351779264263,
+            "confusion": {
+              "tn": 118,
+              "fp": 4,
+              "fn": 3,
+              "tp": 8
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 0.021721712810469154
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 0.18304576144036008
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 0.5386313465783664
+              }
+            ]
+          },
+          "note": "descriptive only"
+        }
+      },
+      "by_category": {
+        "Fake prize / reward / refund": {
+          "support": {
+            "records": 11,
+            "ham": 0,
+            "smishing": 11,
+            "groups": 9,
+            "positive_groups": 9,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Fake winnings/credit (gambling lure)": {
+          "support": {
+            "records": 1,
+            "ham": 0,
+            "smishing": 1,
+            "groups": 1,
+            "positive_groups": 1,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Impersonation (bank, e-wallet, government, courier, or brand)": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 15,
+            "positive_groups": 15,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Legit message": {
+          "support": {
+            "records": 391,
+            "ham": 391,
+            "smishing": 0,
+            "groups": 225,
+            "positive_groups": 0,
+            "negative_groups": 225
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Looks legit despite being in a spam source": {
+          "support": {
+            "records": 1,
+            "ham": 1,
+            "smishing": 0,
+            "groups": 1,
+            "positive_groups": 0,
+            "negative_groups": 1
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      },
+      "by_source": {
+        "bwandowando": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 16,
+            "positive_groups": 16,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "marketing": {
+          "support": {
+            "records": 138,
+            "ham": 130,
+            "smishing": 8,
+            "groups": 109,
+            "positive_groups": 8,
+            "negative_groups": 101
+          },
+          "metrics": {
+            "accuracy": 0.9710144927536232,
+            "specificity": 0.9769230769230769,
+            "precision": 0.7,
+            "recall": 0.875,
+            "f1": 0.7777777777777778,
+            "pr_auc": 0.9153454184704185,
+            "average_precision": 0.9202741702741702,
+            "roc_auc": 0.9942307692307693,
+            "false_positive_rate": 0.023076923076923078,
+            "false_negative_rate": 0.125,
+            "brier": 0.019818922563378187,
+            "log_loss": 0.06044327163825359,
+            "reliability_bins": [
+              {
+                "count": 122,
+                "mean_probability": 0.005327540115698463,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 6,
+                "mean_probability": 0.1374296109064385,
+                "observed_positive_rate": 0.16666666666666666
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.6698879995468517,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.7500670556048842,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.8467715999634033,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 5,
+                "mean_probability": 0.9927624049146722,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.019747358802801793,
+            "confusion": {
+              "tn": 127,
+              "fp": 3,
+              "fn": 1,
+              "tp": 7
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 0.0365667443542554
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 0.2769324406573342
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 0.6661786237188873
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "tagalog": {
+          "support": {
+            "records": 266,
+            "ham": 262,
+            "smishing": 4,
+            "groups": 129,
+            "positive_groups": 4,
+            "negative_groups": 125
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      }
+    },
+    "svm": {
+      "accuracy": 0.9821428571428571,
+      "specificity": 0.9974489795918368,
+      "precision": 0.98,
+      "recall": 0.875,
+      "f1": 0.9245283018867925,
+      "pr_auc": 0.9571458184145363,
+      "average_precision": 0.9579295220230925,
+      "roc_auc": 0.9904792274052479,
+      "false_positive_rate": 0.002551020408163265,
+      "false_negative_rate": 0.125,
+      "brier": 0.024027719637268928,
+      "log_loss": 0.09549370471562717,
+      "reliability_bins": [
+        {
+          "count": 348,
+          "mean_probability": 0.01847347097676389,
+          "observed_positive_rate": 0.0028735632183908046
+        },
+        {
+          "count": 15,
+          "mean_probability": 0.15004432471935075,
+          "observed_positive_rate": 0.13333333333333333
+        },
+        {
+          "count": 21,
+          "mean_probability": 0.282394119865391,
+          "observed_positive_rate": 0.047619047619047616
+        },
+        {
+          "count": 3,
+          "mean_probability": 0.31657598118954405,
+          "observed_positive_rate": 0.0
+        },
+        {
+          "count": 10,
+          "mean_probability": 0.4637675531279428,
+          "observed_positive_rate": 0.2
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.5327628268466003,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 13,
+          "mean_probability": 0.6512055549738169,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 7,
+          "mean_probability": 0.7402361831697953,
+          "observed_positive_rate": 0.8571428571428571
+        },
+        {
+          "count": 9,
+          "mean_probability": 0.8646028987271343,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 21,
+          "mean_probability": 0.9634884941378721,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.049112366012480035,
+      "confusion": {
+        "tn": 391,
+        "fp": 1,
+        "fn": 7,
+        "tp": 49
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 0.25558867362146054
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 0.7760180995475114
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 0.9475138121546961
+        }
+      ],
+      "macro_f1": 0.9572008598041557,
+      "threshold": 0.59,
+      "support": {
+        "records": 448,
+        "ham": 392,
+        "smishing": 56,
+        "groups": 251,
+        "positive_groups": 25,
+        "negative_groups": 226
+      },
+      "model_bytes": 180196,
+      "host_cpu_inference_seconds": 0.011405299999978524,
+      "deployment": {
+        "records": 448,
+        "scored": 448,
+        "abstained": 0,
+        "coverage": 1.0,
+        "abstained_labels": {
+          "ham": 0,
+          "smishing": 0
+        },
+        "conditional_metrics": {
+          "accuracy": 0.9821428571428571,
+          "specificity": 0.9974489795918368,
+          "precision": 0.98,
+          "recall": 0.875,
+          "f1": 0.9245283018867925,
+          "pr_auc": 0.9571458184145363,
+          "average_precision": 0.9579295220230925,
+          "roc_auc": 0.9904792274052479,
+          "false_positive_rate": 0.002551020408163265,
+          "false_negative_rate": 0.125,
+          "brier": 0.024027719637268928,
+          "log_loss": 0.09549370471562717,
+          "reliability_bins": [
+            {
+              "count": 348,
+              "mean_probability": 0.01847347097676389,
+              "observed_positive_rate": 0.0028735632183908046
+            },
+            {
+              "count": 15,
+              "mean_probability": 0.15004432471935075,
+              "observed_positive_rate": 0.13333333333333333
+            },
+            {
+              "count": 21,
+              "mean_probability": 0.282394119865391,
+              "observed_positive_rate": 0.047619047619047616
+            },
+            {
+              "count": 3,
+              "mean_probability": 0.31657598118954405,
+              "observed_positive_rate": 0.0
+            },
+            {
+              "count": 10,
+              "mean_probability": 0.4637675531279428,
+              "observed_positive_rate": 0.2
+            },
+            {
+              "count": 1,
+              "mean_probability": 0.5327628268466003,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 13,
+              "mean_probability": 0.6512055549738169,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 7,
+              "mean_probability": 0.7402361831697953,
+              "observed_positive_rate": 0.8571428571428571
+            },
+            {
+              "count": 9,
+              "mean_probability": 0.8646028987271343,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 21,
+              "mean_probability": 0.9634884941378721,
+              "observed_positive_rate": 1.0
+            }
+          ],
+          "expected_calibration_error": 0.049112366012480035,
+          "confusion": {
+            "tn": 391,
+            "fp": 1,
+            "fn": 7,
+            "tp": 49
+          },
+          "hypothetical_base_rates": [
+            {
+              "prevalence": 0.001,
+              "estimated_positive_predictive_value": 0.25558867362146054
+            },
+            {
+              "prevalence": 0.01,
+              "estimated_positive_predictive_value": 0.7760180995475114
+            },
+            {
+              "prevalence": 0.05,
+              "estimated_positive_predictive_value": 0.9475138121546961
+            }
+          ]
+        },
+        "interpretation": "Abstentions excluded, never scored as correct negatives"
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 251,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.9633251833740831,
+            "high": 0.9944617259282806
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 0.9032061369000787,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.6578266787658803,
+            "high": 0.9684292763157895
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.7754557823129251,
+            "high": 0.9787234042553191
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 0.9904974885395706,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.009502511460429363
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.03157072368421053,
+            "high": 0.3421733212341194
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9699558054847346,
+            "high": 0.9988701056924029
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.8360062278687374,
+            "high": 0.9940011548516643
+          },
+          "macro_f1": {
+            "valid_replicates": 2000,
+            "low": 0.8789782898805455,
+            "high": 0.9872805958197479
+          },
+          "brier": {
+            "valid_replicates": 2000,
+            "low": 0.011882455426143392,
+            "high": 0.040182999437555
+          },
+          "log_loss": {
+            "valid_replicates": 2000,
+            "low": 0.05462521684597664,
+            "high": 0.14886708297000523
+          }
+        }
+      },
+      "by_language": {
+        "English": {
+          "support": {
+            "records": 315,
+            "ham": 270,
+            "smishing": 45,
+            "groups": 158,
+            "positive_groups": 16,
+            "negative_groups": 142
+          },
+          "metrics": {
+            "accuracy": 0.9841269841269841,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "recall": 0.8888888888888888,
+            "f1": 0.9411764705882353,
+            "pr_auc": 0.9656831644873675,
+            "average_precision": 0.9659057399818879,
+            "roc_auc": 0.9898765432098765,
+            "false_positive_rate": 0.0,
+            "false_negative_rate": 0.1111111111111111,
+            "brier": 0.026657233999952193,
+            "log_loss": 0.10389196474942707,
+            "reliability_bins": [
+              {
+                "count": 233,
+                "mean_probability": 0.015343667195996669,
+                "observed_positive_rate": 0.004291845493562232
+              },
+              {
+                "count": 13,
+                "mean_probability": 0.1518943997885323,
+                "observed_positive_rate": 0.15384615384615385
+              },
+              {
+                "count": 18,
+                "mean_probability": 0.29061561507893,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.321023082324139,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 8,
+                "mean_probability": 0.47679053919858183,
+                "observed_positive_rate": 0.125
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.5327628268466003,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 11,
+                "mean_probability": 0.6448786820446635,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.7470133549124509,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 6,
+                "mean_probability": 0.872125694213477,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 19,
+                "mean_probability": 0.9602407851523077,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.057765358656862116,
+            "confusion": {
+              "tn": 270,
+              "fp": 0,
+              "fn": 5,
+              "tp": 40
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 1.0
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "Filipino/Taglish": {
+          "support": {
+            "records": 133,
+            "ham": 122,
+            "smishing": 11,
+            "groups": 98,
+            "positive_groups": 10,
+            "negative_groups": 88
+          },
+          "metrics": {
+            "accuracy": 0.9774436090225563,
+            "specificity": 0.9918032786885246,
+            "precision": 0.9,
+            "recall": 0.8181818181818181,
+            "f1": 0.8571428571428571,
+            "pr_auc": 0.9337104814377541,
+            "average_precision": 0.9369375573921027,
+            "roc_auc": 0.9940387481371087,
+            "false_positive_rate": 0.00819672131147541,
+            "false_negative_rate": 0.18181818181818182,
+            "brier": 0.01779992246249278,
+            "log_loss": 0.07560308884610115,
+            "reliability_bins": [
+              {
+                "count": 115,
+                "mean_probability": 0.024814725593448786,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.13801883676967072,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 3,
+                "mean_probability": 0.23306514858415694,
+                "observed_positive_rate": 0.3333333333333333
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.3076817789203541,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.4116756088453867,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.6860033560841607,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 3,
+                "mean_probability": 0.7311999541795879,
+                "observed_positive_rate": 0.6666666666666666
+              },
+              {
+                "count": 3,
+                "mean_probability": 0.8495573077544485,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.9943417295007343,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.0390910075215691,
+            "confusion": {
+              "tn": 121,
+              "fp": 1,
+              "fn": 2,
+              "tp": 9
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 0.09084139985107967
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 0.5020576131687242
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 0.8400918133129304
+              }
+            ]
+          },
+          "note": "descriptive only"
+        }
+      },
+      "by_category": {
+        "Fake prize / reward / refund": {
+          "support": {
+            "records": 11,
+            "ham": 0,
+            "smishing": 11,
+            "groups": 9,
+            "positive_groups": 9,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Fake winnings/credit (gambling lure)": {
+          "support": {
+            "records": 1,
+            "ham": 0,
+            "smishing": 1,
+            "groups": 1,
+            "positive_groups": 1,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Impersonation (bank, e-wallet, government, courier, or brand)": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 15,
+            "positive_groups": 15,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Legit message": {
+          "support": {
+            "records": 391,
+            "ham": 391,
+            "smishing": 0,
+            "groups": 225,
+            "positive_groups": 0,
+            "negative_groups": 225
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Looks legit despite being in a spam source": {
+          "support": {
+            "records": 1,
+            "ham": 1,
+            "smishing": 0,
+            "groups": 1,
+            "positive_groups": 0,
+            "negative_groups": 1
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      },
+      "by_source": {
+        "bwandowando": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 16,
+            "positive_groups": 16,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "marketing": {
+          "support": {
+            "records": 138,
+            "ham": 130,
+            "smishing": 8,
+            "groups": 109,
+            "positive_groups": 8,
+            "negative_groups": 101
+          },
+          "metrics": {
+            "accuracy": 0.9855072463768116,
+            "specificity": 0.9923076923076923,
+            "precision": 0.875,
+            "recall": 0.875,
+            "f1": 0.875,
+            "pr_auc": 0.9276270604395604,
+            "average_precision": 0.9308035714285714,
+            "roc_auc": 0.9932692307692308,
+            "false_positive_rate": 0.007692307692307693,
+            "false_negative_rate": 0.125,
+            "brier": 0.013523869882916883,
+            "log_loss": 0.06186156594447016,
+            "reliability_bins": [
+              {
+                "count": 121,
+                "mean_probability": 0.02284594836775852,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 7,
+                "mean_probability": 0.14757516163778478,
+                "observed_positive_rate": 0.14285714285714285
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.20273938857716362,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.4082561474259712,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.6916117740502793,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 2,
+                "mean_probability": 0.7443021457527567,
+                "observed_positive_rate": 0.5
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.8501648800787741,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 4,
+                "mean_probability": 0.9959800090341625,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.031676007400045066,
+            "confusion": {
+              "tn": 129,
+              "fp": 1,
+              "fn": 1,
+              "tp": 7
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 0.10222421927656705
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 0.5346650998824912
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 0.856873822975518
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "tagalog": {
+          "support": {
+            "records": 266,
+            "ham": 262,
+            "smishing": 4,
+            "groups": 129,
+            "positive_groups": 4,
+            "negative_groups": 125
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      }
+    },
+    "mbert": {
+      "accuracy": 0.9263392857142857,
+      "specificity": 1.0,
+      "precision": 1.0,
+      "recall": 0.4107142857142857,
+      "f1": 0.5822784810126582,
+      "pr_auc": 0.892269111669464,
+      "average_precision": 0.8928179092048459,
+      "roc_auc": 0.9636024052478134,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.5892857142857143,
+      "brier": 0.06533498495433793,
+      "log_loss": 0.24637438584844507,
+      "reliability_bins": [
+        {
+          "count": 424,
+          "mean_probability": 0.015309751965105534,
+          "observed_positive_rate": 0.07547169811320754
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 1,
+          "mean_probability": 0.2961218059062958,
+          "observed_positive_rate": 1.0
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 0,
+          "mean_probability": null,
+          "observed_positive_rate": null
+        },
+        {
+          "count": 23,
+          "mean_probability": 0.9992474317550659,
+          "observed_positive_rate": 1.0
+        }
+      ],
+      "expected_calibration_error": 0.05854877774670188,
+      "confusion": {
+        "tn": 392,
+        "fp": 0,
+        "fn": 33,
+        "tp": 23
+      },
+      "hypothetical_base_rates": [
+        {
+          "prevalence": 0.001,
+          "estimated_positive_predictive_value": 1.0
+        },
+        {
+          "prevalence": 0.01,
+          "estimated_positive_predictive_value": 1.0
+        },
+        {
+          "prevalence": 0.05,
+          "estimated_positive_predictive_value": 1.0
+        }
+      ],
+      "macro_f1": 0.7709434020730366,
+      "threshold": 0.8899999999999999,
+      "support": {
+        "records": 448,
+        "ham": 392,
+        "smishing": 56,
+        "groups": 251,
+        "positive_groups": 25,
+        "negative_groups": 226
+      },
+      "model_bytes": 711443456,
+      "host_cpu_inference_seconds": 70.8918321000001,
+      "deployment": {
+        "records": 448,
+        "scored": 448,
+        "abstained": 0,
+        "coverage": 1.0,
+        "abstained_labels": {
+          "ham": 0,
+          "smishing": 0
+        },
+        "conditional_metrics": {
+          "accuracy": 0.9263392857142857,
+          "specificity": 1.0,
+          "precision": 1.0,
+          "recall": 0.4107142857142857,
+          "f1": 0.5822784810126582,
+          "pr_auc": 0.892269111669464,
+          "average_precision": 0.8928179092048459,
+          "roc_auc": 0.9636024052478134,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.5892857142857143,
+          "brier": 0.06533498495433793,
+          "log_loss": 0.24637438584844507,
+          "reliability_bins": [
+            {
+              "count": 424,
+              "mean_probability": 0.015309751965105534,
+              "observed_positive_rate": 0.07547169811320754
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 1,
+              "mean_probability": 0.2961218059062958,
+              "observed_positive_rate": 1.0
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 0,
+              "mean_probability": null,
+              "observed_positive_rate": null
+            },
+            {
+              "count": 23,
+              "mean_probability": 0.9992474317550659,
+              "observed_positive_rate": 1.0
+            }
+          ],
+          "expected_calibration_error": 0.05854877774670188,
+          "confusion": {
+            "tn": 392,
+            "fp": 0,
+            "fn": 33,
+            "tp": 23
+          },
+          "hypothetical_base_rates": [
+            {
+              "prevalence": 0.001,
+              "estimated_positive_predictive_value": 1.0
+            },
+            {
+              "prevalence": 0.01,
+              "estimated_positive_predictive_value": 1.0
+            },
+            {
+              "prevalence": 0.05,
+              "estimated_positive_predictive_value": 1.0
+            }
+          ]
+        },
+        "interpretation": "Abstentions excluded, never scored as correct negatives"
+      },
+      "confidence_intervals": {
+        "method": "cluster percentile bootstrap; fixed model and threshold; 95% descriptive intervals",
+        "seed": 20260929,
+        "repetitions": 2000,
+        "groups": 251,
+        "note": "Does not cover training/selection uncertainty or source sampling bias. Undefined resamples omitted per metric.",
+        "intervals": {
+          "accuracy": {
+            "valid_replicates": 2000,
+            "low": 0.834051290353633,
+            "high": 0.9884025621763208
+          },
+          "precision": {
+            "valid_replicates": 2000,
+            "low": 1.0,
+            "high": 1.0
+          },
+          "recall": {
+            "valid_replicates": 2000,
+            "low": 0.19604660045836514,
+            "high": 0.8214810924369744
+          },
+          "f1": {
+            "valid_replicates": 2000,
+            "low": 0.32782430506058446,
+            "high": 0.9019924098671726
+          },
+          "specificity": {
+            "valid_replicates": 2000,
+            "low": 1.0,
+            "high": 1.0
+          },
+          "false_positive_rate": {
+            "valid_replicates": 2000,
+            "low": 0.0,
+            "high": 0.0
+          },
+          "false_negative_rate": {
+            "valid_replicates": 2000,
+            "low": 0.17851890756302521,
+            "high": 0.8039533995416347
+          },
+          "roc_auc": {
+            "valid_replicates": 2000,
+            "low": 0.9016507137537884,
+            "high": 0.9923023453192203
+          },
+          "pr_auc": {
+            "valid_replicates": 2000,
+            "low": 0.6824633438199799,
+            "high": 0.9785251530955824
+          },
+          "macro_f1": {
+            "valid_replicates": 2000,
+            "low": 0.6204563462736905,
+            "high": 0.9476264816258954
+          },
+          "brier": {
+            "valid_replicates": 2000,
+            "low": 0.010261945086002226,
+            "high": 0.1447686950322347
+          },
+          "log_loss": {
+            "valid_replicates": 2000,
+            "low": 0.052585816235816624,
+            "high": 0.5129613137874559
+          }
+        }
+      },
+      "by_language": {
+        "English": {
+          "support": {
+            "records": 315,
+            "ham": 270,
+            "smishing": 45,
+            "groups": 158,
+            "positive_groups": 16,
+            "negative_groups": 142
+          },
+          "metrics": {
+            "accuracy": 0.9079365079365079,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "recall": 0.3555555555555555,
+            "f1": 0.5245901639344263,
+            "pr_auc": 0.8984001892613723,
+            "average_precision": 0.8990593811860184,
+            "roc_auc": 0.9618930041152264,
+            "false_positive_rate": 0.0,
+            "false_negative_rate": 0.6444444444444445,
+            "brier": 0.08204769601759564,
+            "log_loss": 0.30188085024694433,
+            "reliability_bins": [
+              {
+                "count": 299,
+                "mean_probability": 0.01636907272040844,
+                "observed_positive_rate": 0.09698996655518395
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 16,
+                "mean_probability": 0.9990314245223999,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.07657506179123645,
+            "confusion": {
+              "tn": 270,
+              "fp": 0,
+              "fn": 29,
+              "tp": 16
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 1.0
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "Filipino/Taglish": {
+          "support": {
+            "records": 133,
+            "ham": 122,
+            "smishing": 11,
+            "groups": 98,
+            "positive_groups": 10,
+            "negative_groups": 88
+          },
+          "metrics": {
+            "accuracy": 0.9699248120300752,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "recall": 0.6363636363636364,
+            "f1": 0.7777777777777778,
+            "pr_auc": 0.8587455436720143,
+            "average_precision": 0.8621880570409982,
+            "roc_auc": 0.9731743666169895,
+            "false_positive_rate": 0.0,
+            "false_negative_rate": 0.36363636363636365,
+            "brier": 0.025752248225569672,
+            "log_loss": 0.11491170700989421,
+            "reliability_bins": [
+              {
+                "count": 125,
+                "mean_probability": 0.012775859795510769,
+                "observed_positive_rate": 0.024
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.2961218059062958,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 7,
+                "mean_probability": 0.9997407793998718,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.0158549643898929,
+            "confusion": {
+              "tn": 122,
+              "fp": 0,
+              "fn": 4,
+              "tp": 7
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 1.0
+              }
+            ]
+          },
+          "note": "descriptive only"
+        }
+      },
+      "by_category": {
+        "Fake prize / reward / refund": {
+          "support": {
+            "records": 11,
+            "ham": 0,
+            "smishing": 11,
+            "groups": 9,
+            "positive_groups": 9,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Fake winnings/credit (gambling lure)": {
+          "support": {
+            "records": 1,
+            "ham": 0,
+            "smishing": 1,
+            "groups": 1,
+            "positive_groups": 1,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Impersonation (bank, e-wallet, government, courier, or brand)": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 15,
+            "positive_groups": 15,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Legit message": {
+          "support": {
+            "records": 391,
+            "ham": 391,
+            "smishing": 0,
+            "groups": 225,
+            "positive_groups": 0,
+            "negative_groups": 225
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "Looks legit despite being in a spam source": {
+          "support": {
+            "records": 1,
+            "ham": 1,
+            "smishing": 0,
+            "groups": 1,
+            "positive_groups": 0,
+            "negative_groups": 1
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      },
+      "by_source": {
+        "bwandowando": {
+          "support": {
+            "records": 44,
+            "ham": 0,
+            "smishing": 44,
+            "groups": 16,
+            "positive_groups": 16,
+            "negative_groups": 0
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        },
+        "marketing": {
+          "support": {
+            "records": 138,
+            "ham": 130,
+            "smishing": 8,
+            "groups": 109,
+            "positive_groups": 8,
+            "negative_groups": 101
+          },
+          "metrics": {
+            "accuracy": 0.9927536231884058,
+            "specificity": 1.0,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "pr_auc": 1.0,
+            "average_precision": 1.0,
+            "roc_auc": 1.0,
+            "false_positive_rate": 0.0,
+            "false_negative_rate": 0.125,
+            "brier": 0.003742955009160555,
+            "log_loss": 0.020523141358504828,
+            "reliability_bins": [
+              {
+                "count": 130,
+                "mean_probability": 0.012328090146183968,
+                "observed_positive_rate": 0.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 1,
+                "mean_probability": 0.2961218059062958,
+                "observed_positive_rate": 1.0
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 0,
+                "mean_probability": null,
+                "observed_positive_rate": null
+              },
+              {
+                "count": 7,
+                "mean_probability": 0.9997268915176392,
+                "observed_positive_rate": 1.0
+              }
+            ],
+            "expected_calibration_error": 0.016727838206334392,
+            "confusion": {
+              "tn": 130,
+              "fp": 0,
+              "fn": 1,
+              "tp": 7
+            },
+            "hypothetical_base_rates": [
+              {
+                "prevalence": 0.001,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.01,
+                "estimated_positive_predictive_value": 1.0
+              },
+              {
+                "prevalence": 0.05,
+                "estimated_positive_predictive_value": 1.0
+              }
+            ]
+          },
+          "note": "descriptive only"
+        },
+        "tagalog": {
+          "support": {
+            "records": 266,
+            "ham": 262,
+            "smishing": 4,
+            "groups": 129,
+            "positive_groups": 4,
+            "negative_groups": 125
+          },
+          "metrics": null,
+          "note": "Insufficient support: require >=20 records and >=5 per class"
+        }
+      }
+    }
+  },
+  "paired_f1": {
+    "method": "paired group bootstrap; 2000 common draws; conditional fixed-model marginal intervals",
+    "seed": 20260929,
+    "intervals": {
+      "lr-nb": {
+        "low": -0.04598143236074265,
+        "high": 0.3963677678751866,
+        "valid_replicates": 2000
+      },
+      "lr-svm": {
+        "low": -0.3723264591547684,
+        "high": -0.04928371771435781,
+        "valid_replicates": 2000
+      },
+      "lr-mbert": {
+        "low": -0.19479285512120253,
+        "high": 0.3450440910665812,
+        "valid_replicates": 2000
+      },
+      "nb-svm": {
+        "low": -0.6971493578502173,
+        "high": -0.06552250516453154,
+        "valid_replicates": 2000
+      },
+      "nb-mbert": {
+        "low": -0.24865885534751672,
+        "high": 0.06686348761103313,
+        "valid_replicates": 2000
+      },
+      "svm-mbert": {
+        "low": -0.0800755597014926,
+        "high": 0.6330828885057949,
+        "valid_replicates": 2000
+      }
+    },
+    "limitations": "No fitting uncertainty, simultaneous multiplicity correction, independent labels or prospective population claim"
+  },
+  "freeze_sha256": {
+    "baseline": "032ea849d5646b503f2b8ab4eeb3f070a1dc122853387cf468bc8caa6a1fd897",
+    "mbert": "7a9c0e38481a5282250a0bd3cbd59fa0b4399e58c0db7e0b77c3fc93ae3f22bb"
+  },
+  "preparation": {
+    "audit": {
+      "included_records": 3552,
+      "labels": {
+        "smishing": 468,
+        "ham": 3084
+      },
+      "template_groups": 2594,
+      "flagged_records": 71,
+      "excluded_records": 2272,
+      "excluded_labels": {
+        "FRAUD": 322,
+        "SPAM": 1950
+      },
+      "missing": {
+        "source_category": 0,
+        "label_method": 0,
+        "category": 0,
+        "date": 60,
+        "template_group": 0,
+        "needs_review": 0,
+        "label": 0,
+        "sender": 261,
+        "id": 0,
+        "language": 0,
+        "confidence": 0,
+        "source": 0,
+        "text": 0
+      },
+      "duplicate_ids": 0,
+      "duplicate_exact_text": 0,
+      "normalized_conflict_groups": 0,
+      "normalized_conflict_records": 0,
+      "supplied_mixed_label_groups": 0,
+      "supplied_template_key_mismatches": 0,
+      "source_counts": {
+        "GitHub: Scam SMS Reports (crowdsourced, AGR-Yes/ScamMessagesPhilippines)": {
+          "smishing": 53,
+          "ham": 7
+        },
+        "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "ham": 909,
+          "smishing": 165
+        },
+        "Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "ham": 17,
+          "smishing": 171
+        },
+        "Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "ham": 2150,
+          "smishing": 67
+        },
+        "Team-collected: Facebook": {
+          "smishing": 1
+        },
+        "Team-collected: Personal (received)": {
+          "smishing": 9,
+          "ham": 1
+        },
+        "Team-collected: Reddit r/ScammersPH": {
+          "smishing": 2
+        }
+      },
+      "confidence": {
+        "high": 3481,
+        "low": 71
+      },
+      "label_methods": {
+        "kept team label": 13,
+        "source category mapped to legit": 3055,
+        "source reported as spam/scam -> checked: smishing": 453,
+        "source category mapped to legit -> CHANGED to smishing by scam check": 3,
+        "source reported as spam/scam -> checked: ham": 28
+      },
+      "excluded_possible_phishing": 18,
+      "raw_build_reproduced": false,
+      "raw_build_reason": "ZIP contains outputs and builder but no raw sources; only CSV/source-snapshot validation performed",
+      "files": {
+        "build_dataset.py": "1cd28600de4bb750cb195fc9de1faaf40e40bf2d132ee6bc1e5927fdf83a41dd",
+        "README.md": "2b9b75a29a0b1bc486ff3409b3d7845c95c192502d04a523b994bffae4b3f103",
+        "smishguard_dataset.csv": "12183acbde41c9578d7185c80bbbca78f91b064e26dbde806aabdda4d72d8021",
+        "smishguard_dataset_review.xlsx": "5123fbbb9bf2e40ebe8bf7dddf083ca417cb6e1896c6f0fd31d9862e480ecf5a",
+        "smishguard_excluded.csv": "1a39ddb9dfdc07332ca34016bc7d47adf3a464305f0e94c0dbbff5b1022f54ea"
+      }
+    },
+    "held": {
+      "team_origin_consent_use_unresolved": 13,
+      "automated_privacy_hold": 139,
+      "github_permission_unresolved": 60
+    },
+    "retained": {
+      "records": 3340,
+      "ham": 2947,
+      "smishing": 393,
+      "groups": 1848,
+      "positive_groups": 184,
+      "negative_groups": 1664
+    },
+    "partition_support": {
+      "train": {
+        "records": 1860,
+        "ham": 1637,
+        "smishing": 223,
+        "groups": 1044,
+        "positive_groups": 104,
+        "negative_groups": 940
+      },
+      "validation": {
+        "records": 622,
+        "ham": 561,
+        "smishing": 61,
+        "groups": 283,
+        "positive_groups": 30,
+        "negative_groups": 253
+      },
+      "calibration": {
+        "records": 410,
+        "ham": 357,
+        "smishing": 53,
+        "groups": 270,
+        "positive_groups": 25,
+        "negative_groups": 245
+      },
+      "test": {
+        "records": 448,
+        "ham": 392,
+        "smishing": 56,
+        "groups": 251,
+        "positive_groups": 25,
+        "negative_groups": 226
+      }
+    },
+    "source_credits": {
+      "tagalog": {
+        "ref": "onzero0/tagalog-sms",
+        "version": 1,
+        "member": "tagalog-sms.xlsx",
+        "sha256": "7757fb9cf70b9c1e0101e384886706da52110f6c17aeafef10a104e38fdfc0a7",
+        "author": "ZERO (onzero0)",
+        "license": "CC0 1.0"
+      },
+      "marketing": {
+        "ref": "scottleechua/ph-spam-marketing-sms-w-timestamps",
+        "version": 15,
+        "member": "text-messages.csv",
+        "sha256": "a3724dca065ee8ed23eb18fb6382657e2559f2b0c0364aaf9c14277af1974e32",
+        "author": "Scott Lee Chua",
+        "license": "CC BY 4.0"
+      },
+      "bwandowando": {
+        "ref": "bwandowando/philippine-spam-sms-messages",
+        "version": 49,
+        "member": "SPAM_SMS.csv",
+        "sha256": "3012700e9f774f87b6922cd88e41155b41d0bf9923f04af456683f2859941d5f",
+        "author": "BwandoWando",
+        "license": "CC BY-NC-SA 4.0"
+      }
+    },
+    "dataset_sha256": "c3abc4bb23742226deab491821c1828559d895242da55267c77ae6f7dfa07b21",
+    "split_sha256": "67e064af947e5194cada9facff7fa02663d02dd2fff0756acbee9c58c50c4b1f",
+    "case_view_sha256": "67300b1401200ec34e7b8ee05bf3918f7f4f04bdd8a8dbe9bde1165dca27e954",
+    "protocol_sha256": "93c159517494538fdd9f13d2e7a7c67cfbd0f0d36780d8db10d7bab095bfd6b8",
+    "preparation_code_sha256": "4ba97c90121f350b7abb9c71777a09437c34f540507d8d7a3a358d3e5d5ab51f",
+    "seed": 20260929,
+    "merged_supplied_groups": 616,
+    "group_overlap_pairs": {
+      "train-validation": 0,
+      "calibration-train": 0,
+      "calibration-validation": 0,
+      "calibration-test": 0,
+      "test-train": 0,
+      "test-validation": 0
+    },
+    "review_status": "source/rule labels and automated redaction only; all independent human reviews pending",
+    "scope": "supplied all-SMS-phishing expansion; adviser approval not independently verified"
+  },
+  "exposure_summary": {
+    "records": 3340,
+    "historical_unique_normalized_texts": 2791,
+    "historical_files": {
+      "supplied-original\\smishguard_dataset.csv": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b",
+      "mark-complete-20260929\\extracted\\SMISHGUARD\\3_training\\smishguard_dataset_v2_2521rows.csv": "a544867f72b66c12933e21f162d1579b2ba6809169378d71362b7b60cc99af8c",
+      "mark-complete-20260929\\extracted\\SMISHGUARD\\2_backend_dashboard\\data\\smishguard_dataset_v2.csv": "a544867f72b66c12933e21f162d1579b2ba6809169378d71362b7b60cc99af8c",
+      "comparison-20261001\\extracted\\smishguard_PRIVATE_data\\data\\sources\\smishguard_dataset_v2_2521rows.csv": "a544867f72b66c12933e21f162d1579b2ba6809169378d71362b7b60cc99af8c",
+      "mark-update-20261001\\extracted\\smishguard_repo_update\\training\\fresh_test_messages.csv": "b896b5f729d9ad2449258e14b102eef6ff45e766832ea741b9f5807204cb51fd",
+      "mark-update-20261001\\extracted\\smishguard_repo_update\\training\\fresh_test_messages_v2.csv": "0419c7fe1f6c97e2f1e024f6e56bb5f01634d3767f9a1dc1f3e72603a2e6da02"
+    },
+    "by_history": {
+      "earlier_supplied_test": {
+        "normalized_exact": 0,
+        "near_only": 0
+      },
+      "earlier_supplied_training": {
+        "normalized_exact": 3208,
+        "near_only": 61
+      },
+      "previous_calibration": {
+        "normalized_exact": 190,
+        "near_only": 33
+      },
+      "previous_test": {
+        "normalized_exact": 182,
+        "near_only": 24
+      },
+      "previous_train": {
+        "normalized_exact": 766,
+        "near_only": 31
+      },
+      "previous_validation": {
+        "normalized_exact": 196,
+        "near_only": 2
+      }
+    },
+    "any_known_overlap": 3269,
+    "no_detected_overlap": 71,
+    "method": "Exact normalized text; direct SequenceMatcher >=0.85 with lossless character-multiset upper-bound pruning",
+    "limitations": "Earlier supplied training membership/partitions are incomplete; absence of a detected match is not proof of unseen or prospective data. No historical identifiers are reused as content identity."
+  },
+  "test_exposure": {
+    "records": 448,
+    "known_overlap": 439
+  },
+  "status": "preliminary source/rule labels; retrospective development; no independently verified labels or prospective claims",
+  "training": {
+    "lr": {
+      "chosen_parameter": 10.0,
+      "trials": [
+        {
+          "value": 0.1,
+          "fold_average_precision": [
+            0.8652626899466699,
+            0.7310547333721467,
+            0.7211516411979332,
+            0.8975317658514566,
+            0.9025725976715424
+          ],
+          "mean": 0.8235146856079497
+        },
+        {
+          "value": 1.0,
+          "fold_average_precision": [
+            0.9791118967440773,
+            0.8648318127096668,
+            0.8275340368615218,
+            0.9581651906883004,
+            0.9578488653982311
+          ],
+          "mean": 0.9174983604803595
+        },
+        {
+          "value": 10.0,
+          "fold_average_precision": [
+            0.9955776902489522,
+            0.9074907456360958,
+            0.9027552511625159,
+            0.9815820727859607,
+            0.9821335852056594
+          ],
+          "mean": 0.9539078690078368
+        }
+      ],
+      "threshold": 0.82,
+      "validation_f1": 0.8928571428571429,
+      "model_version": "expanded-20261005-lr-c3abc4bb",
+      "seconds": 1.0409273999999868,
+      "cpu_seconds": 1.015625,
+      "process_peak_working_set_bytes": null,
+      "resource_note": "process cumulative peak working set; CPU fitting",
+      "human_review": "pending",
+      "process_memory_note": "Unavailable: initial Windows process-memory probe returned zero; CPU duration / CUDA peaks are reported separately."
+    },
+    "nb": {
+      "chosen_parameter": 0.1,
+      "trials": [
+        {
+          "value": 0.1,
+          "fold_average_precision": [
+            0.9748104291971003,
+            0.9195444364020106,
+            0.9545299850600563,
+            0.9742820237773888,
+            0.9736150156571867
+          ],
+          "mean": 0.9593563780187484
+        },
+        {
+          "value": 1.0,
+          "fold_average_precision": [
+            0.8874482550822307,
+            0.8840852131833787,
+            0.8564383231847204,
+            0.8997158170766548,
+            0.945425704159996
+          ],
+          "mean": 0.8946226625373962
+        },
+        {
+          "value": 10.0,
+          "fold_average_precision": [
+            0.7496443658594507,
+            0.6907662088984556,
+            0.5146341723366796,
+            0.8478134603529818,
+            0.7867665952227769
+          ],
+          "mean": 0.717924960534069
+        }
+      ],
+      "threshold": 0.63,
+      "validation_f1": 0.9009009009009009,
+      "model_version": "expanded-20261005-nb-c3abc4bb",
+      "seconds": 0.9394798999999239,
+      "cpu_seconds": 0.9375,
+      "process_peak_working_set_bytes": null,
+      "resource_note": "process cumulative peak working set; CPU fitting",
+      "human_review": "pending",
+      "process_memory_note": "Unavailable: initial Windows process-memory probe returned zero; CPU duration / CUDA peaks are reported separately."
+    },
+    "svm": {
+      "chosen_parameter": 10.0,
+      "trials": [
+        {
+          "value": 0.1,
+          "fold_average_precision": [
+            0.9900104277358345,
+            0.8979646320193582,
+            0.8406053845798656,
+            0.9710511550985251,
+            0.9739203415898865
+          ],
+          "mean": 0.9347103882046941
+        },
+        {
+          "value": 1.0,
+          "fold_average_precision": [
+            0.9994192799070849,
+            0.9160136093130813,
+            0.9323295156628487,
+            0.9875466516139697,
+            0.9907438259490622
+          ],
+          "mean": 0.9652105764892094
+        },
+        {
+          "value": 10.0,
+          "fold_average_precision": [
+            0.9976758020558083,
+            0.9140959963342559,
+            0.9368493273468262,
+            0.9888809326679944,
+            0.990004955796236
+          ],
+          "mean": 0.9655014028402242
+        }
+      ],
+      "threshold": 0.59,
+      "validation_f1": 0.9137931034482759,
+      "model_version": "expanded-20261005-svm-c3abc4bb",
+      "seconds": 1.0299860999999737,
+      "cpu_seconds": 0.984375,
+      "process_peak_working_set_bytes": null,
+      "resource_note": "process cumulative peak working set; CPU fitting",
+      "human_review": "pending",
+      "process_memory_note": "Unavailable: initial Windows process-memory probe returned zero; CPU duration / CUDA peaks are reported separately."
+    },
+    "mbert": {
+      "complete": true,
+      "epochs_completed": 2,
+      "selected_epoch": 2,
+      "history": [
+        {
+          "epoch": 1,
+          "validation_average_precision": 0.8938246621571769,
+          "mean_training_loss": 0.18467659898983535
+        },
+        {
+          "epoch": 2,
+          "validation_average_precision": 0.9672997100950005,
+          "mean_training_loss": 0.08398335934967123
+        }
+      ],
+      "seconds": 668.797,
+      "max_length": 160,
+      "train_truncated": 67,
+      "trainable_parameters": 177854978,
+      "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+      "peak_cuda_bytes": 2227597824,
+      "peak_cuda_reserved_bytes": 2464153600,
+      "process_peak_working_set_bytes": null,
+      "torch": "2.7.1+cu126",
+      "process_memory_note": "Unavailable: initial Windows process-memory probe returned zero; CPU duration / CUDA peaks are reported separately."
+    }
+  },
+  "extra_audit": {
+    "exact_definition": "Case-insensitive whitespace/placeholder-cleaned source text; URLs and digits retained for equality; identifiers never used for correspondence",
+    "previous_exact": {
+      "train": 555,
+      "validation": 159,
+      "calibration": 165,
+      "test": 153
+    },
+    "historical_label_changes": 8,
+    "eligible_source_counts": {
+      "tagalog": {
+        "ham": 2053,
+        "smishing": 66
+      },
+      "marketing": {
+        "ham": 877,
+        "smishing": 164
+      },
+      "bwandowando": {
+        "ham": 17,
+        "smishing": 163
+      }
+    },
+    "eligible_pending_package_flags": 59,
+    "excluded_duplicate_overlap": 0
+  },
+  "review_workbook": {
+    "1 Flagged": {
+      "records": 71,
+      "labeler_1_nonblank": 0,
+      "labeler_2_nonblank": 0,
+      "final_label_nonblank": 0
+    },
+    "2 Validation sample": {
+      "records": 300,
+      "labeler_1_nonblank": 0,
+      "labeler_2_nonblank": 0,
+      "final_label_nonblank": 0
+    }
+  },
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11400H @ 2.70GHz",
+    "logical_processors": 12,
+    "physical_memory_bytes": 25479131136,
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU, 4096 MiB, 572.70",
+    "os": "Microsoft Windows 11 Home Single Language"
+  },
+  "mbert_length_audit": {
+    "records": 1860,
+    "p50": 70.0,
+    "p95": 151.04999999999995,
+    "maximum": 271,
+    "selected_length": 160,
+    "truncated_at_128": 193,
+    "truncated_at_selected": 67
+  },
+  "artifacts": {
+    "lr": {
+      "filename": "SmishGuard-lr-expanded-20261005-lr-c3abc4bb-experimental-debug.apk",
+      "algorithm": "lr",
+      "model_version": "expanded-20261005-lr-c3abc4bb",
+      "sha256": "3c498926bc0c281e68a5b29e05f12e5655a4a4bcc5682b5c24bf775b30c79963",
+      "apk_bytes": 12943387,
+      "model_sha256": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623",
+      "model_bytes": 266279,
+      "minimum_android": "8.0 / API 26",
+      "application_id": "ph.smishguard.lr",
+      "model_included": true,
+      "experimental": true,
+      "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+      "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy",
+      "asset_bundle_bytes": 266600
+    },
+    "nb": {
+      "filename": "SmishGuard-nb-expanded-20261005-nb-c3abc4bb-experimental-debug.apk",
+      "algorithm": "nb",
+      "model_version": "expanded-20261005-nb-c3abc4bb",
+      "sha256": "a61764d2201a111704f5338e5c9fa69cff94dfbb4223dcdc7c6fbfcf8f9ae560",
+      "apk_bytes": 12943667,
+      "model_sha256": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49",
+      "model_bytes": 261667,
+      "minimum_android": "8.0 / API 26",
+      "application_id": "ph.smishguard.nb",
+      "model_included": true,
+      "experimental": true,
+      "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+      "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy",
+      "asset_bundle_bytes": 261988
+    },
+    "svm": {
+      "filename": "SmishGuard-svm-expanded-20261005-svm-c3abc4bb-experimental-debug.apk",
+      "algorithm": "svm",
+      "model_version": "expanded-20261005-svm-c3abc4bb",
+      "sha256": "a1bf985da00f21b7c91d43ce741058e17056d7fd3867fa808a750b1a3cbae03a",
+      "apk_bytes": 12933907,
+      "model_sha256": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19",
+      "model_bytes": 249498,
+      "minimum_android": "8.0 / API 26",
+      "application_id": "ph.smishguard.svm",
+      "model_included": true,
+      "experimental": true,
+      "checks": "APK assets, model/review hashes, package ID, min SDK, permissions and APK signature passed",
+      "research_status": "research metrics and review evidence must be supplied separately; build checks do not establish accuracy",
+      "asset_bundle_bytes": 249821
+    },
+    "mbert": {
+      "filename": "SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk",
+      "sha256": "0ca13584fcd68d37809d33569a3e1e94aa244c569997b1911c0acb6d03be21ec",
+      "apk_bytes": 1511956972,
+      "algorithm": "mbert",
+      "model_version": "expanded-20261005-mbert-c3abc4bb",
+      "application_id": "ph.smishguard.mbert",
+      "asset_sha256": {
+        "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+        "model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+        "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+      },
+      "onnx_bytes": 711555338,
+      "permissions": [
+        "android.permission.RECEIVE_SMS",
+        "android.permission.POST_NOTIFICATIONS",
+        "ph.smishguard.mbert.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "signature_verified": true,
+      "precision": "float32",
+      "quantized": false,
+      "minimum_android": "8.0 / API 26",
+      "research_status": "preliminary retrospective; source/rule labels; not independent validation",
+      "asset_bundle_bytes": 712625479
+    }
+  },
+  "package_zip_sha256": "e3db39fa76d98cf249d78d8f5d40d2328492c41b827d7c4645b506b74a7f2cef",
+  "training_implementation_commit": "56d0ddb",
+  "preservation": {
+    "old_dataset_and_split_unchanged": true,
+    "old_four_apks_unchanged": {
+      "lr": "7f6ce7c5b59bc4729ca6ac9492f4882e0f216bceaa46090ed05a0389540baff5",
+      "nb": "7e926826d421e98fe8f177b32f53ec06b54b6917b988ce07955fdb6d2b4ac94b",
+      "svm": "8a3fe5492e654fbb5ea82bb87ee514a18b7231990787aa55699c6b61a3119d73",
+      "mbert": "5a898829f674af7f2a9958630367d6a12a28c127a8146bbbbf6c267c3b65a075"
+    },
+    "original_zip_and_five_extracted_files_unchanged": true,
+    "original_zip_sha256": "e3db39fa76d98cf249d78d8f5d40d2328492c41b827d7c4645b506b74a7f2cef"
+  },
+  "training_duration_definitions": {
+    "baselines": "Grouped CV, final fit, calibration, threshold and export serialization",
+    "mbert": "Epochs, validation, checkpoint selection and resumable checkpoint writes; excludes initial loading and final calibration"
+  }
+}

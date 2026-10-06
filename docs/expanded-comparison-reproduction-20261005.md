@@ -53,6 +53,14 @@ settings, device and duration are recorded. Local model loads and training disab
 Hugging Face networking and telemetry. mBERT is full multilingual BERT, not a smaller
 substitute; the faithful first export uses float32 ONNX Runtime 1.22.0.
 
+The actual training implementation is retained in commit `56d0ddb`; its hash is
+also recorded in the mBERT configuration. After all fitted pipelines were frozen,
+the Windows process-memory diagnostic was corrected to use 64-bit handle types.
+The initial zero readings are reported as unavailable, never as zero memory use.
+This diagnostic fix changes no model, score, split or training setting. Use the
+original implementation when resuming that specific checkpoint because its code
+hash is pinned; future fresh runs use the corrected probe.
+
 Before staging any model, copy previous Android assets and app/test APK outputs
 to a separate ignored backup and check their hashes. Stage each baseline's
 `model.json` and `review.properties` only into its matching `src/lr`, `src/nb` or

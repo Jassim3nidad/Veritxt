@@ -1,5 +1,6 @@
 """Publish only aggregate experiment and APK verification evidence."""
 import json
+import hashlib
 from pathlib import Path
 import re
 import shutil
@@ -20,15 +21,29 @@ def main():
     baseline=read(RUN/'baseline-freeze.json');bert=read(RUN/'mbert/training-summary.json');lengths=read(RUN/'mbert/length-audit.json')
     extra=read(RUN/'extra-audit.json');workbook=read(PRIVATE/'workbook-audit.json');hardware=read(PRIVATE/'hardware.json')
     benchmark=read(PRIVATE/'common-device-benchmark.json')
+    if benchmark.get('status')!='passed' or set(benchmark['results'])!=set(NAMES):
+        raise ValueError('Complete the common-session four-model benchmark first')
     verification={};artifacts={};training={}
     for name in NAMES:
         v=read(PRIVATE/f'verification-{name}.json');e=read(PRIVATE/f'emulator-{name}.json')
         if v['build']['exit_code'] or v['emulator']['exit_code'] or v['package']['exit_code']:raise ValueError('Unverified APK')
         v['emulator_tests']={k:int(re.search(r'OK \((\d+) tests?\)',text).group(1)) for k,text in e.items() if isinstance(text,str) and re.search(r'OK \((\d+) tests?\)',text)}
         v['emulator_test_total']=sum(v['emulator_tests'].values());v['emulator_status']=e.get('status')
+        event='MBERT_AGGREGATE=' if name=='mbert' else 'COMPARISON_PARITY='
+        for value in e.values():
+            if isinstance(value,str):
+                found=re.search(re.escape(event)+r'(\{[^\r\n]+\})',value)
+                if found:v['android_parity']=json.loads(found.group(1))
+        if name=='mbert':v['jvm_tokenizer']=read(RUN/'mbert/jvm-tokenizer-aggregate.json')
+        v['private_storage']=e['private_storage'];v['screenshots']=e['screenshots']
         v['parity']=read(RUN/'mbert/export-aggregate.json') if name=='mbert' else read(RUN/name/'parity-summary.json')
         verification[name]=v
         artifacts[name]=read(ROOT/f'deliverables/expanded-20261005/{name}-apk-manifest.json')
+        artifact=ROOT/'deliverables/expanded-20261005'/artifacts[name]['filename']
+        with artifact.open('rb') as stream:
+            actual_hash=hashlib.file_digest(stream,'sha256').hexdigest()
+        if actual_hash!=artifacts[name]['sha256'] or benchmark['results'][name]['apk_sha256']!=actual_hash:
+            raise ValueError('APK and common-session benchmark identity mismatch')
         assets=ROOT/f'android/app/src/{name}/assets';artifacts[name]['asset_bundle_bytes']=sum(p.stat().st_size for p in assets.iterdir() if p.is_file())
         training[name]=bert if name=='mbert' else baseline['validation'][name]
         # A failed Windows API call returned zero; zero is not a memory measurement.
@@ -36,6 +51,11 @@ def main():
             training[name]['process_peak_working_set_bytes']=None
             training[name]['process_memory_note']='Unavailable: initial Windows process-memory probe returned zero; CPU duration / CUDA peaks are reported separately.'
     aggregate.update(training=training,extra_audit=extra,review_workbook=workbook,hardware=hardware,mbert_length_audit=lengths,artifacts=artifacts)
+    aggregate['package_zip_sha256']=hashlib.sha256((PRIVATE/'smishguard_dataset_2026-10-04.zip').read_bytes()).hexdigest()
+    aggregate['training_implementation_commit']='56d0ddb'
+    aggregate['preservation']=read(PRIVATE/'preservation.json')
+    aggregate['training_duration_definitions']={'baselines':'Grouped CV, final fit, calibration, threshold and export serialization',
+        'mbert':'Epochs, validation, checkpoint selection and resumable checkpoint writes; excludes initial loading and final calibration'}
     write(DOCS/'expanded-four-model-results-20261005.json',aggregate)
     write(DOCS/'expanded-four-model-verification-20261005.json',verification)
     write(DOCS/'expanded-four-model-benchmark-20261005.json',benchmark)
@@ -75,12 +95,12 @@ def main():
     for pair,ci in aggregate['paired_f1']['intervals'].items():lines.append(f'| {pair} | {ci["low"]:.4f} to {ci["high"]:.4f} |')
     lines+=['','Full class/group support, all metric intervals, reliability-bin counts and language/category/source breakdowns are in the [aggregate results](expanded-four-model-results-20261005.json). Subgroup metrics require >=20 records and >=5 per class, otherwise only support is reported. Languages are supplied rough guesses. Categories partly derive from label rules and are descriptive, not independent annotation.','',
         '## Offline app verification and presentation','',
-        'The minimalist UI, Model score wording, privacy controls and abstention behavior are preserved. Reporting and automatic warnings remain disabled. All APKs have no INTERNET permission, verified signatures, correct distinct package IDs and matching bundled model hashes. Old model assets, app/test APKs and rollback deliverables remain local and unchanged. The mBERT export is faithful float32 ONNX with the original multilingual architecture; there is no quantization or replacement.','',
+        'An interrupted LR verification and a stale screenshot-test model-version assumption are preserved in private logs. The harness now reads the bundled version, and final verification repeats the affected checks without changing any fitted model or research result. The minimalist UI, Model score wording, privacy controls and abstention behavior are preserved. Reporting and automatic warnings remain disabled. All APKs have no INTERNET permission, verified signatures, correct distinct package IDs and matching bundled model hashes. Old model assets, app/test APKs and rollback deliverables remain local and unchanged. The mBERT export is faithful float32 ONNX with the original multilingual architecture; there is no quantization or replacement.','',
         '| Model | Build / lint | JVM tests (skipped) | Emulator tests | Python/export parity cases | Test app coverage |','|---|---|---:|---:|---:|---|']
     for n in NAMES:
         v=verification[n];dep=results[n]['deployment']
         lines.append(f'| {TITLES[n]} | passed / {v["lint"].get("Error",0)} errors | {v["jvm"]["tests"]} ({v["jvm"]["skipped"]}) | {v["emulator_test_total"]} | {v["parity"]["cases"]} | {dep["scored"]}/{dep["records"]} |')
-    lines+=['','Seventy-five research tests, 20 existing model guards and six expanded-protocol guards passed. Emulator checks cover offline paste/share, actual model loading, missing/invalid models, long/empty/random inputs, English/Taglish, repeated scans, permissions and lifecycle/privacy. JVM/Android parity verifies actual fitted exports, class decisions and exactly-once calibration; mBERT additionally checks token IDs, masks, token types and full logits within predeclared tolerances. [Detailed verification](expanded-four-model-verification-20261005.json).','',
+    lines+=['','Seventy-six research tests, eight safe-handoff tests, 20 existing model guards and six expanded-protocol guards passed. Emulator checks cover offline paste/share, actual model loading, missing/invalid models, long/empty/random inputs, English/Taglish, repeated scans, permissions and lifecycle/privacy. JVM/Android parity verifies actual fitted exports, class decisions and exactly-once calibration; mBERT additionally checks token IDs, masks, token types and full logits within predeclared tolerances. [Detailed verification](expanded-four-model-verification-20261005.json).','',
         'Classifier metrics above score every test record. App-policy coverage is separate and never credits an abstention as a correct negative. The four identical fictional benchmark probes deliberately include short text; their coverage is reported separately from research-test coverage. Actual screenshots are in local `deliverables/expanded-20261005/screenshots/<algorithm>/`, with the same fictional messages for all models.','',
         '| Model | Cold detector load ms | Warm median ms | Warm p95 ms | Scored / 200 scans |','|---|---:|---:|---:|---:|']
     for n in NAMES:
@@ -92,8 +112,23 @@ def main():
         '| Model | APK filename | SHA-256 |','|---|---|---|']
     for n in NAMES:lines.append(f'| {TITLES[n]} | `{artifacts[n]["filename"]}` | `{artifacts[n]["sha256"]}` |')
     lines+=['','## Remaining human work','',
-        '- Complete independent blinded label confirmation/adjudication, privacy review and semantic template review. The supplied review workbook exposes computer labels, so use a blinded copy for independent agreement measurement.','- Confirm the supplied broad phishing scope and adjudicate the 18 excluded job/loan phishing conflicts.','- Obtain specific use/origin/consent evidence only for the held GitHub/team records if they are to enter a future experiment. No renewed project authorization is needed.','- Collect a genuinely new prospective evaluation set and measure performance on physical phones before deployment claims.','',
+        '- Complete independent blinded label confirmation/adjudication, privacy review and semantic template review. The supplied review workbook exposes computer labels, so use a blinded copy for independent agreement measurement.','- Adjudicate the 18 excluded job/loan phishing conflicts against the supplied broad phishing definition.','- Obtain specific use/origin/consent evidence only for the held GitHub/team records if they are to enter a future experiment. No renewed project authorization is needed.','- Collect a genuinely new prospective evaluation set and measure performance on physical phones before deployment claims.','',
         '[Frozen protocol](expanded-comparison-protocol-20261005.md) · [Reproduction](expanded-comparison-reproduction-20261005.md) · [Prior preserved report](four-model-comparison.md).']
+    breakdown=[]
+    for field in ('language','source'):
+        breakdown += [f'Test breakdown by supplied {field} (F1 percentages):','',
+            '| Subgroup | Ham / phishing | Groups | LR | NB | SVM | mBERT |','|---|---:|---:|---:|---:|---:|---:|']
+        for value,entry in results['lr']['by_'+field].items():
+            support=entry['support']
+            values=[results[n]['by_'+field][value]['metrics'] for n in NAMES]
+            breakdown.append(f'| {value} | {support["ham"]} / {support["smishing"]} | {support["groups"]} | '+' | '.join(pct(v['f1']) if v else 'insufficient support' for v in values)+' |')
+        breakdown.append('')
+    breakdown+=['Category support is listed in the aggregate JSON; category-specific full metrics are suppressed when either class lacks the predeclared support. No category label is an input feature.','']
+    position=lines.index('## Offline app verification and presentation');lines[position:position]=breakdown
+    position=lines.index('## Local APKs')
+    lines[position:position]=[
+        'Visual inspection retained the real demo outcomes: mBERT missed the fictional English phishing example (1.9% model score), while LR, NB and SVM flagged it. All four classified the benign Taglish example as non-phishing. These examples are presentation evidence, not additional evaluation data or a basis for retuning.', '',
+        'A final-session cold boot briefly stalled Android System UI before LR instrumentation began. Closing the stalled system interface restored the launcher; the failed startup log was preserved and the full LR verification was rerun. The common-session benchmark began only after the emulator recovered.', '']
     (DOCS/'four-model-comparison-20261005.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     slide=['# SmishGuard presentation comparison — 5 October 2026','',
         'Preliminary retrospective evaluation: 3,340 source-supported records; identical 448-record test; source/rule labels awaiting independent confirmation.','',
