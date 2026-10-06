@@ -1,5 +1,9 @@
 # Thesis gap analysis
 
+Revised thesis title: **Pending finalization**. The original manuscript title remains historical; title-dependent edits are pending. Current scope is **all SMS phishing**, clarified by the team without assuming adviser approval. See [current scope and working questions/objectives](scope-clarification-20261006.md).
+
+Current workflow: [review completion and frozen evaluation](review-completion-20261006.md). Earlier milestone descriptions below are historical; their financial-only constraints and pending-model status do not govern current all-SMS-phishing work. Use the dated Chapter 3/4 drafts for current four-model evidence.
+
 Assessment: 23 September 2026. The offline development prototype is technically testable; the thesis evaluation and partner turnover are incomplete. Statuses refer to evidence, not projected dates. No approved scope has been removed.
 
 Reviewed local sources: `SmishGuardPH_Chapter1_Introduction_1.docx` (Objectives; Scope and Limitations), `SmishGuardPH_Chapter2_RRL_1.docx` (evaluation pitfalls; frameworks), and `SmishGuard_ProjectBrief_Client.docx` (sections 3–8). Originals remain private in Downloads. Existing decisions, source evidence, authorization, tests and Git history were reconciled with these documents. Their literature claims were read as manuscript claims, not independently reverified findings; retain the bibliography and verify each original paper before final submission.

@@ -1,5 +1,7 @@
 # Independent annotation preparation
 
+Historical workflow retained for earlier datasets. Current scope is **all SMS phishing**; revised thesis title: **Pending finalization**. Use the [current labeling guide](sms-labeling-guide-20261006.md) and its linked versioned review workflow for new work. Financial-only categories below are historical and must not exclude current phishing by sector. No adviser approval is inferred.
+
 29 September preparation: use the [team workflow](team-review-workflow.md) for documented annotation-access filtering, immutable released sheets, separately returned responses, and category/language/scope adjudication. Existing IDs and pending reviews were reused. The lower-level historical commands below remain available but do not replace that access review.
 
 Use `research/LABELING_GUIDE.md` for the four categories and edge cases. A URL, urgency, claimed institution or inherited source label alone is not sufficient evidence. Genuine OTP/advisory language can be legitimate; financial impersonation without a URL can be phishing; unrelated scams remain `other_spam_scam`; insufficient context is `uncertain`.

@@ -20,6 +20,13 @@ android {
         manifestPlaceholders["appLabel"] = "SmishGuard"
     }
     buildTypes {
+        create("mbertQuantized") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".mbert.int8"
+            versionNameSuffix = "-mbert-int8-experimental"
+            manifestPlaceholders["appLabel"] = "SmishGuard · mBERT INT8"
+            matchingFallbacks += listOf("debug")
+        }
         create("mbert") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".mbert"
@@ -58,7 +65,8 @@ android {
         }
     }
     testBuildType = providers.gradleProperty("instrumentedBuild").getOrElse("debug")
-    if (testBuildType == "mbert") sourceSets.getByName("androidTest").java.srcDir("src/mbertAndroidTest/java")
+    if (testBuildType in listOf("mbert", "mbertQuantized")) sourceSets.getByName("androidTest").java.srcDir("src/mbertAndroidTest/java")
+    sourceSets.getByName("mbertQuantized").java.srcDir("src/mbert/java")
     buildFeatures { compose = true; buildConfig = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -92,6 +100,37 @@ tasks.withType<Test>().configureEach {
 }
 configurations.getByName("developmentImplementation").extendsFrom(configurations.getByName("debugImplementation"))
 configurations.getByName("mbertImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("mbertQuantizedImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+val verifyMbertQuantizedModel by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/mbertQuantized/assets").asFile
+        val original = layout.projectDirectory.dir("src/mbert/assets").asFile
+        fun sha(file: java.io.File): String {
+            val digest = MessageDigest.getInstance("SHA-256")
+            file.inputStream().use { input ->
+                val block = ByteArray(1024 * 1024)
+                while (true) { val n = input.read(block); if (n < 0) break; digest.update(block, 0, n) }
+            }
+            return digest.digest().joinToString("") { "%02x".format(it) }
+        }
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json", "model.onnx", "vocab.txt", "LICENSE.txt")) { "Unexpected experimental assets" }
+        val variant = JsonSlurper().parse(directory.resolve("model.json")) as Map<*, *>
+        val reference = JsonSlurper().parse(original.resolve("model.json")) as Map<*, *>
+        check(variant["quantized"] == true && variant["precision"] == "int8_dynamic" &&
+            variant["evaluation_status"] == "experimental_quantization" &&
+            variant["reference_model_sha256"] == sha(original.resolve("model.onnx")) &&
+            variant["model_sha256"] == sha(directory.resolve("model.onnx")) &&
+            variant["vocab_sha256"] == sha(directory.resolve("vocab.txt"))) { "INT8 experiment identity mismatch" }
+        for (key in listOf("schema_version", "algorithm", "base_model", "revision", "max_length", "classes", "positive_class",
+            "threshold", "threshold_comparison", "calibration", "tokenizer", "vocab_sha256", "score_transform",
+            "assessability_vocabulary", "automatic_warnings_approved", "synthetic", "protocol_sha256")) {
+            check(variant[key] == reference[key]) { "INT8 experiment changed frozen inference policy: $key" }
+        }
+        check(variant["automatic_warnings_approved"] == false && reference["quantized"] == false)
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model contamination" }
+    }
+}
+tasks.matching { it.name == "preMbertQuantizedBuild" || it.name == "mergeMbertQuantizedAssets" }.configureEach { dependsOn(verifyMbertQuantizedModel) }
 providers.gradleProperty("mbertParityDir").orNull?.let {
     android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
 }
@@ -265,6 +304,7 @@ tasks.matching { it.name == "preDevelopmentBuild" || it.name == "mergeDevelopmen
     .configureEach { dependsOn(verifyDevelopmentModel) }
 
 dependencies {
+    add("mbertQuantizedImplementation", "com.microsoft.onnxruntime:onnxruntime-android:1.22.0")
     add("mbertImplementation", "com.microsoft.onnxruntime:onnxruntime-android:1.22.0")
     implementation(platform("androidx.compose:compose-bom:2025.12.01"))
     implementation("androidx.compose.material3:material3")

@@ -1,5 +1,7 @@
 # Labeling and intake guide
 
+Historical workflow retained for earlier datasets. Current scope is **all SMS phishing**; revised thesis title: **Pending finalization**. Use the [current labeling guide](../docs/sms-labeling-guide-20261006.md) and its linked versioned review workflow for new work. Financial-only categories below are historical and must not exclude current phishing by sector. No adviser approval is inferred.
+
 Use `intake-template.csv` (headers only). Keep the supplied package unchanged. Work in the ignored `research/data/` directory, never in app assets. This guide does not authorize collection or certify any source.
 
 ## Four categories

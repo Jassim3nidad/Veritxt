@@ -20,20 +20,28 @@ def digest(stream):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', type=Path, required=True)
+    parser.add_argument('--variant', choices=('mbert','mbertQuantized'), default='mbert')
     args = parser.parse_args()
     destination = args.output_dir.resolve()
     if not destination.is_relative_to((ROOT/'deliverables').resolve()):
         raise ValueError('Private APK destination must be beneath deliverables')
-    source = ROOT/'android/app/build/outputs/apk/mbert/app-mbert.apk'
+    source = ROOT/f'android/app/build/outputs/apk/{args.variant}/app-{args.variant}.apk'
     layout = audit_layout(source)
     if layout['gap_bytes'] > 1024*1024:
         raise ValueError('Excess unreferenced APK space: preserve the APK and packageMbert incremental state, then rebuild a fresh package')
-    assets = ROOT/'android/app/src/mbert/assets'
+    assets = ROOT/f'android/app/src/{args.variant}/assets'
     metadata = json.loads((assets/'model.json').read_text(encoding='utf-8'))
     assert metadata['schema_version'] == 5 and metadata['algorithm'] == 'mbert'
     assert metadata['base_model'] == 'google-bert/bert-base-multilingual-cased'
     assert metadata['revision'] == '3f076fdb1ab68d5b2880cb87a0886f315b8146f8'
-    assert not metadata['synthetic'] and not metadata['automatic_warnings_approved'] and not metadata['quantized']
+    quantized=args.variant=='mbertQuantized'
+    assert not metadata['synthetic'] and not metadata['automatic_warnings_approved'] and metadata['quantized']==quantized
+    if quantized:
+        reference=ROOT/'android/app/src/mbert/assets'
+        original=json.loads((reference/'model.json').read_text(encoding='utf-8'))
+        with (reference/'model.onnx').open('rb') as stream:assert digest(stream)==metadata['reference_model_sha256']
+        for key in ('threshold','calibration','max_length','vocab_sha256','tokenizer','assessability_vocabulary'):
+            assert metadata[key]==original[key]
     assert metadata['classes'] == ['ham','smishing'] and metadata['threshold_comparison'] == 'greater_or_equal'
     version = metadata['model_version']
     assert re.fullmatch(r'[A-Za-z0-9._-]+',version)
@@ -52,7 +60,7 @@ def main():
         assert not any(n.endswith(('.csv','.pkl','.joblib','.safetensors')) or 'private-cases' in n for n in archive.namelist())
     sdk = Path(os.environ['LOCALAPPDATA'])/'Android/Sdk/build-tools/35.0.0'
     badging = subprocess.check_output([str(sdk/'aapt.exe'),'dump','badging',str(source)],text=True)
-    package = 'ph.smishguard.mbert'
+    package = 'ph.smishguard.mbert.int8' if quantized else 'ph.smishguard.mbert'
     assert f"package: name='{package}'" in badging and "sdkVersion:'26'" in badging
     permissions = re.findall(r"uses-permission: name='([^']+)'",badging)
     assert set(permissions) <= {'android.permission.RECEIVE_SMS','android.permission.POST_NOTIFICATIONS',
@@ -68,10 +76,13 @@ def main():
     record = dict(filename=output.name,sha256=checksum,apk_bytes=output.stat().st_size,
         algorithm='mbert',model_version=version,application_id=package,asset_sha256=asset_hashes,
         onnx_bytes=(assets/'model.onnx').stat().st_size,permissions=permissions,signature_verified=True,
-        precision='float32',quantized=False,minimum_android='8.0 / API 26',
+        precision=metadata['precision'],quantized=quantized,minimum_android='8.0 / API 26',
         research_status='preliminary retrospective; source/rule labels; not independent validation',
         unreferenced_zip_bytes=layout['gap_bytes'])
-    (destination/'mbert-apk-manifest.json').write_text(json.dumps(record,indent=2),encoding='utf-8')
+    manifest=destination/f'{args.variant}-apk-manifest.json'
+    if manifest.exists() and json.loads(manifest.read_text(encoding='utf-8'))!=record:
+        raise ValueError('Preserve prior package manifest; choose a new directory')
+    if not manifest.exists():manifest.write_text(json.dumps(record,indent=2),encoding='utf-8')
     print(json.dumps(record,indent=2))
 
 

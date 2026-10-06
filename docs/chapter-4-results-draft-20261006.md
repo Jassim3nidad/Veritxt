@@ -1,5 +1,7 @@
 # Chapter 4 — Results and limitations (draft)
 
+Revised thesis title: **Pending finalization**. The original manuscript title remains historical; title-dependent edits are pending. Current scope is **all SMS phishing**, clarified by the team without assuming adviser approval. See [current scope and working questions/objectives](scope-clarification-20261006.md).
+
 This chapter reports the completed expanded retrospective experiment. Its labels await independent human review, and **439 of 448 test records have detected historical overlap**. The results are preliminary development evidence. Planned annotation, prospective collection and physical-phone tests have no findings yet; placeholders below must be replaced only by verified human evidence.
 
 ## 4.1 Data audit and experimental support

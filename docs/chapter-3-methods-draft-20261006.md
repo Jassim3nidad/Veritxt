@@ -1,12 +1,16 @@
 # Chapter 3 — Methods (draft)
 
-This draft distinguishes the completed expanded development experiment from planned independent annotation, prospective evaluation and physical-phone testing. Bracketed placeholders require actual team evidence. The operational scope comes from the supplied dataset description; independent adviser confirmation is not claimed.
+Revised thesis title: **Pending finalization**. The existing manuscript title is retained as historical; title-dependent edits remain pending. This draft follows the team's clarification of **all SMS phishing**, without claiming adviser approval. See the [current scope record](scope-clarification-20261006.md).
+
+This draft distinguishes the completed expanded development experiment from planned independent annotation, prospective evaluation and physical-phone testing. Bracketed placeholders require actual team evidence.
 
 ## 3.1 Research design and scope
 
 The study developed and compared four offline SMS classifiers: Logistic Regression (LR), Multinomial Naive Bayes (NB), Linear Support Vector Machine (SVM) and multilingual BERT (mBERT). The completed comparison was a retrospective development experiment using source/rule-derived labels. All four algorithms received identical eligible records and partition assignments. The objective was to measure performance under a common protocol and verify deployment in separate Android variants, without selecting a predetermined winning algorithm.
 
-The supplied package described an adviser-directed expansion from financial impersonation to SMS phishing more broadly. Phishing positives comprised deceptive attempts to obtain credentials, money or personal information through impersonation or false rewards; negatives were purported genuine communications. Advertising and job/loan fraud were excluded by the inherited package. Eighteen excluded job/loan records contained possible phishing signals and were retained for scope adjudication rather than relabeled automatically. [Insert dated scope decision and its author when available.] These boundaries must be disclosed when interpreting the results.
+The team clarified the scope as **all SMS phishing** on 6 October 2026. No adviser approval is assumed. Phishing includes deceptive SMS attempts to obtain credentials, money or personal information, or induce harmful actions, across financial and nonfinancial themes and with or without links. Genuine SMS form the negative class. A job, loan, delivery, government, reward or advertising theme alone neither excludes a phishing attempt nor establishes its label. Pure nonphishing spam and unresolved cases remain separately documented under the labeling guide.
+
+The inherited historical package excluded advertising and job/loan fraud. That is a limitation of the completed cohort, not the current scope definition. Eighteen excluded job/loan records with possible phishing signals require independent review under the clarified definitions before admission to a new dataset version. Existing labels, membership and published historical scores are preserved. Broader scope does not establish representative coverage of every phishing type.
 
 ## 3.2 Data sources, audit and eligibility
 

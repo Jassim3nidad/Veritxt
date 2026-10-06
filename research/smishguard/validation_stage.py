@@ -7,6 +7,7 @@ from difflib import SequenceMatcher
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import random
 import secrets
@@ -25,7 +26,7 @@ FIELDS=('review_id','redacted_text','decision','rationale','privacy_issue','revi
 INTAKE=('intake_id','received_at_utc','collected_at_utc','redacted_text','collector_code',
         'source_use_evidence','receipt_evidence_ref','permission_status','privacy_review_status',
         'privacy_reviewer','prior_model_viewing','notes')
-TEXT_KEYS={'text','text_redacted','redacted_text','text_for_review','message','message_text','sms','message_body','sms_text'}
+TEXT_KEYS={'text','text_redacted','redacted_text','text_for_review','message','message_text','sms','message_body','sms_text','body','v2'}
 
 def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def sha(p):
@@ -42,10 +43,14 @@ def csv_write(p,fields,rows):
         w=csv.DictWriter(f,fieldnames=fields);w.writeheader()
         w.writerows({k:display(r.get(k,'')) for k in fields} for r in rows)
 
-def prepare():
-    private_output(STAGE)
-    review=STAGE/'review';review.mkdir(parents=True,exist_ok=False)
-    rows=read(RUN/'case-view.json');mapping=[];packets={}
+def prepare(source=None, review=None):
+    source=source or RUN/'case-view.json';review=review or STAGE/'review'
+    private_output(review)
+    rows=read(source)
+    if not rows or any(not r.get('id') or not r.get('text','').strip() for r in rows) or len({r['id'] for r in rows})!=len(rows):
+        raise ValueError('Expected nonempty unique source IDs and text')
+    review.mkdir(parents=True,exist_ok=False)
+    mapping=[];packets={}
     for r in rows:
         mapping.append(dict(source_id=r['id'],text=r['text'],a=uuid.uuid4().hex,b=uuid.uuid4().hex))
     for who in ('a','b'):
@@ -58,7 +63,7 @@ def prepare():
     save(review/'coordinator/packet-manifest.json',dict(records=len(rows),created_utc=now(),
         files={f'annotator-{w}.csv':sha(review/f'annotator-{w}.csv') for w in ('a','b')},
         status='prepared; independent decisions and human privacy checks pending',decisions_assigned=0,
-        source_sha256=sha(RUN/'case-view.json')))
+        source_sha256=sha(source)))
     # Blank reviewer attestations are explicit inputs, never inferred from filled cells.
     csv_write(review/'coordinator/attestations.csv',('packet','reviewer_code','independent_without_labels_or_predictions','signed_at_utc'),[{'packet':'a'},{'packet':'b'}])
     csv_write(review/'coordinator/privacy-release.csv',('review_id','redacted_text','release_status','privacy_reviewer','note'),
@@ -95,6 +100,7 @@ def read_responses(path,expected):
         reader=csv.DictReader(f)
         if reader.fieldnames!=list(FIELDS):raise ValueError('Unexpected response columns')
         rows=list(reader)
+    if any(None in r or any(v is None for v in r.values()) for r in rows):raise ValueError('Malformed response row')
     if len(rows)!=len(expected) or len({r['review_id'] for r in rows})!=len(rows):raise ValueError('Missing or duplicated response IDs')
     values={r['review_id']:r for r in rows}
     if set(values)!=set(expected):raise ValueError('Responses do not match assigned packet')
@@ -104,7 +110,7 @@ def read_responses(path,expected):
         if r['decision'] and r['decision'] not in LABELS:raise ValueError('Invalid human decision')
         if r['decision'] and (not all(r[x].strip() for x in ('rationale','reviewer_code','completed_at_utc')) or r['privacy_issue'] not in ('no','yes','uncertain')):
             raise ValueError('Completed decision lacks rationale, reviewer, timestamp or privacy response')
-        if r['completed_at_utc']:utc(r['completed_at_utc'])
+        if r['completed_at_utc'] and utc(r['completed_at_utc'])>utc(now()):raise ValueError('Future response timestamp')
     return values
 
 def agreement(pairs):
@@ -117,8 +123,18 @@ def agreement(pairs):
                 kappa=(observed-expected)/(1-expected) if expected<1 else None,
                 confusion={x:{y:sum(u==x and v==y for u,v in pairs) for y in LABELS} for x in LABELS})
 
-def analyze(a,b,output):
-    private_output(output);mapping=read(STAGE/'review/coordinator/mapping.json')
+def analyze(a,b,output,review=None):
+    review=review or STAGE/'review'
+    private_output(output);mapping=read(review/'coordinator/mapping.json')
+    if a.resolve()==b.resolve():raise ValueError('Two distinct independent return files required')
+    packet_manifest=read(review/'coordinator/packet-manifest.json')
+    packet_inputs=read(review/'coordinator/packet-inputs.json')['packets']
+    for who in ('a','b'):
+        packet=review/f'annotator-{who}.csv'
+        if sha(packet)!=packet_manifest['files'][packet.name]:raise ValueError('Original packet changed')
+        expected={r[who]:r['text'] for r in mapping}
+        if {r['review_id']:r['redacted_text'] for r in packet_inputs[who]}!=expected:raise ValueError('Coordinator mapping differs from packet inputs')
+        read_responses(packet,expected)
     responses={who:read_responses(path,{r[who]:r['text'] for r in mapping}) for who,path in (('a',a),('b',b))}
     reviewers={who:{r['reviewer_code'] for r in values.values() if r['decision']} for who,values in responses.items()}
     if any(len(v)>1 for v in reviewers.values()) or reviewers['a']&reviewers['b']:
@@ -142,16 +158,34 @@ def analyze(a,b,output):
     save(output/'agreement.json',result)
     save(output/'adjudication-basis.json',queue)
     csv_write(output/'adjudication.csv',tuple(queue[0]),queue)
+    # Preserve the actual input bytes, including partial returns. Later edits cannot
+    # silently replace the pre-adjudication evidence or its source dataset identity.
+    evidence=output/'evidence';evidence.mkdir()
+    for name,path in {'a.csv':a,'b.csv':b,'mapping.json':review/'coordinator/mapping.json',
+                      'packet-manifest.json':review/'coordinator/packet-manifest.json',
+                      'attestations.csv':review/'coordinator/attestations.csv',
+                      'privacy-release.csv':review/'coordinator/privacy-release.csv'}.items():
+        (evidence/name).write_bytes(path.read_bytes())
+    save(output/'return-manifest.json',dict(created_utc=now(),
+        files={p.relative_to(output).as_posix():sha(p) for p in [*evidence.iterdir(),output/'agreement.json',output/'adjudication-basis.json']},
+        source_sha256=packet_manifest['source_sha256']))
     print('Agreement output created; paired decisions:',len(pairs),'; no final labels assigned.')
 
-def adjudicate(path,output):
-    private_output(output)
-    with path.open(encoding='utf-8-sig',newline='') as f:rows=list(csv.DictReader(f))
-    mapping=read(STAGE/'review/coordinator/mapping.json')
+def validated_adjudication(path):
+    manifest=read(path.parent/'return-manifest.json')
+    for name,digest in manifest['files'].items():
+        if sha(path.parent/name)!=digest:raise ValueError('Frozen return evidence changed; create a new agreement version')
+    mapping=read(path.parent/'evidence/mapping.json')
+    response_sets={who:read_responses(path.parent/f'evidence/{who}.csv',{m[who]:m['text'] for m in mapping}) for who in ('a','b')}
+    mapped={m['a']:m for m in mapping}
     basis={r['adjudication_id']:r for r in read(path.parent/'adjudication-basis.json')}
+    with path.open(encoding='utf-8-sig',newline='') as f:
+        reader=csv.DictReader(f)
+        if reader.fieldnames!=list(next(iter(basis.values()))):raise ValueError('Unexpected adjudication columns')
+        rows=list(reader)
+    if any(None in r or any(v is None for v in r.values()) for r in rows):raise ValueError('Malformed adjudication row')
     expected={r['a'] for r in mapping}
     if len(rows)!=len(expected) or {r.get('adjudication_id') for r in rows}!=expected:raise ValueError('Adjudication must cover the assigned cohort once')
-    final=[]
     for r in rows:
         for k in ('redacted_text','decision_a','decision_b','rationale_a','rationale_b','privacy_a','privacy_b','reason_required'):
             if r.get(k)!=display(basis[r['adjudication_id']][k]):raise ValueError('Adjudication evidence changed; preserve independent responses')
@@ -160,7 +194,19 @@ def adjudicate(path,output):
         if decision not in LABELS or not all(r.get(k,'').strip() for k in ('adjudicator_code','final_rationale','completed_at_utc')) or r.get('resolved_privacy') not in ('yes','no'):
             raise ValueError('Invalid or incomplete adjudication')
         if not r.get('decision_a') or not r.get('decision_b'):raise ValueError('Both independent reviews must precede final adjudication')
-        utc(r['completed_at_utc']);final.append(decision)
+        finished=utc(r['completed_at_utc'])
+        if finished>utc(now()):raise ValueError('Future adjudication timestamp')
+        pair=mapped[r['adjudication_id']]
+        for who in ('a','b'):
+            response=response_sets[who][pair[who]]
+            if finished<utc(response['completed_at_utc']):raise ValueError('Adjudication predates independent responses')
+    return rows,mapping,manifest
+
+
+def adjudicate(path,output):
+    private_output(output)
+    rows,_,_=validated_adjudication(path)
+    final=[r['final_decision'] for r in rows if r['final_decision']]
     save(output,dict(records=len(rows),final_decisions=len(final),pending=len(rows)-len(final),counts=dict(Counter(final)),
         physical_phone_evidence='pending',note='Final decisions do not overwrite historical labels or frozen metrics.'))
     print('Adjudication validation complete; finalized:',len(final))
@@ -168,7 +214,7 @@ def adjudicate(path,output):
 def json_texts(value):
     if isinstance(value,dict):
         for k,v in value.items():
-            if str(k).lower() in TEXT_KEYS and isinstance(v,str) and v.strip():yield v
+            if str(k).strip().lower() in TEXT_KEYS and isinstance(v,str) and v.strip():yield v
             elif isinstance(v,(dict,list)):yield from json_texts(v)
     elif isinstance(value,list):
         for v in value:yield from json_texts(v)
@@ -191,17 +237,23 @@ def xlsx_rows(data):
 
 def texts_from_bytes(data,name,inventory,depth=0):
     suffix=Path(name).suffix.lower();count=0
+    if name.split('!')[-1].split('/')[-1].lower()=='smsspamcollection':suffix='.tsv'
     if suffix=='.zip':
         if depth>4:raise ValueError('Nested archive depth exceeded')
         with zipfile.ZipFile(io.BytesIO(data)) as z:
             for item in z.infolist():
-                if item.is_dir() or Path(item.filename).suffix.lower() not in ('.csv','.tsv','.json','.xlsx','.zip'):continue
+                if item.is_dir() or (Path(item.filename).suffix.lower() not in ('.csv','.tsv','.json','.xlsx','.zip') and Path(item.filename).name.lower()!='smsspamcollection'):continue
                 if item.file_size>128*1024*1024:raise ValueError('Oversized historical table; inspect separately')
                 yield from texts_from_bytes(z.read(item),name+'!'+item.filename,inventory,depth+1)
         inventory.append(dict(file=name,sha256=hashlib.sha256(data).hexdigest(),kind='archive'))
         return
     if suffix=='.xlsx':values=xlsx_rows(data)
-    elif suffix in ('.csv','.tsv'):values=csv.DictReader(io.StringIO(data.decode('utf-8-sig')),delimiter='\t' if suffix=='.tsv' else ',')
+    elif suffix in ('.csv','.tsv'):
+        decoded=data.decode('utf-8-sig')
+        # UCI SMSSpamCollection is headerless tab-separated label/message data.
+        if suffix=='.tsv' and decoded.split('\t',1)[0].lower() in ('ham','spam'):
+            values=({'text':r[1]} for r in csv.reader(io.StringIO(decoded),delimiter='\t') if len(r)==2)
+        else:values=csv.DictReader(io.StringIO(decoded),delimiter='\t' if suffix=='.tsv' else ',')
     elif suffix=='.json':values=[json.loads(data.decode('utf-8-sig'))]
     else:return
     for row in values:
@@ -211,11 +263,13 @@ def texts_from_bytes(data,name,inventory,depth=0):
 def history(root,output):
     private_output(output);output.mkdir(parents=True,exist_ok=False)
     inventory=[];exact=set();normalized=set();files=[]
-    for p in sorted(root.rglob('*')):
-        if not p.is_file() or p.resolve().is_relative_to(output.resolve()):continue
-        if {'venv','.venv','base','site-packages','__pycache__','node_modules'}&set(p.parts):continue
-        if p.suffix.lower() not in ('.csv','.tsv','.json','.xlsx','.zip'):continue
-        files.append(p)
+    for directory,dirs,names in os.walk(root):
+        dirs[:]=sorted(d for d in dirs if d not in {'venv','.venv','base','site-packages','__pycache__','node_modules'}
+                       and not (Path(directory)/d).resolve().is_relative_to(output.resolve()))
+        for name in sorted(names):
+            p=Path(directory)/name
+            if p.suffix.lower() not in ('.csv','.tsv','.json','.xlsx','.zip') and p.name.lower()!='smsspamcollection':continue
+            files.append(p)
     # All available historical CSV/TSV/JSON/XLSX tables, including source ZIPs and prior review views.
     for p in files:
         if p.stat().st_size>128*1024*1024:raise ValueError('Oversized historical input requires explicit inspection')
@@ -238,7 +292,8 @@ def matches(text,texts,minimum=.85):
     for i,other in enumerate(texts):
         if 2*min(len(key),len(other))/(len(key)+len(other))<minimum:continue
         sm=SequenceMatcher(None,key,other,autojunk=False)
-        if sm.quick_ratio()>=minimum and sm.ratio()>=minimum:hits.append(i)
+        reverse=SequenceMatcher(None,other,key,autojunk=False)
+        if sm.quick_ratio()>=minimum and max(sm.ratio(),reverse.ratio())>=minimum:hits.append(i)
     return hits
 
 def intake(path,index_dir,freeze_path,output):
@@ -255,6 +310,7 @@ def intake(path,index_dir,freeze_path,output):
     for i,r in enumerate(rows):
         reasons=[];text=r.get('redacted_text','')
         if not text.strip():reasons.append('missing_text')
+        elif not normalize(clean(text)):reasons.append('empty_normalized_text')
         try:
             received=utc(r['received_at_utc']);collected=utc(r['collected_at_utc'])
             if not start<received<=collected<=observed:reasons.append('not_documented_post_freeze_receipt')
@@ -276,21 +332,23 @@ def intake(path,index_dir,freeze_path,output):
     save(output/'summary.json',dict(records=len(rows),holds=sum(bool(r['reasons']) for r in ledger),
         candidates=sum(not r['reasons'] for r in ledger),human_labels='pending',evaluation='not performed',
         freeze_sha256=sha(freeze_path),historical_index_sha256=sha(index_dir/'index.json'),intake_sha256=sha(path),
+        ledger_sha256=sha(output/'ledger.json'),
         note='No predictions run. No-match does not establish fresh or independent data. All candidates require coordinator evidence and semantic-template review.'))
     print('Intake screened:',len(rows),'records; no predictions or labels generated.')
 
 def main():
     p=argparse.ArgumentParser();sub=p.add_subparsers(dest='command',required=True)
-    sub.add_parser('prepare');sub.add_parser('freeze')
-    a=sub.add_parser('agreement');a.add_argument('a',type=Path);a.add_argument('b',type=Path);a.add_argument('output',type=Path)
+    a=sub.add_parser('prepare');a.add_argument('--source',type=Path);a.add_argument('--review',type=Path)
+    sub.add_parser('freeze')
+    a=sub.add_parser('agreement');a.add_argument('a',type=Path);a.add_argument('b',type=Path);a.add_argument('output',type=Path);a.add_argument('--review',type=Path)
     a=sub.add_parser('adjudicate');a.add_argument('input',type=Path);a.add_argument('output',type=Path)
     a=sub.add_parser('history');a.add_argument('root',type=Path);a.add_argument('output',type=Path)
     a=sub.add_parser('intake');a.add_argument('input',type=Path);a.add_argument('index',type=Path);a.add_argument('freeze',type=Path);a.add_argument('output',type=Path)
     a=sub.add_parser('verify-freeze');a.add_argument('input',type=Path)
     a=p.parse_args()
-    if a.command=='prepare':prepare()
+    if a.command=='prepare':prepare(a.source,a.review)
     elif a.command=='freeze':freeze()
-    elif a.command=='agreement':analyze(a.a,a.b,a.output)
+    elif a.command=='agreement':analyze(a.a,a.b,a.output,a.review)
     elif a.command=='adjudicate':adjudicate(a.input,a.output)
     elif a.command=='history':history(a.root,a.output)
     elif a.command=='intake':intake(a.input,a.index,a.freeze,a.output)

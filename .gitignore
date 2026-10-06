@@ -69,3 +69,6 @@ SMISHGUARD_complete.zip
 *.apk
 **/assets/model.json
 **/assets/review.properties
+# Separate experimental quantized assets and arbitrary local artifact output.
+android/app/src/mbertQuantized/assets/
+output/

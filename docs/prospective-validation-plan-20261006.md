@@ -31,3 +31,5 @@ research/.venv/Scripts/python.exe -m smishguard.validation_stage intake `
 ```
 
 Each output directory is new and existing evidence is never overwritten. The historical snapshot must precede the candidate batch: do not add that batch to the history before screening it. For subsequent batches, add earlier closed intake batches to history and explicitly retain the inventory cutoff. Candidate text and ID-level overlap results remain private.
+
+Current scope: **all SMS phishing**, clarified by the team without assumed adviser approval. Revised thesis title: **Pending finalization**. [Admission and evaluation commands](review-completion-20261006.md) now connect screened intake, semantic review, independent labels and comparison tables. The separate INT8 experiment is excluded from this four-model freeze. Near-copy screening conservatively uses both SequenceMatcher directions; index coverage includes known header aliases and archived headerless UCI records.

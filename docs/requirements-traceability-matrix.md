@@ -1,5 +1,9 @@
 # Requirements traceability matrix
 
+Revised thesis title: **Pending finalization**. The original manuscript title remains historical; title-dependent edits are pending. Current scope is **all SMS phishing**, clarified by the team without assuming adviser approval. See [current scope and working questions/objectives](scope-clarification-20261006.md).
+
+Current workflow: [review completion and frozen evaluation](review-completion-20261006.md). Earlier milestone descriptions below are historical; their financial-only constraints and pending-model status do not govern current all-SMS-phishing work. Use the dated Chapter 3/4 drafts for current four-model evidence.
+
 Read with `thesis-gap-analysis.md` and `verification-safe-handoff.md`. “In progress” can mean implemented tooling with research execution pending. All paths are repository-relative. Owners are unassigned roles, not invented commitments.
 
 | ID / source requirement | Implementation | Test/evaluation and existing evidence | Status / missing work | Responsible role | Thesis placement |

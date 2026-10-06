@@ -1,0 +1,392 @@
+{
+  "scope": "all SMS phishing; team clarification, no adviser approval inferred",
+  "revised_title": "Pending finalization",
+  "frozen_models_preserved": true,
+  "original_apks_preserved": {
+    "deliverables/expanded-20261005/SmishGuard-lr-expanded-20261005-lr-c3abc4bb-experimental-debug.apk": {
+      "sha256": "3c498926bc0c281e68a5b29e05f12e5655a4a4bcc5682b5c24bf775b30c79963",
+      "bytes": 12943387
+    },
+    "deliverables/expanded-20261005/SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk": {
+      "sha256": "0ca13584fcd68d37809d33569a3e1e94aa244c569997b1911c0acb6d03be21ec",
+      "bytes": 1511956972
+    },
+    "deliverables/expanded-20261005/SmishGuard-nb-expanded-20261005-nb-c3abc4bb-experimental-debug.apk": {
+      "sha256": "a61764d2201a111704f5338e5c9fa69cff94dfbb4223dcdc7c6fbfcf8f9ae560",
+      "bytes": 12943667
+    },
+    "deliverables/expanded-20261005/SmishGuard-svm-expanded-20261005-svm-c3abc4bb-experimental-debug.apk": {
+      "sha256": "a1bf985da00f21b7c91d43ce741058e17056d7fd3867fa808a750b1a3cbae03a",
+      "bytes": 12933907
+    },
+    "deliverables/validation-20261006/SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk": {
+      "sha256": "605f8ab4eb35eb3c3e52caacf31f89cde61caa1984bcf65009d004f7da7b25df",
+      "bytes": 800410184
+    }
+  },
+  "reporting_enabled": false,
+  "conversion": {
+    "created_utc": "2026-10-06T13:29:36.212740+00:00",
+    "source_files": {
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+      "model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+      "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+    },
+    "variant_files": {
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model.json": "4e14b8de47acf3c0415c13e6529bf1e18b3431431a8f5f5b17182c24a57c9b12",
+      "model.onnx": "db61cf99b394987640722e4f430bfa071ef16d852fb9a805e8300f19df911826",
+      "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+    },
+    "configuration": {
+      "op_types_to_quantize": [
+        "MatMul",
+        "Gather"
+      ],
+      "per_channel": true,
+      "reduce_range": false,
+      "extra_options": {
+        "MatMulConstBOnly": true
+      }
+    },
+    "weight_type": "QInt8",
+    "onnxruntime": "1.22.0",
+    "onnx": "1.18.0",
+    "operators": {
+      "Constant": 102,
+      "Gather": 4,
+      "Unsqueeze": 2,
+      "DequantizeLinear": 3,
+      "Add": 124,
+      "Cast": 75,
+      "Sub": 1,
+      "LayerNormalization": 25,
+      "Mul": 173,
+      "DynamicQuantizeLinear": 50,
+      "MatMulInteger": 74,
+      "Reshape": 48,
+      "Transpose": 48,
+      "MatMul": 24,
+      "Div": 24,
+      "Softmax": 12,
+      "Erf": 12,
+      "Tanh": 1
+    },
+    "float32_bytes": 711555338,
+    "int8_bytes": 178926534,
+    "retrained": false,
+    "retuned": false,
+    "reporting_enabled": false
+  },
+  "host_benchmark": {
+    "status": "separate experimental INT8 deployment; never substitutes a frozen evaluation model",
+    "host": "Windows-11-10.0.26200-SP0",
+    "threads": 2,
+    "provider": "CPUExecutionProvider",
+    "created_utc": "2026-10-06T13:34:35.763359+00:00",
+    "synthetic_cases": 20,
+    "historical_cases": 448,
+    "threshold": 0.8899999999999999,
+    "model_load_ms": {
+      "float32": 1272.6394000001164,
+      "int8": 476.29609999967215
+    },
+    "warm_inference": {
+      "float32": {
+        "warmups": 20,
+        "scans": 100,
+        "p50_ms": 159.59174999989045,
+        "p95_ms": 183.40357499992024
+      },
+      "int8": {
+        "warmups": 20,
+        "scans": 100,
+        "p50_ms": 87.80919999935577,
+        "p95_ms": 119.38203999870892
+      }
+    },
+    "max_logit_difference": 1.4162687063217163,
+    "max_score_difference": 0.4069763184762465,
+    "mean_score_difference": 0.013695449673869112,
+    "synthetic_decision_changes": 0,
+    "historical_decision_changes": 0,
+    "accuracy": {
+      "float32": {
+        "accuracy": 0.9263392857142857,
+        "specificity": 1.0,
+        "precision": 1.0,
+        "recall": 0.4107142857142857,
+        "f1": 0.5822784810126582,
+        "pr_auc": 0.892269111669464,
+        "average_precision": 0.8928179092048459,
+        "roc_auc": 0.9636024052478134,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.5892857142857143,
+        "brier": 0.06533505066278901,
+        "log_loss": 0.24637469227891212,
+        "reliability_bins": [
+          {
+            "count": 424,
+            "mean_probability": 0.015309722039385493,
+            "observed_positive_rate": 0.07547169811320754
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.29611742021908466,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 23,
+            "mean_probability": 0.9992473678072136,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.05854881914177579,
+        "confusion": {
+          "tn": 392,
+          "fp": 0,
+          "fn": 33,
+          "tp": 23
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 1.0
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 1.0
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 1.0
+          }
+        ]
+      },
+      "int8": {
+        "accuracy": 0.9263392857142857,
+        "specificity": 1.0,
+        "precision": 1.0,
+        "recall": 0.4107142857142857,
+        "f1": 0.5822784810126582,
+        "pr_auc": 0.894689987815136,
+        "average_precision": 0.8952266671014546,
+        "roc_auc": 0.9649234693877551,
+        "false_positive_rate": 0.0,
+        "false_negative_rate": 0.5892857142857143,
+        "brier": 0.04762080737269676,
+        "log_loss": 0.18956681360598124,
+        "reliability_bins": [
+          {
+            "count": 407,
+            "mean_probability": 0.012495284567070223,
+            "observed_positive_rate": 0.036855036855036855
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.1784842374166926,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 5,
+            "mean_probability": 0.20391980270868654,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 12,
+            "mean_probability": 0.5055496357290602,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 23,
+            "mean_probability": 0.9993421538984595,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.04612694366479688,
+        "confusion": {
+          "tn": 392,
+          "fp": 0,
+          "fn": 33,
+          "tp": 23
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 1.0
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 1.0
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 1.0
+          }
+        ]
+      }
+    },
+    "physical_phone": "pending actual evidence",
+    "limitation": "Host timings are sequential engineering measurements, not physical-phone speed or a common-session four-model benchmark.",
+    "accuracy_status": "Previously opened retrospective test with inherited unconfirmed labels; not fresh accuracy",
+    "historical_dataset_sha256": "c3abc4bb23742226deab491821c1828559d895242da55267c77ae6f7dfa07b21",
+    "historical_split_sha256": "67e064af947e5194cada9facff7fa02663d02dd2fff0756acbee9c58c50c4b1f"
+  },
+  "android_api36": {
+    "cases": 20,
+    "max_logit_error": 0,
+    "max_score_error": 1.1102230246251565e-16,
+    "max_margin_error": 0,
+    "near_threshold_cases": 0,
+    "class_changes": 0,
+    "model_sha256": "db61cf99b394987640722e4f430bfa071ef16d852fb9a805e8300f19df911826",
+    "model_load_ms": 2831.836728,
+    "cold_detector_ms": 3031.085934,
+    "scored": 200,
+    "abstained": 0,
+    "warmups": 20,
+    "scans": 200,
+    "probes": 4,
+    "p50_ms": 159.933759,
+    "p95_ms": 252.512772
+  },
+  "android_verification": {
+    "status": "passed",
+    "api": "36",
+    "tests": 23,
+    "jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "lint": {
+      "Warning": 5
+    },
+    "physical_phone": "pending"
+  },
+  "apk": {
+    "filename": "SmishGuard-expanded-20261005-mbert-c3abc4bb-int8-v1-experimental-debug.apk",
+    "sha256": "4c353ef0c7bf01f0a85149defd03dddd59f55c3a426283e1cefaa5c7adf75a09",
+    "apk_bytes": 267781492,
+    "algorithm": "mbert",
+    "model_version": "expanded-20261005-mbert-c3abc4bb-int8-v1",
+    "application_id": "ph.smishguard.mbert.int8",
+    "asset_sha256": {
+      "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "model.json": "4e14b8de47acf3c0415c13e6529bf1e18b3431431a8f5f5b17182c24a57c9b12",
+      "model.onnx": "db61cf99b394987640722e4f430bfa071ef16d852fb9a805e8300f19df911826",
+      "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+    },
+    "onnx_bytes": 178926534,
+    "permissions": [
+      "android.permission.RECEIVE_SMS",
+      "android.permission.POST_NOTIFICATIONS",
+      "ph.smishguard.mbert.int8.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "signature_verified": true,
+    "precision": "int8_dynamic",
+    "quantized": true,
+    "minimum_android": "8.0 / API 26",
+    "research_status": "preliminary retrospective; source/rule labels; not independent validation",
+    "unreferenced_zip_bytes": 4096
+  },
+  "initial_emulator_failure": "Test APK built before synthetic parity fixture was ready; missing asset. Rebuilt test APK and full verifier passed. Original failure evidence preserved privately.",
+  "history": {
+    "local_files": 281,
+    "unique_normalized_views": 5040,
+    "limitations": "Available recognized local tables/archives only; human semantic review remains required."
+  },
+  "frozen_scorer_fixtures": {
+    "synthetic_cases": 13,
+    "max_score_error": {
+      "lr": 0.0,
+      "nb": 5.551115123125783e-16,
+      "svm": 4.163336342344337e-17,
+      "mbert": 3.389762981642619e-06
+    },
+    "status": "passed; synthetic probes only; no accuracy estimate"
+  },
+  "pending": [
+    "Completed independent reviewer returns/attestations/privacy releases and adjudication",
+    "Actual prospective intake, recruitment/evidence reviews and collection close",
+    "Actual physical-phone test returns",
+    "Final thesis title"
+  ],
+  "model_freeze_sha256": "64970423de088320e27b8c490670a5367f62c14aee8afe11ca61f3894945408c",
+  "runtime_lock_sha256": "bf8b300d30b7eab7edea8075fbbf3bfd3c46af955f8e89b3bd9c2701ebbc8bef",
+  "research_validation": {
+    "tests": 95,
+    "failures": 0,
+    "dependency_check": "passed",
+    "safe_handoff_tests": 8,
+    "completion_fixture_tests": 11
+  },
+  "float32_runtime_regression": {
+    "tests": 21,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 4
+  }
+}

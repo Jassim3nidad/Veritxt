@@ -40,3 +40,7 @@ Model vocabulary is learned content: the audit flags two numeric identifier-like
 ## Client authorization clarification
 
 The team reports authorization to proceed and supplied a signed client-request letter. Record that go-ahead without repeating the request. The letter supports the thesis/client arrangement, not blanket licensing or formal ethics clearance. The importer now assesses documented use and study role for each source, including aggregators, while retaining donation-consent, redaction and independent-label checks. App development/offline integration/emulator testing/evaluation tooling are not blocked by unresolved research eligibility. See project-authorization.md and source-evidence.md.
+
+## Team clarification — 6 October 2026
+
+Current research scope is **all SMS phishing**. This is a team scope clarification; no adviser approval is invented or assumed. Revised thesis title: **Pending finalization**. Preserve the existing manuscript title as historical and leave title-dependent edits pending. Continue documentation and validation independently of the title. The [scope record](scope-clarification-20261006.md) governs current research questions, objectives, methods, labels and discussion; older constraints above are historical.

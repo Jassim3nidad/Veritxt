@@ -7,6 +7,7 @@ import java.io.File
 import java.nio.LongBuffer
 import java.security.MessageDigest
 import kotlin.math.exp
+import ph.smishguard.BuildConfig
 
 /** CPU-only ONNX; no network, input persistence or automatic/reporting path. */
 class MbertDetector(context: Context, metadataJson: String): Detector {
@@ -23,7 +24,11 @@ class MbertDetector(context: Context, metadataJson: String): Detector {
         require(metadata.getString("base_model")=="google-bert/bert-base-multilingual-cased")
         require(metadata.getString("revision")=="3f076fdb1ab68d5b2880cb87a0886f315b8146f8")
         require(metadata.getJSONArray("classes").toString()=="[\"ham\",\"smishing\"]")
-        require(metadata.getString("positive_class")=="smishing" && metadata.getString("precision")=="float32")
+        val quantizedExperiment = BuildConfig.BUILD_TYPE == "mbertQuantized"
+        require(metadata.getString("positive_class")=="smishing" &&
+            metadata.getString("precision")==if (quantizedExperiment) "int8_dynamic" else "float32")
+        if (quantizedExperiment) require(metadata.getString("evaluation_status")=="experimental_quantization" &&
+            metadata.getString("reference_model_sha256").matches(Regex("[0-9a-f]{64}")))
         require(metadata.getString("score_transform")=="sigmoid_of_logit_difference")
         require(metadata.getInt("max_length") in 2..512)
         val tokenConfig=metadata.getJSONObject("tokenizer")
@@ -31,7 +36,7 @@ class MbertDetector(context: Context, metadataJson: String): Detector {
             !tokenConfig.getBoolean("strip_accents") && tokenConfig.getBoolean("clean_text") &&
             tokenConfig.getBoolean("handle_chinese_chars") && tokenConfig.getInt("max_chars_per_word")==100)
         require(listOf("model_sha256","vocab_sha256").all { metadata.getString(it).matches(Regex("[0-9a-f]{64}")) })
-        require(!metadata.getBoolean("synthetic") && !metadata.getBoolean("automatic_warnings_approved") && !metadata.getBoolean("quantized"))
+        require(!metadata.getBoolean("synthetic") && !metadata.getBoolean("automatic_warnings_approved") && metadata.getBoolean("quantized")==quantizedExperiment)
         require(metadata.getString("threshold_comparison")=="greater_or_equal" && metadata.getDouble("threshold") in 0.0..1.0)
         val calibration=metadata.getJSONObject("calibration")
         require(calibration.getString("method")=="sigmoid" && !calibration.getBoolean("evaluated"))

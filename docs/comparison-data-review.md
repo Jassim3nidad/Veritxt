@@ -1,5 +1,7 @@
 # Data and model review needed before the comparison can run
 
+Historical workflow retained for earlier datasets. Current scope is **all SMS phishing**; revised thesis title: **Pending finalization**. Use the [current labeling guide](sms-labeling-guide-20261006.md) and its linked versioned review workflow for new work. Financial-only categories below are historical and must not exclude current phishing by sector. No adviser approval is inferred.
+
 29 September 2026: the team confirmed use of the documented pending-data status. No new research training, hyperparameter search, calibration fitting or final-test comparison was run. Software fixture tests are not research evidence.
 
 The 1,276 supplied records are not an eligible primary corpus simply because their total exceeds 1,200. See [data card](data-card.md), [source evidence](source-evidence.md) and [annotation protocol](annotation-protocol.md). The following work remains:

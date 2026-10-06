@@ -1,5 +1,7 @@
 # Private team review workflow
 
+Historical workflow retained for earlier datasets. Current scope is **all SMS phishing**; revised thesis title: **Pending finalization**. Use the [current labeling guide](sms-labeling-guide-20261006.md) and its linked versioned review workflow for new work. Financial-only categories below are historical and must not exclude current phishing by sector. No adviser approval is inferred.
+
 Use the existing anonymous IDs and packets; do not generate a second mapping. This work does not request project/client authorization again. Populated files, response hashes, row IDs and source evidence stay under ignored `research/data/`. Only blank templates and aggregate documentation belong in public Git. No new model is trained by these commands.
 
 ## Coordinator and redaction reviewer

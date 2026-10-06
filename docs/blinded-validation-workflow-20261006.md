@@ -24,4 +24,6 @@ research/.venv/Scripts/python.exe -m smishguard.validation_stage adjudicate `
   research/data/validation-20261006/review/coordinator/agreement-v1/final-summary.json
 ```
 
-The supplied 18 excluded job/loan conflicts require separate scope adjudication. They are not silently added to this cohort. The 212 held records remain held; this workflow neither grants source permission nor establishes consent. Private packets and returns must not enter public Git or group-wide public links.
+Under the team clarification of all SMS phishing, the supplied 18 excluded job/loan conflicts require separate independent review of their phishing mechanisms. They are not silently added to this cohort. The 212 held records remain held; this workflow neither grants source permission nor establishes consent. Private packets and returns must not enter public Git or group-wide public links.
+
+Current scope: **all SMS phishing**. Revised thesis title: **Pending finalization**. See [return integrity and versioned label application](review-completion-20261006.md); this extends the commands above without changing existing packets or historical labels.

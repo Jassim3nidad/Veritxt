@@ -1,5 +1,9 @@
 # Evidence based drafting materials for Chapters 3 to 5
 
+Revised thesis title: **Pending finalization**. The original manuscript title remains historical; title-dependent edits are pending. Current scope is **all SMS phishing**, clarified by the team without assuming adviser approval. See [current scope and working questions/objectives](scope-clarification-20261006.md).
+
+Current workflow: [review completion and frozen evaluation](review-completion-20261006.md). Earlier milestone descriptions below are historical; their financial-only constraints and pending-model status do not govern current all-SMS-phishing work. Use the dated Chapter 3/4 drafts for current four-model evidence.
+
 These are drafting notes, not a final manuscript. Use past tense only for procedures backed by saved evidence. Replace `Pending evidence` only after checking the referenced artifact and its scope. Source manuscript objectives are mapped in `requirements-traceability-matrix.md`; do not adopt quoted literature performance as this project's result.
 
 ## Chapter 3 Methodology

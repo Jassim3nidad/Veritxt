@@ -21,12 +21,12 @@ def main():
     global PACKAGE, RUNNER
     parser = argparse.ArgumentParser()
     parser.add_argument("--serial", default="emulator-5554")
-    parser.add_argument("--variant", choices=["debug", "development", "lr", "nb", "svm", "mbert", "lrCalibrated4"], default="debug")
+    parser.add_argument("--variant", choices=["debug", "development", "lr", "nb", "svm", "mbert", "mbertQuantized", "lrCalibrated4"], default="debug")
     parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
     parser.add_argument("--output", type=Path, help="Optional separate sanitized verification record")
     parser.add_argument("--demo-screenshots", type=Path, help="Private deliverables directory for fictional real-model screenshots")
     args = parser.parse_args()
-    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr", "nb": ".nb", "svm": ".svm", "mbert": ".mbert", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
+    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr", "nb": ".nb", "svm": ".svm", "mbert": ".mbert", "mbertQuantized": ".mbert.int8", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
     comparison = args.variant in {"lr", "nb", "svm"}
     modern = comparison and json.loads((ROOT / f"android/app/src/{args.variant}/assets/model.json").read_text(encoding="utf-8"))["schema_version"] == 1
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
@@ -53,7 +53,7 @@ def main():
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
-        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=900 if args.variant == "mbert" else 180).decode(errors="replace")
+        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=900 if args.variant in {"mbert", "mbertQuantized"} else 180).decode(errors="replace")
         results[label] = output.strip()
         if "FAILURES!!!" in output or "OK (" not in output or "INSTRUMENTATION_FAILED" in output:
             if args.diagnostics:
@@ -76,7 +76,7 @@ def main():
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
         ui = ["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"]
-        if modern or args.variant == "mbert":
+        if modern or args.variant in {"mbert", "mbertQuantized"}:
             ui += ["DevelopmentFlowTest", "CompactResultTest"]
         elif args.variant in {"development", "lr"}:
             ui += ["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"]
@@ -89,7 +89,7 @@ def main():
         run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant in {"development", "lr"} and not modern else ""), ("-e", "offline", "true"))
         if modern:
             run_test("actual_export_parity", NAMESPACE + ".ComparisonExportTest", ("-e", "offline", "true"))
-        if args.variant == "mbert":
+        if args.variant in {"mbert", "mbertQuantized"}:
             run_test("mbert_parity_policy_latency", NAMESPACE + ".MbertDeviceTest", ("-e", "offline", "true"))
         if args.variant == "lrCalibrated4":
             run_test("folded_private_parity", NAMESPACE + ".FoldedCandidateAndroidTest", ("-e", "offline", "true"))
@@ -138,7 +138,7 @@ def main():
         run_test("accessibility_large_text", NAMESPACE + ".AccessibilityTest", ("-e", "largeFont", "true"))
         command("shell", "settings", "put", "system", "font_scale", prior_font if prior_font != "null" else "1.0")
         # Inspect SmishGuard's private files, not Android's separate SMS provider.
-        archive = command("exec-out", "run-as", PACKAGE, "tar", "cf", "-", *(('--exclude=*.onnx',) if args.variant == 'mbert' else ()), ".")
+        archive = command("exec-out", "run-as", PACKAGE, "tar", "cf", "-", *(('--exclude=*.onnx',) if args.variant in {'mbert', 'mbertQuantized'} else ()), ".")
         inspected = 0
         with tarfile.open(fileobj=io.BytesIO(archive)) as files:
             for entry in files:
@@ -150,7 +150,7 @@ def main():
                         raise AssertionError("Raw fixture persisted in app file: " + entry.name)
                 inspected += 1
         results["private_storage"] = {"files_inspected": inspected, "raw_fixture_markers_found": 0}
-        if args.variant == 'mbert': results['private_storage']['exclusion']='Hash-verified ONNX model cache; no message inputs stored there'
+        if args.variant in {'mbert', 'mbertQuantized'}: results['private_storage']['exclusion']='Hash-verified ONNX model cache; no message inputs stored there'
         if args.demo_screenshots:
             destination = args.demo_screenshots.resolve()
             if not destination.is_relative_to((ROOT/'deliverables').resolve()):
