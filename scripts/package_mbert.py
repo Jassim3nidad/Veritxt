@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import zipfile
+from audit_apk_layout import audit as audit_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -24,6 +25,9 @@ def main():
     if not destination.is_relative_to((ROOT/'deliverables').resolve()):
         raise ValueError('Private APK destination must be beneath deliverables')
     source = ROOT/'android/app/build/outputs/apk/mbert/app-mbert.apk'
+    layout = audit_layout(source)
+    if layout['gap_bytes'] > 1024*1024:
+        raise ValueError('Excess unreferenced APK space: preserve the APK and packageMbert incremental state, then rebuild a fresh package')
     assets = ROOT/'android/app/src/mbert/assets'
     metadata = json.loads((assets/'model.json').read_text(encoding='utf-8'))
     assert metadata['schema_version'] == 5 and metadata['algorithm'] == 'mbert'
@@ -65,7 +69,8 @@ def main():
         algorithm='mbert',model_version=version,application_id=package,asset_sha256=asset_hashes,
         onnx_bytes=(assets/'model.onnx').stat().st_size,permissions=permissions,signature_verified=True,
         precision='float32',quantized=False,minimum_android='8.0 / API 26',
-        research_status='preliminary retrospective; source/rule labels; not independent validation')
+        research_status='preliminary retrospective; source/rule labels; not independent validation',
+        unreferenced_zip_bytes=layout['gap_bytes'])
     (destination/'mbert-apk-manifest.json').write_text(json.dumps(record,indent=2),encoding='utf-8')
     print(json.dumps(record,indent=2))
 

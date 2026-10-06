@@ -1,0 +1,257 @@
+{
+  "status": "prepared_and_verified; human validation pending",
+  "model_freeze": {
+    "created_utc": "2026-10-06T04:22:43.154657+00:00",
+    "models": {
+      "lr": {
+        "model_version": "expanded-20261005-lr-c3abc4bb",
+        "threshold": 0.82,
+        "threshold_comparison": "greater_or_equal",
+        "assets": {
+          "android/app/src/lr/assets/model.json": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623",
+          "android/app/src/lr/assets/review.properties": "ddec5562eff939263f49ef6375e8eeb9075e2dd404068e594a2af0253988e2f5"
+        }
+      },
+      "nb": {
+        "model_version": "expanded-20261005-nb-c3abc4bb",
+        "threshold": 0.63,
+        "threshold_comparison": "greater_or_equal",
+        "assets": {
+          "android/app/src/nb/assets/model.json": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49",
+          "android/app/src/nb/assets/review.properties": "44861770781c06b9ac4cd1783ecc18ebf80926d54ebe73ea4eda7e273eeec6ef"
+        }
+      },
+      "svm": {
+        "model_version": "expanded-20261005-svm-c3abc4bb",
+        "threshold": 0.59,
+        "threshold_comparison": "greater_or_equal",
+        "assets": {
+          "android/app/src/svm/assets/model.json": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19",
+          "android/app/src/svm/assets/review.properties": "83bcc81221e5b6c47f6945a778c18613cdd6ec67e2747f59c6922738cd2bc2f7"
+        }
+      },
+      "mbert": {
+        "model_version": "expanded-20261005-mbert-c3abc4bb",
+        "threshold": 0.8899999999999999,
+        "threshold_comparison": "greater_or_equal",
+        "assets": {
+          "android/app/src/mbert/assets/LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "android/app/src/mbert/assets/model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+          "android/app/src/mbert/assets/model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+          "android/app/src/mbert/assets/vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+        }
+      }
+    },
+    "files": {
+      "android/app/src/lr/assets/model.json": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623",
+      "android/app/src/lr/assets/review.properties": "ddec5562eff939263f49ef6375e8eeb9075e2dd404068e594a2af0253988e2f5",
+      "research/data/expanded-20261005/experiment-v1/lr/freeze.json": "1c15201694ccb3ab1f9c0694dce9ddc6dd3b4b86ae30844667d3c9a1a8bd117f",
+      "android/app/src/nb/assets/model.json": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49",
+      "android/app/src/nb/assets/review.properties": "44861770781c06b9ac4cd1783ecc18ebf80926d54ebe73ea4eda7e273eeec6ef",
+      "research/data/expanded-20261005/experiment-v1/nb/freeze.json": "dd62b7819312fecdba4c9ad63328d65a5fa544f6d195a96f3d486f9904f84dce",
+      "android/app/src/svm/assets/model.json": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19",
+      "android/app/src/svm/assets/review.properties": "83bcc81221e5b6c47f6945a778c18613cdd6ec67e2747f59c6922738cd2bc2f7",
+      "research/data/expanded-20261005/experiment-v1/svm/freeze.json": "b9484b8cd2c7004556e9a83a52b60c28f531573f066a39f7cbd2878863c9bf47",
+      "android/app/src/mbert/assets/LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "android/app/src/mbert/assets/model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+      "android/app/src/mbert/assets/model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+      "android/app/src/mbert/assets/vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c",
+      "research/data/expanded-20261005/experiment-v1/mbert/freeze.json": "7a9c0e38481a5282250a0bd3cbd59fa0b4399e58c0db7e0b77c3fc93ae3f22bb",
+      "research/smishguard/preprocessing.py": "a5874558e1867c8650d5c0d6d42d6bf63fd3f0df44d813ddcb0526b1df4f323c",
+      "research/smishguard/mbert_experiment.py": "d47fa96bd47ebc95fc230e7fd487bac9516370ac6be459d2e755a470ad43e5f6",
+      "docs/expanded-comparison-protocol-20261005.md": "93c159517494538fdd9f13d2e7a7c67cfbd0f0d36780d8db10d7bab095bfd6b8",
+      "research/mbert-dependency-lock.txt": "e369eb2a2fc3724aa89f5097afa2b5d27a3e01286501c95feb8d965ca16ec1f4",
+      "android/app/src/main/java/ph/smishguard/model/Assessability.kt": "f6674cefdb7a824f2ff50c8528ef0071609ee135525bcf6559624b46f8babd6c",
+      "android/app/src/main/java/ph/smishguard/model/ComparisonDetector.kt": "7b179df8f2680c03a724f412cdebee35fc37a295b48ecb44ad3af785ae0c25cd",
+      "android/app/src/main/java/ph/smishguard/model/Detector.kt": "207da31f6740fa5b3dd69f7d9bd79eb8b3f714f29fef7db058551ecaee9c31dc",
+      "android/app/src/main/java/ph/smishguard/model/ResultCopy.kt": "a5eee78d4a41291bf91f5af18448f99f2c7dcf4f307ef27fb6b394932e90dd8c",
+      "android/app/src/main/java/ph/smishguard/model/SuppliedDetector.kt": "9bca7988b61c72ab4073b758949b1673c58ca243570c5302e95ea6e0bc6f479f"
+    },
+    "policy": "No fitting, recalibration, checkpoint/threshold selection or test-driven changes. Packaging-only changes require byte-identical assets and parity.",
+    "prospective_records_received": 0,
+    "physical_phone_evidence_received": 0
+  },
+  "software_tests": {
+    "research": {
+      "tests": 84,
+      "passed": true,
+      "log_sha256": "7da6d535b1da7a94f2724db18d469d5a7a05f01c19b40e1210cd3c3a2c667c18"
+    },
+    "apk_layout": {
+      "tests": 1,
+      "passed": true,
+      "log_sha256": "7ed4961b42fd336ff479a6767e1cdbf0867e5fc340039019fd0807db0cf5a3e4"
+    }
+  },
+  "prepared_protocol_sha256": {
+    "prospective-validation-plan-20261006.md": "402f8bd0769a961e69e8e3815d19085ffea16eda2af665f2850aedcd83563897",
+    "sms-labeling-guide-20261006.md": "b75689c6caf446697a1597b7537209612ab5ba430f4a03ac95c7b16e05f74e33",
+    "blinded-validation-workflow-20261006.md": "59517c222beb96bb5f2e0867e460804f63eb1e3e89b73b500cddea74daff552b"
+  },
+  "blinded_review": {
+    "records_per_packet": 3340,
+    "packet_orders": "independently shuffled; disjoint random IDs",
+    "existing_labels_categories_confidence_predictions": "absent",
+    "completed_decisions": 0,
+    "agreement": {
+      "paired": 0,
+      "observed": null,
+      "expected": null,
+      "kappa": null,
+      "confusion": {}
+    },
+    "workbook_verification": {
+      "a": {
+        "records": 3340,
+        "decisions": 0,
+        "no_hidden_sheets": true,
+        "no_formulas": true,
+        "csv_matches": true,
+        "sha256": "150a478bbb7615aa4f3fcbfc367466c9b5b174277ecb5da55627248d1d4f99f9"
+      },
+      "b": {
+        "records": 3340,
+        "decisions": 0,
+        "no_hidden_sheets": true,
+        "no_formulas": true,
+        "csv_matches": true,
+        "sha256": "30ca08d3f117a9c46a9fe1f4a1cbb78da50436c8f7ee4954b9cf8e61bf10ed07"
+      },
+      "intake": {
+        "observations": 0,
+        "no_formulas": true,
+        "sheets": [
+          "Intake",
+          "Guide"
+        ],
+        "sha256": "2c2cfae00d5f430028d007a91a74826c33fb25306c90ef3cd104685dcfbb9ef8"
+      },
+      "phone": {
+        "observations": 0,
+        "no_formulas": true,
+        "sheets": [
+          "Device",
+          "Install",
+          "Scans",
+          "Timing",
+          "Guide"
+        ],
+        "sha256": "41c83f00647d7cede20b2843376a7cf5ca836c8884e6825d74d0f1023cc21a7a"
+      }
+    }
+  },
+  "history": {
+    "inventory_entries": 290,
+    "local_files": 253,
+    "archive_entries": 16,
+    "normalized_views": 5039,
+    "literal_fingerprints": 13221,
+    "inventory_sha256": "a643638c0a070f3271ae80905cae757a48bd2fa361da03967dee78da66a9ac60",
+    "index_sha256": "dc2329066d0be4b1d5b7a007ea943c24b820ea76c931fefd9e17dfee1885f2f9",
+    "limitations": "Covers every recognized table in available local archives and research storage, not unavailable or deleted corpora. No-match is not proof of independence."
+  },
+  "prospective": {
+    "records": 0,
+    "holds": 0,
+    "candidates": 0,
+    "human_labels": "pending",
+    "evaluation": "not performed",
+    "freeze_sha256": "64970423de088320e27b8c490670a5367f62c14aee8afe11ca61f3894945408c",
+    "historical_index_sha256": "dc2329066d0be4b1d5b7a007ea943c24b820ea76c931fefd9e17dfee1885f2f9",
+    "intake_sha256": "083a45f2f3ff29c17aaa95c19759d62227e748f9db735060c80a776e98ccd5e6",
+    "note": "No predictions run. No-match does not establish fresh or independent data. All candidates require coordinator evidence and semantic-template review."
+  },
+  "physical_phone_results": "pending; zero evidence received",
+  "apk": {
+    "old": {
+      "filename": "SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk",
+      "sha256": "0ca13584fcd68d37809d33569a3e1e94aa244c569997b1911c0acb6d03be21ec",
+      "apk_bytes": 1511956972,
+      "algorithm": "mbert",
+      "model_version": "expanded-20261005-mbert-c3abc4bb",
+      "application_id": "ph.smishguard.mbert",
+      "asset_sha256": {
+        "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+        "model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+        "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+      },
+      "onnx_bytes": 711555338,
+      "permissions": [
+        "android.permission.RECEIVE_SMS",
+        "android.permission.POST_NOTIFICATIONS",
+        "ph.smishguard.mbert.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "signature_verified": true,
+      "precision": "float32",
+      "quantized": false,
+      "minimum_android": "8.0 / API 26",
+      "research_status": "preliminary retrospective; source/rule labels; not independent validation"
+    },
+    "new": {
+      "filename": "SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk",
+      "sha256": "605f8ab4eb35eb3c3e52caacf31f89cde61caa1984bcf65009d004f7da7b25df",
+      "apk_bytes": 800410184,
+      "algorithm": "mbert",
+      "model_version": "expanded-20261005-mbert-c3abc4bb",
+      "application_id": "ph.smishguard.mbert",
+      "asset_sha256": {
+        "LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+        "model.onnx": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+        "vocab.txt": "fe0fda7c425b48c516fc8f160d594c8022a0808447475c1a7c6d6479763f310c"
+      },
+      "onnx_bytes": 711555338,
+      "permissions": [
+        "android.permission.RECEIVE_SMS",
+        "android.permission.POST_NOTIFICATIONS",
+        "ph.smishguard.mbert.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "signature_verified": true,
+      "precision": "float32",
+      "quantized": false,
+      "minimum_android": "8.0 / API 26",
+      "research_status": "preliminary retrospective; source/rule labels; not independent validation",
+      "unreferenced_zip_bytes": 4096
+    },
+    "saved_bytes": 711546788,
+    "old_gap_bytes": 711550884,
+    "new_gap_bytes": 4096,
+    "referenced_entries": 160,
+    "all_referenced_file_contents_identical": true,
+    "all_fitted_asset_hashes_identical": true,
+    "old_apk_preserved": true,
+    "build_log_sha256": "77c097b4dc7c0a7f0cbc4c7a226bb40e53393252045142adcadbc0f5c40af23c",
+    "jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3
+    },
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 5
+    },
+    "emulator_test_count": 24,
+    "emulator_parity": {
+      "cases": 468,
+      "max_logit_error": 1.33514404296875e-05,
+      "max_score_error": 4.385687211116984e-06,
+      "max_margin_error": 2.5153160095214844e-05,
+      "near_threshold_cases": 0,
+      "class_changes": 0,
+      "model_sha256": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+      "model_load_ms": 3178.0293,
+      "cold_detector_ms": 3401.3542,
+      "scored": 200,
+      "abstained": 0,
+      "warmups": 20,
+      "scans": 200,
+      "probes": 4,
+      "p50_ms": 176.8432,
+      "p95_ms": 207.3798
+    },
+    "emulator_log_sha256": "3e1c61e1025b2f998708e4a64b528e2938f12cb57b29a7ac7c9f861edf0fc9f9"
+  }
+}
