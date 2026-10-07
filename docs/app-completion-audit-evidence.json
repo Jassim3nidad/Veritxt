@@ -1,0 +1,453 @@
+{
+  "audit_date": "2026-10-07",
+  "source_commit": "680b36fdf79ddcd58cc618346b8daf429a314af2",
+  "branch": "codex/thesis-completion-package",
+  "initial_tracked_worktree": "clean",
+  "private_ignored_artifacts_present": true,
+  "scope": "Current offline manual Android milestone; all SMS phishing. Research, thesis, history, disabled reporting/automatic warnings and optional experiments excluded from app score.",
+  "environment": {
+    "host": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.5",
+    "jdk": "17.0.16",
+    "adb_targets_at_audit": 0,
+    "physical_tests_run": false,
+    "connected_tests_run": false
+  },
+  "frozen_manifest": {
+    "entries": 23,
+    "matching": 23,
+    "checks": [
+      {
+        "path": "android/app/src/lr/assets/model.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/lr/assets/review.properties",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/data/expanded-20261005/experiment-v1/lr/freeze.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/nb/assets/model.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/nb/assets/review.properties",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/data/expanded-20261005/experiment-v1/nb/freeze.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/svm/assets/model.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/svm/assets/review.properties",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/data/expanded-20261005/experiment-v1/svm/freeze.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/mbert/assets/LICENSE.txt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/mbert/assets/model.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/mbert/assets/model.onnx",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/mbert/assets/vocab.txt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/data/expanded-20261005/experiment-v1/mbert/freeze.json",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/smishguard/preprocessing.py",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/smishguard/mbert_experiment.py",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "docs/expanded-comparison-protocol-20261005.md",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "research/mbert-dependency-lock.txt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/main/java/ph/smishguard/model/Assessability.kt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/main/java/ph/smishguard/model/ComparisonDetector.kt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/main/java/ph/smishguard/model/Detector.kt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/main/java/ph/smishguard/model/ResultCopy.kt",
+        "exists": true,
+        "matches": true
+      },
+      {
+        "path": "android/app/src/main/java/ph/smishguard/model/SuppliedDetector.kt",
+        "exists": true,
+        "matches": true
+      }
+    ]
+  },
+  "apk_checks": [
+    {
+      "path": "deliverables/expanded-20261005/SmishGuard-lr-expanded-20261005-lr-c3abc4bb-experimental-debug.apk",
+      "exists": true,
+      "bytes": 12943387,
+      "sha256": "3c498926bc0c281e68a5b29e05f12e5655a4a4bcc5682b5c24bf775b30c79963",
+      "hash_matches": true,
+      "algorithm": "lr",
+      "model_version": "expanded-20261005-lr-c3abc4bb",
+      "threshold": 0.82,
+      "comparison": "greater_or_equal",
+      "assets": [
+        "assets/model.json",
+        "assets/review.properties"
+      ],
+      "assets_match_current_source": true,
+      "signature_verified_now": true,
+      "permissions_inspected_now": true,
+      "internet_permission": false
+    },
+    {
+      "path": "deliverables/expanded-20261005/SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk",
+      "exists": true,
+      "bytes": 1511956972,
+      "sha256": "0ca13584fcd68d37809d33569a3e1e94aa244c569997b1911c0acb6d03be21ec",
+      "hash_matches": true,
+      "algorithm": "mbert",
+      "model_version": "expanded-20261005-mbert-c3abc4bb",
+      "threshold": 0.8899999999999999,
+      "comparison": "greater_or_equal",
+      "assets": [
+        "assets/LICENSE.txt",
+        "assets/vocab.txt",
+        "assets/model.json",
+        "assets/model.onnx"
+      ],
+      "assets_match_current_source": true,
+      "signature_verified_now": true,
+      "permissions_inspected_now": true,
+      "internet_permission": false
+    },
+    {
+      "path": "deliverables/expanded-20261005/SmishGuard-nb-expanded-20261005-nb-c3abc4bb-experimental-debug.apk",
+      "exists": true,
+      "bytes": 12943667,
+      "sha256": "a61764d2201a111704f5338e5c9fa69cff94dfbb4223dcdc7c6fbfcf8f9ae560",
+      "hash_matches": true,
+      "algorithm": "nb",
+      "model_version": "expanded-20261005-nb-c3abc4bb",
+      "threshold": 0.63,
+      "comparison": "greater_or_equal",
+      "assets": [
+        "assets/model.json",
+        "assets/review.properties"
+      ],
+      "assets_match_current_source": true,
+      "signature_verified_now": true,
+      "permissions_inspected_now": true,
+      "internet_permission": false
+    },
+    {
+      "path": "deliverables/expanded-20261005/SmishGuard-svm-expanded-20261005-svm-c3abc4bb-experimental-debug.apk",
+      "exists": true,
+      "bytes": 12933907,
+      "sha256": "a1bf985da00f21b7c91d43ce741058e17056d7fd3867fa808a750b1a3cbae03a",
+      "hash_matches": true,
+      "algorithm": "svm",
+      "model_version": "expanded-20261005-svm-c3abc4bb",
+      "threshold": 0.59,
+      "comparison": "greater_or_equal",
+      "assets": [
+        "assets/model.json",
+        "assets/review.properties"
+      ],
+      "assets_match_current_source": true,
+      "signature_verified_now": true,
+      "permissions_inspected_now": true,
+      "internet_permission": false
+    },
+    {
+      "path": "deliverables/validation-20261006/SmishGuard-expanded-20261005-mbert-c3abc4bb-experimental-debug.apk",
+      "exists": true,
+      "bytes": 800410184,
+      "sha256": "605f8ab4eb35eb3c3e52caacf31f89cde61caa1984bcf65009d004f7da7b25df",
+      "hash_matches": true,
+      "algorithm": "mbert",
+      "model_version": "expanded-20261005-mbert-c3abc4bb",
+      "threshold": 0.8899999999999999,
+      "comparison": "greater_or_equal",
+      "assets": [
+        "assets/LICENSE.txt",
+        "assets/model.json",
+        "assets/model.onnx",
+        "assets/vocab.txt"
+      ],
+      "assets_match_current_source": true,
+      "signature_verified_now": true,
+      "permissions_inspected_now": true,
+      "internet_permission": false
+    }
+  ],
+  "model_metadata": [
+    {
+      "algorithm": "lr",
+      "schema_version": 1,
+      "model_version": "expanded-20261005-lr-c3abc4bb",
+      "synthetic": false,
+      "threshold": 0.82,
+      "threshold_comparison": "greater_or_equal",
+      "max_length": null,
+      "base_model": null,
+      "revision": null,
+      "precision": null,
+      "quantized": null,
+      "score_transform": "fitted_sigmoid",
+      "calibration_evaluated": false,
+      "evaluation_status": "preliminary_retrospective"
+    },
+    {
+      "algorithm": "nb",
+      "schema_version": 1,
+      "model_version": "expanded-20261005-nb-c3abc4bb",
+      "synthetic": false,
+      "threshold": 0.63,
+      "threshold_comparison": "greater_or_equal",
+      "max_length": null,
+      "base_model": null,
+      "revision": null,
+      "precision": null,
+      "quantized": null,
+      "score_transform": "fitted_sigmoid",
+      "calibration_evaluated": false,
+      "evaluation_status": "preliminary_retrospective"
+    },
+    {
+      "algorithm": "svm",
+      "schema_version": 1,
+      "model_version": "expanded-20261005-svm-c3abc4bb",
+      "synthetic": false,
+      "threshold": 0.59,
+      "threshold_comparison": "greater_or_equal",
+      "max_length": null,
+      "base_model": null,
+      "revision": null,
+      "precision": null,
+      "quantized": null,
+      "score_transform": "fitted_sigmoid",
+      "calibration_evaluated": false,
+      "evaluation_status": "preliminary_retrospective"
+    },
+    {
+      "algorithm": "mbert",
+      "schema_version": 5,
+      "model_version": "expanded-20261005-mbert-c3abc4bb",
+      "synthetic": false,
+      "threshold": 0.8899999999999999,
+      "threshold_comparison": "greater_or_equal",
+      "max_length": 160,
+      "base_model": "google-bert/bert-base-multilingual-cased",
+      "revision": "3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+      "precision": "float32",
+      "quantized": false,
+      "score_transform": "sigmoid_of_logit_difference",
+      "calibration_evaluated": null,
+      "evaluation_status": "preliminary_retrospective"
+    },
+    {
+      "algorithm": "mbert",
+      "schema_version": 5,
+      "model_version": "expanded-20261005-mbert-c3abc4bb-int8-v1",
+      "synthetic": false,
+      "threshold": 0.8899999999999999,
+      "threshold_comparison": "greater_or_equal",
+      "max_length": 160,
+      "base_model": "google-bert/bert-base-multilingual-cased",
+      "revision": "3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+      "precision": "int8_dynamic",
+      "quantized": true,
+      "score_transform": "sigmoid_of_logit_difference",
+      "calibration_evaluated": null,
+      "evaluation_status": "experimental_quantization"
+    }
+  ],
+  "fresh_checks": {
+    "mbert_jvm": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4,
+      "passed": 17,
+      "skipped_tests": [
+        "ph.smishguard.CandidateDetectorTest.privateCandidateMatchesIndependentPythonWithoutLoggingMessages",
+        "ph.smishguard.ExportParityTest.realExportMatchesFrozenPythonPipeline",
+        "ph.smishguard.FoldedCandidateTest.privateFoldedCandidateMatchesPython",
+        "ph.smishguard.MbertTokenizerTest.actualCasedTokenizerMatchesFrozenPythonIds"
+      ]
+    },
+    "lint": {
+      "errors": 0,
+      "fatal": 0,
+      "warnings": 5
+    },
+    "backend": {
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "environment": "backend/.venv; temporary DB"
+    },
+    "review_completion": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "environment": "research/.venv; fictional temporary fixtures"
+    }
+  },
+  "audit_harness_retries": [
+    "Initial isolated Gradle init script referenced rootDir incorrectly; corrected audit helper; final build passed.",
+    "Initial backend invocation used research venv without Flask; final backend venv run passed."
+  ],
+  "source_currency": {
+    "android_changes_since_f4fd8d1": [
+      "android/app/build.gradle.kts",
+      "android/app/src/main/java/ph/smishguard/SmishGuardApp.kt",
+      "android/app/src/mbert/java/ph/smishguard/model/MbertDetector.kt"
+    ],
+    "reason": "Separate INT8 variant dispatch and precision guards; preserved APKs not claimed as HEAD builds.",
+    "existing_float32_regression": "21 JVM tests, 4 skipped, not an emulator rerun"
+  },
+  "scoring": {
+    "weights": [
+      8,
+      8,
+      6,
+      10,
+      15,
+      12,
+      12,
+      10,
+      8,
+      6,
+      5
+    ],
+    "implementation_factors": [
+      0.75,
+      1,
+      1,
+      0.75,
+      1,
+      1,
+      0.75,
+      1,
+      0.75,
+      1,
+      1
+    ],
+    "verification_factors": [
+      0.5,
+      0.75,
+      0.75,
+      0.5,
+      0.75,
+      0.75,
+      0.5,
+      0.75,
+      0.5,
+      0.5,
+      0.75
+    ],
+    "weight_sum": 100,
+    "implementation_points": 90.5,
+    "verification_points": 64.0,
+    "interpretation": "Judgment-based audit indices, not research accuracy or test pass rates"
+  },
+  "preserved": {
+    "production_code": true,
+    "models": true,
+    "thresholds": true,
+    "dataset_splits": true,
+    "existing_results": true,
+    "existing_apks": true
+  },
+  "log_sha256": {
+    "backend-tests-correct-env.log": "00504950df694dde851597ad6bdbccf26031f4f76e3b3264b109a6b48c3e2dac",
+    "backend-tests.log": "ac73e964a3c9bc543f8f65741e9a6cd9a3eccfe3df6c9c951ac125a9b7d3680d",
+    "gradle-checks-retry.log": "088b76eb8c9f8feb6d1da6f66866b50b9b58499c67ba00f7e7740559ab5dee31",
+    "gradle-checks.log": "f5a7a5e6637ada85078bfa5e6d0ccafcc67d72a31590c9a87b36f4a9ad468130",
+    "review-tests.log": "45343c6d8f3a983676e21ba8f06f2652eba982dfb58cb8da100b6c4484957711"
+  },
+  "limitations": [
+    "No fresh emulator or physical-device execution.",
+    "Private parity suites skipped in fresh host run to avoid overwriting existing parity aggregates; exact frozen artifact evidence reused.",
+    "No new real data evaluation, training, human annotation, consent or usability results.",
+    "Public source alone cannot reproduce privately fitted models."
+  ],
+  "human_evidence_recheck": {
+    "prepared_workbooks": {
+      "a": {
+        "exists": true,
+        "matches_prepared_blank_workbook": true
+      },
+      "b": {
+        "exists": true,
+        "matches_prepared_blank_workbook": true
+      },
+      "intake": {
+        "exists": true,
+        "matches_prepared_blank_workbook": true
+      },
+      "phone": {
+        "exists": true,
+        "matches_prepared_blank_workbook": true
+      }
+    },
+    "prospective_intake_rows": 0,
+    "scope": "Known prepared local artifacts only; cannot rule out returns held outside the repository."
+  }
+}
