@@ -10,7 +10,7 @@ import kotlin.math.exp
 import ph.smishguard.BuildConfig
 
 /** CPU-only ONNX; no network, input persistence or automatic/reporting path. */
-class MbertDetector(context: Context, metadataJson: String): Detector {
+class MbertDetector(context: Context, metadataJson: String): Detector, AutoCloseable {
     val metadata=JSONObject(metadataJson)
     val tokenizer: BertWordPiece
     private val words: Set<String>
@@ -45,23 +45,23 @@ class MbertDetector(context: Context, metadataJson: String): Detector {
         require(sha(vocabulary)==metadata.getString("vocab_sha256"))
         tokenizer=BertWordPiece(vocabulary.toString(Charsets.UTF_8).lineSequence().filter{it.isNotEmpty()}.toList(),metadata.getInt("max_length"))
         words=metadata.getJSONArray("assessability_vocabulary").let { a -> (0 until a.length()).map{a.getString(it)}.toSet() }
-        val model=File(context.noBackupFilesDir,"mbert-${metadata.getString("model_sha256")}.onnx")
-        if(!model.exists()) {
-            val pending=File(context.noBackupFilesDir,"mbert-copy.pending")
-            context.assets.open("model.onnx").use { input -> pending.outputStream().use { input.copyTo(it) } }
-            require(sha(pending)==metadata.getString("model_sha256"))
-            check(pending.renameTo(model))
+        val model=ModelCache.verified(context.noBackupFilesDir,metadata.getString("model_sha256")) {
+            context.assets.open("model.onnx")
         }
-        require(sha(model)==metadata.getString("model_sha256"))
         OrtSession.SessionOptions().use { options ->
             options.setIntraOpNumThreads(2);options.setInterOpNumThreads(1)
             options.setCPUArenaAllocator(false);options.setMemoryPatternOptimization(false)
             session=environment.createSession(model.absolutePath,options)
         }
-        require(session.inputNames==setOf("input_ids","attention_mask","token_type_ids") && session.outputNames==setOf("logits"))
+        try {
+            require(session.inputNames==setOf("input_ids","attention_mask","token_type_ids") && session.outputNames==setOf("logits"))
+        } catch (e: Exception) { session.close(); throw e }
         modelLoadMillis=(System.nanoTime()-started)/1e6
     }
-    fun rawLogits(encoded: BertWordPiece.Encoded): FloatArray {
+    private var closed = false
+    @Synchronized override fun close() { if (!closed) { session.close(); closed = true } }
+    @Synchronized fun rawLogits(encoded: BertWordPiece.Encoded): FloatArray {
+        check(!closed)
         val shape=longArrayOf(1,tokenizer.maxLength.toLong())
         OnnxTensor.createTensor(environment,LongBuffer.wrap(encoded.ids),shape).use { ids ->
             OnnxTensor.createTensor(environment,LongBuffer.wrap(encoded.mask),shape).use { mask ->
@@ -83,8 +83,10 @@ class MbertDetector(context: Context, metadataJson: String): Detector {
         if(text.length>MAX_MESSAGE_LENGTH)return Detection.Failure
         if(!Assessability.canAssess(Preprocessing.tokens(Assessability.textOutsideLinks(text)),words::contains))return Detection.UnableToAssess
         return try {
-            val score=score(rawLogits(tokenizer.encode(BertWordPiece.redact(text))))
-            Detection.Success(score>=metadata.getDouble("threshold"),score,experimental=true)
+            val encoded=tokenizer.encode(BertWordPiece.redact(text))
+            val score=score(rawLogits(encoded))
+            val policy=DecisionPolicy(metadata.getDouble("threshold"),inclusive=true)
+            Detection.Success(policy.suspicious(score),score,experimental=true,policy=policy,tokenWindow=encoded.window)
         } catch (_: Exception) { Detection.Failure }
     }
     companion object {

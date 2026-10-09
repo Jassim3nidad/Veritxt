@@ -116,29 +116,29 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                 preferences == null -> CircularProgressIndicator()
                 preferences?.onboarded != true -> {
                     Heading("A moment to check.\nA little more clarity.")
-                    Text("Check SMS messages for potential financial-institution impersonation in Filipino, English, and Taglish.")
+                    Text("Check SMS messages for possible phishing, including financial and nonfinancial scams. Filipino, English, and Taglish coverage is experimental.")
                     InfoSection("Your message stays here", "Processing happens on this phone. Message text is not stored or sent. Leaving the app clears your checking session.")
                     InfoSection("A warning tool", "SmishGuard never blocks, deletes, sends, or changes SMS. It does not replace your messaging app. Checks can miss scams or flag legitimate messages.")
                     Text(if (state.modelStatus.startsWith("Loading")) "Loading model status. Please wait before checking." else if (state.modelStatus.startsWith("Experimental")) "Experimental model for manual development testing. Research performance is unverified; automatic warnings and reporting are disabled." else "This build has no usable model. It cannot currently assess whether a message is suspicious.")
-                    Text("Incoming SMS scanning is optional and off by default. No permission is needed to paste or share text. RCS and other messaging services are not monitored.")
+                    Text("Automatic warnings are disabled. No permission is needed to paste or share text. RCS and other messaging services are not monitored.")
                     PrimaryAction(onClick = { scope.launch { app.preferences.onboard() } }, Modifier.fillMaxWidth()) { Text("Continue without permissions") }
                 }
                 else -> when (state.screen) {
                     Screen.HOME -> {
                         Heading("Before you tap,\ncheck the message.")
-                        Text("A private space to pause and review a financial SMS.", style = MaterialTheme.typography.bodyLarge)
+                        Text("A private space to pause and review an SMS for possible phishing.", style = MaterialTheme.typography.bodyLarge)
                         PrimaryAction(onClick = { vm.navigate(Screen.CHECK) }, Modifier.fillMaxWidth().heightIn(min = 52.dp)) { Text("Check a message") }
                         InfoSection("Automatic warnings disabled", "Reporting is also disabled. Use manual checks to review a message.")
-                        InfoSection(if (state.modelStatus == "Model not installed") "Model unavailable" else state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Scores are experimental and performance is unverified." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else "No assessment is available until a compatible trained model is included.")
+                        InfoSection(if (state.modelStatus == "Model not installed") "Model unavailable" else state.modelStatus, if (state.modelStatus.startsWith("Experimental")) "Manual offline testing only. Scores are experimental and performance is unverified." else if (state.modelStatus.startsWith("Model ready")) "Checks run entirely on this phone." else if (state.modelStatus.startsWith("Loading")) "Model loading runs in the background. You can navigate or start a check while it loads." else "Try a manual check to reload the model. If it remains unavailable, restart or reinstall the matching experimental APK.")
                         Text("No SMS permission is needed to paste or share.", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text("Never share an OTP, PIN, or password. Verify requests using your bank’s official app or a number you already trust.")
+                        Text("Never share an OTP, PIN, or password. Verify requests using the organization’s official app or a number you already trust.")
                         Text("Research prototype · On-device processing", style = MaterialTheme.typography.labelMedium)
                     }
                     Screen.CHECK, Screen.RESULT -> {
                         val result = state.result
                         if (result == null) {
                             Heading("Test a message")
-                            Text("Paste or share an SMS to review it privately.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text("Paste or share an SMS to review it privately. Experimental checks can miss scams or flag legitimate messages.", color = MaterialTheme.colorScheme.onSurfaceVariant)
                             OutlinedTextField(value = state.text, onValueChange = vm::edit, modifier = Modifier.fillMaxWidth(),
                                 shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
@@ -196,6 +196,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
             } else {
                 Heading(ResultCopy.heading(result))
                 Text(ResultCopy.score(result.score), style = MaterialTheme.typography.titleLarge)
+                if (result.tokenWindow?.truncated == true) Text(ResultCopy.LONG_MESSAGE)
                 Text(ResultCopy.DISCLAIMER, style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
@@ -208,19 +209,28 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                 Text(if (result == Detection.InvalidModel) "The bundled model is invalid or unsupported. No prediction was made."
                     else "No usable model is bundled. No prediction was made.")
             }
+            Detection.Busy -> {
+                Heading("Previous check is still finishing")
+                Text("Wait, then check again. If it remains stuck, close the app through Android settings and reopen it. No new check was started.")
+            }
             Detection.Failure -> {
                 Heading("Could not complete the check")
-                Text("No prediction was made. Try checking the message again.")
+                Text("No result is available. Try checking again. If loading or checking remains stuck, close the app through Android settings and reopen it. A slow native check may still be finishing.")
             }
         }
     }
+    if (result == Detection.InvalidModel || result == Detection.Unavailable) Text("Try another check to reload the model. If it still cannot load, restart the app or reinstall the matching experimental APK. No message is saved for retry.")
     if (checkedMessage.isNotEmpty()) InfoSection("Checked message", checkedMessage)
     TextButton(onClick = { explain = true }, modifier = Modifier.heightIn(min = 48.dp)) { Text("What does this mean?") }
     if (explain) AlertDialog(onDismissRequest = { explain = false },
         title = { Text("About this result") },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("The score is experimental, not a verified probability or chance of fraud. Research performance is unverified. Likely phishing means the model score is strictly above the unchanged 50% threshold. No phishing detected does not establish that a message is safe.")
+                Text("The score is experimental, not a verified probability or chance of fraud. Research performance is unverified. No phishing detected does not establish that a message is safe.")
+                if (result is Detection.Success) {
+                    result.policy?.let { Text(it.explanation()) }
+                    result.tokenWindow?.takeIf { it.truncated }?.let { Text(it.explanation()) }
+                }
                 Text("Unable to assess means there is no usable model word outside links or numbers, or the input is blank or obvious keyboard mashing. It can also occur for meaningful words this model does not know. Short messages are allowed; no minimum word count is required.")
                 Text("Verify suspicious requests through an official app, a website entered independently, or a phone number you already know. Never share an OTP, PIN, or password. Do not rely on contact details in the message.")
                 Text("Automatic warnings and reporting are disabled.")

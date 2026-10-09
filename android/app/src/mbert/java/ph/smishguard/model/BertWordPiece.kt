@@ -45,7 +45,7 @@ class BertWordPiece(vocabulary: List<String>, val maxLength: Int) {
         }
         return result
     }
-    data class Encoded(val ids: LongArray,val mask: LongArray,val types: LongArray)
+    data class Encoded(val ids: LongArray,val mask: LongArray,val types: LongArray,val window: TokenWindow)
     fun encode(text: String): Encoded {
         val ids=mutableListOf<Int>();var start=0
         for (match in special.findAll(text)) {
@@ -55,7 +55,8 @@ class BertWordPiece(vocabulary: List<String>, val maxLength: Int) {
         basic(text.substring(start)).forEach { ids.addAll(pieces(it)) }
         val selected=listOf(101)+ids.take(maxLength-2)+listOf(102)
         return Encoded(LongArray(maxLength){if(it<selected.size)selected[it].toLong() else 0L},
-            LongArray(maxLength){if(it<selected.size)1L else 0L},LongArray(maxLength))
+            LongArray(maxLength){if(it<selected.size)1L else 0L},LongArray(maxLength),
+            TokenWindow(ids.size, minOf(ids.size, maxLength - 2), maxLength))
     }
     companion object {
         fun redact(text: String): String {

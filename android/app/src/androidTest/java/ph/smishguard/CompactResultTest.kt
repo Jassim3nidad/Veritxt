@@ -67,6 +67,32 @@ class CompactResultTest {
         compose.onNodeWithText("What does this mean?").assertDoesNotExist()
     }
 
+    @Test fun longNoticeAndExactDetailsAreAccessibleAndScrollable() {
+        val policy = DecisionPolicy(.8899999999999999, true)
+        val window = TokenWindow(180, 158, 160)
+        scan(Detection.Success(false, .42, experimental = true, policy = policy, tokenWindow = window),
+            "hello ".repeat(158) + "Fictional parcel: claim a prize and send a password.")
+        compose.onNodeWithText(ResultCopy.LONG_MESSAGE).performScrollTo().assertIsDisplayed()
+        recordReliabilitySnapshot(compose.activity, "long-message-notice", null,
+            compose.onRoot(useUnmergedTree = true).printToString())
+        compose.onNode(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).assertExists()
+        compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
+        compose.onNodeWithText(policy.explanation()).performScrollTo().assertExists()
+        compose.onNodeWithText(window.explanation()).performScrollTo().assertExists()
+        compose.onNodeWithText("Close").performClick()
+        compose.onNodeWithText("Check another message").performScrollTo().performClick()
+        compose.onNodeWithText(ResultCopy.LONG_MESSAGE).assertDoesNotExist()
+        scan(Detection.Success(false, .42, policy = DecisionPolicy(.82, true)))
+        compose.onNodeWithText(ResultCopy.LONG_MESSAGE).assertDoesNotExist()
+    }
+
+    @Test fun failuresAndBusyNeverInventPercentage() {
+        for (result in listOf(Detection.Failure, Detection.Busy, Detection.Unavailable)) {
+            scan(result)
+            compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
+        }
+    }
+
     @Test fun blankAndInvalidHaveDistinctNoScoreResults() {
         scan(Detection.Success(false, .1), "   ")
         compose.onNodeWithText("Unable to assess").assertExists()

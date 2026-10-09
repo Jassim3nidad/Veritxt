@@ -88,7 +88,8 @@ class SuppliedDetector private constructor(
         margin = calibrationA * margin + calibrationB
         val score = if (margin >= 0) 1.0 / (1.0 + exp(-margin)) else exp(margin) / (1.0 + exp(margin))
         if (!score.isFinite()) return Detection.Failure
-        return Detection.Success(isSuspicious(score, candidate), score, experimental = true)
+        val policy = DecisionPolicy(if (candidate) .4 else .5, inclusive = candidate)
+        return Detection.Success(policy.suspicious(score), score, experimental = true, policy = policy)
     }
     internal suspend fun featureValues(text: String): Map<Int, Double> {
         val tokens = tokenizer.tokens(text)

@@ -16,6 +16,21 @@ import ph.smishguard.privacy.*
 import java.time.ZonedDateTime
 
 class MbertDeviceTest {
+    @Test fun fictionalTailCueDoesNotAffectScoreAndWindowIsDisclosed() = runBlocking {
+        val app = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as SoftwareTestApp
+        app.testDetector = null
+        val model = app.detector() as MbertDetector
+        val prefix = "hello ".repeat(158)
+        val short = model.detect("hello") as Detection.Success
+        assertFalse(short.tokenWindow!!.truncated)
+        val full = model.detect(prefix) as Detection.Success
+        assertFalse(full.tokenWindow!!.truncated)
+        val tail = model.detect(prefix + "Fictional parcel prize: send your password to claim.") as Detection.Success
+        assertTrue(tail.tokenWindow!!.truncated)
+        assertEquals(full.score, tail.score, 0.0)
+        assertEquals(full.suspicious, tail.suspicious)
+        assertEquals(DecisionPolicy(model.metadata.getDouble("threshold"), true), tail.policy)
+    }
     @Test fun realOfflineModelParityPolicyAndLatency() = runBlocking {
         assumeTrue(InstrumentationRegistry.getArguments().getString("offline")=="true")
         val i=InstrumentationRegistry.getInstrumentation();val context=i.targetContext

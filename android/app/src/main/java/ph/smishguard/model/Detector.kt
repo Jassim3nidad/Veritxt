@@ -29,8 +29,10 @@ sealed interface Detection {
     data object Unavailable : Detection
     data object InvalidModel : Detection
     data object Failure : Detection
+    data object Busy : Detection
     data class Success(val suspicious: Boolean, val score: Double, val probability: Boolean = false,
-                       val synthetic: Boolean = false, val experimental: Boolean = false) : Detection
+                       val synthetic: Boolean = false, val experimental: Boolean = false,
+                       val policy: DecisionPolicy? = null, val tokenWindow: TokenWindow? = null) : Detection
 }
 
 interface Detector {
@@ -58,7 +60,8 @@ class LinearDetector private constructor(
         val margin = decisionMargin(text)
         val score = calibration?.let { (a, b) -> 1.0 / (1.0 + exp(-(a * margin + b))) } ?: margin
         if (!score.isFinite()) return Detection.Failure
-        return Detection.Success(score >= threshold, score, calibration != null && evaluated, synthetic)
+        val policy = DecisionPolicy(threshold, inclusive = true)
+        return Detection.Success(policy.suspicious(score), score, calibration != null && evaluated, synthetic, policy = policy)
     }
     internal suspend fun decisionMargin(text: String): Double {
         val counts = HashMap<Int, Double>()

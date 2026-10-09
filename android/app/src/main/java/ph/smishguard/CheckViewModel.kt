@@ -3,13 +3,11 @@ package ph.smishguard
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.delay
 import ph.smishguard.model.Detection
 import ph.smishguard.model.MAX_MESSAGE_LENGTH
 import ph.smishguard.privacy.SafeDomain
@@ -25,6 +23,9 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     private val mutable = MutableStateFlow(CheckState())
     val state = mutable.asStateFlow()
     private var job: Job? = null
+    private var watchdog: Job? = null
+    private var generation = 0L
+    private fun cancelWork() { generation++; watchdog?.cancel(); watchdog = null; job?.cancel(); job = null }
     init {
         viewModelScope.launch {
             // Loading can suspend while the user navigates, edits or clears a
@@ -34,7 +35,7 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         }
     }
     fun edit(text: String) {
-        job?.cancel()
+        cancelWork()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
             checkedMessage = "", result = null, domain = null, checkedAt = null,
             error = if (text.length > MAX_MESSAGE_LENGTH) "Limit is 10,000 characters. Extra text was removed; review before checking." else null)
@@ -45,7 +46,7 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         else mutable.value = mutable.value.copy(screen = screen, checkedMessage = "")
     }
     fun endSession(screen: Screen = Screen.HOME) {
-        job?.cancel(); job = null
+        cancelWork()
         mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus)
     }
     fun scan() {
@@ -55,20 +56,35 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         }
         if (mutable.value.busy) return
         val submittedText = mutable.value.text
+        cancelWork()
+        val session = generation
+        mutable.value = mutable.value.copy(busy = true, error = null)
+        watchdog = viewModelScope.launch {
+            delay(app.slowNoticeMillis)
+            if (session == generation) mutable.value = mutable.value.copy(
+                error = "Loading or checking is taking longer. You can clear or leave this screen.")
+            delay((app.workDeadlineMillis - app.slowNoticeMillis).coerceAtLeast(0))
+            if (session == generation) {
+                generation++
+                job?.cancel()
+                mutable.value = mutable.value.copy(text = "", checkedMessage = "", busy = false,
+                    result = Detection.Failure, error = null)
+            }
+        }
         job = viewModelScope.launch {
-            mutable.value = mutable.value.copy(busy = true, error = null)
             try {
-                val resultAndDomain = withContext(Dispatchers.Default) {
-                    withTimeout(7000) {
-                        app.detector().detect(submittedText) to SafeDomain.fromMessage(submittedText)
-                    }
-                }
-                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", checkedMessage = submittedText, busy = false,
-                    result = resultAndDomain.first, domain = resultAndDomain.second, checkedAt = ZonedDateTime.now())
-            } catch (_: kotlinx.coroutines.TimeoutCancellationException) {
-                mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", checkedMessage = submittedText, busy = false, result = Detection.Failure)
+                val result = app.assess(submittedText)
+                val status = if (result is Detection.Success) app.detector().status else mutable.value.modelStatus
+                if (session == generation) mutable.value = mutable.value.copy(screen = Screen.CHECK,
+                    text = "", checkedMessage = submittedText, busy = false, error = null,
+                    result = result, modelStatus = status, domain = SafeDomain.fromMessage(submittedText), checkedAt = ZonedDateTime.now())
             } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { mutable.value = mutable.value.copy(screen = Screen.CHECK, text = "", checkedMessage = submittedText, busy = false, result = Detection.Failure) }
+            catch (_: Exception) {
+                if (session == generation) mutable.value = mutable.value.copy(screen = Screen.CHECK,
+                    text = "", checkedMessage = submittedText, busy = false, error = null, result = Detection.Failure)
+            } finally {
+                if (session == generation) watchdog?.cancel()
+            }
         }
     }
 }

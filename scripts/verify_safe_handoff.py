@@ -110,7 +110,8 @@ class SafeHandoffTest(unittest.TestCase):
     def test_android_safety_and_schema_contract_unchanged(self):
         model = (ROOT / 'android/app/src/main/java/ph/smishguard/model/SuppliedDetector.kt').read_text()
         self.assertIn('if (candidate) score >= .4 else score > .5', model)
-        self.assertIn('Detection.Success(isSuspicious(score, candidate)', model)
+        self.assertIn('Detection.Success(policy.suspicious(score)', model)
+        self.assertIn('DecisionPolicy(if (candidate) .4 else .5, inclusive = candidate)', model)
         # Runtime nextDown/equal/nextUp checks live in CandidatePolicyTest.
         self.assertIn('object ModelLoader', model)
         export = ast.parse((EVIDENCE / 'train_final_lr.py').read_text())

@@ -13,17 +13,17 @@ PACKAGE = "ph.smishguard.dev"
 
 def command(*args):
     return subprocess.run(ADB + list(args), check=True, capture_output=True,
-                          timeout=180).stdout.decode(errors="replace").strip()
+                          timeout=900).stdout.decode(errors="replace").strip()
 
 
 def main():
     global PACKAGE, ADB
     parser = argparse.ArgumentParser()
-    parser.add_argument("--variant", choices=["development", "lr"], default="development")
+    parser.add_argument("--variant", choices=["development", "lr", "nb", "svm", "mbert"], default="development")
     parser.add_argument("--serial", default="emulator-5556")
     parser.add_argument("--output", type=Path, default=ROOT / "docs/api26-results.json")
     args = parser.parse_args()
-    PACKAGE = "ph.smishguard.dev" if args.variant == "development" else "ph.smishguard.lr"
+    PACKAGE = "ph.smishguard.dev" if args.variant == "development" else "ph.smishguard." + args.variant
     ADB = ["adb", "-s", args.serial]
     assert command("shell", "getprop", "ro.kernel.qemu") == "1"
     assert command("shell", "getprop", "ro.build.version.sdk") == "26"
@@ -61,8 +61,9 @@ def main():
         assert "Wi-Fi is disabled" in command("shell", "dumpsys", "wifi")
         results["offline_setup"] = "Airplane mode on; Wi-Fi service disabled via standard Settings"
         for label, classes, key in [
-            ("offline_parity_and_invalid_models", "SuppliedModelTest", "offline"),
-            ("development_flow_and_accessibility", "DevelopmentFlowTest,ph.smishguard.AccessibilityTest", "largeFont"),
+            ("offline_parity_and_invalid_models", ("MbertDeviceTest" if args.variant == "mbert" else "SuppliedModelTest" if args.variant == "development" else "ComparisonExportTest,ph.smishguard.ComparisonRuntimeTest"), "offline"),
+            ("development_flow_and_accessibility", "DevelopmentFlowTest,ph.smishguard.AccessibilityTest,ph.smishguard.CompactResultTest", "largeFont"),
+            ("session_recovery", "RecoveryTest,ph.smishguard.ModelInitializationTest,ph.smishguard.PrivacyLifecycleTest,ph.smishguard.FlowsTest", "audit"),
         ]:
             if key == "largeFont":
                 command("shell", "settings", "put", "system", "font_scale", "2.0")
@@ -70,7 +71,7 @@ def main():
                              "ph.smishguard." + classes, "-e", key, "true",
                              PACKAGE + ".test/ph.smishguard.SoftwareTestRunner")
             results[label] = output
-            assert "OK (2 tests)" in output and "FAILURES!!!" not in output, output
+            assert "OK (" in output and "FAILURES!!!" not in output, output
             print(label + ": passed", flush=True)
         results["status"] = "passed"
     finally:
