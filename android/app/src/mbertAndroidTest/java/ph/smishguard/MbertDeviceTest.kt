@@ -20,7 +20,8 @@ class MbertDeviceTest {
         val app = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as SoftwareTestApp
         app.testDetector = null
         val model = app.detector() as MbertDetector
-        val prefix = "hello ".repeat(158)
+        val prefix = "Hello ".repeat(158)
+        assertEquals(158, model.tokenizer.encode(prefix).window.totalContentTokens)
         val short = model.detect("hello") as Detection.Success
         assertFalse(short.tokenWindow!!.truncated)
         val full = model.detect(prefix) as Detection.Success

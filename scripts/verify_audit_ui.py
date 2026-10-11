@@ -35,7 +35,7 @@ def main():
             package + '.test/ph.smishguard.SoftwareTestRunner', timeout=900).decode(errors='replace')
         (output / (label + '.log')).write_text(raw, encoding='utf-8')
         statuses = [int(s) for s in re.findall(r'INSTRUMENTATION_STATUS_CODE: (-?\d+)', raw)]
-        results['tests'][label] = dict(passed=statuses.count(0), skipped=statuses.count(-3), failed=statuses.count(-1) + statuses.count(-2))
+        results['tests'][label] = dict(passed=statuses.count(0), skipped=statuses.count(-3) + statuses.count(-4), failed=statuses.count(-1) + statuses.count(-2))
         assert 'FAILURES!!!' not in raw and 'OK (' in raw and 'Process crashed' not in raw, label
         assert results['tests'][label]['failed'] == 0
         print(label + ': passed', flush=True)

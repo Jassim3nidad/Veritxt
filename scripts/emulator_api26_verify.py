@@ -67,7 +67,7 @@ def main():
         ]:
             if key == "largeFont":
                 command("shell", "settings", "put", "system", "font_scale", "2.0")
-            output = command("shell", "am", "instrument", "-w", "-e", "class",
+            output = command("shell", "am", "instrument", "-w", "-r", "-e", "class",
                              "ph.smishguard." + classes, "-e", key, "true",
                              PACKAGE + ".test/ph.smishguard.SoftwareTestRunner")
             results[label] = output

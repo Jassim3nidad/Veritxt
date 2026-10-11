@@ -53,7 +53,7 @@ def main():
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
-        output = command("shell", "am", "instrument", "-w", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=900 if args.variant in {"mbert", "mbertQuantized"} else 180).decode(errors="replace")
+        output = command("shell", "am", "instrument", "-w", "-r", "-e", "class", classes, *extra, *diagnostics, RUNNER, timeout=900 if args.variant in {"mbert", "mbertQuantized"} else 180).decode(errors="replace")
         results[label] = output.strip()
         if "FAILURES!!!" in output or "OK (" not in output or "INSTRUMENTATION_FAILED" in output:
             if args.diagnostics:
@@ -99,7 +99,7 @@ def main():
         command("shell", "pm", "grant", PACKAGE, "android.permission.RECEIVE_SMS")
         command("shell", "pm", "grant", PACKAGE, "android.permission.POST_NOTIFICATIONS")
         # SDK console supports GSM text and raw PDU injection; never send via carrier.
-        process = subprocess.Popen(adb + ["shell", "am", "instrument", "-w", "-e", "class", NAMESPACE + ".ModemSmsTest", "-e", "modem", "true", RUNNER], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        process = subprocess.Popen(adb + ["shell", "am", "instrument", "-w", "-r", "-e", "class", NAMESPACE + ".ModemSmsTest", "-e", "modem", "true", RUNNER], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         def ready(stage):
             deadline = time.monotonic() + 45
             while time.monotonic() < deadline:
