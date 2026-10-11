@@ -11,7 +11,7 @@ import java.io.File
 
 /** Run in its own instrumentation process: closes the process-owned test session. */
 class MbertResourceTest {
-    @Test fun sessionCloseIsIdempotentAndPreventsUseAfterClose() = runBlocking {
+    @Test fun sessionCloseIsIdempotentAndPreventsUseAfterClose(): Unit = runBlocking {
         val app = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as SoftwareTestApp
         app.testDetector = null
         val metadata = JSONObject(app.assets.open("model.json").bufferedReader().use { it.readText() })
