@@ -1,10 +1,12 @@
 # SmishGuard system memory for manuscript alignment
 
-Version 1, 7 October 2026. This is a self-contained factual handoff for an AI reading Chapters 1–3 without repository access. SmishGuard is an experimental offline Android SMS classifier with a completed minimalist interface and a preliminary retrospective four-model comparison. Independent labeling, prospective validation and physical-phone acceptance are not established. Implementation success must not be substituted for research validity.
+Version 2, engineering update begun 9 October and verified as recorded on 11 October 2026; original baseline 7 October. This is a self-contained factual handoff for an AI reading Chapters 1–3 without repository access. SmishGuard is an experimental offline Android SMS classifier with a completed minimalist interface and a preliminary retrospective four-model comparison. Independent labeling, prospective validation and physical-phone acceptance are not established. Implementation success must not be substituted for research validity.
+
+Current software update: [audit fixes](app-audit-fixes-20261009.md) and [new APK handoff](apk-handoff-20261009.md) supersede baseline software-defect statements. Human, device and research limitations remain. The original audit is preserved.
 
 ## Evidence baseline and claim controls
 
-Audited source: `e8a9d38fac9419e985b4b88404a5be48986fb036`, branch `codex/thesis-completion-package`. Tracked files and index were clean at intake; no relevant uncommitted production changes existed. Ignored private models, datasets, APKs and previous outputs were present. This documentation task preserves them and all production code, thresholds, splits and results. The documentation commit is recorded in the handoff README after publication; it is not the experiment's source commit.
+Original 7 October documentation baseline: `e8a9d38fac9419e985b4b88404a5be48986fb036`, branch `codex/thesis-completion-package`; tracked intake was clean. The current engineering source is `470169efba0a10e1169827c369ee7ed64e647061`. The new private APKs retain all frozen model assets, thresholds, splits and research results; source fixes and exact emulator verification are documented in the dated handoff. Ignored private artifacts and earlier outputs remain preserved. Neither engineering nor documentation commits are the original experiment source commit.
 
 Evidence priority: current source and exact model metadata establish behavior; 6 October scope/labeling decisions establish intended current scope; dated experiment records establish their own historical cohort; older plans establish commitments requiring reconciliation, not completed features. The 7 October app audit was made against `680b36fdf79ddcd58cc618346b8daf429a314af2`; the audited HEAD adds that audit. The expanded experiment records training implementation commit `56d0ddb`, followed by results commit `f4fd8d1`, validation/packaging commit `5699b31`, and review/INT8 commit `680b36f`.
 
@@ -20,7 +22,7 @@ Use these statuses explicitly:
 | Out of current app scope | Excluded from the manual milestone, although historical commitments may remain. |
 | Unresolved or contradictory | Competing requirements, stale wording or insufficient evidence; do not silently pick a convenient answer. |
 
-Freshly executed for this package: source and Git inspection; read-only extraction of local Chapter 1/2 text and reading of the Chapter 3 draft; selected current model-metadata checks; hashing all 23 files in `research/data/validation-20261006/prospective-freeze.json` (23 matched, zero mismatches); arithmetic recalculation of precision, recall, phishing F1, macro-F1, accuracy and FPR from published confusion counts; document-only safety and archive checks. No model fitting, raw-dataset rebuild, new test prediction, emulator, phone or human research session was executed. Existing performance and test reports are attributed below rather than presented as freshly rerun results. Citations in manuscripts were inspected as text, not verified against original publications.
+Freshly executed for this package: source and Git inspection; read-only extraction of local Chapter 1/2 text and reading of the Chapter 3 draft; selected current model-metadata checks; hashing all 23 files in `research/data/validation-20261006/prospective-freeze.json` (23 matched, zero mismatches); arithmetic recalculation of precision, recall, phishing F1, macro-F1, accuracy and FPR from published confusion counts; document-only safety and archive checks. That documentation-only baseline performed no model fitting, dataset rebuild, new predictions, emulator, phone or human session. The later engineering update runs saved-reference/software emulator checks described above; it does not reopen research evaluation or establish physical/human acceptance. Existing performance and test reports are attributed below rather than presented as freshly rerun results. Citations in manuscripts were inspected as text, not verified against original publications.
 
 ## A Project identity and scope
 
@@ -38,7 +40,7 @@ Evidence: `docs/scope-clarification-20261006.md`, `docs/sms-labeling-guide-20261
 
 ## B Actual Android application
 
-Android native application, Kotlin 2.3.21, Jetpack Compose/Material 3. Minimum SDK 26 (Android 8.0); compile/target SDK 36; version 0.2.0/code 2. JDK 17, Gradle 8.13, Android Gradle Plugin 8.13.2. Pinned dependencies include Compose BOM 2025.12.01, activity-compose 1.13.0, lifecycle Compose 2.10.0, DataStore preferences 1.2.1 and coroutines-android 1.11.0; mBERT variants add ONNX Runtime Android 1.22.0. These are repository pins, not recommendations about latest releases. Minimum SDK is a build contract, not proof all variants work on all Android 8 phones.
+Android native application, Kotlin 2.3.21, Jetpack Compose/Material 3. Minimum SDK 26 (Android 8.0); compile/target SDK 36; version 0.3.0/code 3. JDK 17, Gradle 8.13, Android Gradle Plugin 8.13.2. Pinned dependencies include Compose BOM 2025.12.01, activity-compose 1.13.0, lifecycle Compose 2.10.0, DataStore preferences 1.2.1 and coroutines-android 1.11.0; mBERT variants add ONNX Runtime Android 1.22.0. These are repository pins, not recommendations about latest releases. Minimum SDK is a build contract, not proof all variants work on all Android 8 phones.
 
 ### Screens and workflows
 
@@ -56,9 +58,9 @@ Android native application, Kotlin 2.3.21, Jetpack Compose/Material 3. Minimum S
 
 Current classical models apply `sg-ascii-v1`: ASCII uppercase is lowered, URL/email/digit runs replaced by placeholders, non-ASCII-letter runs converted to spaces, then unigram counts, training-derived smooth IDF and L2 normalization. mBERT uses case-preserving minimization and its pinned cased basic/WordPiece tokenizer, without lowercasing/accent stripping. It adds special tokens, attention mask and type IDs and pads/truncates to 160 tokens, leaving at most 158 content tokens. Its assessability gate still uses the baseline ASCII/vocabulary policy. This mixture is actual behavior, not comprehensive multilingual semantic validation.
 
-`SmishGuardApp` loads once lazily on an IO dispatcher, caps JSON metadata at 8,000,000 bytes and dispatches by build variant. LR/NB/SVM use `ComparisonDetector`/`LinearDetector`; mBERT loads its variant class and CPU ONNX session. Parsers/packaging guards check model identity, schema and relevant hashes/contracts. Missing assets produce “Model not installed”; invalid assets produce an unsupported/invalid state. Public debug intentionally lacks a trained model. A failed lazy load is cached for the process and there is no explicit in-process reload control.
+`SmishGuardApp` serializes initialization on IO, caps JSON metadata at 8,000,000 bytes and dispatches by variant. Only successful initialization is cached; another manual check retries failure. Cached mBERT bytes are hash verified and atomically repaired from original bundled assets. Model-free debug remains intentionally unavailable.
 
-Scans run on a background dispatcher with a 7-second coroutine timeout and cancellation on exit/edit. Synchronous native ONNX calls have no demonstrated hard interrupt deadline. Ordinary lifecycle clearing is tested; slow-native-call and corrupt/interrupted model-cache recovery acceptance remain open.
+Scans run off the main thread under an application-scoped inference permit. Slow guidance appears after 7 seconds; a 60-second UI deadline discards the result. Cancellation and session generations prevent stale publication. Synchronous native work is not forcibly interrupted; the permit remains held until it returns. A new request receives a busy response, and a stuck operation requires Android Force stop/reopen. Controlled load/cancel/retry/cache checks are recorded in the 9 October evidence; physical acceptance remains pending.
 
 ### Results and exact policy
 
@@ -71,23 +73,23 @@ Success headings are **“Likely phishing”** or **“No phishing detected.”*
 | `expanded-20261005-svm-c3abc4bb` | score >= 0.59 |
 | `expanded-20261005-mbert-c3abc4bb` | score >= 0.8899999999999999 (serialized value; approximately 0.89) |
 
-These values were checked against current private metadata. None uses the universal strict-greater-than-50% rule still shown in the explanation dialog.
+These values match frozen metadata. Result details now derive the exact threshold/comparator from the active policy. One-decimal Model score formatting never affects the unrounded classification; calibration executes once.
 
-### Module status and known defects
+### Current module status (9 October update)
 
 | Module | Status and remaining acceptance |
 |---|---|
-| Onboarding/Home/navigation | Implemented but not fully verified: financial-institution/financial-SMS copy conflicts with current scope. |
+| Onboarding/Home/navigation | All-SMS-phishing copy implemented with experimental limits; human comprehension pending. |
 | Manual entry, paste, preview and share | Implemented and verified within source/emulator evidence; actual phone acceptance pending. |
-| Preprocessing and assessment | Implemented but not fully verified: mBERT silently discards tokens beyond its prefix while displaying the full submitted message. |
+| Preprocessing and assessment | Frozen prefix retained; actual tokenizer truncation now triggers a notice and exact window details. |
 | Offline loading and four variants | Implemented and verified at host/parity/emulator boundaries; physical acceptance pending. |
-| Results and explanations | Decision arithmetic supported; explanation defect persists for thresholds/comparators. |
+| Results and explanations | Active policy explanations and unrounded decisions implemented with boundary/calibration tests. |
 | Preferences and privacy | Implemented and verified in exercised paths; no scan-history module intended. |
-| Error/lifecycle recovery | Ordinary recovery implemented; native timeout and cached-failure recovery remain incomplete acceptance. |
+| Error/lifecycle recovery | Retry, verified cache repair, serialized work and UI deadlines implemented; no native hard-deadline or physical-acceptance claim. |
 | Accessibility/layout | Semantic headings, polite result live region, control labels, minimum touch targets, scroll/IME/insets, font scaling and dark/light themes implemented. Automated large-font/320 dp checks are limited; TalkBack, focus/announcement comprehension, landscape and target-phone acceptance remain pending. |
 | Packaging | Private development-signed APKs and guards implemented; production distribution is outside current scope. |
 
-All audit defects remain present at this documentation baseline; none was fixed here. Evidence: `docs/app-completion-audit.md`, `docs/module-completion-matrix.md`, `docs/app-completion-backlog.md`; source under `android/app/src/main/java/ph/smishguard/` (`MainActivity.kt`, `CheckViewModel.kt`, `SmishGuardApp.kt`, `model/Detector.kt`, `model/Assessability.kt`, `model/ComparisonDetector.kt`, `model/ResultCopy.kt`); `android/app/src/mbert/java/ph/smishguard/model/BertWordPiece.kt` and `MbertDetector.kt`; `android/app/build.gradle.kts`.
+The 7 October audit recorded B1/B2/B3/B5 defects. The 9 October engineering update implements their coding fixes and records exact verification boundaries. The original audit is historical evidence, not a statement that these defects remain.
 
 ## C Architecture and data handling
 
@@ -203,11 +205,11 @@ App completion audit: 90.5% implementation and 64% verification readiness for th
 
 ## G Outstanding work and acceptance
 
-1. Correct result-help policy using active model threshold/comparator; test below/equal/above exact values without changing frozen decisions/calibration.
-2. Replace financial-only manual-flow copy with broad scope and demonstrated-coverage limitations; keep name pending.
-3. Disclose mBERT token truncation; test >158 content tokens and a phishing cue only after the retained prefix. Preserve frozen window; new windowing is a research change.
-4. Exercise slow native inference and interrupted/corrupt cache; provide responsive, useful retry/restart behavior and no stale result after exit. A coroutine timeout is not proof of native interruption.
-5. Obtain actual authorized phone installation/offline/share/storage/lifecycle/failure measurements, APK hashes/API/ABI and TalkBack/200% text/landscape/user comprehension evidence. Current minimum-API coverage remains incomplete; an emulator-only demo must say so.
+1. B1 implemented: exact active-policy result details and boundary tests; see the 9 October evidence.
+2. B2 implemented: all-SMS-phishing manual copy; final name/title remain pending.
+3. B3 implemented: tokenizer-derived truncation disclosure and fictional tail-cue tests; frozen window unchanged.
+4. B5 implemented: controlled slow/cancel/retry/cache regression checks. UI deadlines do not terminate synchronous native calls; actual phone acceptance remains pending.
+5. Obtain actual authorized phone installation/offline/share/storage/lifecycle/failure measurements, APK hashes/API/ABI and TalkBack/200% text/landscape/user comprehension evidence. All four current APKs passed on API26 and API36 x86_64 emulators; physical phones and other ABIs remain untested. An emulator-only demo must state these boundaries.
 6. Obtain independent A/B labels, privacy/source checks and third-review adjudication; version guide changes and reviewed cohorts, compute agreement only from real returns. Collect/freeze/evaluate prospective data once under the existing protocol.
 7. Team/adviser must reconcile unperformed XLM-R/RoBERTa-Tagalog, calamanCy, character features, URL/weak-control ablations, random-vs-group experiments, participant-side consent/redaction form, partner turnover and public dataset-release commitments. Do not silently rewrite approved objectives.
 8. Supply final title/name; align Chapters 1–5, verify references and novelty claims, integrate only actual future evidence. Production signing/distribution, backend hosting/governance, reporting/warnings and partner acceptance are later work if retained.

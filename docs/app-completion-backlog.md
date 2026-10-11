@@ -1,5 +1,12 @@
 # SmishGuard completion backlog
 
+## Current update — 9 October 2026
+
+B1 (C7), B2 (C1), B3 (C4) and B5 (C9) are implemented: active-policy result details, all-SMS-phishing copy, actual-tokenizer truncation disclosure, retry/verified cache repair and serialized cancellation-safe work. B12 (C11) is the new version 0.3.0/code 3 private four-APK handoff. Exact passes, failures, skips and API limitations are in [audit fixes](app-audit-fixes-20261009.md) and [handoff](apk-handoff-20261009.md). B4/B8 physical/human acceptance, B6/B7 research returns and B10 identity remain pending. Original audit percentages are not recomputed.
+
+## 7 October baseline (historical)
+
+
 Audit baseline: `680b36fdf79ddcd58cc618346b8daf429a314af2`, 7 October 2026. This is a proposed backlog; the audit does not implement fixes or assign named people. P1 = needed before a credible current-scope demo/claim; P2 = needed for wider acceptance or thesis completion; P3 = later deployment. No P0 incident was discovered. “Demo” means a bounded experimental demonstration, not full thesis/research acceptance.
 
 | Priority / ID | Kind and affected module | Exact remaining work and acceptance criterion | Coding or team input | Milestone |
@@ -20,4 +27,4 @@ Audit baseline: `680b36fdf79ddcd58cc618346b8daf429a314af2`, 7 October 2026. This
 | P3 B14 | Optional automatic SMS warnings | If restored: establish reviewed warning policy, update stale financial notification copy, test receiver/notification permissions and OEM/carrier behavior with actual approved model; manual checks still work on denial. | Research/team decision + coding/device testing | Later deployment |
 | P3 B15 | Optional optimization/public release | Treat INT8 as a separate condition; measure actual phone storage/latency/score differences. Production signing and public asset release require their own distribution/rights review. Do not substitute INT8 for frozen float32 results. | Engineering + team input | Later deployment |
 
-The **five highest-priority next tasks are B1–B5**. B6/B7 can proceed alongside them and may take longer than coding. Research limitations (inherited labels, historical overlap, narrow subgroup support, weak recall) are not software bugs to “fix” by changing frozen test outcomes. A missing human return is blocked evidence; a prepared worksheet is not its completion.
+At the original audit, the **five highest-priority next tasks were B1–B5**. See the current update above for completed coding work; B4 still needs actual device observations. B6/B7 can proceed alongside them and may take longer than coding. Research limitations (inherited labels, historical overlap, narrow subgroup support, weak recall) are not software bugs to “fix” by changing frozen test outcomes. A missing human return is blocked evidence; a prepared worksheet is not its completion.

@@ -1,5 +1,12 @@
 # SmishGuard module completion matrix
 
+## Current update — 9 October 2026
+
+B1 (C7), B2 (C1), B3 (C4) and B5 (C9) are implemented: active-policy result details, all-SMS-phishing copy, actual-tokenizer truncation disclosure, retry/verified cache repair and serialized cancellation-safe work. B12 (C11) is the new version 0.3.0/code 3 private four-APK handoff. Exact passes, failures, skips and API limitations are in [audit fixes](app-audit-fixes-20261009.md) and [handoff](apk-handoff-20261009.md). B4/B8 physical/human acceptance, B6/B7 research returns and B10 identity remain pending. Original audit percentages are not recomputed.
+
+## 7 October baseline (historical)
+
+
 As of 7 October 2026; source `680b36fdf79ddcd58cc618346b8daf429a314af2`. Scope and scoring: [audit](app-completion-audit.md). Actions/acceptance priorities: [backlog](app-completion-backlog.md). Fresh checks: [evidence](app-completion-audit-evidence.json).
 
 Status vocabulary: **Implemented and verified** means the specified acceptance slice/environment only; **Implemented but not verified** means relevant behavior exists without sufficient acceptance evidence; **Partially implemented** means a material required slice is unfinished; **Missing** means no implementation for the named requirement; **Blocked by external input** identifies actual missing decisions/evidence; **Out of scope** excludes the item from the current app score. Verification and implementation are deliberately separate. Rows sharing a C number divide one scored module and add no extra weight.

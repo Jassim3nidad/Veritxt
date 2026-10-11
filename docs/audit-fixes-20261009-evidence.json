@@ -1,0 +1,613 @@
+{
+  "source_commit": "470169efba0a10e1169827c369ee7ed64e647061",
+  "package_date": "2026-10-09",
+  "verification_source_commit": "240af8cdad474ec11cf6c0d3ecd6d24bfd052c01",
+  "verification_completed_utc": "2026-10-11T15:03:19.254547+00:00",
+  "scope": "Engineering verification of unchanged frozen models; no new accuracy evaluation or physical/human acceptance",
+  "freeze": {
+    "unchanged_frozen_entries": 20,
+    "all_unchanged_match": true,
+    "intentionally_changed_runtime_sources": [
+      "android/app/src/main/java/ph/smishguard/model/Detector.kt",
+      "android/app/src/main/java/ph/smishguard/model/ResultCopy.kt",
+      "android/app/src/main/java/ph/smishguard/model/SuppliedDetector.kt"
+    ]
+  },
+  "jvm": {
+    "lr": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4,
+      "passed": 23,
+      "skips": [
+        "ph.smishguard.CandidateDetectorTest.privateCandidateMatchesIndependentPythonWithoutLoggingMessages",
+        "ph.smishguard.FoldedCandidateTest.privateFoldedCandidateMatchesPython",
+        "ph.smishguard.MbertTokenizerTest.fictionalWindowBoundaryAndTailCuePreserveExactPrefix",
+        "ph.smishguard.MbertTokenizerTest.actualCasedTokenizerMatchesFrozenPythonIds"
+      ]
+    },
+    "nb": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4,
+      "passed": 23,
+      "skips": [
+        "ph.smishguard.CandidateDetectorTest.privateCandidateMatchesIndependentPythonWithoutLoggingMessages",
+        "ph.smishguard.FoldedCandidateTest.privateFoldedCandidateMatchesPython",
+        "ph.smishguard.MbertTokenizerTest.fictionalWindowBoundaryAndTailCuePreserveExactPrefix",
+        "ph.smishguard.MbertTokenizerTest.actualCasedTokenizerMatchesFrozenPythonIds"
+      ]
+    },
+    "svm": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4,
+      "passed": 23,
+      "skips": [
+        "ph.smishguard.CandidateDetectorTest.privateCandidateMatchesIndependentPythonWithoutLoggingMessages",
+        "ph.smishguard.FoldedCandidateTest.privateFoldedCandidateMatchesPython",
+        "ph.smishguard.MbertTokenizerTest.fictionalWindowBoundaryAndTailCuePreserveExactPrefix",
+        "ph.smishguard.MbertTokenizerTest.actualCasedTokenizerMatchesFrozenPythonIds"
+      ]
+    },
+    "mbert": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 3,
+      "passed": 24,
+      "skips": [
+        "ph.smishguard.CandidateDetectorTest.privateCandidateMatchesIndependentPythonWithoutLoggingMessages",
+        "ph.smishguard.ExportParityTest.realExportMatchesFrozenPythonPipeline",
+        "ph.smishguard.FoldedCandidateTest.privateFoldedCandidateMatchesPython"
+      ]
+    }
+  },
+  "host_checks": {
+    "safe_handoff": {
+      "passed": 8,
+      "failed": 0
+    },
+    "apk_layout_regression": {
+      "passed": 1,
+      "failed": 0
+    }
+  },
+  "variants": {
+    "lr": {
+      "apk_sha256": "6e2134ae5f7731753671159c90fd8eb8304d8653b87fc6ab73f43a44735c1ae8",
+      "apk_filename": "SmishGuard-0.3.0-lr-expanded-20261005-lr-c3abc4bb-experimental.apk",
+      "build": "passed",
+      "lint": {
+        "errors": 0,
+        "warnings": 5
+      },
+      "api36": {
+        "status": "passed",
+        "groups": {
+          "ui_lifecycle_decoding": {
+            "passed": 19,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "notification_denied": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "offline_sklearn_exports": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "actual_export_parity": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "comparison_latency_policy": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "modem_sms": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "notification_granted_and_channel_blocked": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          },
+          "accessibility_large_text": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0,
+            "count_source": "JUnit summary; no assumptions in this LR configuration"
+          }
+        },
+        "totals": {
+          "passed": 26,
+          "skipped": 0,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 461,
+          "scored": 456,
+          "abstained": 5,
+          "max_score_error": 3.885780586188048e-16,
+          "max_margin_error": 3.552713678800501e-15,
+          "model_sha256": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623"
+        },
+        "private_storage": {
+          "files_inspected": 2,
+          "raw_fixture_markers_found": 0
+        }
+      },
+      "api36_extra": {
+        "api": 36,
+        "variant": "lr",
+        "scope": "Fictional emulator checks; no human TalkBack acceptance",
+        "tests": {
+          "recovery": {
+            "passed": 4,
+            "skipped": 0,
+            "failed": 0
+          },
+          "narrow_large_results": {
+            "passed": 7,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "status": "passed"
+      },
+      "api26": {
+        "status": "passed",
+        "groups": {
+          "offline_parity_and_invalid_models": {
+            "passed": 2,
+            "skipped": 0,
+            "failed": 0
+          },
+          "development_flow_and_accessibility": {
+            "passed": 8,
+            "skipped": 0,
+            "failed": 0
+          },
+          "session_recovery": {
+            "passed": 15,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 25,
+          "skipped": 0,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 461,
+          "scored": 456,
+          "abstained": 5,
+          "max_score_error": 3.885780586188048e-16,
+          "max_margin_error": 3.552713678800501e-15,
+          "model_sha256": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623"
+        },
+        "offline_setup": "Airplane mode on; Wi-Fi service disabled via standard Settings"
+      }
+    },
+    "nb": {
+      "apk_sha256": "f7fb7cfd11eea2712b6177367df80fea14a1eff2b2b325593c21c7a7a73a4ece",
+      "apk_filename": "SmishGuard-0.3.0-nb-expanded-20261005-nb-c3abc4bb-experimental.apk",
+      "build": "passed",
+      "lint": {
+        "errors": 0,
+        "warnings": 5
+      },
+      "api36": {
+        "status": "passed",
+        "groups": {
+          "ui_lifecycle_decoding": {
+            "passed": 19,
+            "skipped": 0,
+            "failed": 0
+          },
+          "notification_denied": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "offline_sklearn_exports": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "actual_export_parity": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "comparison_latency_policy": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "modem_sms": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "notification_granted_and_channel_blocked": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "accessibility_large_text": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 26,
+          "skipped": 0,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 461,
+          "scored": 456,
+          "abstained": 5,
+          "max_score_error": 1.9984014443252818e-15,
+          "max_margin_error": 3.552713678800501e-14,
+          "model_sha256": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49"
+        },
+        "private_storage": {
+          "files_inspected": 2,
+          "raw_fixture_markers_found": 0
+        }
+      },
+      "api36_extra": {
+        "api": 36,
+        "variant": "nb",
+        "scope": "Fictional emulator checks; no human TalkBack acceptance",
+        "tests": {
+          "recovery": {
+            "passed": 4,
+            "skipped": 0,
+            "failed": 0
+          },
+          "narrow_large_results": {
+            "passed": 7,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "status": "passed"
+      },
+      "api26": {
+        "status": "passed",
+        "groups": {
+          "offline_parity_and_invalid_models": {
+            "passed": 2,
+            "skipped": 0,
+            "failed": 0
+          },
+          "development_flow_and_accessibility": {
+            "passed": 8,
+            "skipped": 0,
+            "failed": 0
+          },
+          "session_recovery": {
+            "passed": 15,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 25,
+          "skipped": 0,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 461,
+          "scored": 456,
+          "abstained": 5,
+          "max_score_error": 1.9984014443252818e-15,
+          "max_margin_error": 3.552713678800501e-14,
+          "model_sha256": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49"
+        },
+        "offline_setup": "Airplane mode on; Wi-Fi service disabled via standard Settings"
+      }
+    },
+    "svm": {
+      "apk_sha256": "c177ad552b209eb98ffb79a333da8d864ff48bae7f54ea8d134977882c8b09d5",
+      "apk_filename": "SmishGuard-0.3.0-svm-expanded-20261005-svm-c3abc4bb-experimental.apk",
+      "build": "passed",
+      "lint": {
+        "errors": 0,
+        "warnings": 5
+      },
+      "api36": {
+        "status": "passed",
+        "groups": {
+          "ui_lifecycle_decoding": {
+            "passed": 19,
+            "skipped": 0,
+            "failed": 0
+          },
+          "notification_denied": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "offline_sklearn_exports": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "actual_export_parity": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "comparison_latency_policy": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "modem_sms": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "notification_granted_and_channel_blocked": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "accessibility_large_text": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 26,
+          "skipped": 0,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 461,
+          "scored": 456,
+          "abstained": 5,
+          "max_score_error": 2.7755575615628914e-16,
+          "max_margin_error": 8.881784197001252e-16,
+          "model_sha256": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19"
+        },
+        "private_storage": {
+          "files_inspected": 2,
+          "raw_fixture_markers_found": 0
+        }
+      },
+      "api36_extra": {
+        "api": 36,
+        "variant": "svm",
+        "scope": "Fictional emulator checks; no human TalkBack acceptance",
+        "tests": {
+          "recovery": {
+            "passed": 4,
+            "skipped": 0,
+            "failed": 0
+          },
+          "narrow_large_results": {
+            "passed": 7,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "status": "passed"
+      },
+      "api26": {
+        "status": "passed",
+        "groups": {
+          "offline_parity_and_invalid_models": {
+            "passed": 2,
+            "skipped": 0,
+            "failed": 0
+          },
+          "development_flow_and_accessibility": {
+            "passed": 8,
+            "skipped": 0,
+            "failed": 0
+          },
+          "session_recovery": {
+            "passed": 15,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 25,
+          "skipped": 0,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 461,
+          "scored": 456,
+          "abstained": 5,
+          "max_score_error": 2.7755575615628914e-16,
+          "max_margin_error": 8.881784197001252e-16,
+          "model_sha256": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19"
+        },
+        "offline_setup": "Airplane mode on; Wi-Fi service disabled via standard Settings"
+      }
+    },
+    "mbert": {
+      "apk_sha256": "728b163e5a728d67a1121e13f8ebacb8a44dabc1dc86edd6108d795e98c69bb1",
+      "apk_filename": "SmishGuard-0.3.0-mbert-expanded-20261005-mbert-c3abc4bb-experimental.apk",
+      "build": "passed",
+      "lint": {
+        "errors": 0,
+        "warnings": 5
+      },
+      "api36": {
+        "status": "passed",
+        "groups": {
+          "ui_lifecycle_decoding": {
+            "passed": 18,
+            "skipped": 1,
+            "failed": 0
+          },
+          "notification_denied": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "offline_sklearn_exports": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "mbert_parity_policy_latency": {
+            "passed": 2,
+            "skipped": 0,
+            "failed": 0
+          },
+          "modem_sms": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "notification_granted_and_channel_blocked": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          },
+          "accessibility_large_text": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 25,
+          "skipped": 1,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 468,
+          "max_logit_error": 1.33514404296875e-05,
+          "max_score_error": 4.385687211116984e-06,
+          "max_margin_error": 2.5153160095214844e-05,
+          "near_threshold_cases": 0,
+          "class_changes": 0,
+          "model_sha256": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+          "scored": 200,
+          "abstained": 0
+        },
+        "private_storage": {
+          "files_inspected": 2,
+          "raw_fixture_markers_found": 0,
+          "exclusion": "Hash-verified ONNX model cache; no message inputs stored there"
+        }
+      },
+      "api36_extra": {
+        "api": 36,
+        "variant": "mbert",
+        "scope": "Fictional emulator checks; no human TalkBack acceptance",
+        "tests": {
+          "recovery": {
+            "passed": 4,
+            "skipped": 0,
+            "failed": 0
+          },
+          "narrow_large_results": {
+            "passed": 6,
+            "skipped": 1,
+            "failed": 0
+          },
+          "native_resource_close": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "status": "passed"
+      },
+      "api26": {
+        "status": "passed",
+        "groups": {
+          "offline_parity_and_invalid_models": {
+            "passed": 2,
+            "skipped": 0,
+            "failed": 0
+          },
+          "development_flow_and_accessibility": {
+            "passed": 7,
+            "skipped": 1,
+            "failed": 0
+          },
+          "session_recovery": {
+            "passed": 15,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "totals": {
+          "passed": 24,
+          "skipped": 1,
+          "failed": 0
+        },
+        "parity": {
+          "cases": 468,
+          "max_logit_error": 1.33514404296875e-05,
+          "max_score_error": 4.385687211116984e-06,
+          "max_margin_error": 2.5153160095214844e-05,
+          "near_threshold_cases": 0,
+          "class_changes": 0,
+          "model_sha256": "a319976073b401ac1e90c2b229bed8facb5be8c9f6367cf2df6f0781d8b57417",
+          "scored": 200,
+          "abstained": 0
+        },
+        "offline_setup": "Airplane mode on; Wi-Fi service disabled via standard Settings"
+      },
+      "api26_extra": {
+        "api": 26,
+        "variant": "mbert",
+        "tests": {
+          "native_resource_close": {
+            "passed": 1,
+            "skipped": 0,
+            "failed": 0
+          }
+        },
+        "test_apk_sha256": "dd3c20dcf2fccabc45933998ba18c0ba911b551195678e3183376a765aa1edf2",
+        "status": "passed"
+      },
+      "emulator_skip_reason": "shippedModelSyntheticScanScreenshot assumes a classical model.json; skipped in mBERT in API36 full/extra and API26 UI. Actual mBERT native parity and fictional boundary checks run separately."
+    }
+  },
+  "physical_devices": "Pending; no authorized real device attached or tested",
+  "human_annotation": "Pending actual independent A/B returns and adjudication",
+  "human_accessibility": "TalkBack comprehension, focus/reading order and physical-phone acceptance pending",
+  "historical_failures": [
+    "Pre-fix fixture reproduction: 2/3 cache JVM tests failed; 2/2 retry/overlap emulator tests failed.",
+    "Initial parallel Gradle invocations caused a Kotlin incremental compilation conflict; later builds ran sequentially.",
+    "First recovery implementation compile rejected a suspension point inside synchronized; context retrieval moved outside lock before successful builds.",
+    "9 October LR large-font instrumentation startup failed with a recorded background-start ANR; 11 October final run retained separately and passed.",
+    "First mBERT API36 boundary fixture incorrectly assumed lowercase hello was a single cased WordPiece. Replaced with verified single-piece Hello. Both API26 and API36 boundary/parity checks passed; no production/tokenizer changes.",
+    "First API36 native resource test was rejected by JUnit because an inferred exception return type was not void. Explicit Unit return fixes the test declaration; corrected native cache repair/close checks passed on API26 and API36."
+  ]
+}
