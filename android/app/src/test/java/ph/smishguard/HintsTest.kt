@@ -13,7 +13,7 @@ class HintsTest {
         val summary = Hints.read("BDO reminds you that your 7,352 points will expire today. Visit bdokwl.com/ph to redeem.")
         assertEquals("BDO", summary.brand)
         assertEquals(setOf(HintKind.BRAND, HintKind.LINK, HintKind.URGENCY, HintKind.BAIT), summary.hints.map { it.kind }.toSet())
-        assertTrue(summary.hints.first { it.kind == HintKind.LINK }.text.contains("bdokwl.com"))
+        assertEquals("bdokwl.com", summary.hints.first { it.kind == HintKind.LINK }.detail)
     }
     @Test fun officialDomainIsNotFlagged() {
         assertTrue(HintKind.LINK !in kinds("Your GCash login was successful. Learn more at https://www.gcash.com/help"))

@@ -18,9 +18,9 @@ class FlowsTest {
     @Before fun resetPreferences() {
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = ph.smishguard.model.MissingDetector()
-        runBlocking { app.preferences.clear() }
+        runBlocking { app.preferences.clear(); app.preferences.acceptPrivacy() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Continue without permissions").fetchSemanticsNodes().isNotEmpty() }
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Before you tap,\ncheck the message.").fetchSemanticsNodes().isNotEmpty() }
         compose.waitForIdle()
     }

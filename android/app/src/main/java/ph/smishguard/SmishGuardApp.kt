@@ -33,5 +33,5 @@ open class SmishGuardApp : Application() {
         catch (_: Exception) { MissingDetector(invalid = true) }
     }
     open suspend fun detector(): Detector = withContext(Dispatchers.IO) { detector }
-    override fun onCreate() { super.onCreate(); WarningNotifications.createChannel(this) }
+    override fun onCreate() { super.onCreate(); WarningNotifications.createChannel(this); ph.smishguard.sms.CheckPrompt.createChannel(this) }
 }

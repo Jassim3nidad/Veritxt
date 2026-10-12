@@ -1,5 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- English (default). Filipino lives in values-b+fil/ and an identical copy in values-tl/ for older Android versions. -->
     <string name="app_name" translatable="false">Veritxt</string>
     <string name="app_tagline">Check the text before you tap</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_check">Check</string>
+    <string name="nav_settings">Settings</string>
+    <string name="back">Back</string>
+
+    <!-- Privacy notice (Data Privacy Act of 2012, RA 10173). Have the adviser review this wording. -->
+    <string name="privacy_title">Your privacy</string>
+    <string name="privacy_intro">Read how Veritxt handles your information before you start.</string>
+    <string name="privacy_checks_title">What Veritxt checks</string>
+    <string name="privacy_checks_body">Only the SMS text you paste, share, or allow it to receive.</string>
+    <string name="privacy_where_title">Where it happens</string>
+    <string name="privacy_where_body">On this phone only. Veritxt has no internet permission, so your messages are never sent anywhere.</string>
+    <string name="privacy_saved_title">What\'s saved</string>
+    <string name="privacy_saved_body">Message text is never saved. Veritxt keeps only your settings and the fact that you agreed to this notice. Clearing local data removes them.</string>
+    <string name="privacy_optional_title">SMS access is optional</string>
+    <string name="privacy_optional_body">You can check messages by pasting or sharing them. Reading new SMS needs your permission, and you can turn it off anytime.</string>
+    <string name="privacy_rights_title">Your rights</string>
+    <string name="privacy_rights_body">Under the Data Privacy Act of 2012 (Republic Act No. 10173), you have the right to be informed, to object, to access, and to have your data corrected or erased. Because Veritxt stores no messages, only the settings on your phone can be accessed or erased.</string>
+    <string name="privacy_contact_title">Questions</string>
+    <string name="privacy_contact_body">Contact the Veritxt research team: %1$s</string>
+    <string name="privacy_contact_value" translatable="false">[add research team email]</string>
+    <string name="privacy_checkbox">I have read and understood this notice</string>
+    <string name="privacy_agree">Agree and continue</string>
+    <string name="privacy_not_now">Not now</string>
+    <string name="privacy_tick_first">Tick the box first to show you\'ve read the notice.</string>
+    <string name="privacy_accepted_on">You agreed to this notice on %1$s.</string>
+
+    <!-- Onboarding -->
+    <string name="home_title">Before you tap,\ncheck the message.</string>
+    <string name="onb1_body">Check SMS messages for possible scams in Filipino, English, and Taglish.</string>
+    <string name="onb2_title">Your message stays here</string>
+    <string name="onb2_body">Checks happen on this phone. Message text is never stored or sent, and it\'s cleared when you leave the app.</string>
+    <string name="onb3_title">A warning tool</string>
+    <string name="onb3_body">Veritxt never blocks, deletes, or changes your SMS. It can miss scams or flag real messages, so always double-check.</string>
+    <string name="onb_model_experimental">Experimental model: research performance is unverified. Automatic warnings and reporting are disabled.</string>
+    <string name="onb_model_missing">This build has no usable model yet, so it can\'t assess messages.</string>
+    <string name="onb_permissions_note">Paste or share works without any permissions. Incoming SMS checks are optional and off.</string>
+    <string name="onb_continue">Continue without permissions</string>
+    <string name="onb_pages">Page %1$d of %2$d</string>
+
+    <!-- Home -->
+    <string name="home_check_title">Check a message</string>
+    <string name="home_check_body">Paste or share an SMS. Links are never opened.</string>
+    <string name="home_paste">Paste from clipboard</string>
+    <string name="status_incoming_on">Incoming SMS · on</string>
+    <string name="status_incoming_off">Incoming SMS · off</string>
+    <string name="home_dev_note">Automatic warnings and reporting are disabled in this development build.</string>
+    <string name="tip_title">Scam tip</string>
+    <string name="tip_body">Never share an OTP, PIN, or password. Verify requests using your bank’s official app or a number you already trust.</string>
+
+    <!-- Model status (the model reports these in English; the UI shows them translated). -->
+    <string name="status_loading">Loading model status…</string>
+    <string name="status_missing">Model not installed</string>
+    <string name="status_invalid">Unsupported or invalid model</string>
+    <string name="status_experimental">Experimental model</string>
+    <string name="status_ready">Model ready</string>
+    <string name="status_synthetic">Synthetic test fixture</string>
+
+    <!-- Check -->
+    <string name="check_title">Check a message</string>
+    <string name="check_field_label">SMS message</string>
+    <string name="check_placeholder">Paste the message you want to check…</string>
+    <string name="check_counter">%1$s / 10,000 characters · cleared after checking</string>
+    <string name="check_button">Check message</string>
+    <string name="check_busy">Checking on your phone…</string>
+    <string name="check_paste">Paste</string>
+    <string name="check_clear">Clear message</string>
+    <string name="check_links_note">%1$s. Links are never opened or fetched.</string>
+    <string name="error_empty">Enter a message to check.</string>
+    <string name="error_too_long">Limit is 10,000 characters. Extra text was removed; review before checking.</string>
+    <string name="error_expired">This message is no longer available. Open your messaging app and share it to Veritxt.</string>
+
+    <!-- Result -->
+    <string name="result_title">Check result</string>
+    <string name="verdict_synthetic_title">Synthetic interface fixture</string>
+    <string name="verdict_synthetic_body">This is not a real assessment.</string>
+    <string name="verdict_scam_title">Likely scam</string>
+    <string name="verdict_scam_body">This message may be a scam. Pause before acting on any request for money or account access.</string>
+    <string name="verdict_caution_title">Not flagged, but be careful</string>
+    <string name="verdict_caution_body">The model didn\'t flag it, but it has warning signs. A low score doesn\'t prove a message is real.</string>
+    <string name="verdict_safe_title">Not flagged by this model</string>
+    <string name="verdict_safe_body">The model did not flag this message. This does not establish that it is legitimate.</string>
+    <string name="verdict_missing_title">Model not installed</string>
+    <string name="verdict_missing_body">No prediction was made. This prototype needs an evaluated model before it can assess messages.</string>
+    <string name="verdict_invalid_title">Unsupported or invalid model</string>
+    <string name="verdict_invalid_body">This model can\'t be used, so no prediction was made. Contact the research team for a compatible build.</string>
+    <string name="verdict_failed_title">Could not complete the check</string>
+    <string name="verdict_failed_body">No prediction was made. Try checking the message again.</string>
+    <string name="tag_experimental">Experimental result</string>
+    <string name="score_uncalibrated">Uncalibrated model score: %1$s. This is not a likelihood of fraud.</string>
+    <string name="score_above">Above provisional threshold (0.5).</string>
+    <string name="score_below">At or below provisional threshold (0.5).</string>
+    <string name="score_disabled">Automatic warnings and reporting are disabled.</string>
+    <string name="score_probability">Estimated suspicious-class probability: %1$s%%. This is a model estimate, not certainty.</string>
+    <string name="score_none">No confidence percentage is available.</string>
+    <string name="signs_title">Warning signs found</string>
+    <string name="hint_brand">Mentions %1$s</string>
+    <string name="hint_link">Link goes to %1$s, not an official site</string>
+    <string name="hint_credentials">Asks about an OTP, PIN, or password</string>
+    <string name="hint_urgency">Pushes you to act fast</string>
+    <string name="hint_bait">Offers a prize, reward, or refund</string>
+    <string name="signs_note">These are simple pattern checks, not the model\'s reasoning.</string>
+    <string name="todo_title">What to do</string>
+    <string name="next_step_brand">Don\'t tap the link. Open the official %1$s app, or call a number you already trust.</string>
+    <string name="next_step_generic">Don\'t tap any link or reply. Contact the sender through an official channel you already trust.</string>
+    <string name="result_cleared">Message text has been cleared.</string>
+    <string name="result_again">Check another message</string>
+    <string name="result_report">Review reporting options</string>
+
+    <!-- Report -->
+    <string name="report_back">Back to result</string>
+    <string name="report_title">Your choice to report</string>
+    <string name="report_intro">Only the details below would be shared. Never your message or phone number.</string>
+    <string name="report_brand_label">Impersonated brand (optional)</string>
+    <string name="brand_unspecified">Not specified</string>
+    <string name="brand_other">Other financial institution</string>
+    <string name="report_preview">Exact metadata preview</string>
+    <string name="report_none_title">No report can be prepared</string>
+    <string name="report_none_body">An approved model result would be required. Experimental, synthetic and unavailable results cannot be reported.</string>
+    <string name="report_unavailable">Reporting isn\'t available in this build. Nothing will be sent or queued.</string>
+    <string name="report_submit">Submit report · unavailable</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Privacy &amp; settings</string>
+    <string name="section_protection">Protection</string>
+    <string name="section_preferences">Preferences</string>
+    <string name="section_privacy">Privacy</string>
+    <string name="incoming_title">When a new SMS arrives</string>
+    <string name="incoming_ask">Ask me to check it</string>
+    <string name="incoming_off">Off</string>
+    <string name="incoming_unavailable">This device can\'t receive SMS</string>
+    <string name="incoming_cd">Scan incoming SMS</string>
+    <string name="notif_title">Notifications</string>
+    <string name="notif_on">On</string>
+    <string name="notif_off">Off · Veritxt can\'t ask you to check new texts</string>
+    <string name="notif_turn_on">Turn on</string>
+    <string name="status_lines">Telephony: %1$s\nSMS permission: %2$s\nNotifications: %3$s</string>
+    <string name="value_available">available</string>
+    <string name="value_unavailable">unavailable</string>
+    <string name="value_granted">granted</string>
+    <string name="value_not_granted">not granted</string>
+    <string name="value_enabled">enabled</string>
+    <string name="value_disabled">disabled</string>
+    <string name="test_notification">Send a test notification</string>
+    <string name="test_sent">Test notification sent. Tap Check now to try it.</string>
+    <string name="test_needs_notifications">Turn on notifications first.</string>
+    <string name="why_title">Why didn\'t I get a notification?</string>
+    <string name="language_title">Language</string>
+    <string name="language_system">System default</string>
+    <string name="language_en" translatable="false">English</string>
+    <string name="language_fil" translatable="false">Filipino</string>
+    <string name="reduce_title">Reduce transparency</string>
+    <string name="reduce_body">Solid backgrounds for easier reading</string>
+    <string name="android_settings">Android permission settings</string>
+    <string name="privacy_notice_row">Privacy notice</string>
+    <string name="local_title">Local processing</string>
+    <string name="local_body">Only your privacy-notice agreement, onboarding, incoming-SMS choice, and display and language settings are saved. No scan history or raw messages are kept. The app has no internet permission.</string>
+    <string name="local_limits">Android treats SMS access as a restricted permission and may refuse it. Force-stopping the app pauses incoming checks until you open it again.</string>
+    <string name="clear_button">Clear local preferences and session</string>
+    <string name="consent_title">Allow incoming SMS checks?</string>
+    <string name="consent_body">When a new SMS arrives, Veritxt will hold its text in memory and ask whether you want to check it. It won\'t read your inbox, change messages, or show a result until you tap Check now. Android may refuse this restricted permission. Notifications are a separate choice.</string>
+    <string name="consent_agree">Agree and continue</string>
+    <string name="consent_keep_off">Keep off</string>
+    <string name="sms_granted_note">SMS permission granted. Veritxt will ask you to check new texts.</string>
+    <string name="sms_denied_note">SMS permission was not granted. You can still paste or share messages, or allow it later in Android settings.</string>
+    <string name="clear_title">Clear local records?</string>
+    <string name="clear_body">This clears your privacy agreement, consent and display preferences, and current checking session. You\'ll see the privacy notice again. Android permissions remain under system settings.</string>
+    <string name="clear_confirm">Clear</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Notification help -->
+    <string name="help_intro">Veritxt can only ask you to check a text if these are all OK. Fix anything marked below.</string>
+    <string name="help_ok">OK</string>
+    <string name="help_fix">Needs attention</string>
+    <string name="help_info">Good to know</string>
+    <string name="help_sms_title">SMS permission</string>
+    <string name="help_sms_ok">Granted.</string>
+    <string name="help_sms_bad">Not granted. Turn on “When a new SMS arrives” in Settings, or allow SMS in Android settings.</string>
+    <string name="help_scan_title">Incoming checks in Veritxt</string>
+    <string name="help_scan_ok">On.</string>
+    <string name="help_scan_bad">Off. Turn it on in Settings.</string>
+    <string name="help_notif_title">Notifications</string>
+    <string name="help_notif_ok">Allowed.</string>
+    <string name="help_notif_bad">Blocked or muted. Allow notifications for Veritxt.</string>
+    <string name="help_battery_title">Battery optimization</string>
+    <string name="help_battery_ok">Veritxt isn\'t restricted.</string>
+    <string name="help_battery_bad">Android may stop Veritxt in the background. Set Veritxt to “Unrestricted” or “Don\'t optimize”.</string>
+    <string name="help_open_battery">Open battery settings</string>
+    <string name="help_open_notifications">Open notification settings</string>
+    <string name="help_open_app">Open app info</string>
+    <string name="help_autostart_title">Autostart (%1$s)</string>
+    <string name="autostart_xiaomi">Settings → Apps → Manage apps → Veritxt → turn on Autostart. Also set Battery saver to “No restrictions”.</string>
+    <string name="autostart_oppo">Settings → Battery → App battery management (or More settings) → Veritxt → allow Background activity and Auto launch.</string>
+    <string name="autostart_vivo">Settings → Battery → Background power consumption management → Veritxt → Allow. Also turn on Veritxt in i Manager → App manager → Autostart.</string>
+    <string name="autostart_huawei">Settings → Battery → App launch → Veritxt → choose Manage manually and turn on Auto-launch and Run in background.</string>
+    <string name="autostart_samsung">Settings → Battery → Background usage limits → make sure Veritxt is not in Sleeping or Deep sleeping apps.</string>
+    <string name="autostart_other">Look for Autostart or Background activity in your battery settings and allow Veritxt.</string>
+    <string name="help_other_brands">Other phone brands</string>
+    <string name="help_forcestop_title">Force stop</string>
+    <string name="help_forcestop_body">If you force-stop Veritxt, Android won\'t deliver new texts to it until you open the app again.</string>
+    <string name="help_restricted_title">“Restricted setting” message</string>
+    <string name="help_restricted_body">On Android 13 and newer, apps installed from an APK may need extra approval: open App info → ⋮ (top right) → Allow restricted settings, then turn on SMS again.</string>
+    <string name="help_rcs_title">Chat messages (RCS)</string>
+    <string name="help_rcs_body">Chat messages in Google Messages or Samsung Messages aren\'t SMS, so Veritxt never sees them. Copy and paste them instead.</string>
+    <string name="help_test_body">Send a test notification to make sure alerts reach you.</string>
+
+    <!-- Notifications -->
+    <string name="channel_check_name">New text checks</string>
+    <string name="channel_check_desc">Asks if you want to check a new SMS. Never shows the message.</string>
+    <string name="notif_check_title">New text received</string>
+    <string name="notif_check_body">Check it with Veritxt before you tap any link.</string>
+    <string name="notif_check_public">New text to check</string>
+    <string name="notif_action_check">Check now</string>
+    <string name="notif_action_dismiss">Dismiss</string>
+    <string name="notif_test_title">Test: new text received</string>
+    <string name="notif_test_sample" translatable="false">SAMPLE: Your parcel is on hold. Pay the redelivery fee today at example-parcel.test</string>
+    <string name="channel_warning_name">Suspicious SMS warnings</string>
+    <string name="channel_warning_desc">Private warnings without message contents</string>
+    <string name="warning_title">Potential financial impersonation</string>
+    <string name="warning_body">Check the recent SMS in your messaging app. Verify through official channels.</string>
 </resources>

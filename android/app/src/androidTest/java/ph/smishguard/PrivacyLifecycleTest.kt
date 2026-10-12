@@ -14,7 +14,7 @@ class PrivacyLifecycleTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun backgroundAndRecreateDiscardText() {
         val app = compose.activity.application as SmishGuardApp
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.waitForIdle()
         compose.onNodeWithText("Check a message").performScrollTo().performClick()
         compose.onNodeWithText("SMS message").performTextInput("SYNTHETIC_PRIVATE_SESSION_MARKER")

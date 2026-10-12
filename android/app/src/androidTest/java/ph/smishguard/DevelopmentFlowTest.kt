@@ -14,7 +14,7 @@ class DevelopmentFlowTest {
         assumeTrue(BuildConfig.BUILD_TYPE == "development")
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.waitForIdle()
         val text = "SGTEST supplied model manual privacy marker. Kumusta po, tingnan ang opisyal na app."
         compose.activityRule.scenario.onActivity {

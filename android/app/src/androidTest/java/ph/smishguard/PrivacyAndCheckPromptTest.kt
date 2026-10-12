@@ -1,0 +1,79 @@
+package ph.smishguard
+
+import android.Manifest
+import android.app.Notification
+import android.app.NotificationManager
+import android.os.Build
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assert.*
+import org.junit.Rule
+import org.junit.Test
+import ph.smishguard.model.MissingDetector
+import ph.smishguard.sms.CheckPrompt
+import ph.smishguard.sms.PendingChecks
+
+/** Privacy gate and the neutral "check this text?" notification. Messages are synthetic. */
+class PrivacyAndCheckPromptTest {
+    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    private val app get() = compose.activity.application as SoftwareTestApp
+    private val manager get() = app.getSystemService(NotificationManager::class.java)
+    private val marker = "SGTEST BDO account on hold, verify at sgtest-verify.example.com"
+
+    @After fun reset() { app.testDetector = null; manager.cancelAll(); PendingChecks.clear() }
+
+    @Test fun privacyNoticeMustBeAcceptedFirst() {
+        runBlocking { app.preferences.clear() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Your privacy").fetchSemanticsNodes().isNotEmpty() }
+        compose.onAllNodesWithText("Home").assertCountEquals(0)
+        compose.onNodeWithText("Agree and continue").performScrollTo().performClick()
+        compose.onNodeWithText("Tick the box first to show you've read the notice.").assertExists()
+        compose.onAllNodesWithText("Continue without permissions").assertCountEquals(0)
+        compose.onNodeWithText("I have read and understood this notice").performScrollTo().performClick()
+        compose.onNodeWithText("Agree and continue").performScrollTo().performClick()
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Continue without permissions").fetchSemanticsNodes().isNotEmpty() }
+        assertTrue(runBlocking { app.preferences.flow.first().privacyAccepted })
+    }
+
+    @Test fun checkNowOpensAndChecksTheTextWithoutShowingItInTheNotification() {
+        ready()
+        val id = CheckPrompt.show(app, marker)
+        assertNotNull("Notifications must be allowed for this test", id)
+        val posted = manager.activeNotifications.single { it.id == id }.notification
+        assertEquals(CheckPrompt.CHANNEL, posted.channelId)
+        val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT, Notification.EXTRA_BIG_TEXT)
+            .joinToString(" ") { posted.extras.getCharSequence(it)?.toString().orEmpty() }
+        assertFalse("Notification must not contain the message", shown.contains("SGTEST") || shown.contains("example.com"))
+        assertEquals(Notification.VISIBILITY_PRIVATE, posted.visibility)
+        posted.contentIntent.send()
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Check result").fetchSemanticsNodes().isNotEmpty() }
+        compose.onAllNodesWithText(marker).assertCountEquals(0)
+        compose.onNodeWithText("Model not installed", substring = false).assertExists()
+        compose.onNodeWithText("Link goes to sgtest-verify.example.com, not an official site").performScrollTo().assertExists()
+        assertTrue("Notification should be cancelled after Check now", manager.activeNotifications.none { it.id == id })
+    }
+
+    @Test fun expiredTextExplainsWhatToDo() {
+        ready()
+        val id = CheckPrompt.show(app, marker)!!
+        val posted = manager.activeNotifications.single { it.id == id }.notification
+        PendingChecks.clear() // same as the app process restarting before the tap
+        posted.contentIntent.send()
+        compose.waitUntil(10000) {
+            compose.onAllNodesWithText("This message is no longer available", substring = true).fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
+    private fun ready() {
+        if (Build.VERSION.SDK_INT >= 33) InstrumentationRegistry.getInstrumentation().uiAutomation
+            .grantRuntimePermission(app.packageName, Manifest.permission.POST_NOTIFICATIONS)
+        app.testDetector = MissingDetector()
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Before you tap,\ncheck the message.").fetchSemanticsNodes().isNotEmpty() }
+        manager.cancelAll()
+    }
+}

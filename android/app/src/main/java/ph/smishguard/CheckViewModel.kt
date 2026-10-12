@@ -1,5 +1,6 @@
 package ph.smishguard
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
@@ -17,9 +18,9 @@ import ph.smishguard.ui.HintSummary
 import ph.smishguard.ui.Hints
 import java.time.ZonedDateTime
 
-enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS }
+enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS, PRIVACY, HELP }
 data class CheckState(val screen: Screen = Screen.HOME, val text: String = "", val busy: Boolean = false,
-    val error: String? = null, val result: Detection? = null, val domain: String? = null,
+    @param:StringRes val error: Int? = null, val result: Detection? = null, val domain: String? = null,
     val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val modelStatus: String = "Loading model status…")
 
 class CheckViewModel(application: android.app.Application) : AndroidViewModel(application) {
@@ -32,9 +33,14 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         job?.cancel()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
             result = null, domain = null, checkedAt = null, hints = null,
-            error = if (text.length > MAX_MESSAGE_LENGTH) "Limit is 10,000 characters. Extra text was removed; review before checking." else null)
+            error = if (text.length > MAX_MESSAGE_LENGTH) R.string.error_too_long else null)
     }
     fun share(text: String) { endSession(Screen.CHECK); edit(text) }
+    /** From the "Check now" notification: check right away, or explain that the text has expired. */
+    fun checkPending(text: String?) {
+        if (text == null) { endSession(Screen.CHECK); mutable.value = mutable.value.copy(error = R.string.error_expired) }
+        else { share(text); scan() }
+    }
     fun navigate(screen: Screen) {
         if (screen in setOf(Screen.HOME, Screen.CHECK, Screen.SETTINGS)) endSession(screen)
         else mutable.value = mutable.value.copy(screen = screen)
@@ -44,7 +50,7 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus)
     }
     fun scan() {
-        if (mutable.value.text.isBlank()) { mutable.value = mutable.value.copy(error = "Enter a message to check."); return }
+        if (mutable.value.text.isBlank()) { mutable.value = mutable.value.copy(error = R.string.error_empty); return }
         if (mutable.value.busy) return
         job = viewModelScope.launch {
             mutable.value = mutable.value.copy(busy = true, error = null)

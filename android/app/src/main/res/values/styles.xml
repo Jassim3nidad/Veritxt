@@ -1,9 +1,10 @@
 <resources>
-    <style name="Theme.SmishGuard" parent="android:style/Theme.Material.Light.NoActionBar">
+    <!-- AppCompat theme so the per-app language setting also works on Android 8-12. Compose draws everything. -->
+    <style name="Theme.SmishGuard" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:fontFamily">sans</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
-        <item name="android:colorAccent">#236B5E</item>
+        <item name="colorPrimary">#236B5E</item>
+        <item name="colorAccent">#236B5E</item>
     </style>
 </resources>

@@ -43,7 +43,7 @@ class ModemSmsTest {
             }
         }
         try {
-            app.preferences.onboard()
+            app.preferences.acceptPrivacy(); app.preferences.onboard()
             app.preferences.scanning(true)
             File(signals, "single").writeText("ready")
             assertTrue("Modem single SMS not received intact", events.poll(30, TimeUnit.SECONDS) == "SGTEST single kumusta")

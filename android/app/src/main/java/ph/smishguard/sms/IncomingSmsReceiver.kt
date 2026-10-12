@@ -55,11 +55,17 @@ class IncomingSmsReceiver : BroadcastReceiver() {
         CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
             try {
                 withTimeout(7000) {
-                    if (!app.preferences.flow.first().scanning) return@withTimeout
+                    val prefs = app.preferences.flow.first()
+                    if (!prefs.scanning || !prefs.privacyAccepted) return@withTimeout
                     val parts = Telephony.Sms.Intents.getMessagesFromIntent(intent)
                     val text = SmsParts.combine(parts.map { it.messageBody }) ?: return@withTimeout
                     val detector = app.detector()
-                    if (!detector.automaticWarningsAllowed) return@withTimeout
+                    if (!detector.automaticWarningsAllowed) {
+                        // No model is approved for automatic warnings, so ask the user instead of judging the text.
+                        // The prompt carries no verdict; the check runs only after the user taps "Check now".
+                        CheckPrompt.show(context, text)
+                        return@withTimeout
+                    }
                     val result = detector.detect(text)
                     if (result is Detection.Success && result.suspicious && !result.synthetic && !result.experimental &&
                         app.preferences.flow.first().scanning && PermissionState.read(context).active(true)) {
@@ -77,8 +83,8 @@ object WarningNotifications {
     const val CHANNEL = "suspected_financial_impersonation"
     fun createChannel(context: Context) {
         context.getSystemService(NotificationManager::class.java).createNotificationChannel(
-            NotificationChannel(CHANNEL, "Suspicious SMS warnings", NotificationManager.IMPORTANCE_HIGH).apply {
-                description = "Private warnings without message contents"
+            NotificationChannel(CHANNEL, CheckPrompt.localized(context).getString(R.string.channel_warning_name), NotificationManager.IMPORTANCE_HIGH).apply {
+                description = CheckPrompt.localized(context).getString(R.string.channel_warning_desc)
                 lockscreenVisibility = android.app.Notification.VISIBILITY_SECRET
             })
     }
@@ -92,8 +98,8 @@ object WarningNotifications {
         val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         return NotificationCompat.Builder(context, CHANNEL)
-            .setSmallIcon(R.drawable.ic_stat_veritxt).setContentTitle("Potential financial impersonation")
-            .setContentText("Check the recent SMS in your messaging app. Verify through official channels.")
+            .setSmallIcon(R.drawable.ic_stat_veritxt).setContentTitle(CheckPrompt.localized(context).getString(R.string.warning_title))
+            .setContentText(CheckPrompt.localized(context).getString(R.string.warning_body))
             .setVisibility(NotificationCompat.VISIBILITY_SECRET).setContentIntent(open).setAutoCancel(true).build()
     }
 }

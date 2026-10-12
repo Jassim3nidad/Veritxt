@@ -4,7 +4,8 @@ import java.util.Locale
 
 /** Rule-based warning signs shown beside the model result. They are hints, not the model's explanation. */
 enum class HintKind { BRAND, LINK, URGENCY, CREDENTIALS, BAIT }
-data class Hint(val kind: HintKind, val text: String)
+/** [detail] is the brand or link host the hint refers to; the UI turns kind + detail into translated text. */
+data class Hint(val kind: HintKind, val detail: String? = null)
 data class HintSummary(val hints: List<Hint>, val brand: String?)
 
 object Hints {
@@ -31,16 +32,12 @@ object Hints {
             .filter { host -> host.substringAfterLast('.').all { it.isLetter() } }.toList()
         val unofficial = hosts.firstOrNull { host -> official.none { host == it || host.endsWith(".$it") } }
         val hints = buildList {
-            if (brand != null) add(Hint(HintKind.BRAND, "Mentions $brand"))
-            if (unofficial != null) add(Hint(HintKind.LINK, "Link goes to $unofficial, not an official site"))
-            if (credentials.containsMatchIn(text)) add(Hint(HintKind.CREDENTIALS, "Asks about an OTP, PIN, or password"))
-            if (urgency.containsMatchIn(text)) add(Hint(HintKind.URGENCY, "Pushes you to act fast"))
-            if (bait.containsMatchIn(text)) add(Hint(HintKind.BAIT, "Offers a prize, reward, or refund"))
+            if (brand != null) add(Hint(HintKind.BRAND, brand))
+            if (unofficial != null) add(Hint(HintKind.LINK, unofficial))
+            if (credentials.containsMatchIn(text)) add(Hint(HintKind.CREDENTIALS))
+            if (urgency.containsMatchIn(text)) add(Hint(HintKind.URGENCY))
+            if (bait.containsMatchIn(text)) add(Hint(HintKind.BAIT))
         }
         return HintSummary(hints, brand)
     }
-
-    fun nextStep(brand: String?): String = if (brand != null)
-        "Don't tap the link. Open the official $brand app, or call a number you already trust."
-    else "Don't tap any link or reply. Contact the sender through an official channel you already trust."
 }

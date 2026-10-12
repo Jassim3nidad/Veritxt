@@ -15,7 +15,7 @@ class VisualReviewTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun captureStaticScreens() {
         val app = compose.activity.application as SmishGuardApp
-        runBlocking { app.preferences.clear() }
+        runBlocking { app.preferences.clear(); app.preferences.acceptPrivacy() }
         compose.waitForIdle()
         compose.activityRule.scenario.onActivity { it.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
         try {

@@ -14,7 +14,7 @@ class AccessibilityTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun labeledControlsAndHeadingsRemainReachable() {
         val app = compose.activity.application as SmishGuardApp
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.waitForIdle()
         if (InstrumentationRegistry.getArguments().getString("largeFont") == "true")
             assertTrue(compose.activity.resources.configuration.fontScale >= 1.9f)
