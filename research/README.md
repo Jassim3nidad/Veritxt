@@ -1,5 +1,16 @@
 # SmishGuard research and model workflow
 
+11 October: [fixed-setting retraining and ensemble comparison](../docs/ensemble-comparison-20261011.md)
+adds a separate reproduction of the four standalone models, all eleven equal-weight
+voting combinations and two OOF stacking experiments. See the
+[frozen additional-experiment protocol](../docs/ensemble-comparison-protocol-20261011.md).
+The October 5 dataset, partitions, baseline settings, thresholds and original
+artifacts are preserved; no hyperparameter or threshold search is repeated.
+`smishguard.ensemble_compare` separates audit, training, validation selection and
+final evaluation. This comparison is retrospective because the existing test
+partition was already exposed. Private fitted artifacts and membership remain in
+`research/data/ensemble-20261011/`; the report includes reproduction commands.
+
 6 October current work: scope is **all SMS phishing**, a team clarification without assumed adviser approval. Revised thesis title: **Pending finalization**; the existing title remains historical and title-dependent edits remain pending. See [scope record](../docs/scope-clarification-20261006.md), [review completion](../docs/review-completion-20261006.md), and [INT8 experiment](../docs/mbert-int8-experiment-20261006.md). Earlier milestone instructions below describe historical workflows; do not use financial-only import gates for current annotation or retrain the four frozen evaluation models.
 
 1 October: [lr-calibrated-4 review](../docs/lr-calibrated-4-review.md). `smishguard.folded_candidate` converts the privately supplied folded LR parameters unchanged, checks the matching guide and publishes aggregates only. It never executes training or opens the private data ZIP. Supplied trainers that apply unconfirmed AI proposals were not enabled. Existing reviewed-data/exposure gates remain; exported calibration is fitted, not independently validated.
