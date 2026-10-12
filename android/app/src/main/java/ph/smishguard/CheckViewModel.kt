@@ -13,12 +13,14 @@ import kotlinx.coroutines.withTimeout
 import ph.smishguard.model.Detection
 import ph.smishguard.model.MAX_MESSAGE_LENGTH
 import ph.smishguard.privacy.SafeDomain
+import ph.smishguard.ui.HintSummary
+import ph.smishguard.ui.Hints
 import java.time.ZonedDateTime
 
 enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS }
 data class CheckState(val screen: Screen = Screen.HOME, val text: String = "", val busy: Boolean = false,
     val error: String? = null, val result: Detection? = null, val domain: String? = null,
-    val checkedAt: ZonedDateTime? = null, val modelStatus: String = "Loading model status…")
+    val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val modelStatus: String = "Loading model status…")
 
 class CheckViewModel(application: android.app.Application) : AndroidViewModel(application) {
     private val app = application as SmishGuardApp
@@ -29,7 +31,7 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     fun edit(text: String) {
         job?.cancel()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
-            result = null, domain = null, checkedAt = null,
+            result = null, domain = null, checkedAt = null, hints = null,
             error = if (text.length > MAX_MESSAGE_LENGTH) "Limit is 10,000 characters. Extra text was removed; review before checking." else null)
     }
     fun share(text: String) { endSession(Screen.CHECK); edit(text) }
@@ -50,11 +52,11 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
                 val resultAndDomain = withContext(Dispatchers.Default) {
                     withTimeout(7000) {
                         val text = mutable.value.text
-                        app.detector().detect(text) to SafeDomain.fromMessage(text)
+                        Triple(app.detector().detect(text), SafeDomain.fromMessage(text), Hints.read(text))
                     }
                 }
                 mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", busy = false,
-                    result = resultAndDomain.first, domain = resultAndDomain.second, checkedAt = ZonedDateTime.now())
+                    result = resultAndDomain.first, domain = resultAndDomain.second, hints = resultAndDomain.third, checkedAt = ZonedDateTime.now())
             } catch (_: kotlinx.coroutines.TimeoutCancellationException) {
                 mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", busy = false, result = Detection.Failure)
             } catch (e: CancellationException) { throw e }

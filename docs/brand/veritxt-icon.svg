@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="t">
+  <title id="t">Veritxt app icon</title>
+  <rect width="512" height="512" rx="116" fill="#1F6457"/>
+  <circle cx="400" cy="112" r="150" fill="#2E8C78" opacity="0.55"/>
+  <path d="M146 140h220a46 46 0 0 1 46 46v118a46 46 0 0 1-46 46H262l-70 58v-58h-46a46 46 0 0 1-46-46V186a46 46 0 0 1 46-46z" fill="#FFFFFF"/>
+  <path d="M190 246l44 44 92-94" fill="none" stroke="#1F6457" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
