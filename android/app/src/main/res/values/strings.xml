@@ -38,7 +38,7 @@
     <string name="onb2_body">Checks happen on this phone. Message text is never stored or sent, and it\'s cleared when you leave the app.</string>
     <string name="onb3_title">A warning tool</string>
     <string name="onb3_body">Veritxt never blocks, deletes, or changes your SMS. It can miss scams or flag real messages, so always double-check.</string>
-    <string name="onb_model_experimental">Experimental model: research performance is unverified. Automatic warnings and reporting are disabled.</string>
+    <string name="onb_model_experimental">Experimental model: research performance is unverified, so warnings can be wrong. Reporting is disabled.</string>
     <string name="onb_model_missing">This build has no usable model yet, so it can\'t assess messages.</string>
     <string name="onb_permissions_note">Paste or share works without any permissions. Incoming SMS checks are optional and off.</string>
     <string name="onb_continue">Continue without permissions</string>
@@ -50,7 +50,6 @@
     <string name="home_paste">Paste from clipboard</string>
     <string name="status_incoming_on">Incoming SMS · on</string>
     <string name="status_incoming_off">Incoming SMS · off</string>
-    <string name="home_dev_note">Automatic warnings and reporting are disabled in this development build.</string>
     <string name="tip_title">Scam tip</string>
     <string name="tip_body">Never share an OTP, PIN, or password. Verify requests using your bank’s official app or a number you already trust.</string>
 
@@ -96,7 +95,7 @@
     <string name="score_uncalibrated">Uncalibrated model score: %1$s. This is not a likelihood of fraud.</string>
     <string name="score_above">Above provisional threshold (0.5).</string>
     <string name="score_below">At or below provisional threshold (0.5).</string>
-    <string name="score_disabled">Automatic warnings and reporting are disabled.</string>
+    <string name="score_disabled">Reporting is disabled in this build.</string>
     <string name="score_probability">Estimated suspicious-class probability: %1$s%%. This is a model estimate, not certainty.</string>
     <string name="score_none">No confidence percentage is available.</string>
     <string name="signs_title">Warning signs found</string>
@@ -164,10 +163,10 @@
     <string name="local_limits">Android treats SMS access as a restricted permission and may refuse it. Force-stopping the app pauses incoming checks until you open it again.</string>
     <string name="clear_button">Clear local preferences and session</string>
     <string name="consent_title">Allow incoming SMS checks?</string>
-    <string name="consent_body">When a new SMS arrives, Veritxt will hold its text in memory and ask whether you want to check it. It won\'t read your inbox, change messages, or show a result until you tap Check now. Android may refuse this restricted permission. Notifications are a separate choice.</string>
+    <string name="consent_body">When a new SMS arrives, Veritxt checks its text on this phone and then discards it. If the text looks like a scam, Veritxt warns you. Without a model, it asks whether you want to check the text instead. It won\'t read your inbox or change messages. Android may refuse this restricted permission. Notifications are a separate choice.</string>
     <string name="consent_agree">Agree and continue</string>
     <string name="consent_keep_off">Keep off</string>
-    <string name="sms_granted_note">SMS permission granted. Veritxt will ask you to check new texts.</string>
+    <string name="sms_granted_note">SMS permission granted. Veritxt will check new texts as they arrive.</string>
     <string name="sms_denied_note">SMS permission was not granted. You can still paste or share messages, or allow it later in Android settings.</string>
     <string name="clear_title">Clear local records?</string>
     <string name="clear_body">This clears your privacy agreement, consent and display preferences, and current checking session. You\'ll see the privacy notice again. Android permissions remain under system settings.</string>
@@ -175,7 +174,7 @@
     <string name="cancel">Cancel</string>
 
     <!-- Notification help -->
-    <string name="help_intro">Veritxt can only ask you to check a text if these are all OK. Fix anything marked below.</string>
+    <string name="help_intro">Veritxt can only warn you about a new text if these are all OK. Fix anything marked below.</string>
     <string name="help_ok">OK</string>
     <string name="help_fix">Needs attention</string>
     <string name="help_info">Good to know</string>
@@ -220,8 +219,12 @@
     <string name="notif_action_dismiss">Dismiss</string>
     <string name="notif_test_title">Test: new text received</string>
     <string name="notif_test_sample" translatable="false">SAMPLE: Your parcel is on hold. Pay the redelivery fee today at example-parcel.test</string>
-    <string name="channel_warning_name">Suspicious SMS warnings</string>
-    <string name="channel_warning_desc">Private warnings without message contents</string>
-    <string name="warning_title">Potential financial impersonation</string>
-    <string name="warning_body">Check the recent SMS in your messaging app. Verify through official channels.</string>
+    <string name="channel_warning_name">Scam warnings</string>
+    <string name="channel_warning_desc">Warns you when a new SMS looks like a scam. Never shows the message.</string>
+    <string name="warning_title">Possible scam text</string>
+    <string name="warning_body">Veritxt\'s experimental model flagged a new SMS. Don\'t tap its links. Tap to see why.</string>
+    <string name="notif_action_see_why">See why</string>
+    <string name="incoming_warn">Warn me when a text looks like a scam</string>
+    <string name="home_note_experimental">Automatic warnings use an experimental model and can be wrong. Reporting is disabled.</string>
+    <string name="home_note_missing">No model is installed, so new texts can only be checked when you tap Check now. Reporting is disabled.</string>
 </resources>

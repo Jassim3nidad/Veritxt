@@ -57,6 +57,26 @@ class PrivacyAndCheckPromptTest {
         assertTrue("Notification should be cancelled after Check now", manager.activeNotifications.none { it.id == id })
     }
 
+    @Test fun automaticWarningIsPrivateAndSeeWhyShowsTheResult() {
+        ready()
+        app.testDetector = object : ph.smishguard.model.Detector {
+            override val status = "Experimental model · test stub"
+            override val automaticWarningsAllowed = true
+            override suspend fun detect(text: String) = ph.smishguard.model.Detection.Success(true, .9, experimental = true)
+        }
+        val id = ph.smishguard.sms.WarningNotifications.warn(app, marker)!!
+        val warning = posted(id)
+        assertEquals(ph.smishguard.sms.WarningNotifications.CHANNEL, warning.channelId)
+        assertEquals("Possible scam text", warning.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT).joinToString(" ") { warning.extras.getCharSequence(it)?.toString().orEmpty() }
+        assertFalse("Warning must not contain the message", shown.contains("SGTEST") || shown.contains("example.com"))
+        assertEquals(Notification.VISIBILITY_SECRET, warning.visibility)
+        warning.contentIntent.send()
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Likely scam").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("Experimental result").assertExists()
+        compose.onAllNodesWithText(marker).assertCountEquals(0)
+    }
+
     @Test fun expiredTextExplainsWhatToDo() {
         ready()
         val id = CheckPrompt.show(app, marker)!!

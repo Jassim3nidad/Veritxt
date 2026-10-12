@@ -29,7 +29,7 @@ class DevelopmentFlowTest {
         compose.onNodeWithText(text).assertDoesNotExist()
         compose.onNodeWithText("Uncalibrated model score:", substring = true).assertExists()
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
-        compose.onNodeWithText("Automatic warnings and reporting are disabled.").assertExists()
+        compose.onNodeWithText("Reporting is disabled in this build.").assertExists()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
         compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()
     }

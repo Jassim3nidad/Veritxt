@@ -211,7 +211,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                                 Screen.CHECK -> CheckScreen(state, app, vm)
                                 Screen.RESULT -> ResultScreen(state, vm)
                                 Screen.REPORT -> ReportScreen(state, vm)
-                                Screen.SETTINGS -> SettingsContent(app, prefs, permissions, vm, { permissions = PermissionState.read(app) }, { vm.endSession() })
+                                Screen.SETTINGS -> SettingsContent(app, prefs, permissions, vm, state.autoWarnings, { permissions = PermissionState.read(app) }, { vm.endSession() })
                                 Screen.PRIVACY -> PrivacyNotice(accepting = false, acceptedOn = prefs.privacyAcceptedOn, onAgree = {}, onNotNow = {},
                                     onBack = { vm.navigate(Screen.SETTINGS) })
                                 Screen.HELP -> HelpScreen(app, prefs, permissions, vm)
@@ -392,8 +392,12 @@ private fun clipboardText(context: Context): String? = context.getSystemService(
         StatusPill(stringResource(if (scanning) R.string.status_incoming_on else R.string.status_incoming_off),
             if (scanning) Icons.Outlined.MarkChatRead else Icons.Outlined.SpeakerNotesOff, scheme.onSurfaceVariant)
     }
-    if (!state.modelStatus.startsWith("Model ready")) Text(stringResource(R.string.home_dev_note),
-        style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
+    val note = when {
+        !state.autoWarnings -> R.string.home_note_missing
+        state.modelStatus.startsWith("Experimental") -> R.string.home_note_experimental
+        else -> null
+    }
+    note?.let { Text(stringResource(it), style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant) }
     GlassSurface(Modifier.fillMaxWidth()) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Icon(Icons.Outlined.Lightbulb, null, tint = scheme.primary)
@@ -564,7 +568,7 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
 
 /** Sends the sample prompt; returns the message to show. */
 @StringRes private fun sendTestNotification(context: Context): Int =
-    if (CheckPrompt.show(context, context.getString(R.string.notif_test_sample), test = true) != null) R.string.test_sent else R.string.test_needs_notifications
+    if (CheckPrompt.show(context, context.getString(R.string.notif_test_sample), CheckPrompt.Kind.TEST) != null) R.string.test_sent else R.string.test_needs_notifications
 
 @Composable private fun rememberNotificationRequest(refresh: () -> Unit): () -> Unit {
     val context = LocalContext.current
@@ -578,7 +582,8 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable private fun ColumnScope.SettingsContent(app: SmishGuardApp, preferences: Preferences, permissions: PermissionState, vm: CheckViewModel, refresh: () -> Unit, clear: () -> Unit) {
+@Composable private fun ColumnScope.SettingsContent(app: SmishGuardApp, preferences: Preferences, permissions: PermissionState, vm: CheckViewModel,
+                                                   autoWarnings: Boolean, refresh: () -> Unit, clear: () -> Unit) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var consentDialog by remember { mutableStateOf(false) }
@@ -598,7 +603,7 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
         val active = preferences.scanning && permissions.active(true)
         val incomingCd = stringResource(R.string.incoming_cd)
         SettingsRow(Icons.Outlined.Sms, stringResource(R.string.incoming_title),
-            stringResource(if (!permissions.telephony) R.string.incoming_unavailable else if (active) R.string.incoming_ask else R.string.incoming_off)) {
+            stringResource(if (!permissions.telephony) R.string.incoming_unavailable else if (!active) R.string.incoming_off else if (autoWarnings) R.string.incoming_warn else R.string.incoming_ask)) {
             Switch(checked = active, onCheckedChange = {
                 if (it) consentDialog = true else scope.launch { app.preferences.scanning(false) }
             }, enabled = permissions.telephony, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics { contentDescription = incomingCd })

@@ -23,7 +23,7 @@ class SuppliedModelTest {
         assertEquals(1, Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON))
         assertEquals(PackageManager.PERMISSION_DENIED, context.checkSelfPermission(Manifest.permission.INTERNET))
         val detector = ModelLoader.parse(source()) as SuppliedDetector
-        assertFalse(detector.automaticWarningsAllowed)
+        assertTrue(detector.automaticWarningsAllowed) // team decision: the experimental model warns automatically
         val cases = JSONArray(instrumentation.context.assets.open("supplied-parity.json").bufferedReader().use { it.readText() })
         for (i in 0 until cases.length()) {
             val case = cases.getJSONObject(i); val text = case.getString("text")

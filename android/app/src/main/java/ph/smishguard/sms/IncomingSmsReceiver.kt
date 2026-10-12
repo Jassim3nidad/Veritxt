@@ -61,15 +61,17 @@ class IncomingSmsReceiver : BroadcastReceiver() {
                     val text = SmsParts.combine(parts.map { it.messageBody }) ?: return@withTimeout
                     val detector = app.detector()
                     if (!detector.automaticWarningsAllowed) {
-                        // No model is approved for automatic warnings, so ask the user instead of judging the text.
+                        // No model can warn automatically (e.g. none installed), so ask the user instead of judging.
                         // The prompt carries no verdict; the check runs only after the user taps "Check now".
                         CheckPrompt.show(context, text)
                         return@withTimeout
                     }
                     val result = detector.detect(text)
-                    if (result is Detection.Success && result.suspicious && !result.synthetic && !result.experimental &&
+                    // Warn only when the model flags the text. Experimental results may warn (labelled as such in the
+                    // app); synthetic test fixtures never do. Consent and permission are re-read after the check.
+                    if (result is Detection.Success && result.suspicious && !result.synthetic &&
                         app.preferences.flow.first().scanning && PermissionState.read(context).active(true)) {
-                        WarningNotifications.warn(context)
+                        WarningNotifications.warn(context, text)
                     }
                 }
             } catch (_: Exception) {
@@ -88,18 +90,6 @@ object WarningNotifications {
                 lockscreenVisibility = android.app.Notification.VISIBILITY_SECRET
             })
     }
-    fun warn(context: Context) {
-        if (!PermissionState.read(context).notifications) return
-        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) return
-        try { NotificationManagerCompat.from(context).notify(1, build(context)) } catch (_: SecurityException) { }
-    }
-    internal fun build(context: Context): android.app.Notification {
-        val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        return NotificationCompat.Builder(context, CHANNEL)
-            .setSmallIcon(R.drawable.ic_stat_veritxt).setContentTitle(CheckPrompt.localized(context).getString(R.string.warning_title))
-            .setContentText(CheckPrompt.localized(context).getString(R.string.warning_body))
-            .setVisibility(NotificationCompat.VISIBILITY_SECRET).setContentIntent(open).setAutoCancel(true).build()
-    }
+    /** Posts "Possible scam text" (no message content); "See why" opens Veritxt and shows the result. */
+    fun warn(context: Context, text: String): Int? = CheckPrompt.show(context, text, CheckPrompt.Kind.WARNING)
 }

@@ -70,6 +70,9 @@ class SuppliedDetector private constructor(
     private val weights: DoubleArray, private val bias: Double, val tokenizer: PythonUnicode
 ) : Detector {
     override val status = "Experimental model · unverified performance"
+    // Team decision (2026-10-12): warn automatically on incoming SMS with this model. Its results stay labelled
+    // experimental and uncalibrated in the app; research evaluation is still pending (docs/model-contract.md).
+    override val automaticWarningsAllowed = true
     override suspend fun detect(text: String): Detection {
         if (text.isBlank() || text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
         val tokens = tokenizer.tokens(text)

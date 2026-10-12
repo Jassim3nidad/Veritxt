@@ -21,14 +21,16 @@ import java.time.ZonedDateTime
 enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS, PRIVACY, HELP }
 data class CheckState(val screen: Screen = Screen.HOME, val text: String = "", val busy: Boolean = false,
     @param:StringRes val error: Int? = null, val result: Detection? = null, val domain: String? = null,
-    val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val modelStatus: String = "Loading model status…")
+    val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val modelStatus: String = "Loading model status…",
+    /** True when the installed model warns about incoming SMS on its own (not just a "check it?" prompt). */
+    val autoWarnings: Boolean = false)
 
 class CheckViewModel(application: android.app.Application) : AndroidViewModel(application) {
     private val app = application as SmishGuardApp
     private val mutable = MutableStateFlow(CheckState())
     val state = mutable.asStateFlow()
     private var job: Job? = null
-    init { viewModelScope.launch { mutable.value = mutable.value.copy(modelStatus = app.detector().status) } }
+    init { viewModelScope.launch { val d = app.detector(); mutable.value = mutable.value.copy(modelStatus = d.status, autoWarnings = d.automaticWarningsAllowed) } }
     fun edit(text: String) {
         job?.cancel()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
@@ -47,7 +49,7 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     }
     fun endSession(screen: Screen = Screen.HOME) {
         job?.cancel(); job = null
-        mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus)
+        mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus, autoWarnings = mutable.value.autoWarnings)
     }
     fun scan() {
         if (mutable.value.text.isBlank()) { mutable.value = mutable.value.copy(error = R.string.error_empty); return }

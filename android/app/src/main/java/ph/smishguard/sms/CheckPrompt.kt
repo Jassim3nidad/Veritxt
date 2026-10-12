@@ -40,8 +40,13 @@ object PendingChecks {
     private fun prune() { val now = SystemClock.elapsedRealtime(); entries.entries.removeIf { it.value.expiresAt <= now } }
 }
 
-/** Neutral "New text received — check it?" notification. It never shows the message or a verdict. */
+/**
+ * Notifications about a new SMS. None of them ever show the message, the sender, or a link.
+ * [Kind.PROMPT]: neutral "New text received — check it?" (no model can warn automatically).
+ * [Kind.WARNING]: "Possible scam text" after the model flagged it. [Kind.TEST]: sample from Settings.
+ */
 object CheckPrompt {
+    enum class Kind { PROMPT, WARNING, TEST }
     const val CHANNEL = "new_text_check"
     const val ACTION_CHECK = "ph.smishguard.action.CHECK_PENDING"
     const val ACTION_DISMISS = "ph.smishguard.action.DISMISS_PENDING"
@@ -61,9 +66,11 @@ object CheckPrompt {
         PermissionState.read(context).notifications && (Build.VERSION.SDK_INT < 33 ||
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED)
 
-    /** Holds [text] in memory and posts the prompt. Returns the notification id, or null if notifications are off. */
-    fun show(context: Context, text: String, test: Boolean = false): Int? {
+    /** Holds [text] in memory and posts the notification. Returns its id, or null if notifications are off. */
+    fun show(context: Context, text: String, kind: Kind = Kind.PROMPT): Int? {
         if (!canNotify(context)) return null
+        val warning = kind == Kind.WARNING
+        val channel = if (warning) WarningNotifications.CHANNEL else CHANNEL
         val c = localized(context)
         val id = PendingChecks.put(text)
         val notificationId = id.hashCode()
@@ -75,19 +82,20 @@ object CheckPrompt {
             Intent(context, PendingCheckReceiver::class.java).setAction(ACTION_DISMISS).putExtra(EXTRA_ID, id)
                 .putExtra(EXTRA_NOTIFICATION, notificationId),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        val public = NotificationCompat.Builder(context, CHANNEL).setSmallIcon(R.drawable.ic_stat_veritxt)
-            .setContentTitle(c.getString(R.string.notif_check_public)).build()
-        val notification = NotificationCompat.Builder(context, CHANNEL)
+        val builder = NotificationCompat.Builder(context, channel)
             .setSmallIcon(R.drawable.ic_stat_veritxt)
-            .setColor(0xFF1F6457.toInt())
-            .setContentTitle(c.getString(if (test) R.string.notif_test_title else R.string.notif_check_title))
-            .setContentText(c.getString(R.string.notif_check_body))
+            .setColor(if (warning) 0xFFB3261E.toInt() else 0xFF1F6457.toInt())
+            .setContentTitle(c.getString(when (kind) { Kind.WARNING -> R.string.warning_title; Kind.TEST -> R.string.notif_test_title; Kind.PROMPT -> R.string.notif_check_title }))
+            .setContentText(c.getString(if (warning) R.string.warning_body else R.string.notif_check_body))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setPublicVersion(public)
             .setContentIntent(check).setDeleteIntent(dismiss).setAutoCancel(true)
-            .addAction(0, c.getString(R.string.notif_action_check), check)
+            .addAction(0, c.getString(if (warning) R.string.notif_action_see_why else R.string.notif_action_check), check)
             .addAction(0, c.getString(R.string.notif_action_dismiss), dismiss)
-            .build()
+        // Warnings stay off the lock screen entirely (as before); prompts show a generic line there.
+        if (warning) builder.setVisibility(NotificationCompat.VISIBILITY_SECRET)
+        else builder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setPublicVersion(NotificationCompat.Builder(context, channel)
+            .setSmallIcon(R.drawable.ic_stat_veritxt).setContentTitle(c.getString(R.string.notif_check_public)).build())
+        val notification = builder.build()
         return try { NotificationManagerCompat.from(context).notify(notificationId, notification); notificationId }
         catch (_: SecurityException) { PendingChecks.discard(id); null }
     }

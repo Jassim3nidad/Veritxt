@@ -6,7 +6,7 @@
 |---|---|
 | Technically integrated | Converted without retraining or changing vocabulary, IDF, coefficients or intercept; reference scores reproduced; Android parity/offline checks recorded in verification |
 | Experimentally evaluated | **Unverified.** Full-dataset fit; no reproducible evaluation/splits/calibration evidence supplied |
-| Approved for user-facing automatic warnings | **No.** Detector policy denies automatic SMS inference; reporting also disabled |
+| Approved for user-facing automatic warnings | **Enabled by team decision (2026-10-12), not by evaluation.** The model metadata still records `automatic_warnings_approved=false`; the app overrides it in `SuppliedDetector`. Warnings are labelled experimental and can be wrong. Reporting stays disabled |
 
 `0.2.0-dev` / package `ph.smishguard.dev` is a distinct development build for manual paste/share checks. The ordinary debug build has no model asset. Missing, invalid and inference-failure paths remain available. Neither synthetic fixtures nor unverified supplied results can form report payloads.
 
@@ -20,7 +20,7 @@ Python `str.lower()` and Unicode `\b\w+\b` differ from Android/JVM regex and Uni
 
 Schema v2 separates `provenance` (user-supplied source hash and claimed training rows), `technical_compatibility=reference_verified`, `evaluation_status=unverified`, `calibration_status=uncalibrated`, `intended_use=manual_development`, `automatic_warnings_approved=false` and `synthetic=false`. The parser validates these combinations rather than treating software compatibility as evaluation. This v2 contract intentionally does not accept an approval flag flipped to true. A future reviewed deployment policy needs explicit implementation and evidence.
 
-UI calls the sigmoid output an **uncalibrated model score**, never a validated probability/percentage. The 0.5 threshold is provisional. Results state experimental/unverified status and do not label a message definitively fraudulent or legitimate. The receiver checks `automaticWarningsAllowed` before calling a detector; this model denies it. Reporting is unavailable and experimental results are rejected by the report factory.
+UI calls the sigmoid output an **uncalibrated model score**, never a validated probability/percentage. The 0.5 threshold is provisional. Results state experimental/unverified status and do not label a message definitively fraudulent or legitimate. The receiver checks `automaticWarningsAllowed` before calling a detector. Since 2026-10-12 this model allows it by team decision: a flagged incoming SMS produces a private "Possible scam text" notification (no message content, hidden on the lock screen) and "See why" opens the experimental result. Without an allowing model, the receiver only asks the user whether to check the text. Reporting is unavailable and experimental results are rejected by the report factory.
 
 ## Older research schema v1
 

@@ -35,7 +35,7 @@
     <string name="onb2_body">Sa phone na ito ginagawa ang pagsusuri. Hindi sine-save o ipinapadala ang text ng mensahe, at nabubura ito kapag umalis ka sa app.</string>
     <string name="onb3_title">Pambabala lang ito</string>
     <string name="onb3_body">Hindi kailanman bina-block, binubura, o binabago ng Veritxt ang SMS mo. Maaari itong makalusutan ng scam o mag-flag ng totoong mensahe, kaya laging mag-double check.</string>
-    <string name="onb_model_experimental">Experimental na model: hindi pa napapatunayan ang performance nito. Naka-off ang automatic na babala at pag-report.</string>
+    <string name="onb_model_experimental">Experimental na model: hindi pa napapatunayan ang performance nito, kaya maaaring mali ang mga babala. Naka-off ang pag-report.</string>
     <string name="onb_model_missing">Wala pang magagamit na model ang build na ito, kaya hindi pa nito masusuri ang mga mensahe.</string>
     <string name="onb_permissions_note">Gumagana ang paste o share kahit walang permission. Opsyonal at naka-off ang pagsuri sa papasok na SMS.</string>
     <string name="onb_continue">Magpatuloy nang walang permission</string>
@@ -46,7 +46,6 @@
     <string name="home_paste">I-paste mula sa clipboard</string>
     <string name="status_incoming_on">Papasok na SMS · naka-on</string>
     <string name="status_incoming_off">Papasok na SMS · naka-off</string>
-    <string name="home_dev_note">Naka-off ang automatic na babala at pag-report sa development build na ito.</string>
     <string name="tip_title">Tip laban sa scam</string>
     <string name="tip_body">Huwag kailanman ibigay ang OTP, PIN, o password. I-verify ang anumang hiling gamit ang opisyal na app ng bangko o numerong kilala mo na.</string>
 
@@ -89,7 +88,7 @@
     <string name="score_uncalibrated">Uncalibrated na score ng model: %1$s. Hindi ito ang tsansang panloloko ito.</string>
     <string name="score_above">Lampas sa pansamantalang threshold (0.5).</string>
     <string name="score_below">Nasa o mas mababa sa pansamantalang threshold (0.5).</string>
-    <string name="score_disabled">Naka-off ang automatic na babala at pag-report.</string>
+    <string name="score_disabled">Naka-off ang pag-report sa build na ito.</string>
     <string name="score_probability">Tantiyang probability na kahina-hinala: %1$s%%. Tantiya ito ng model, hindi katiyakan.</string>
     <string name="score_none">Walang available na confidence percentage.</string>
     <string name="signs_title">Mga senyales ng babala</string>
@@ -153,17 +152,17 @@
     <string name="local_limits">Itinuturing ng Android na restricted ang SMS access at maaari itong tanggihan. Kapag na-force stop ang app, hindi muna nito masusuri ang papasok na text hangga\'t hindi mo ito binubuksan ulit.</string>
     <string name="clear_button">Burahin ang lokal na preferences at session</string>
     <string name="consent_title">Payagan ang pagsuri sa papasok na SMS?</string>
-    <string name="consent_body">Kapag may bagong SMS, itatago muna ng Veritxt ang text nito sa memory at tatanungin ka kung gusto mo itong suriin. Hindi nito babasahin ang inbox mo, babaguhin ang mga mensahe, o magpapakita ng resulta hangga\'t hindi mo pinipindot ang Suriin ngayon. Maaaring tanggihan ng Android ang restricted na permission na ito. Hiwalay na pagpili ang mga notification.</string>
+    <string name="consent_body">Kapag may bagong SMS, susuriin ng Veritxt ang text nito sa phone na ito at saka ito buburahin. Kapag mukhang scam ang text, babalaan ka ng Veritxt. Kung walang model, tatanungin ka na lang kung gusto mong suriin ang text. Hindi nito babasahin ang inbox mo o babaguhin ang mga mensahe. Maaaring tanggihan ng Android ang restricted na permission na ito. Hiwalay na pagpili ang mga notification.</string>
     <string name="consent_agree">Sumang-ayon at magpatuloy</string>
     <string name="consent_keep_off">Huwag i-on</string>
-    <string name="sms_granted_note">Naibigay ang SMS permission. Tatanungin ka ng Veritxt kung susuriin ang bagong text.</string>
+    <string name="sms_granted_note">Naibigay ang SMS permission. Susuriin ng Veritxt ang mga bagong text pagdating nito.</string>
     <string name="sms_denied_note">Hindi naibigay ang SMS permission. Puwede ka pa ring mag-paste o mag-share ng mensahe, o payagan ito mamaya sa Android settings.</string>
     <string name="clear_title">Burahin ang lokal na record?</string>
     <string name="clear_body">Buburahin nito ang pagsang-ayon mo sa privacy, ang consent at display preferences, at ang kasalukuyang pagsusuri. Makikita mo ulit ang abiso sa privacy. Mananatili sa system settings ang mga Android permission.</string>
     <string name="clear_confirm">Burahin</string>
     <string name="cancel">Kanselahin</string>
 
-    <string name="help_intro">Matatanong ka lang ng Veritxt na suriin ang isang text kung OK ang lahat ng ito. Ayusin ang anumang may marka sa ibaba.</string>
+    <string name="help_intro">Mababalaan ka lang ng Veritxt tungkol sa bagong text kung OK ang lahat ng ito. Ayusin ang anumang may marka sa ibaba.</string>
     <string name="help_ok">OK</string>
     <string name="help_fix">Kailangang ayusin</string>
     <string name="help_info">Dapat malaman</string>
@@ -206,8 +205,12 @@
     <string name="notif_action_check">Suriin ngayon</string>
     <string name="notif_action_dismiss">Isara</string>
     <string name="notif_test_title">Test: may bagong text</string>
-    <string name="channel_warning_name">Babala sa kahina-hinalang SMS</string>
-    <string name="channel_warning_desc">Pribadong babala na walang laman ng mensahe</string>
-    <string name="warning_title">Posibleng panggagaya sa institusyong pinansyal</string>
-    <string name="warning_body">Tingnan ang bagong SMS sa messaging app mo. Mag-verify sa opisyal na paraan.</string>
+    <string name="channel_warning_name">Babala sa scam</string>
+    <string name="channel_warning_desc">Binabalaan ka kapag mukhang scam ang bagong SMS. Hindi kailanman ipinapakita ang mensahe.</string>
+    <string name="warning_title">Posibleng scam na text</string>
+    <string name="warning_body">Na-flag ng experimental na model ng Veritxt ang isang bagong SMS. Huwag i-tap ang mga link nito. I-tap ito para makita kung bakit.</string>
+    <string name="notif_action_see_why">Tingnan kung bakit</string>
+    <string name="incoming_warn">Babalaan ako kapag mukhang scam ang text</string>
+    <string name="home_note_experimental">Experimental na model ang gamit ng automatic na babala at maaari itong magkamali. Naka-off ang pag-report.</string>
+    <string name="home_note_missing">Walang naka-install na model, kaya masusuri lang ang bagong text kapag pinindot mo ang Suriin ngayon. Naka-off ang pag-report.</string>
 </resources>
