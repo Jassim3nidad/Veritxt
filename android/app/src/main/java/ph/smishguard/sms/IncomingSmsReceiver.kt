@@ -55,15 +55,23 @@ class IncomingSmsReceiver : BroadcastReceiver() {
         CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
             try {
                 withTimeout(7000) {
-                    if (!app.preferences.flow.first().scanning) return@withTimeout
+                    val prefs = app.preferences.flow.first()
+                    if (!prefs.scanning || !prefs.privacyAccepted) return@withTimeout
                     val parts = Telephony.Sms.Intents.getMessagesFromIntent(intent)
                     val text = SmsParts.combine(parts.map { it.messageBody }) ?: return@withTimeout
                     val detector = app.detector()
-                    if (!detector.automaticWarningsAllowed) return@withTimeout
-                    val result = detector.detect(text)
-                    if (result is Detection.Success && result.suspicious && !result.synthetic && !result.experimental &&
+                    if (!detector.automaticWarningsAllowed) {
+                        // No model can warn automatically (e.g. none installed), so ask the user instead of judging.
+                        // The prompt carries no verdict; the check runs only after the user taps "Check now".
+                        CheckPrompt.show(context, text)
+                        return@withTimeout
+                    }
+                    val result = app.assess(text)
+                    // Warn only when the model flags the text. Experimental results may warn (labelled as such in the
+                    // app); synthetic test fixtures never do. Consent and permission are re-read after the check.
+                    if (result is Detection.Success && result.suspicious && !result.synthetic &&
                         app.preferences.flow.first().scanning && PermissionState.read(context).active(true)) {
-                        WarningNotifications.warn(context)
+                        WarningNotifications.warn(context, text)
                     }
                 }
             } catch (_: Exception) {
@@ -77,23 +85,11 @@ object WarningNotifications {
     const val CHANNEL = "suspected_financial_impersonation"
     fun createChannel(context: Context) {
         context.getSystemService(NotificationManager::class.java).createNotificationChannel(
-            NotificationChannel(CHANNEL, "Suspicious SMS warnings", NotificationManager.IMPORTANCE_HIGH).apply {
-                description = "Private warnings without message contents"
+            NotificationChannel(CHANNEL, CheckPrompt.localized(context).getString(R.string.channel_warning_name), NotificationManager.IMPORTANCE_HIGH).apply {
+                description = CheckPrompt.localized(context).getString(R.string.channel_warning_desc)
                 lockscreenVisibility = android.app.Notification.VISIBILITY_SECRET
             })
     }
-    fun warn(context: Context) {
-        if (!PermissionState.read(context).notifications) return
-        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) return
-        try { NotificationManagerCompat.from(context).notify(1, build(context)) } catch (_: SecurityException) { }
-    }
-    internal fun build(context: Context): android.app.Notification {
-        val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        return NotificationCompat.Builder(context, CHANNEL)
-            .setSmallIcon(R.drawable.ic_shield).setContentTitle("Potential financial impersonation")
-            .setContentText("Check the recent SMS in your messaging app. Verify through official channels.")
-            .setVisibility(NotificationCompat.VISIBILITY_SECRET).setContentIntent(open).setAutoCancel(true).build()
-    }
+    /** Posts "Possible scam text" (no message content); "See why" opens Veritxt and shows the result. */
+    fun warn(context: Context, text: String): Int? = CheckPrompt.show(context, text, CheckPrompt.Kind.WARNING)
 }

@@ -19,7 +19,7 @@ class VisualReviewTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun captureStaticScreens() {
         val app = compose.activity.application as SmishGuardApp
-        runBlocking { app.preferences.clear() }
+        runBlocking { app.preferences.clear(); app.preferences.acceptPrivacy() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Continue without permissions").fetchSemanticsNodes().isNotEmpty() }
         compose.activityRule.scenario.onActivity { it.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
         try {

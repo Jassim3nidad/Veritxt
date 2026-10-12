@@ -57,7 +57,7 @@ class RecoveryTest {
         try {
             val vm = withContext(Dispatchers.Main) { CheckViewModel(app).also { store.put("deadline", it); it.edit("hello"); it.scan() } }
             assertTrue(entered.await(5, TimeUnit.SECONDS))
-            withTimeout(5000) { vm.state.first { it.error?.contains("taking longer") == true } }
+            withTimeout(5000) { vm.state.first { it.error == R.string.error_slow } }
             withTimeout(5000) { vm.state.first { it.result == Detection.Failure } }
             assertFalse(vm.state.value.busy)
             assertEquals(Detection.Busy, app.assess("hello"))

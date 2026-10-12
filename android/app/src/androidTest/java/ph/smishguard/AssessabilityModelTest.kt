@@ -35,7 +35,7 @@ class AssessabilityModelTest {
             val result = model.detect(text)
             assertTrue("A meaningful software probe must remain assessable", result is Detection.Success)
             assertEquals(model.rawDetection(text), result)
-            assertFalse(model.automaticWarningsAllowed)
+            assertTrue(model.automaticWarningsAllowed)
         }
     }
 }

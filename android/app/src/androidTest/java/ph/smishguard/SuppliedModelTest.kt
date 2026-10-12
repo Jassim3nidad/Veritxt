@@ -27,7 +27,7 @@ class SuppliedModelTest {
         val vocabulary = metadata.getJSONArray("vocabulary")
         val indices = (0 until vocabulary.length()).associate { vocabulary.getString(it) to it }
         val idf = metadata.getJSONArray("idf")
-        assertFalse(detector.automaticWarningsAllowed)
+        assertTrue(detector.automaticWarningsAllowed)
         val cases = JSONArray(instrumentation.context.assets.open("supplied-parity.json").bufferedReader().use { it.readText() })
         for (i in 0 until cases.length()) {
             val case = cases.getJSONObject(i); val text = case.getString("text")
@@ -48,7 +48,7 @@ class SuppliedModelTest {
             assertEquals(case.getDouble("score"), result.score, 1e-10)
             assertEquals(case.getBoolean("suspicious"), result.suspicious)
             assertTrue(result.experimental); assertFalse(result.synthetic); assertFalse(result.probability)
-            assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
+            assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), Brand.UNSPECIFIED))
         }
         assertEquals(Detection.Failure, detector.detect("a".repeat(10001)))
         val boundary = JSONObject(source()).apply {

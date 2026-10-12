@@ -80,7 +80,7 @@ class MbertDeviceTest {
         val timings=LongArray(200){n ->
             val start=System.nanoTime();val result=model.detect(probes[n%4]);val elapsed=System.nanoTime()-start
             if(result is Detection.Success){scored++;assertTrue(result.experimental);assertFalse(result.probability)
-                assertNull(ReportPayload.create(null,result,ZonedDateTime.now(),City.MANILA,Brand.UNSPECIFIED))}
+                assertNull(ReportPayload.create(null,result,ZonedDateTime.now(),Brand.UNSPECIFIED))}
             else{abstained++;assertEquals(Detection.UnableToAssess,result)}
             elapsed
         }.sorted()

@@ -1,5 +1,8 @@
 package ph.smishguard
 
+import androidx.annotation.StringRes
+import ph.smishguard.ui.HintSummary
+import ph.smishguard.ui.Hints
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
@@ -13,10 +16,10 @@ import ph.smishguard.model.MAX_MESSAGE_LENGTH
 import ph.smishguard.privacy.SafeDomain
 import java.time.ZonedDateTime
 
-enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS }
+enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS, PRIVACY, HELP }
 data class CheckState(val screen: Screen = Screen.HOME, val text: String = "", val busy: Boolean = false,
-    val checkedMessage: String = "", val error: String? = null, val result: Detection? = null, val domain: String? = null,
-    val checkedAt: ZonedDateTime? = null, val modelStatus: String = "Loading model status…")
+    val checkedMessage: String = "", @param:StringRes val error: Int? = null, val result: Detection? = null, val domain: String? = null,
+    val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val autoWarnings: Boolean = false, val modelStatus: String = "Loading model status…")
 
 class CheckViewModel(application: android.app.Application) : AndroidViewModel(application) {
     private val app = application as SmishGuardApp
@@ -30,28 +33,32 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         viewModelScope.launch {
             // Loading can suspend while the user navigates, edits or clears a
             // session. Read the current state only after loading has completed.
-            val status = app.detector().status
-            mutable.value = mutable.value.copy(modelStatus = status)
+            val detector = app.detector()
+            mutable.value = mutable.value.copy(modelStatus = detector.status, autoWarnings = detector.automaticWarningsAllowed)
         }
     }
     fun edit(text: String) {
         cancelWork()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
-            checkedMessage = "", result = null, domain = null, checkedAt = null,
-            error = if (text.length > MAX_MESSAGE_LENGTH) "Limit is 10,000 characters. Extra text was removed; review before checking." else null)
+            checkedMessage = "", result = null, domain = null, checkedAt = null, hints = null,
+            error = if (text.length > MAX_MESSAGE_LENGTH) R.string.error_too_long else null)
     }
     fun share(text: String) { endSession(Screen.CHECK); edit(text) }
+    fun checkPending(text: String?) {
+        if (text == null) { endSession(Screen.CHECK); mutable.value = mutable.value.copy(error = R.string.error_expired) }
+        else { share(text); scan() }
+    }
     fun navigate(screen: Screen) {
-        if (screen in setOf(Screen.HOME, Screen.CHECK, Screen.SETTINGS)) endSession(screen)
+        if (screen in setOf(Screen.HOME, Screen.CHECK, Screen.SETTINGS, Screen.PRIVACY, Screen.HELP)) endSession(screen)
         else mutable.value = mutable.value.copy(screen = screen, checkedMessage = "")
     }
     fun endSession(screen: Screen = Screen.HOME) {
         cancelWork()
-        mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus)
+        mutable.value = CheckState(screen = screen, modelStatus = mutable.value.modelStatus, autoWarnings = mutable.value.autoWarnings)
     }
     fun scan() {
         if (mutable.value.text.isBlank()) {
-            mutable.value = mutable.value.copy(text = "", checkedMessage = "", result = Detection.UnableToAssess, error = null)
+            mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", checkedMessage = "", result = Detection.UnableToAssess, error = null)
             return
         }
         if (mutable.value.busy) return
@@ -62,12 +69,12 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
         watchdog = viewModelScope.launch {
             delay(app.slowNoticeMillis)
             if (session == generation) mutable.value = mutable.value.copy(
-                error = "Loading or checking is taking longer. You can clear or leave this screen.")
+                error = R.string.error_slow)
             delay((app.workDeadlineMillis - app.slowNoticeMillis).coerceAtLeast(0))
             if (session == generation) {
                 generation++
                 job?.cancel()
-                mutable.value = mutable.value.copy(text = "", checkedMessage = "", busy = false,
+                mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", checkedMessage = "", busy = false,
                     result = Detection.Failure, error = null)
             }
         }
@@ -75,12 +82,12 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
             try {
                 val result = app.assess(submittedText)
                 val status = if (result is Detection.Success) app.detector().status else mutable.value.modelStatus
-                if (session == generation) mutable.value = mutable.value.copy(screen = Screen.CHECK,
+                if (session == generation) mutable.value = mutable.value.copy(screen = Screen.RESULT,
                     text = "", checkedMessage = submittedText, busy = false, error = null,
-                    result = result, modelStatus = status, domain = SafeDomain.fromMessage(submittedText), checkedAt = ZonedDateTime.now())
+                    result = result, modelStatus = status, hints = Hints.read(submittedText), domain = SafeDomain.fromMessage(submittedText), checkedAt = ZonedDateTime.now())
             } catch (e: CancellationException) { throw e }
             catch (_: Exception) {
-                if (session == generation) mutable.value = mutable.value.copy(screen = Screen.CHECK,
+                if (session == generation) mutable.value = mutable.value.copy(screen = Screen.RESULT,
                     text = "", checkedMessage = submittedText, busy = false, error = null, result = Detection.Failure)
             } finally {
                 if (session == generation) watchdog?.cancel()

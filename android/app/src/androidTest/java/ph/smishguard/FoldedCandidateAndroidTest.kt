@@ -40,7 +40,7 @@ class FoldedCandidateAndroidTest {
             val detection = detector.detect(probes[i % probes.size])
             val elapsed = System.nanoTime() - started
             if (detection is Detection.Success)
-                assertNull(ReportPayload.create(null, detection, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
+                assertNull(ReportPayload.create(null, detection, ZonedDateTime.now(), Brand.UNSPECIFIED))
             elapsed
         }.sorted()
         result.put("warm_scan_p50_ms", timings[99]/1e6).put("warm_scan_p95_ms", timings[189]/1e6)

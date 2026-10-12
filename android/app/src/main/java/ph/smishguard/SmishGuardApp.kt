@@ -70,5 +70,5 @@ open class SmishGuardApp : Application() {
             }
         } finally { inference.unlock() }
     }
-    override fun onCreate() { super.onCreate(); WarningNotifications.createChannel(this) }
+    override fun onCreate() { super.onCreate(); WarningNotifications.createChannel(this); ph.smishguard.sms.CheckPrompt.createChannel(this) }
 }

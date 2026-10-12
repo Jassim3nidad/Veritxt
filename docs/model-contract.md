@@ -12,7 +12,7 @@
 |---|---|
 | Technically integrated | Converted without retraining or changing vocabulary, IDF, coefficients or intercept; reference scores reproduced; Android parity/offline checks recorded in verification |
 | Experimentally evaluated | Procedure-level scripts and result tables supplied; conflicts documented in [evidence review](../research/model_evidence/MODEL_EVALUATION.md). Deployed full-data artifact remains unverified on prospective data |
-| Approved for user-facing automatic warnings | **No.** Detector policy denies automatic SMS inference; reporting also disabled |
+| Approved for user-facing automatic warnings | **Original supplied model enabled by team decision (2026-10-12), not by evaluation.** Metadata still records `automatic_warnings_approved=false`; the app overrides this only for the original supplied model. Candidate, folded, comparison and mBERT variants remain manual-only. Warnings are experimental and can be wrong. Reporting stays disabled |
 
 `0.2.0-dev` / package `ph.smishguard.dev` is a distinct development build for manual paste/share checks. The ordinary debug build has no model asset. Missing, invalid and inference-failure paths remain available. Neither synthetic fixtures nor unverified supplied results can form report payloads.
 

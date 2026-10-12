@@ -290,8 +290,9 @@ class ContractTest(unittest.TestCase):
         from pathlib import Path
         import re
         source = (Path(__file__).resolve().parents[1] / "android/app/src/main/java/ph/smishguard/privacy/Reports.kt").read_text(encoding="utf-8")
-        for enum, values, excluded in (("City", backend.CITIES, "Not selected"),
-                                       ("Brand", backend.BRANDS, "Not specified")):
+        # Android no longer collects city. Reporting is disconnected; only shared
+        # brand/domain values must match this historical city-based backend.
+        for enum, values, excluded in (("Brand", backend.BRANDS, "Not specified"),):
             line = next(line for line in source.splitlines() if line.startswith("enum class " + enum))
             self.assertEqual(set(re.findall(r'\("([^"]+)"\)', line)) - {excluded}, values)
         suffix_line = next(line for line in source.splitlines() if "private val suffixes" in line)

@@ -31,9 +31,9 @@ class FlowsTest {
     @Before fun resetPreferences() {
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = ph.smishguard.model.MissingDetector()
-        runBlocking { app.preferences.clear() }
+        runBlocking { app.preferences.clear(); app.preferences.acceptPrivacy() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Continue without permissions").fetchSemanticsNodes().isNotEmpty() }
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Before you tap,\ncheck the message.").fetchSemanticsNodes().isNotEmpty() }
         compose.waitForIdle()
     }
@@ -82,6 +82,7 @@ class FlowsTest {
     @Test fun clipboardPasteWorksWithoutSmsPermission() {
         compose.onNodeWithText("Check a message").performScrollTo().performClick()
         compose.onNodeWithText("SMS message").performClick()
+        compose.waitUntil(10000) { compose.activity.hasWindowFocus() }
         compose.activityRule.scenario.onActivity {
             val clipboard = it.getSystemService(ClipboardManager::class.java)
             org.junit.Assert.assertTrue("Activity must own input focus before clipboard access", it.hasWindowFocus())
@@ -155,7 +156,7 @@ class FlowsTest {
             }
         } catch (error: Throwable) {
             recordReliabilitySnapshot(compose.activity, "result-flow", error,
-                "detectorInvocations=${invocations.get()}\n" + compose.onRoot(useUnmergedTree = true).printToString())
+                "detectorInvocations=${invocations.get()}\n" + runCatching { compose.onRoot(useUnmergedTree = true).printToString() }.getOrDefault("Semantics unavailable while multiple windows are open"))
             throw error
         } finally { app.testDetector = null }
     }

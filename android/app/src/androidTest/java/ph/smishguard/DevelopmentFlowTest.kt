@@ -14,7 +14,7 @@ class DevelopmentFlowTest {
         assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr", "nb", "svm", "mbert", "lrCalibrated4"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.waitForIdle()
         val text = "SGTEST supplied model manual privacy marker. Kumusta po, tingnan ang opisyal na app."
         compose.activityRule.scenario.onActivity {
@@ -31,7 +31,7 @@ class DevelopmentFlowTest {
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
         compose.onNodeWithText("Experimental score; not a verified probability.").assertExists()
         compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
-        compose.onNodeWithText("Automatic warnings and reporting are disabled.").assertExists()
+        compose.onNodeWithText("Reporting is disabled in this build.").assertExists()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
         compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()
     }

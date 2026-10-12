@@ -16,7 +16,7 @@ class AccessibilityTest {
     @Test fun labeledControlsAndHeadingsRemainReachable() {
         try {
             val app = compose.activity.application as SmishGuardApp
-            runBlocking { app.preferences.onboard() }
+            runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
             compose.waitUntil(10000) {
                 compose.onAllNodesWithText("Settings", substring = false).fetchSemanticsNodes().size == 1 &&
                     compose.activity.hasWindowFocus()

@@ -69,9 +69,12 @@ class SuppliedDetector private constructor(
     private val vocabulary: Map<String, Int>, private val idf: DoubleArray,
     private val weights: DoubleArray, private val bias: Double, val tokenizer: PythonUnicode,
     private val calibrationA: Double = 1.0, private val calibrationB: Double = 0.0,
-    private val candidate: Boolean = false
+    private val candidate: Boolean = false, private val folded: Boolean = false
 ) : Detector {
     override val status = "Experimental model · unverified performance"
+    // Team decision (2026-10-12): warn automatically on incoming SMS with this model. Its results stay labelled
+    // experimental and uncalibrated in the app; research evaluation is still pending (docs/model-contract.md).
+    override val automaticWarningsAllowed = !candidate && !folded
     override suspend fun detect(text: String): Detection {
         if (text.length > MAX_MESSAGE_LENGTH) return Detection.Failure
         val words = tokenizer.tokens(Assessability.textOutsideLinks(text))
@@ -150,7 +153,7 @@ class SuppliedDetector private constructor(
             }
             val idf = array("idf"); require(idf.all { it > 0.0 })
             return SuppliedDetector(vocabulary, idf, array("weights"), o.getDouble("bias").also { require(it.isFinite()) },
-                tokenizer, calibration.first, calibration.second, candidate)
+                tokenizer, calibration.first, calibration.second, candidate, folded)
         }
     }
 }

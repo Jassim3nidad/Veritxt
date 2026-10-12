@@ -20,20 +20,19 @@ class NotificationBehaviorTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val manager = context.getSystemService(NotificationManager::class.java)
         assertTrue("Run with notification permission granted on emulator", PermissionState.read(context).notifications)
-        val notification = WarningNotifications.build(context)
+        val id = WarningNotifications.warn(context, "SGTEST synthetic notification plumbing test only")
+        assertNotNull(id)
+        awaitNotificationState { manager.activeNotifications.any { it.id == id } }
+        val notification = manager.activeNotifications.first { it.id == id }.notification
         assertEquals(Notification.VISIBILITY_SECRET, notification.visibility)
-        assertEquals("Potential financial impersonation", notification.extras.getString(Notification.EXTRA_TITLE))
+        assertEquals("Possible scam text", notification.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        assertFalse(notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString().contains("SGTEST"))
         assertNotNull(notification.contentIntent)
-        // Exercise posting without impersonating a real detector warning.
-        notification.extras.putString(Notification.EXTRA_TITLE, "SmishGuard software test")
-        notification.extras.putString(Notification.EXTRA_TEXT, "Synthetic notification plumbing test only")
-        manager.notify(42, notification)
-        awaitNotificationState { manager.activeNotifications.any { it.id == 42 } }
         manager.cancelAll()
         awaitNotificationState { manager.activeNotifications.isEmpty() }
-        manager.createNotificationChannel(NotificationChannel(WarningNotifications.CHANNEL, "Suspicious SMS warnings", NotificationManager.IMPORTANCE_NONE))
+        manager.createNotificationChannel(NotificationChannel(WarningNotifications.CHANNEL, "Scam warnings", NotificationManager.IMPORTANCE_NONE))
         assertFalse(PermissionState.read(context).notifications)
-        WarningNotifications.warn(context)
+        assertNull(WarningNotifications.warn(context, "SGTEST blocked channel"))
         assertTrue(manager.activeNotifications.isEmpty())
     }
 
@@ -42,7 +41,7 @@ class NotificationBehaviorTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val manager = context.getSystemService(NotificationManager::class.java)
         assertFalse(PermissionState.read(context).notifications)
-        WarningNotifications.warn(context)
+        assertNull(WarningNotifications.warn(context, "SGTEST denied"))
         assertTrue(manager.activeNotifications.isEmpty())
     }
 }

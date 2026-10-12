@@ -17,35 +17,35 @@ android {
         versionCode = 3
         versionName = "0.3.0"
         testInstrumentationRunner = "ph.smishguard.SoftwareTestRunner"
-        manifestPlaceholders["appLabel"] = "SmishGuard"
+        manifestPlaceholders["appLabel"] = "Veritxt"
     }
     buildTypes {
         create("mbertQuantized") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".mbert.int8"
             versionNameSuffix = "-mbert-int8-experimental"
-            manifestPlaceholders["appLabel"] = "SmishGuard · mBERT INT8"
+            manifestPlaceholders["appLabel"] = "Veritxt · mBERT INT8"
             matchingFallbacks += listOf("debug")
         }
         create("mbert") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".mbert"
             versionNameSuffix = "-mbert-exploratory"
-            manifestPlaceholders["appLabel"] = "SmishGuard · mBERT"
+            manifestPlaceholders["appLabel"] = "Veritxt · mBERT"
             matchingFallbacks += listOf("debug")
         }
         create("lrCalibrated4") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".lr.calibrated4"
             versionNameSuffix = "-lr-calibrated-4-experimental"
-            manifestPlaceholders["appLabel"] = "SmishGuard · LR Calibrated 4"
+            manifestPlaceholders["appLabel"] = "Veritxt · LR Calibrated 4"
             matchingFallbacks += listOf("debug")
         }
         create("lrCandidate") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".lr.candidate"
             versionNameSuffix = "-lr-candidate-experimental"
-            manifestPlaceholders["appLabel"] = "SmishGuard · LR Candidate"
+            manifestPlaceholders["appLabel"] = "Veritxt · LR Candidate"
             matchingFallbacks += listOf("debug")
         }
         for ((algorithm, label) in listOf("lr" to "LR", "nb" to "NB", "svm" to "SVM")) {
@@ -53,7 +53,7 @@ android {
                 initWith(getByName("debug"))
                 applicationIdSuffix = ".$algorithm"
                 versionNameSuffix = "-$algorithm-experimental"
-                manifestPlaceholders["appLabel"] = "SmishGuard · $label"
+                manifestPlaceholders["appLabel"] = "Veritxt · $label"
                 matchingFallbacks += listOf("debug")
             }
         }
@@ -308,6 +308,9 @@ dependencies {
     add("mbertImplementation", "com.microsoft.onnxruntime:onnxruntime-android:1.22.0")
     implementation(platform("androidx.compose:compose-bom:2025.12.01"))
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation("dev.chrisbanes.haze:haze:1.7.2")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.activity:activity-compose:1.13.0")

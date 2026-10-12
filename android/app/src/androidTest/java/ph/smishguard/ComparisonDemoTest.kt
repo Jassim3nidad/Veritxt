@@ -20,7 +20,7 @@ class ComparisonDemoTest {
         assumeTrue(BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm", "mbert"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
-        val detector = runBlocking { app.preferences.onboard(); app.detector() }
+        val detector = runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard(); app.detector() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Check a message").fetchSemanticsNodes().isNotEmpty() }
         val versionPrefix=JSONObject(compose.activity.assets.open("model.json").bufferedReader().use { it.readText() })
             .getString("model_version")

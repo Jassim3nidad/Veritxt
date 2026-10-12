@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-colour Veritxt mark for in-app branding. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp" android:height="32dp" android:viewportWidth="512" android:viewportHeight="512">
+    <clip-path android:pathData="M116,0 H396 A116,116 0 0,1 512,116 V396 A116,116 0 0,1 396,512 H116 A116,116 0 0,1 0,396 V116 A116,116 0 0,1 116,0 Z" />
+    <path android:fillColor="#1F6457" android:pathData="M0,0 H512 V512 H0 Z" />
+    <path android:fillColor="#2E8C78" android:fillAlpha="0.55" android:pathData="M250,112 A150,150 0 1,0 550,112 A150,150 0 1,0 250,112 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M146,140 H366 A46,46 0 0,1 412,186 V304 A46,46 0 0,1 366,350 H262 L192,408 V350 H146 A46,46 0 0,1 100,304 V186 A46,46 0 0,1 146,140 Z" />
+    <path android:strokeColor="#1F6457" android:strokeWidth="34" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:pathData="M190,246 L234,290 L326,196" />
+</vector>

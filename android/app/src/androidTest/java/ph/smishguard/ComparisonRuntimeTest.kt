@@ -42,7 +42,7 @@ class ComparisonRuntimeTest {
             val elapsed = System.nanoTime() - started
             if (result is Detection.Success) {
                 scored++; assertTrue(result.experimental); assertFalse(result.probability)
-                assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
+                assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), Brand.UNSPECIFIED))
             } else { abstained++; assertEquals(Detection.UnableToAssess, result) }
             elapsed
         }.sorted()

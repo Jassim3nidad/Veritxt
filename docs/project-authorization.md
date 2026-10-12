@@ -20,7 +20,7 @@ The letter supports the thesis/client arrangement. It is **not blanket dataset l
 | Primary versus supplementary research | Explicit study-role assignment under the study protocol. UCI remains supplementary as planned; reviewed aggregator records may enter primary research if their documented permitted use and study-role decision support it. |
 | Research fitting/evaluation | Use reviewed inputs for the selected role, train-only preprocessing, disjoint partitions and frozen selection. Previously used records remain retrospective; minimum-size and calibration/evaluation checks remain specific to research claims. |
 | Data/model redistribution | Check that documented terms cover the intended redistribution; do not infer this from permission for local academic analysis. Raw data remains excluded from deliverables. Learned identifier-like model terms still need review before broader distribution. |
-| Automatic warnings | Still disabled: evaluation, calibration/threshold requirements and a reviewed deployment policy have not been satisfied. This is a model-operation restriction, not a project-development block. |
+| Automatic warnings | Enabled in the app on 2026-10-12 at the team's request for the experimental supplied model. Evaluation, calibration/threshold requirements and a reviewed deployment policy are still outstanding, so warnings are labelled experimental and may be wrong. |
 | Reporting | Disabled; no endpoint/privacy/retention implementation has been supplied. |
 
 ## Gate changes implemented

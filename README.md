@@ -1,4 +1,10 @@
-# SmishGuard — experimental model development milestone
+# Veritxt (formerly SmishGuard) — experimental model development milestone
+
+13 October integration: `main` combines the thesis/research branch with the Veritxt Liquid Glass interface, privacy consent, English/Filipino support, and incoming-SMS prompts. The original supplied model can issue experimental automatic warnings with consent and Android permissions, as enabled on the UI branch. Candidate, folded LR, comparison and mBERT variants remain manual-only. Model abstention, exact decision-policy/truncation details, transient checked-message display and inference recovery are preserved. Reporting remains disabled; the standalone backend still has a historical city-based contract. Dated milestones below describe earlier states.
+
+<img src="docs/brand/veritxt-wordmark.svg" alt="Veritxt" width="320">
+
+The app is now called **Veritxt**. The package name `ph.smishguard` and code identifiers are unchanged.
 
 6 October current work: scope is **all SMS phishing**, a team clarification without assumed adviser approval. Revised thesis title: **Pending finalization**; the existing title remains historical and title-dependent edits remain pending. See [scope record](docs/scope-clarification-20261006.md), [review completion](docs/review-completion-20261006.md), and [INT8 experiment](docs/mbert-int8-experiment-20261006.md). Earlier milestone instructions below describe historical workflows; do not use financial-only import gates for current annotation or retrain the four frozen evaluation models.
 
@@ -79,7 +85,7 @@ The verifier installs both APKs, clears SmishGuard's emulator data, controls emu
 
 Enable developer options/USB debugging if using adb, connect a trusted computer and approve its debugging prompt, then use the same install/start commands. Alternatively transfer the APK and follow the phone's normal per-installer installation prompts. **Sideloading does not guarantee SMS permission**: RECEIVE_SMS is hard restricted and depends on installer allowlisting, runtime consent, telephony and device policy. Never bypass these restrictions. Manual/share checking works without SMS permission.
 
-Onboarding explains processing and limitations. Home shows the real model and scanning states. Settings lets the user consent to new-SMS checks, request notification permission, review Android permission settings, choose a city manually, or clear preferences. This experimental model cannot enable automatic warnings, even with consent and permissions granted. Permission denial, force-stop and battery/vendor policies can prevent automatic checks. The app does not monitor RCS, Messenger, WhatsApp or other services and never replaces the default SMS app.
+Onboarding explains processing and limitations. Home shows the real model and scanning states. Settings lets the user consent to new-SMS checks, request notification permission, review Android permission settings, or clear preferences. (The city setting was removed; reports carry no location.) With the experimental model, Veritxt warns automatically when a new SMS is flagged (team decision, Oct 2026; results are experimental and can be wrong). Without a model it asks whether to check the text. Permission denial, force-stop and battery/vendor policies can prevent automatic checks. The app does not monitor RCS, Messenger, WhatsApp or other services and never replaces the default SMS app.
 
 Share plain text from the existing messaging app using Android **Share → SmishGuard**, or type/paste into **Check**. Checking clears text; leaving the app or changing configuration also clears the session. Verify requests independently through official channels. No score could guarantee that a message is legitimate.
 

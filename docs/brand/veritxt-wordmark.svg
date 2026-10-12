@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" role="img" aria-labelledby="t">
+  <title id="t">Veritxt logo</title>
+  <g transform="translate(20 20) scale(0.3125)">
+    <rect width="512" height="512" rx="116" fill="#1F6457"/>
+    <circle cx="400" cy="112" r="150" fill="#2E8C78" opacity="0.55"/>
+    <path d="M146 140h220a46 46 0 0 1 46 46v118a46 46 0 0 1-46 46H262l-70 58v-58h-46a46 46 0 0 1-46-46V186a46 46 0 0 1 46-46z" fill="#FFFFFF"/>
+    <path d="M190 246l44 44 92-94" fill="none" stroke="#1F6457" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="208" y="122" font-family="Inter, Roboto, 'Segoe UI', Arial, sans-serif" font-size="96" font-weight="700" letter-spacing="-2" fill="#16201C">Veri<tspan fill="#1F6457">txt</tspan></text>
+  <text x="212" y="166" font-family="Inter, Roboto, 'Segoe UI', Arial, sans-serif" font-size="26" fill="#3F4945">Check the text before you tap</text>
+</svg>

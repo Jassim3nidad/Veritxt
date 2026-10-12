@@ -23,7 +23,7 @@ class CompactResultTest {
             override val status = "Software fixture"
             override suspend fun detect(text: String) = result
         }
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.activityRule.scenario.onActivity {
             ViewModelProvider(it)[CheckViewModel::class.java].share(text)
         }
@@ -107,7 +107,7 @@ class CompactResultTest {
         org.junit.Assume.assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr", "nb", "svm"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
-        runBlocking { app.preferences.onboard() }
+        runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
         compose.activityRule.scenario.onActivity {
             ViewModelProvider(it)[CheckViewModel::class.java].share(
                 "Your account is suspended. Verify your password at https://account.example now.")
