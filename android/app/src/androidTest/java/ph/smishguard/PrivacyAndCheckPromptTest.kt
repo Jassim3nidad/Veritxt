@@ -43,7 +43,7 @@ class PrivacyAndCheckPromptTest {
         ready()
         val id = CheckPrompt.show(app, marker)
         assertNotNull("Notifications must be allowed for this test", id)
-        val posted = manager.activeNotifications.single { it.id == id }.notification
+        val posted = posted(id!!)
         assertEquals(CheckPrompt.CHANNEL, posted.channelId)
         val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT, Notification.EXTRA_BIG_TEXT)
             .joinToString(" ") { posted.extras.getCharSequence(it)?.toString().orEmpty() }
@@ -60,11 +60,20 @@ class PrivacyAndCheckPromptTest {
     @Test fun expiredTextExplainsWhatToDo() {
         ready()
         val id = CheckPrompt.show(app, marker)!!
-        val posted = manager.activeNotifications.single { it.id == id }.notification
+        val posted = posted(id)
         PendingChecks.clear() // same as the app process restarting before the tap
         posted.contentIntent.send()
         compose.waitUntil(10000) {
             compose.onAllNodesWithText("This message is no longer available", substring = true).fetchSemanticsNodes().isNotEmpty()
+        }
+    }
+
+    /** Posting is asynchronous (notably on Android 11), so wait for the notification to appear. */
+    private fun posted(id: Int): Notification {
+        val deadline = System.currentTimeMillis() + 5000
+        while (true) {
+            manager.activeNotifications.firstOrNull { it.id == id }?.let { return it.notification }
+            if (System.currentTimeMillis() > deadline) fail("Notification $id was not posted"); Thread.sleep(100)
         }
     }
 

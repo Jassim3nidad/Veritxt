@@ -53,6 +53,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.layout.onSizeChanged
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -172,6 +174,11 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     }
     val scope = rememberCoroutineScope()
     val activity = androidx.activity.compose.LocalActivity.current
+    // Android 11 and older keep the keyboard open after the text field leaves the screen; close it on every
+    // screen change and when a check starts.
+    val keyboard = LocalSoftwareKeyboardController.current
+    val focus = LocalFocusManager.current
+    LaunchedEffect(state.screen, state.busy) { if (state.screen != Screen.CHECK || state.busy) { focus.clearFocus(); keyboard?.hide() } }
     SmishGuardTheme(solid = preferences?.reduceTransparency == true) {
         val haze = remember { HazeState() }
         val showNav = preferences?.privacyAccepted == true && preferences?.onboarded == true
@@ -214,6 +221,9 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                 }
             }
           }
+          // 3-button navigation (common on Android 11) is tall; keep scrolled text from showing behind its buttons.
+          val systemNav = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+          if (systemNav > 32.dp) Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(systemNav).background(LocalGlass.current.barFill))
           if (showNav) {
               val tab = when (state.screen) { Screen.SETTINGS, Screen.PRIVACY, Screen.HELP -> Screen.SETTINGS; Screen.HOME -> Screen.HOME; else -> Screen.CHECK }
               GlassNavBar(listOf(NavItem(Screen.HOME, stringResource(R.string.nav_home), Icons.Outlined.Home),
