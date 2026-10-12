@@ -52,6 +52,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -169,15 +173,16 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     val scope = rememberCoroutineScope()
     val activity = androidx.activity.compose.LocalActivity.current
     SmishGuardTheme(solid = preferences?.reduceTransparency == true) {
+        val haze = remember { HazeState() }
+        val showNav = preferences?.privacyAccepted == true && preferences?.onboarded == true
+        var navHeight by remember { mutableIntStateOf(0) }
         Box(Modifier.fillMaxSize()) {
+          // Everything under the nav bar is the blur source; the bar itself sits outside it, on top.
+          Box(Modifier.fillMaxSize().hazeSource(haze)) {
             GlassBackground()
             Scaffold(containerColor = Color.Transparent, contentColor = MaterialTheme.colorScheme.onSurface, bottomBar = {
-                if (preferences?.privacyAccepted == true && preferences?.onboarded == true) {
-                    val tab = when (state.screen) { Screen.SETTINGS, Screen.PRIVACY, Screen.HELP -> Screen.SETTINGS; Screen.HOME -> Screen.HOME; else -> Screen.CHECK }
-                    GlassNavBar(listOf(NavItem(Screen.HOME, stringResource(R.string.nav_home), Icons.Outlined.Home),
-                        NavItem(Screen.CHECK, stringResource(R.string.nav_check), Icons.Outlined.Sms),
-                        NavItem(Screen.SETTINGS, stringResource(R.string.nav_settings), Icons.Outlined.Settings)), tab, vm::navigate)
-                }
+                // Reserves the floating bar's height so the last item can scroll above it.
+                if (showNav) Spacer(Modifier.height(with(LocalDensity.current) { navHeight.toDp() }))
             }) { padding ->
                 val prefs = preferences
                 when {
@@ -208,6 +213,14 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                     }
                 }
             }
+          }
+          if (showNav) {
+              val tab = when (state.screen) { Screen.SETTINGS, Screen.PRIVACY, Screen.HELP -> Screen.SETTINGS; Screen.HOME -> Screen.HOME; else -> Screen.CHECK }
+              GlassNavBar(listOf(NavItem(Screen.HOME, stringResource(R.string.nav_home), Icons.Outlined.Home),
+                  NavItem(Screen.CHECK, stringResource(R.string.nav_check), Icons.Outlined.Sms),
+                  NavItem(Screen.SETTINGS, stringResource(R.string.nav_settings), Icons.Outlined.Settings)), tab, vm::navigate,
+                  Modifier.align(Alignment.BottomCenter).onSizeChanged { navHeight = it.height }, haze)
+          }
         }
     }
 }

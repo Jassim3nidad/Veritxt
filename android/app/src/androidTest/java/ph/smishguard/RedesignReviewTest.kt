@@ -59,7 +59,7 @@ class RedesignReviewTest {
             capture("10-fil-home")
             compose.onNodeWithText("Suriin").performClick()
             check(app, Detection.Success(true, .87, experimental = true),
-                "SGTEST BDO: Ang account mo ay naka-hold. I-verify ngayon sa sgtest-verify.example.com", null, button = "Suriin ang mensahe", resultTitle = "Resulta ng pagsusuri")
+                "SGTEST BDO: Ang account mo ay naka-hold. I-verify ngayon sa sgtest-verify.example.com", null, button = "Suriin ito", resultTitle = "Resulta ng pagsusuri")
             capture("11-fil-result")
         } finally {
             setLanguage(null)

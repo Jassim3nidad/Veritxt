@@ -41,6 +41,8 @@ class IncomingPromptModemTest {
             assertNotNull("No check prompt within 60 s of the SMS", posted)
             val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT).joinToString(" ") { posted!!.extras.getCharSequence(it)?.toString().orEmpty() }
             assertEquals("New text received Check it with Veritxt before you tap any link.", shown)
+            // Optional pause so a host script can screenshot the notification (-e pauseMs 8000).
+            InstrumentationRegistry.getArguments().getString("pauseMs")?.toLongOrNull()?.let(Thread::sleep)
             posted!!.contentIntent.send()
             compose.waitUntil(10000) { compose.onAllNodesWithText("Check result").fetchSemanticsNodes().isNotEmpty() }
             compose.onNodeWithText("Mentions BDO").performScrollTo().assertExists()

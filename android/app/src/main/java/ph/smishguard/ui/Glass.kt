@@ -28,6 +28,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.HazeStyle
+import dev.chrisbanes.haze.HazeTint
+import dev.chrisbanes.haze.hazeEffect
 
 /** Glass tokens. `solid` = reduce transparency (user setting) for maximum legibility. */
 data class GlassStyle(val dark: Boolean, val solid: Boolean) {
@@ -37,9 +41,11 @@ data class GlassStyle(val dark: Boolean, val solid: Boolean) {
         Build.VERSION.SDK_INT < 31 -> if (dark) Color(0xD91B2621) else Color(0xD9FFFFFF)
         else -> if (dark) Color(0x991B2621) else Color(0xA6FFFFFF)
     }
-    // Content scrolls under the nav bar. Compose cannot blur what is behind a view without an extra library,
-    // so the bar is opaque to keep labels readable.
+    /** Nav bar tint over Haze blur (API 31+). Strong enough for AA-contrast labels over any content. */
+    val barTint get() = if (dark) Color(0xB8182320) else Color(0xBFFAFCFB)
+    /** Nav bar without blur (API 26-30, or Reduce transparency): opaque so scrolled content can't show through. */
     val barFill get() = if (dark) Color(0xFF182320) else Color(0xFFFAFCFB)
+    val blurAvailable get() = !solid && Build.VERSION.SDK_INT >= 31
     val edge get() = if (solid) (if (dark) Color(0xFF34453D) else Color(0xFFD5DED8))
         else if (dark) Color(0x40FFFFFF) else Color(0xCCFFFFFF)
     val edgeLow get() = if (solid) edge else if (dark) Color(0x14FFFFFF) else Color(0x33FFFFFF)
@@ -73,9 +79,9 @@ object Verdict {
 }
 
 @Composable fun GlassSurface(modifier: Modifier = Modifier, shape: Shape = RoundedCornerShape(28.dp), tint: Color? = null,
-                             padding: Dp = 20.dp, fill: Color? = null, content: @Composable ColumnScope.() -> Unit) {
+                             padding: Dp = 20.dp, fill: Color? = null, effect: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     val style = LocalGlass.current
-    Column(modifier.clip(shape).background(tint?.let { it.copy(alpha = if (style.solid) .18f else .14f).compositeOver(style.fill) } ?: fill ?: style.fill)
+    Column(modifier.clip(shape).then(effect).background(tint?.let { it.copy(alpha = if (style.solid) .18f else .14f).compositeOver(style.fill) } ?: fill ?: style.fill)
         .border(BorderStroke(1.dp, Brush.verticalGradient(listOf(style.edge, style.edgeLow))), shape).padding(padding),
         verticalArrangement = Arrangement.spacedBy(10.dp), content = content)
 }
@@ -105,11 +111,18 @@ private fun Color.compositeOver(bg: Color): Color {
 data class NavItem<T>(val key: T, val label: String, val icon: ImageVector)
 
 /** Floating pill navigation; the active tab gets a brighter glass "lens". */
-@Composable fun <T> GlassNavBar(items: List<NavItem<T>>, selected: T, onSelect: (T) -> Unit, modifier: Modifier = Modifier) {
+/**
+ * Floating pill navigation; the active tab gets a brighter glass "lens". With [haze] on API 31+ the content
+ * scrolling underneath is really blurred (Haze); otherwise the bar is opaque.
+ */
+@Composable fun <T> GlassNavBar(items: List<NavItem<T>>, selected: T, onSelect: (T) -> Unit, modifier: Modifier = Modifier, haze: HazeState? = null) {
     val style = LocalGlass.current
     val scheme = MaterialTheme.colorScheme
+    val blur = haze != null && style.blurAvailable
     GlassSurface(modifier.padding(horizontal = 24.dp, vertical = 12.dp).navigationBarsPadding().fillMaxWidth(),
-        shape = RoundedCornerShape(50), padding = 6.dp, fill = style.barFill) {
+        shape = RoundedCornerShape(50), padding = 6.dp, fill = if (blur) Color.Transparent else style.barFill,
+        effect = if (blur) Modifier.hazeEffect(haze!!, HazeStyle(backgroundColor = if (style.dark) Color(0xFF0E1613) else Color(0xFFF2F6F3),
+            tint = HazeTint(style.barTint), blurRadius = 24.dp, noiseFactor = 0f)) else Modifier) {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             items.forEach { item ->
                 val active = item.key == selected
