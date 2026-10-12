@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notification small icon: single-colour bubble-and-check silhouette. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <group android:scaleX="0.0641" android:scaleY="0.0641" android:translateX="-4.41" android:translateY="-5.56">
+        <path android:strokeColor="#FFFFFF" android:strokeWidth="30" android:strokeLineJoin="round" android:pathData="M146,140 H366 A46,46 0 0,1 412,186 V304 A46,46 0 0,1 366,350 H262 L192,408 V350 H146 A46,46 0 0,1 100,304 V186 A46,46 0 0,1 146,140 Z" />
+        <path android:strokeColor="#FFFFFF" android:strokeWidth="38" android:strokeLineCap="round"
+            android:strokeLineJoin="round" android:pathData="M190,246 L234,290 L326,196" />
+    </group>
+</vector>

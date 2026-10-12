@@ -19,6 +19,7 @@ import androidx.activity.viewModels
 import androidx.compose.animation.*
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -50,6 +51,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -161,8 +164,8 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     Column(Modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Icon(Icons.Outlined.Shield, null, Modifier.size(20.dp).clearAndSetSemantics { }, tint = MaterialTheme.colorScheme.primary)
-            Text("SmishGuard", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
+            Image(painterResource(R.drawable.ic_veritxt_mark), null, Modifier.size(24.dp).clearAndSetSemantics { })
+            Text(stringResource(R.string.app_name), style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
         }
         content()
         Spacer(Modifier.height(bottom + 8.dp))
@@ -174,7 +177,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     val pages = listOf(
         Triple(Icons.Outlined.Shield, "Before you tap,\ncheck the message.", "Check SMS messages for possible scams in Filipino, English, and Taglish."),
         Triple(Icons.Outlined.Lock, "Your message stays here", "Checks happen on this phone. Message text is never stored or sent, and it's cleared when you leave the app."),
-        Triple(Icons.Outlined.NotificationsNone, "A warning tool", "SmishGuard never blocks, deletes, or changes your SMS. It can miss scams or flag real messages, so always double-check."))
+        Triple(Icons.Outlined.NotificationsNone, "A warning tool", "Veritxt never blocks, deletes, or changes your SMS. It can miss scams or flag real messages, so always double-check."))
     val pager = rememberPagerState { pages.size }
     Column(modifier.fillMaxSize().padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
         HorizontalPager(pager, Modifier.weight(1f)) { i ->
@@ -453,7 +456,7 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
     }
     GlassButton("Clear local preferences and session", { clearDialog = true }, primary = false, icon = Icons.Outlined.DeleteOutline)
     if (consentDialog) AlertDialog(onDismissRequest = { consentDialog = false }, icon = { Icon(Icons.Outlined.Sms, null) }, title = { Text("Allow incoming SMS checks?") },
-        text = { Text("SmishGuard will receive new SMS text to check locally, then discard it. It will not read your inbox or change messages. Automatic checks and warnings are disabled until a model is approved for that use. Use manual paste/share for experimental testing. Android may refuse this restricted permission. Notifications are a separate choice.") },
+        text = { Text("Veritxt will receive new SMS text to check locally, then discard it. It will not read your inbox or change messages. Automatic checks and warnings are disabled until a model is approved for that use. Use manual paste/share for experimental testing. Android may refuse this restricted permission. Notifications are a separate choice.") },
         confirmButton = { TextButton(onClick = {
             consentDialog = false
             if (permissions.sms) scope.launch { app.preferences.scanning(true) } else smsRequest.launch(Manifest.permission.RECEIVE_SMS)

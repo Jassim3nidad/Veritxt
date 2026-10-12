@@ -92,7 +92,7 @@ object WarningNotifications {
         val open = PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         return NotificationCompat.Builder(context, CHANNEL)
-            .setSmallIcon(R.drawable.ic_shield).setContentTitle("Potential financial impersonation")
+            .setSmallIcon(R.drawable.ic_stat_veritxt).setContentTitle("Potential financial impersonation")
             .setContentText("Check the recent SMS in your messaging app. Verify through official channels.")
             .setVisibility(NotificationCompat.VISIBILITY_SECRET).setContentIntent(open).setAutoCancel(true).build()
     }

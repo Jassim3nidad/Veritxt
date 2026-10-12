@@ -1,4 +1,8 @@
-# SmishGuard — experimental model development milestone
+# Veritxt (formerly SmishGuard) — experimental model development milestone
+
+<img src="docs/brand/veritxt-wordmark.svg" alt="Veritxt" width="320">
+
+The app is now called **Veritxt**. The package name `ph.smishguard` and code identifiers are unchanged.
 
 Native Kotlin/Compose research prototype for Philippine financial-institution impersonation in SMS. **Version 0.2.0-dev includes the supplied LR model for offline manual paste/share testing.** The interface identifies its output as an uncalibrated model score with unverified research performance and a provisional 0.5 threshold. Automatic model-driven SMS inference/warnings and reporting remain disabled. The separate default `debug` variant still says **Model not installed**. No dataset is bundled in either APK. Read the [package audit](docs/dataset-audit.md) before using the data for research.
 
