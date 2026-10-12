@@ -52,9 +52,23 @@ class IncomingPromptModemTest {
             posted.contentIntent.send()
             compose.waitUntil(10000) { compose.onAllNodesWithText("Likely scam").fetchSemanticsNodes().isNotEmpty() }
             assertTrue(manager.activeNotifications.none { it.notification.channelId == CheckPrompt.CHANNEL })
+            if (InstrumentationRegistry.getArguments().getString("shot") == "true") captureResult(app)
         } finally {
             app.testDetector = null
             runBlocking { app.preferences.scanning(false) }
+        }
+    }
+
+    /** Test-only screenshot of the result after "See why" (lifts FLAG_SECURE briefly, then restores it). */
+    private fun captureResult(app: SoftwareTestApp) {
+        compose.activityRule.scenario.onActivity { it.window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE) }
+        try {
+            Thread.sleep(1200)
+            val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
+            val dir = java.io.File(app.filesDir, "visual-review").apply { mkdirs() }
+            java.io.File(dir, "warning-result.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+        } finally {
+            compose.activityRule.scenario.onActivity { it.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE) }
         }
     }
 
