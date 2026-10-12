@@ -35,7 +35,7 @@ class SuppliedModelTest {
             assertEquals(case.getDouble("score"), result.score, 1e-10)
             assertEquals(case.getBoolean("suspicious"), result.suspicious)
             assertTrue(result.experimental); assertFalse(result.synthetic); assertFalse(result.probability)
-            assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), City.MANILA, Brand.UNSPECIFIED))
+            assertNull(ReportPayload.create(null, result, ZonedDateTime.now(), Brand.UNSPECIFIED))
         }
         assertEquals(Detection.Failure, detector.detect("a".repeat(10001)))
     }

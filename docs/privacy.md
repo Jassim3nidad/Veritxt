@@ -4,7 +4,7 @@
 
 Typing/pasting/shared text is held in ViewModel StateFlow only. No SavedStateHandle or Compose saveable state is used; the activity clears saved bundles. Share extras and ClipData references are removed from the Activity intent. A checking result retains only a class/score, sanitized domain, and hour source time; raw input is cleared immediately after inference. Navigation away from the session, Android back, backgrounding (`onStop`), or clear resets the session and cancels its coroutine. Rotation also clears the session intentionally. The app does not attempt to erase the user's system clipboard or the originating app's copy. JVM strings are garbage-collected; this is reference clearing, not a promise of forensic memory zeroization.
 
-`FLAG_SECURE` protects recents/screenshots; the Activity is excluded from recents. Keyboard autocorrect is disabled and a password-class keyboard hint discourages keyboard learning; the operating system and user's chosen keyboard are outside the app's control. No backup, logs of messages/errors, analytics, network access, raw-text job inputs, or persistence of scan history exists. DataStore saves only onboarding completion, incoming-SMS consent, and selected city. Clearing local preferences removes all three and turns scanning off; Android's permissions are managed by Android.
+`FLAG_SECURE` protects recents/screenshots; the Activity is excluded from recents. Keyboard autocorrect is disabled and a password-class keyboard hint discourages keyboard learning; the operating system and user's chosen keyboard are outside the app's control. No backup, logs of messages/errors, analytics, network access, raw-text job inputs, or persistence of scan history exists. DataStore saves only privacy-notice acceptance, onboarding completion, incoming-SMS consent, and display/language settings. The earlier "Your city" setting was removed (an upgrade migration deletes the old value); reports no longer carry a location. Clearing local preferences removes all of these and turns scanning off; Android's permissions are managed by Android.
 
 The Android framework delivers shared/SMS text in system-owned intents. SmishGuard does not save those intents or request inbox-reading access. Notifications and their PendingIntents never contain message bodies, domains, scores, or sender data.
 
@@ -16,7 +16,7 @@ Supported registry suffixes are deliberately finite: `com`, `org`, `net`, `edu`,
 
 For multiple links, only the first successfully sanitized domain is offered. Unparseable links produce no domain. This loses detail deliberately; no parser can prove a registered domain itself never encodes a person's name, so the preview remains important and users can decline reporting. No domains are sent in this milestone. No link is opened, fetched, resolved, or tested against a remote reputation service.
 
-Only controlled city and brand choices are accepted; there is no free-text field that could accidentally contain private data. A future submit action must send the exact preview from `ReportPayload.json()`, whose factory requires a nonexperimental, nonsynthetic finite prediction and a selected city. Metadata is not retained after the session.
+Only a controlled brand choice is accepted; there is no free-text field that could accidentally contain private data. A future submit action must send the exact preview from `ReportPayload.json()`, whose factory requires a nonexperimental, nonsynthetic finite prediction. Metadata is not retained after the session.
 
 ## Incoming SMS
 

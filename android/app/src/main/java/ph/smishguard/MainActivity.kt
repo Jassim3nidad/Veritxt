@@ -61,7 +61,6 @@ import kotlinx.coroutines.launch
 import ph.smishguard.data.Preferences
 import ph.smishguard.model.Detection
 import ph.smishguard.privacy.Brand
-import ph.smishguard.privacy.City
 import ph.smishguard.privacy.ReportPayload
 import ph.smishguard.sms.PermissionState
 import ph.smishguard.ui.*
@@ -357,14 +356,14 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
         Brand.entries.forEach { b -> FilterChip(b == brand, { brand = b }, { Text(b.label) }, shape = RoundedCornerShape(50)) }
     }
     val result = state.result as? Detection.Success
-    val payload = if (result != null && state.checkedAt != null) ReportPayload.create(state.domain, result, state.checkedAt, preferences.city, brand) else null
+    val payload = if (result != null && state.checkedAt != null) ReportPayload.create(state.domain, result, state.checkedAt, brand) else null
     GlassSurface(Modifier.fillMaxWidth()) {
         if (payload != null) {
             Text("Exact metadata preview", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
             Text(payload.json(), fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, style = MaterialTheme.typography.bodySmall)
         } else {
             Text("No report can be prepared", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-            Text("An approved model result and a manually selected city would be required. Experimental, synthetic and unavailable results cannot be reported.")
+            Text("An approved model result would be required. Experimental, synthetic and unavailable results cannot be reported.")
         }
     }
     GlassSurface(Modifier.fillMaxWidth(), tint = amber) {
@@ -374,8 +373,6 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
         }
     }
     GlassButton("Submit report · unavailable", {}, enabled = false)
-    Text("Future city dashboards will summarize voluntary reports; their counts cannot measure total citywide scam prevalence.",
-        style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
 }
 
 @Composable private fun SettingsRow(icon: ImageVector, title: String, subtitle: String? = null, onClick: (() -> Unit)? = null, trailing: @Composable () -> Unit = {}) {
@@ -398,7 +395,6 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
     val scope = rememberCoroutineScope()
     var consentDialog by remember { mutableStateOf(false) }
     var clearDialog by remember { mutableStateOf(false) }
-    var cityMenu by remember { mutableStateOf(false) }
     var notice by remember { mutableStateOf<String?>(null) }
     val scheme = MaterialTheme.colorScheme
     val smsRequest = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
@@ -429,15 +425,6 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
     }
     SectionLabel("Preferences")
     GlassSurface(Modifier.fillMaxWidth(), padding = 12.dp) {
-        Box {
-            SettingsRow(Icons.Outlined.Place, "Your city · selected manually", preferences.city.label, onClick = { cityMenu = true }) {
-                Icon(Icons.Outlined.ExpandMore, null, tint = scheme.onSurfaceVariant)
-            }
-            DropdownMenu(cityMenu, { cityMenu = false }) {
-                City.entries.forEach { c -> DropdownMenuItem({ Text(c.label) }, { cityMenu = false; scope.launch { app.preferences.city(c) } }) }
-            }
-        }
-        HorizontalDivider(color = LocalGlass.current.edge)
         SettingsRow(Icons.Outlined.Contrast, "Reduce transparency", "Solid backgrounds for easier reading") {
             Switch(preferences.reduceTransparency, { on -> scope.launch { app.preferences.reduceTransparency(on) } },
                 modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics { contentDescription = "Reduce transparency" })
@@ -450,7 +437,7 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
     SectionLabel("Privacy")
     GlassSurface(Modifier.fillMaxWidth()) {
         Text("Local processing", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-        Text("Only onboarding, incoming-SMS consent, display settings, and your selected city are saved. No scan history or raw messages are kept. The app has no internet permission.")
+        Text("Only onboarding, incoming-SMS consent, and display settings are saved. No scan history or raw messages are kept. The app has no internet permission.")
         Text("Android treats SMS access as a restricted permission and may refuse it. Force-stopping the app pauses automatic scanning until you open it again.",
             style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
     }
@@ -462,7 +449,7 @@ private data class VerdictLook(val title: String, val body: String, val icon: Im
             if (permissions.sms) scope.launch { app.preferences.scanning(true) } else smsRequest.launch(Manifest.permission.RECEIVE_SMS)
         }) { Text("Agree and continue") } }, dismissButton = { TextButton(onClick = { consentDialog = false }) { Text("Keep off") } })
     if (clearDialog) AlertDialog(onDismissRequest = { clearDialog = false }, title = { Text("Clear local records?") },
-        text = { Text("This clears your city, consent and display preferences, and current checking session. Incoming scanning turns off. Android permissions remain under system settings.") },
+        text = { Text("This clears your consent and display preferences, and current checking session. Incoming scanning turns off. Android permissions remain under system settings.") },
         confirmButton = { TextButton(onClick = { clearDialog = false; scope.launch { app.preferences.clear(); clear() } }) { Text("Clear") } },
         dismissButton = { TextButton(onClick = { clearDialog = false }) { Text("Cancel") } })
 }

@@ -28,27 +28,25 @@ object SafeDomain {
         .findAll(text).mapNotNull { fromUrl(it.value.trimEnd('.', ',', ';', '!', ')', ']', '}')) }.firstOrNull()
 }
 
-enum class City(val label: String) { NOT_SELECTED("Not selected"), DASMARINAS("Dasmariñas"), BACOOR("Bacoor"), IMUS("Imus"), MANILA("Manila"), OTHER("Other city") }
 enum class Brand(val label: String) { UNSPECIFIED("Not specified"), BDO("BDO"), BPI("BPI"), GCASH("GCash"), MAYA("Maya"), SSS("SSS"), OTHER("Other financial institution") }
 
 class ReportPayload private constructor(
     val domain: String?, val score: Double, val predictedClass: String,
-    val dateHour: String, val city: City, val brand: Brand
+    val dateHour: String, val brand: Brand
 ) {
     fun json(): String = JSONObject().apply {
         put("domain", domain ?: JSONObject.NULL)
         put("score", score)
         put("predicted_class", predictedClass)
         put("date_hour", dateHour)
-        put("city", city.label)
         if (brand != Brand.UNSPECIFIED) put("brand", brand.label)
     }.toString(2)
     companion object {
-        fun create(domain: String?, result: Detection.Success, time: ZonedDateTime, city: City, brand: Brand): ReportPayload? {
-            if (result.synthetic || result.experimental || !result.score.isFinite() || city == City.NOT_SELECTED) return null
+        fun create(domain: String?, result: Detection.Success, time: ZonedDateTime, brand: Brand): ReportPayload? {
+            if (result.synthetic || result.experimental || !result.score.isFinite()) return null
             val safe = domain?.let { SafeDomain.fromUrl("https://$it") }
             return ReportPayload(safe, result.score, if (result.suspicious) "suspicious" else "not_suspicious",
-                time.withMinute(0).withSecond(0).withNano(0).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HHXXX")), city, brand)
+                time.withMinute(0).withSecond(0).withNano(0).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HHXXX")), brand)
         }
     }
 }

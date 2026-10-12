@@ -48,13 +48,12 @@ class CoreTest {
     }
     @Test fun payloadAllowlist() {
         val result = Detection.Success(true, .73)
-        val payload = ReportPayload.create("private.example.com", result, ZonedDateTime.parse("2026-09-17T21:59:59+08:00"), City.DASMARINAS, Brand.UNSPECIFIED)!!
+        val payload = ReportPayload.create("private.example.com", result, ZonedDateTime.parse("2026-09-17T21:59:59+08:00"), Brand.UNSPECIFIED)!!
         val json = JSONObject(payload.json())
-        assertEquals(setOf("domain","score","predicted_class","date_hour","city"), json.keys().asSequence().toSet())
+        assertEquals(setOf("domain","score","predicted_class","date_hour"), json.keys().asSequence().toSet())
         assertEquals("example.com", json.getString("domain"))
         assertEquals("2026-09-17T21+08:00", json.getString("date_hour"))
-        assertNull(ReportPayload.create(null,result.copy(synthetic=true),ZonedDateTime.now(),City.DASMARINAS,Brand.GCASH))
-        assertNull(ReportPayload.create(null,result,ZonedDateTime.now(),City.NOT_SELECTED,Brand.GCASH))
+        assertNull(ReportPayload.create(null,result.copy(synthetic=true),ZonedDateTime.now(),Brand.GCASH))
     }
     @Test fun multipartAndPermissionStates() {
         assertEquals("Bayad na po", SmsParts.combine(listOf("Bayad ","na ","po")))
@@ -68,7 +67,7 @@ class CoreTest {
     @Test fun reportingUnavailable() = runBlocking {
         val repository = DisabledReportingRepository()
         assertFalse(repository.available)
-        val payload = ReportPayload.create(null,Detection.Success(true,.7),ZonedDateTime.now(),City.DASMARINAS,Brand.UNSPECIFIED)!!
+        val payload = ReportPayload.create(null,Detection.Success(true,.7),ZonedDateTime.now(),Brand.UNSPECIFIED)!!
         assertEquals(Submission.Unavailable, repository.submit(payload))
     }
 }
