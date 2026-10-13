@@ -1,0 +1,70 @@
+{
+  "preparation": {
+    "records_replayed": 2554,
+    "source_counts": {
+      "tagalog": 1424,
+      "marketing": 1002,
+      "bwandowando": 128
+    },
+    "source_hashes": {
+      "tagalog": "7757fb9cf70b9c1e0101e384886706da52110f6c17aeafef10a104e38fdfc0a7",
+      "marketing": "a3724dca065ee8ed23eb18fb6382657e2559f2b0c0364aaf9c14277af1974e32",
+      "bwandowando": "3012700e9f774f87b6922cd88e41155b41d0bf9923f04af456683f2859941d5f"
+    },
+    "candidate_sha256": "761e9e4de331b0229eaf337d14ce63a4ea3a1482563c2ff07ee0aa4a0a5947d6",
+    "selected_export_sha256": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+    "dataset_sha256": "a3418c84e88b284b492628a85c624bbfd481d2ba0c907858d4ae697b453184e9",
+    "python_score_max_error": 0.0,
+    "raw_probe_cases": 33,
+    "adapter_sha256": "11c3ee93fb7523e72b5658bec9f4bc5ee7389d9e5add25d5ca3fceceeedb5b8c",
+    "cases_sha256": "fc7df60f137d554c44a4ad0a205a943f354032d4e3c0da7d0742b3c82e2f197f",
+    "protocol_sha256": "a5a12af9632a09ff366f3c0b3131895cf03f0641bb58210ba3a8effbafe2980a",
+    "training_view": "clean(mask(clean(raw)))",
+    "no_retraining": true,
+    "historical_label_status": "Inherited source/rule labels; independent human review unavailable, limitation documented",
+    "physical_phone": {
+      "status": "user_reported_complete",
+      "report_date": "2026-10-13",
+      "tested_apk_model": "not specified",
+      "measurement_details": "not supplied; no values invented"
+    },
+    "release": "Raw preprocessing under engineering verification; original selected model/source-transfer evidence unchanged"
+  },
+  "jvm": {
+    "raw_cases": 33,
+    "raw_view_matches": true,
+    "required_abstentions": 8,
+    "maximum_score_error": 1.1102230246251565e-16
+  },
+  "emulator": {
+    "raw_cases": 33,
+    "maximum_score_error": 1.1102230246251565e-16,
+    "required_abstentions": 8,
+    "raw_view_matches": true,
+    "api": 36,
+    "offline": true,
+    "physical_device": false
+  },
+  "verification": {
+    "junit": {
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4
+    },
+    "research_tests": 121,
+    "protected_files_unchanged": 11,
+    "raw_adapter_excluded_from_production_apk": true,
+    "active_model_unchanged": true,
+    "build": "Development app/test APK, lint and JVM passed"
+  },
+  "phone_checks": {
+    "status": "user_reported_complete",
+    "report_date": "2026-10-13",
+    "tested_apk_model": "not specified",
+    "measurement_details": "not supplied; no values invented"
+  },
+  "label_review": "Inherited labels used; manual review unavailable, explicitly documented",
+  "release_decision": "Do not replace the active model based on this engineering test; weak measured source transfer remains",
+  "clarification": "Independent human labeling is not a blanket extra upload requirement. Old exposed data does not demonstrate prospective incoming-SMS performance."
+}

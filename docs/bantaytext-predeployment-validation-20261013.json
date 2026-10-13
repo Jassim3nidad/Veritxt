@@ -1,0 +1,903 @@
+{
+  "snapshot": {
+    "created_utc": "2026-10-13T04:53:19.150198+00:00",
+    "protocol_sha256": "795f4800cc71560f010a297db57b60f58d0fb039bdb825862822a859729b44ef",
+    "archive_sha256": "38d00a999306ff11b05a431d9488f167589bd94e701f410edb24e8202bf3b3e6",
+    "archive_identical_to_previous": true,
+    "members_verified": 8,
+    "dataset_sha256": "a3418c84e88b284b492628a85c624bbfd481d2ba0c907858d4ae697b453184e9",
+    "split_sha256": "7dfaa6f05b2141cd67e9e4e6ae757ef3b3a92af23841abdfe2c97d429b3b161a",
+    "candidate_sha256": "761e9e4de331b0229eaf337d14ce63a4ea3a1482563c2ff07ee0aa4a0a5947d6",
+    "threshold": 0.37,
+    "previous_review": {
+      "records": 3340,
+      "final_decisions": 0,
+      "pending": 3340,
+      "counts": {},
+      "physical_phone_evidence": "pending",
+      "note": "Final decisions do not overwrite historical labels or frozen metrics."
+    },
+    "package_review": {
+      "Instructions": {
+        "records": 12,
+        "review_nonblank": {}
+      },
+      "1 Flagged": {
+        "records": 118,
+        "review_nonblank": {
+          "labeler_1": 0,
+          "labeler_2": 0,
+          "final_label": 0
+        }
+      },
+      "2 Validation sample": {
+        "records": 300,
+        "review_nonblank": {
+          "labeler_1": 0,
+          "labeler_2": 0,
+          "final_label": 0
+        }
+      }
+    },
+    "prospective_intake_records": 0,
+    "deployment": "Not approved; unchanged active model retained",
+    "versions": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "scikit-learn": "1.6.1",
+      "joblib": "1.6.0"
+    }
+  },
+  "confidence_intervals": {
+    "method": "Paired whole-template percentile bootstrap, fixed models/thresholds; no selection/training/label uncertainty",
+    "seed": 20261013,
+    "repetitions": 2000,
+    "groups": 372,
+    "intervals": {
+      "precision": {
+        "low": 0.8493086068751615,
+        "high": 0.9893617021276596,
+        "valid_draws": 2000
+      },
+      "recall": {
+        "low": 0.875,
+        "high": 1.0,
+        "valid_draws": 2000
+      },
+      "f1": {
+        "low": 0.875,
+        "high": 0.9846183206106871,
+        "valid_draws": 2000
+      },
+      "false_positive_rate": {
+        "low": 0.0021686155307085735,
+        "high": 0.02027141419071441,
+        "valid_draws": 2000
+      },
+      "false_negative_rate": {
+        "low": 0.0,
+        "high": 0.125,
+        "valid_draws": 2000
+      },
+      "paired_f1_delta_vs_baseline": {
+        "low": 0.007720284059569649,
+        "high": 0.17627230544683647,
+        "valid_draws": 2000
+      }
+    }
+  },
+  "nested_source": {
+    "bwandowando": {
+      "nb": {
+        "train": {
+          "records": 1867,
+          "ham": 1773,
+          "smishing": 94,
+          "scam_fraction": 0.05034815211569363
+        },
+        "validation": {
+          "records": 474,
+          "ham": 456,
+          "smishing": 18,
+          "scam_fraction": 0.0379746835443038
+        },
+        "test": {
+          "records": 128,
+          "ham": 0,
+          "smishing": 128,
+          "scam_fraction": 1.0
+        },
+        "threshold": 0.09999999999999999,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 474,
+          "precision": 1.0,
+          "recall": 0.8333333333333334,
+          "f1": 0.9090909090909091,
+          "accuracy": 0.9936708860759493,
+          "average_precision": 0.9650905040378726,
+          "roc_auc": 0.9982943469785575,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.16666666666666666,
+          "confusion": {
+            "tn": 456,
+            "fp": 0,
+            "fn": 3,
+            "tp": 15
+          },
+          "brier": 0.013995008218663441,
+          "log_loss": 0.044999341957373096,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 128,
+          "precision": 1.0,
+          "recall": 0.6875,
+          "f1": 0.8148148148148148,
+          "accuracy": 0.6875,
+          "average_precision": null,
+          "roc_auc": null,
+          "false_positive_rate": null,
+          "false_negative_rate": 0.3125,
+          "confusion": {
+            "tn": 0,
+            "fp": 0,
+            "fn": 40,
+            "tp": 88
+          },
+          "brier": 0.4104473145863098,
+          "log_loss": 1.723231246735131,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      },
+      "lr": {
+        "train": {
+          "records": 1867,
+          "ham": 1773,
+          "smishing": 94,
+          "scam_fraction": 0.05034815211569363
+        },
+        "validation": {
+          "records": 474,
+          "ham": 456,
+          "smishing": 18,
+          "scam_fraction": 0.0379746835443038
+        },
+        "test": {
+          "records": 128,
+          "ham": 0,
+          "smishing": 128,
+          "scam_fraction": 1.0
+        },
+        "threshold": 0.18,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 474,
+          "precision": 1.0,
+          "recall": 0.7777777777777778,
+          "f1": 0.8750000000000001,
+          "accuracy": 0.9915611814345991,
+          "average_precision": 0.9329379770556242,
+          "roc_auc": 0.9959795321637427,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.2222222222222222,
+          "confusion": {
+            "tn": 456,
+            "fp": 0,
+            "fn": 4,
+            "tp": 14
+          },
+          "brier": 0.01622416246374598,
+          "log_loss": 0.058251950479531044,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 128,
+          "precision": 1.0,
+          "recall": 0.625,
+          "f1": 0.7692307692307693,
+          "accuracy": 0.625,
+          "average_precision": null,
+          "roc_auc": null,
+          "false_positive_rate": null,
+          "false_negative_rate": 0.375,
+          "confusion": {
+            "tn": 0,
+            "fp": 0,
+            "fn": 48,
+            "tp": 80
+          },
+          "brier": 0.5114652929967465,
+          "log_loss": 1.532158914884873,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      },
+      "svm": {
+        "train": {
+          "records": 1867,
+          "ham": 1773,
+          "smishing": 94,
+          "scam_fraction": 0.05034815211569363
+        },
+        "validation": {
+          "records": 474,
+          "ham": 456,
+          "smishing": 18,
+          "scam_fraction": 0.0379746835443038
+        },
+        "test": {
+          "records": 128,
+          "ham": 0,
+          "smishing": 128,
+          "scam_fraction": 1.0
+        },
+        "threshold": 0.7699999999999999,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 474,
+          "precision": 1.0,
+          "recall": 0.7777777777777778,
+          "f1": 0.8750000000000001,
+          "accuracy": 0.9915611814345991,
+          "average_precision": 0.9735067516285265,
+          "roc_auc": 0.9989035087719297,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.2222222222222222,
+          "confusion": {
+            "tn": 456,
+            "fp": 0,
+            "fn": 4,
+            "tp": 14
+          },
+          "brier": 0.005509544315466507,
+          "log_loss": 0.02579932123800331,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 128,
+          "precision": 1.0,
+          "recall": 0.671875,
+          "f1": 0.8037383177570093,
+          "accuracy": 0.671875,
+          "average_precision": null,
+          "roc_auc": null,
+          "false_positive_rate": null,
+          "false_negative_rate": 0.328125,
+          "confusion": {
+            "tn": 0,
+            "fp": 0,
+            "fn": 42,
+            "tp": 86
+          },
+          "brier": 0.18025450557430617,
+          "log_loss": 0.5257387194856542,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      }
+    },
+    "marketing": {
+      "nb": {
+        "train": {
+          "records": 1178,
+          "ham": 1095,
+          "smishing": 83,
+          "scam_fraction": 0.07045840407470289
+        },
+        "validation": {
+          "records": 289,
+          "ham": 268,
+          "smishing": 21,
+          "scam_fraction": 0.0726643598615917
+        },
+        "test": {
+          "records": 1002,
+          "ham": 858,
+          "smishing": 144,
+          "scam_fraction": 0.1437125748502994
+        },
+        "threshold": 0.26999999999999996,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 289,
+          "precision": 1.0,
+          "recall": 0.6190476190476191,
+          "f1": 0.7647058823529412,
+          "accuracy": 0.972318339100346,
+          "average_precision": 0.8574898450610036,
+          "roc_auc": 0.9756574271499645,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.38095238095238093,
+          "confusion": {
+            "tn": 268,
+            "fp": 0,
+            "fn": 8,
+            "tp": 13
+          },
+          "brier": 0.028031025777886024,
+          "log_loss": 0.10572248847036367,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 1002,
+          "precision": 0.99,
+          "recall": 0.6875,
+          "f1": 0.8114754098360656,
+          "accuracy": 0.9540918163672655,
+          "average_precision": 0.9686106899244428,
+          "roc_auc": 0.9938973063973064,
+          "false_positive_rate": 0.0011655011655011655,
+          "false_negative_rate": 0.3125,
+          "confusion": {
+            "tn": 857,
+            "fp": 1,
+            "fn": 45,
+            "tp": 99
+          },
+          "brier": 0.04773587947998022,
+          "log_loss": 0.1529554777764655,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      },
+      "lr": {
+        "train": {
+          "records": 1178,
+          "ham": 1095,
+          "smishing": 83,
+          "scam_fraction": 0.07045840407470289
+        },
+        "validation": {
+          "records": 289,
+          "ham": 268,
+          "smishing": 21,
+          "scam_fraction": 0.0726643598615917
+        },
+        "test": {
+          "records": 1002,
+          "ham": 858,
+          "smishing": 144,
+          "scam_fraction": 0.1437125748502994
+        },
+        "threshold": 0.19,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 289,
+          "precision": 1.0,
+          "recall": 0.7142857142857143,
+          "f1": 0.8333333333333333,
+          "accuracy": 0.9792387543252595,
+          "average_precision": 0.9041708997909848,
+          "roc_auc": 0.9872068230277186,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.2857142857142857,
+          "confusion": {
+            "tn": 268,
+            "fp": 0,
+            "fn": 6,
+            "tp": 15
+          },
+          "brier": 0.029711255429935298,
+          "log_loss": 0.10910372712788367,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 1002,
+          "precision": 0.9590163934426229,
+          "recall": 0.8125,
+          "f1": 0.8796992481203006,
+          "accuracy": 0.9680638722554891,
+          "average_precision": 0.9774437317952214,
+          "roc_auc": 0.9962040274540275,
+          "false_positive_rate": 0.005827505827505828,
+          "false_negative_rate": 0.1875,
+          "confusion": {
+            "tn": 853,
+            "fp": 5,
+            "fn": 27,
+            "tp": 117
+          },
+          "brier": 0.059938598157237837,
+          "log_loss": 0.17943549239112797,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      },
+      "svm": {
+        "train": {
+          "records": 1178,
+          "ham": 1095,
+          "smishing": 83,
+          "scam_fraction": 0.07045840407470289
+        },
+        "validation": {
+          "records": 289,
+          "ham": 268,
+          "smishing": 21,
+          "scam_fraction": 0.0726643598615917
+        },
+        "test": {
+          "records": 1002,
+          "ham": 858,
+          "smishing": 144,
+          "scam_fraction": 0.1437125748502994
+        },
+        "threshold": 0.57,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 289,
+          "precision": 1.0,
+          "recall": 0.9047619047619048,
+          "f1": 0.9500000000000001,
+          "accuracy": 0.9930795847750865,
+          "average_precision": 0.9598684023937154,
+          "roc_auc": 0.990227434257285,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.09523809523809523,
+          "confusion": {
+            "tn": 268,
+            "fp": 0,
+            "fn": 2,
+            "tp": 19
+          },
+          "brier": 0.011745663315934943,
+          "log_loss": 0.0613360125058579,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 1002,
+          "precision": 0.9552238805970149,
+          "recall": 0.8888888888888888,
+          "f1": 0.9208633093525178,
+          "accuracy": 0.9780439121756487,
+          "average_precision": 0.9796031514245023,
+          "roc_auc": 0.9967786842786843,
+          "false_positive_rate": 0.006993006993006993,
+          "false_negative_rate": 0.1111111111111111,
+          "confusion": {
+            "tn": 852,
+            "fp": 6,
+            "fn": 16,
+            "tp": 128
+          },
+          "brier": 0.015982618673235457,
+          "log_loss": 0.07219116529920225,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      }
+    },
+    "tagalog": {
+      "nb": {
+        "train": {
+          "records": 818,
+          "ham": 697,
+          "smishing": 121,
+          "scam_fraction": 0.14792176039119803
+        },
+        "validation": {
+          "records": 193,
+          "ham": 152,
+          "smishing": 41,
+          "scam_fraction": 0.21243523316062177
+        },
+        "test": {
+          "records": 1424,
+          "ham": 1371,
+          "smishing": 53,
+          "scam_fraction": 0.037219101123595506
+        },
+        "threshold": 0.31999999999999995,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 193,
+          "precision": 0.9743589743589743,
+          "recall": 0.926829268292683,
+          "f1": 0.9500000000000001,
+          "accuracy": 0.9792746113989638,
+          "average_precision": 0.9819780948565967,
+          "roc_auc": 0.9942233632862645,
+          "false_positive_rate": 0.006578947368421052,
+          "false_negative_rate": 0.07317073170731707,
+          "confusion": {
+            "tn": 151,
+            "fp": 1,
+            "fn": 3,
+            "tp": 38
+          },
+          "brier": 0.026751044465856657,
+          "log_loss": 0.09503116688356425,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 1424,
+          "precision": 0.27450980392156865,
+          "recall": 0.7924528301886793,
+          "f1": 0.4077669902912621,
+          "accuracy": 0.9143258426966292,
+          "average_precision": 0.6922688945194219,
+          "roc_auc": 0.9641633293423063,
+          "false_positive_rate": 0.08096280087527352,
+          "false_negative_rate": 0.20754716981132076,
+          "confusion": {
+            "tn": 1260,
+            "fp": 111,
+            "fn": 11,
+            "tp": 42
+          },
+          "brier": 0.03845071049570117,
+          "log_loss": 0.12572691828551533,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      },
+      "lr": {
+        "train": {
+          "records": 818,
+          "ham": 697,
+          "smishing": 121,
+          "scam_fraction": 0.14792176039119803
+        },
+        "validation": {
+          "records": 193,
+          "ham": 152,
+          "smishing": 41,
+          "scam_fraction": 0.21243523316062177
+        },
+        "test": {
+          "records": 1424,
+          "ham": 1371,
+          "smishing": 53,
+          "scam_fraction": 0.037219101123595506
+        },
+        "threshold": 0.18,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 193,
+          "precision": 0.925,
+          "recall": 0.9024390243902439,
+          "f1": 0.9135802469135802,
+          "accuracy": 0.9637305699481865,
+          "average_precision": 0.9744543544758754,
+          "roc_auc": 0.9922978177150192,
+          "false_positive_rate": 0.019736842105263157,
+          "false_negative_rate": 0.0975609756097561,
+          "confusion": {
+            "tn": 149,
+            "fp": 3,
+            "fn": 4,
+            "tp": 37
+          },
+          "brier": 0.05140162207779979,
+          "log_loss": 0.16919926662165918,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 1424,
+          "precision": 0.18859649122807018,
+          "recall": 0.8113207547169812,
+          "f1": 0.3060498220640569,
+          "accuracy": 0.863061797752809,
+          "average_precision": 0.6046483884006694,
+          "roc_auc": 0.9409327993614356,
+          "false_positive_rate": 0.1349380014587892,
+          "false_negative_rate": 0.18867924528301888,
+          "confusion": {
+            "tn": 1186,
+            "fp": 185,
+            "fn": 10,
+            "tp": 43
+          },
+          "brier": 0.029936252918893465,
+          "log_loss": 0.1283602584219933,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      },
+      "svm": {
+        "train": {
+          "records": 818,
+          "ham": 697,
+          "smishing": 121,
+          "scam_fraction": 0.14792176039119803
+        },
+        "validation": {
+          "records": 193,
+          "ham": 152,
+          "smishing": 41,
+          "scam_fraction": 0.21243523316062177
+        },
+        "test": {
+          "records": 1424,
+          "ham": 1371,
+          "smishing": 53,
+          "scam_fraction": 0.037219101123595506
+        },
+        "threshold": 0.4699999999999999,
+        "validation_criterion_met": true,
+        "validation_metrics": {
+          "records": 193,
+          "precision": 0.975609756097561,
+          "recall": 0.975609756097561,
+          "f1": 0.975609756097561,
+          "accuracy": 0.9896373056994818,
+          "average_precision": 0.9958651493366106,
+          "roc_auc": 0.9988767650834403,
+          "false_positive_rate": 0.006578947368421052,
+          "false_negative_rate": 0.024390243902439025,
+          "confusion": {
+            "tn": 151,
+            "fp": 1,
+            "fn": 1,
+            "tp": 40
+          },
+          "brier": 0.013570045202887722,
+          "log_loss": 0.05486508206742579,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "test_metrics": {
+          "records": 1424,
+          "precision": 0.25280898876404495,
+          "recall": 0.8490566037735849,
+          "f1": 0.38961038961038963,
+          "accuracy": 0.9009831460674157,
+          "average_precision": 0.6585816269506815,
+          "roc_auc": 0.9652505401648708,
+          "false_positive_rate": 0.09700948212983224,
+          "false_negative_rate": 0.1509433962264151,
+          "confusion": {
+            "tn": 1238,
+            "fp": 133,
+            "fn": 8,
+            "tp": 45
+          },
+          "brier": 0.06272153357763949,
+          "log_loss": 0.21357121981465982,
+          "ranking_score": "probability-like, calibration quality unvalidated"
+        },
+        "note": "Source-complement-only calibration/operating threshold. Fixed historical settings: retrospective, not unbiased model-selection validation"
+      }
+    }
+  },
+  "robustness": {
+    "uppercase": {
+      "records": 498,
+      "changed_decisions": 0,
+      "mean_absolute_score_change": 0.0,
+      "maximum_absolute_score_change": 0.0,
+      "all_finite": true,
+      "interpretation": "Fixed-prediction stress; altered content is not new labeled ground truth"
+    },
+    "whitespace": {
+      "records": 498,
+      "changed_decisions": 0,
+      "mean_absolute_score_change": 0.0,
+      "maximum_absolute_score_change": 0.0,
+      "all_finite": true,
+      "interpretation": "Fixed-prediction stress; altered content is not new labeled ground truth"
+    },
+    "punctuation": {
+      "records": 498,
+      "changed_decisions": 0,
+      "mean_absolute_score_change": 0.0,
+      "maximum_absolute_score_change": 0.0,
+      "all_finite": true,
+      "interpretation": "Fixed-prediction stress; altered content is not new labeled ground truth"
+    },
+    "remove_url_marker": {
+      "records": 498,
+      "changed_decisions": 2,
+      "mean_absolute_score_change": 0.004724180111133133,
+      "maximum_absolute_score_change": 0.3359266276701919,
+      "all_finite": true,
+      "interpretation": "Fixed-prediction stress; altered content is not new labeled ground truth"
+    },
+    "add_taglish": {
+      "records": 498,
+      "changed_decisions": 5,
+      "mean_absolute_score_change": 0.007103138032263672,
+      "maximum_absolute_score_change": 0.16106927422544148,
+      "all_finite": true,
+      "interpretation": "Fixed-prediction stress; altered content is not new labeled ground truth"
+    },
+    "bank_obfuscation": {
+      "records": 498,
+      "changed_decisions": 0,
+      "mean_absolute_score_change": 0.0013870387381129561,
+      "maximum_absolute_score_change": 0.07138557679515747,
+      "all_finite": true,
+      "interpretation": "Fixed-prediction stress; altered content is not new labeled ground truth"
+    }
+  },
+  "targeted": {
+    "otp": {
+      "records": 55,
+      "ham": 55,
+      "smishing": 0,
+      "fp": 0,
+      "false_positive_rate": 0.0,
+      "meaning": "Original source category, inherited binary label; no independent confirmation. Rate suppressed below 20 ham.",
+      "wilson_fpr": {
+        "low": 0,
+        "high": 0.06528490111708637,
+        "method": "95% Wilson interval; inherited labels, sample selection/group correlation not covered"
+      }
+    },
+    "gov": {
+      "records": 21,
+      "ham": 21,
+      "smishing": 0,
+      "fp": 0,
+      "false_positive_rate": 0.0,
+      "meaning": "Original source category, inherited binary label; no independent confirmation. Rate suppressed below 20 ham.",
+      "wilson_fpr": {
+        "low": 0,
+        "high": 0.154639018924847,
+        "method": "95% Wilson interval; inherited labels, sample selection/group correlation not covered"
+      }
+    },
+    "ads": {
+      "records": 176,
+      "ham": 176,
+      "smishing": 0,
+      "fp": 3,
+      "false_positive_rate": 0.017045454545454544,
+      "meaning": "Original source category, inherited binary label; no independent confirmation. Rate suppressed below 20 ham.",
+      "wilson_fpr": {
+        "low": 0.005813642625307883,
+        "high": 0.04890932773552685,
+        "method": "95% Wilson interval; inherited labels, sample selection/group correlation not covered"
+      }
+    },
+    "notifs": {
+      "records": 173,
+      "ham": 173,
+      "smishing": 0,
+      "fp": 1,
+      "false_positive_rate": 0.005780346820809248,
+      "meaning": "Original source category, inherited binary label; no independent confirmation. Rate suppressed below 20 ham.",
+      "wilson_fpr": {
+        "low": 0.001021102941249569,
+        "high": 0.03201107661465982,
+        "method": "95% Wilson interval; inherited labels, sample selection/group correlation not covered"
+      }
+    },
+    "bank_ewallet_notifications": {
+      "records": null,
+      "reason": "No independently validated bank/e-wallet category; notifs is broad, so no invented bank FPR"
+    }
+  },
+  "calibration_reliability": {
+    "bins": [
+      {
+        "count": 409,
+        "mean_score": 0.01689237012237532,
+        "observed_inherited_scam_fraction": 0.004889975550122249
+      },
+      {
+        "count": 8,
+        "mean_score": 0.14298897236832386,
+        "observed_inherited_scam_fraction": 0.0
+      },
+      {
+        "count": 5,
+        "mean_score": 0.24691084174981998,
+        "observed_inherited_scam_fraction": 0.2
+      },
+      {
+        "count": 5,
+        "mean_score": 0.3709394709629944,
+        "observed_inherited_scam_fraction": 0.4
+      },
+      {
+        "count": 2,
+        "mean_score": 0.4327918293095786,
+        "observed_inherited_scam_fraction": 1.0
+      },
+      {
+        "count": 2,
+        "mean_score": 0.5345831371553069,
+        "observed_inherited_scam_fraction": 1.0
+      },
+      {
+        "count": 4,
+        "mean_score": 0.6565063840529719,
+        "observed_inherited_scam_fraction": 1.0
+      },
+      {
+        "count": 2,
+        "mean_score": 0.717656764407715,
+        "observed_inherited_scam_fraction": 0.5
+      },
+      {
+        "count": 4,
+        "mean_score": 0.8723099856700088,
+        "observed_inherited_scam_fraction": 0.75
+      },
+      {
+        "count": 57,
+        "mean_score": 0.9837916578446595,
+        "observed_inherited_scam_fraction": 0.9824561403508771
+      }
+    ],
+    "expected_calibration_error": 0.02183263155106752,
+    "status": "Retrospective score reliability under inherited labels; does not establish real-world probability calibration"
+  },
+  "export": {
+    "model_sha256": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+    "cases_sha256": "b9a153482d57ffe4e9b6574691f48fa1a2d2bb6ff2180cec18f060d80ced8263",
+    "feature_count": 18473,
+    "model_bytes": 1333723,
+    "cases": 515,
+    "real_masked_test_cases": 498,
+    "synthetic_probes": 17,
+    "contract": "Test-only; production ModelLoader must reject schema 6",
+    "input_limitation": "Frozen fit expects masked views. Raw SMS masking/integration is not silently added."
+  },
+  "deployment": "Not approved: ZIP previously used, zero independent human labels/new intake; nested transfer and engineering checks cannot establish prospective validity",
+  "jvm": {
+    "model_bytes": 1333723,
+    "cases": 515,
+    "mean_score_ms": 0.1025772815533981,
+    "production_loader_rejects": true,
+    "maximum_feature_error": 1.1102230246251565e-16,
+    "required_abstentions": 7,
+    "maximum_score_error": 4.440892098500626e-16,
+    "load_ms": 145.1842
+  },
+  "emulator": {
+    "scope": "API36 emulator software-only; actual selected frozen SVM, not prospective accuracy or physical-phone benchmark",
+    "serial": "emulator-5554",
+    "selected_candidate": {
+      "cases": 515,
+      "maximum_score_error": 4.440892098500626e-16,
+      "maximum_feature_error": 1.1102230246251565e-16,
+      "required_abstentions": 7,
+      "model_bytes": 1333723,
+      "load_ms": 449.858631,
+      "mean_score_ms": 0.32369639223300956,
+      "production_loader_rejects": true,
+      "pss_kib_before": 162103,
+      "pss_kib_after": 181745,
+      "memory_note": "Whole instrumentation process PSS samples; not isolated model memory",
+      "api": 36,
+      "offline": true,
+      "physical_device": false
+    },
+    "status": "passed"
+  },
+  "privacy_emulator": {
+    "variant": "development",
+    "api": "36",
+    "status": "passed",
+    "ui_lifecycle_decoding": "INSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.FlowsTest:\r\nINSTRUMENTATION_STATUS: test=sharedTextAndClear\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=sharedTextAndClear\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=2\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=navigationDiscardsInput\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=2\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=navigationDiscardsInput\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=3\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=clipboardPasteWorksWithoutSmsPermission\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=3\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=clipboardPasteWorksWithoutSmsPermission\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=4\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=emptyInputAndMissingModel\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=4\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=emptyInputAndMissingModel\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=5\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=invalidFailureAndSyntheticResultsStayHonest\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=5\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=invalidFailureAndSyntheticResultsStayHonest\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=6\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=deniedPermissionsStillAllowManualCheck\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.FlowsTest\r\nINSTRUMENTATION_STATUS: current=6\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=deniedPermissionsStillAllowManualCheck\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.PrivacyLifecycleTest\r\nINSTRUMENTATION_STATUS: current=7\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.PrivacyLifecycleTest:\r\nINSTRUMENTATION_STATUS: test=checkedMessageIsTransientAndClearsAtEveryExit\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.PrivacyLifecycleTest\r\nINSTRUMENTATION_STATUS: current=7\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=checkedMessageIsTransientAndClearsAtEveryExit\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.PrivacyLifecycleTest\r\nINSTRUMENTATION_STATUS: current=8\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=backgroundAndRecreateDiscardText\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.PrivacyLifecycleTest\r\nINSTRUMENTATION_STATUS: current=8\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=backgroundAndRecreateDiscardText\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.SmsDecodingTest\r\nINSTRUMENTATION_STATUS: current=9\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.SmsDecodingTest:\r\nINSTRUMENTATION_STATUS: test=platformDecodesMultipartUcs2InBroadcastOrder\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.SmsDecodingTest\r\nINSTRUMENTATION_STATUS: current=9\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=platformDecodesMultipartUcs2InBroadcastOrder\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModelInitializationTest\r\nINSTRUMENTATION_STATUS: current=10\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.ModelInitializationTest:\r\nINSTRUMENTATION_STATUS: test=lateModelStatusPreservesManualInput\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModelInitializationTest\r\nINSTRUMENTATION_STATUS: current=10\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=lateModelStatusPreservesManualInput\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModelInitializationTest\r\nINSTRUMENTATION_STATUS: current=11\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=lateModelStatusPreservesSettingsNavigation\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModelInitializationTest\r\nINSTRUMENTATION_STATUS: current=11\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=lateModelStatusPreservesSettingsNavigation\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModelInitializationTest\r\nINSTRUMENTATION_STATUS: current=12\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=lateModelStatusPreservesClearedSession\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModelInitializationTest\r\nINSTRUMENTATION_STATUS: current=12\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=lateModelStatusPreservesClearedSession\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.DevelopmentFlowTest\r\nINSTRUMENTATION_STATUS: current=13\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.DevelopmentFlowTest:\r\nINSTRUMENTATION_STATUS: test=suppliedModelShareShowsExperimentalResultAndCannotReport\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.DevelopmentFlowTest\r\nINSTRUMENTATION_STATUS: current=13\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=suppliedModelShareShowsExperimentalResultAndCannotReport\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=14\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.CompactResultTest:\r\nINSTRUMENTATION_STATUS: test=blankAndInvalidHaveDistinctNoScoreResults\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=14\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=blankAndInvalidHaveDistinctNoScoreResults\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=15\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=abstentionNeverShowsPercentageAndEditClearsOldResult\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=15\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=abstentionNeverShowsPercentageAndEditClearsOldResult\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=16\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=shippedModelSyntheticScanScreenshot\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=16\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=shippedModelSyntheticScanScreenshot\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=17\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=compactCopyBothDecisionsAndAccessibleExplanation\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=17\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=compactCopyBothDecisionsAndAccessibleExplanation\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=18\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=failuresAndBusyNeverInventPercentage\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=18\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=failuresAndBusyNeverInventPercentage\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=19\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=longNoticeAndExactDetailsAreAccessibleAndScrollable\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.CompactResultTest\r\nINSTRUMENTATION_STATUS: current=19\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=longNoticeAndExactDetailsAreAccessibleAndScrollable\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.AssessabilityModelTest\r\nINSTRUMENTATION_STATUS: current=20\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.AssessabilityModelTest:\r\nINSTRUMENTATION_STATUS: test=meaningfulShortMultilingualOtpAndPhishingKeepOriginalScores\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.AssessabilityModelTest\r\nINSTRUMENTATION_STATUS: current=20\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=meaningfulShortMultilingualOtpAndPhishingKeepOriginalScores\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.AssessabilityModelTest\r\nINSTRUMENTATION_STATUS: current=21\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=interceptOnlyInputsDoNotExposePercentages\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.AssessabilityModelTest\r\nINSTRUMENTATION_STATUS: current=21\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=21\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=interceptOnlyInputsDoNotExposePercentages\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 84.784\r\n\r\nOK (21 tests)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1",
+    "notification_denied": "INSTRUMENTATION_STATUS: class=ph.smishguard.NotificationBehaviorTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.NotificationBehaviorTest:\r\nINSTRUMENTATION_STATUS: test=runtimeDenialSuppressesWarning\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.NotificationBehaviorTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=runtimeDenialSuppressesWarning\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 0.016\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1",
+    "offline_sklearn_exports": "INSTRUMENTATION_STATUS: class=ph.smishguard.OfflineModelTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=3\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.OfflineModelTest:\r\nINSTRUMENTATION_STATUS: test=exportedSklearnModelsRunOfflineAndStaySynthetic\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.OfflineModelTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=3\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=exportedSklearnModelsRunOfflineAndStaySynthetic\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.SuppliedModelTest\r\nINSTRUMENTATION_STATUS: current=2\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=3\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.SuppliedModelTest:\r\nINSTRUMENTATION_STATUS: test=unsupportedAndMalformedModelsFailClosed\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.SuppliedModelTest\r\nINSTRUMENTATION_STATUS: current=2\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=3\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=unsupportedAndMalformedModelsFailClosed\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.SuppliedModelTest\r\nINSTRUMENTATION_STATUS: current=3\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=3\r\nINSTRUMENTATION_STATUS: stream=\r\nINSTRUMENTATION_STATUS: test=offlinePythonParityAndDevelopmentPolicy\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.SuppliedModelTest\r\nINSTRUMENTATION_STATUS: current=3\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=3\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=offlinePythonParityAndDevelopmentPolicy\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 1.87\r\n\r\nOK (3 tests)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1",
+    "modem_sms": "INSTRUMENTATION_STATUS: class=ph.smishguard.ModemSmsTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.ModemSmsTest:\r\nINSTRUMENTATION_STATUS: test=modemDeliveryMultipartConsentAndSyntheticSuppression\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.ModemSmsTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=modemDeliveryMultipartConsentAndSyntheticSuppression\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 8.487\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1",
+    "notification_granted_and_channel_blocked": "INSTRUMENTATION_STATUS: class=ph.smishguard.NotificationBehaviorTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.NotificationBehaviorTest:\r\nINSTRUMENTATION_STATUS: test=privateNotificationConstructionAndBlockedChannel\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.NotificationBehaviorTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=privateNotificationConstructionAndBlockedChannel\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 0.035\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1",
+    "accessibility_large_text": "INSTRUMENTATION_STATUS: class=ph.smishguard.AccessibilityTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=\r\nph.smishguard.AccessibilityTest:\r\nINSTRUMENTATION_STATUS: test=labeledControlsAndHeadingsRemainReachable\r\nINSTRUMENTATION_STATUS_CODE: 1\r\nINSTRUMENTATION_STATUS: class=ph.smishguard.AccessibilityTest\r\nINSTRUMENTATION_STATUS: current=1\r\nINSTRUMENTATION_STATUS: id=AndroidJUnitRunner\r\nINSTRUMENTATION_STATUS: numtests=1\r\nINSTRUMENTATION_STATUS: stream=.\r\nINSTRUMENTATION_STATUS: test=labeledControlsAndHeadingsRemainReachable\r\nINSTRUMENTATION_STATUS_CODE: 0\r\nINSTRUMENTATION_RESULT: stream=\r\n\r\nTime: 7.524\r\n\r\nOK (1 test)\r\n\r\n\r\nINSTRUMENTATION_CODE: -1",
+    "private_storage": {
+      "files_inspected": 2,
+      "raw_fixture_markers_found": 0
+    },
+    "scope": "Emulator software checks only; supplied-model compatibility and synthetic fixtures are not research accuracy or physical-device results"
+  },
+  "verification": {
+    "recomputed_source_runs": 9,
+    "protected_files_unchanged": 11,
+    "junit": {
+      "tests": 35,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4
+    },
+    "research_tests": 117,
+    "build": "assembleDevelopment + assembleDevelopmentAndroidTest + lintDevelopment + JVM passed",
+    "selected_scorer_excluded_from_production_apk": true,
+    "active_model_inside_apk_unchanged": true,
+    "apk_sha256": "1725f6352cf8bc35635b388aad7b41eaa388ecf9cb1dea67dc9f33c95881ef2a",
+    "physical_device": "Not tested"
+  }
+}

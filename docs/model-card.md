@@ -1,5 +1,15 @@
 # Supplied experimental model card
 
+13 October 2026: the [baseline-first BantayText retraining](bantaytext-comparison-20261013.md)
+was executed separately. Its grouped validation choice is a research SVM candidate;
+historical exposure, inherited labels and source stress failures prevent replacing
+this supplied artifact. Its [candidate card](bantaytext-model-card-20261013.md) is
+distinct from this active model. Safe Python/JVM parity was rerun against unchanged
+active weights. The original supplied model's automatic warnings were already
+enabled by the team on 12 October; reporting remains disabled. Earlier statements
+below that both were disabled describe historical policy, not the current warning
+setting. No warning, permission or reporting policy changed in this retraining.
+
 The later `lr-calibrated-2` candidate is **under review, not deployed**; its supplied results are separately recorded in the [candidate review](../research/candidate_review/README.md). They are not results for the artifact described by this card. This review changes no shipped weights or status flags.
 
 Version: SmishGuard 0.2.0-dev, converted schema 2. Intended use: authorized local manual paste/share software testing only. Research performance, calibration and automatic warning approval are unverified. Never describe the score as a fraud probability or guarantee.

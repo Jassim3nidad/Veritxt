@@ -1,0 +1,827 @@
+{
+  "package": {
+    "schema": [
+      "category",
+      "confidence",
+      "date",
+      "id",
+      "label",
+      "label_method",
+      "language",
+      "needs_review",
+      "sender",
+      "source",
+      "source_category",
+      "template_group",
+      "text"
+    ],
+    "records": 4261,
+    "labels": {
+      "smishing": 577,
+      "ham": 3184,
+      "gambling_ad": 500
+    },
+    "source_counts": {
+      "GitHub: A.S.E.A. SMS Scam Detection (Pineda et al., Angeles University Foundation)": {
+        "ham": 100,
+        "smishing": 103
+      },
+      "GitHub: Scam SMS Reports (crowdsourced, AGR-Yes/ScamMessagesPhilippines)": {
+        "smishing": 53,
+        "ham": 7,
+        "gambling_ad": 115
+      },
+      "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+        "ham": 909,
+        "smishing": 165,
+        "gambling_ad": 106
+      },
+      "Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+        "ham": 17,
+        "smishing": 171,
+        "gambling_ad": 155
+      },
+      "Kaggle: Tagalog-SMS (ZERO, 2025)": {
+        "ham": 2150,
+        "smishing": 67,
+        "gambling_ad": 124
+      },
+      "Team-collected: Facebook": {
+        "smishing": 1
+      },
+      "Team-collected: Personal (received)": {
+        "smishing": 9,
+        "ham": 1
+      },
+      "Team-collected: Reddit r/ScammersPH": {
+        "smishing": 2
+      },
+      "Team-collected: Screenshots": {
+        "smishing": 6
+      }
+    },
+    "missing": {
+      "label": 0,
+      "date": 389,
+      "source_category": 0,
+      "sender": 761,
+      "source": 0,
+      "category": 0,
+      "language": 0,
+      "label_method": 0,
+      "confidence": 0,
+      "needs_review": 0,
+      "id": 0,
+      "text": 0,
+      "template_group": 0
+    },
+    "held": {
+      "team_origin_consent_use_unresolved": 19,
+      "automated_privacy_hold": 139,
+      "github_permission_unresolved": 263,
+      "unsupported_binary_label_gambling_ad": 500
+    },
+    "retained": {
+      "records": 3340,
+      "ham": 2947,
+      "smishing": 393,
+      "groups": 1848,
+      "positive_groups": 184,
+      "negative_groups": 1664
+    },
+    "label_methods": {
+      "kept team label": 13,
+      "source category mapped to legit": 3055,
+      "source reported as spam/scam -> checked: smishing": 453,
+      "source category mapped to legit -> CHANGED to smishing by scam check": 3,
+      "source reported as spam/scam -> checked: ham": 28,
+      "source intent -> checked by SmishGuard rules: ham": 100,
+      "source intent -> checked by SmishGuard rules: smishing": 103,
+      "team label; rule check agrees: Impersonation (bank, e-wallet, government, courier, or brand)": 6,
+      "excluded as gambling advertising by rules -> added as gambling_ad (professor's instruction)": 500
+    },
+    "review": {
+      "Instructions": {
+        "records": 12,
+        "review_nonblank": {}
+      },
+      "1 Flagged": {
+        "records": 118,
+        "review_nonblank": {
+          "labeler_1": 0,
+          "labeler_2": 0,
+          "final_label": 0
+        }
+      },
+      "2 Validation sample": {
+        "records": 300,
+        "review_nonblank": {
+          "labeler_1": 0,
+          "labeler_2": 0,
+          "final_label": 0
+        }
+      }
+    },
+    "exact_duplicates": 0,
+    "normalized_duplicate_records": 848,
+    "mixed_label_groups": 2,
+    "raw_build_reproduced": false
+  },
+  "pinned_sources": {
+    "tagalog": {
+      "ref": "onzero0/tagalog-sms",
+      "version": 1,
+      "member": "tagalog-sms.xlsx",
+      "sha256": "7757fb9cf70b9c1e0101e384886706da52110f6c17aeafef10a104e38fdfc0a7",
+      "author": "ZERO (onzero0)",
+      "license": "CC0 1.0",
+      "records": 3454,
+      "columns": [
+        "Date",
+        "category",
+        "sender",
+        "text"
+      ],
+      "missing": {
+        "Date": 0,
+        "category": 0,
+        "sender": 0,
+        "text": 0
+      },
+      "original_categories": {
+        "category": {
+          "otp": 513,
+          "notifs": 2039,
+          "ads": 178,
+          "spam": 645,
+          "gov": 79
+        }
+      },
+      "malformed_overflow_rows": 0,
+      "text_field": "text",
+      "placeholder_modified_records": 212,
+      "empty_after_known_placeholder_clean": 0,
+      "interpretation": "Source taxonomy is not independently verified financial-smishing truth; package rule labels inherited"
+    },
+    "marketing": {
+      "ref": "scottleechua/ph-spam-marketing-sms-w-timestamps",
+      "version": 15,
+      "member": "text-messages.csv",
+      "sha256": "a3724dca065ee8ed23eb18fb6382657e2559f2b0c0364aaf9c14277af1974e32",
+      "author": "Scott Lee Chua",
+      "license": "CC BY 4.0",
+      "records": 8895,
+      "columns": [
+        "category",
+        "date-read",
+        "date-received",
+        "sender",
+        "text"
+      ],
+      "missing": {
+        "category": 0,
+        "date-read": 4,
+        "date-received": 0,
+        "sender": 0,
+        "text": 0
+      },
+      "original_categories": {
+        "category": {
+          "ads": 1178,
+          "notifs": 5713,
+          "OTP": 1006,
+          "spam": 830,
+          "gov": 168
+        }
+      },
+      "malformed_overflow_rows": 2,
+      "text_field": "text",
+      "placeholder_modified_records": 7827,
+      "empty_after_known_placeholder_clean": 6910,
+      "interpretation": "Source taxonomy is not independently verified financial-smishing truth; package rule labels inherited"
+    },
+    "bwandowando": {
+      "ref": "bwandowando/philippine-spam-sms-messages",
+      "version": 49,
+      "member": "SPAM_SMS.csv",
+      "sha256": "3012700e9f774f87b6922cd88e41155b41d0bf9923f04af456683f2859941d5f",
+      "author": "BwandoWando",
+      "license": "CC BY-NC-SA 4.0",
+      "records": 1021,
+      "columns": [
+        "carrier",
+        "date",
+        "hashed_cellphone_number",
+        "masked_celphone_number",
+        "text"
+      ],
+      "missing": {
+        "carrier": 0,
+        "date": 0,
+        "hashed_cellphone_number": 0,
+        "masked_celphone_number": 0,
+        "text": 0
+      },
+      "original_categories": {},
+      "malformed_overflow_rows": 0,
+      "text_field": "text",
+      "placeholder_modified_records": 550,
+      "empty_after_known_placeholder_clean": 0,
+      "interpretation": "Source taxonomy is not independently verified financial-smishing truth; package rule labels inherited"
+    }
+  },
+  "source_category_mapping": {
+    "GitHub: A.S.E.A. SMS Scam Detection (Pineda et al., Angeles University Foundation)": {
+      "source_categories": {
+        "asea intent: ham": 93,
+        "asea intent: delivery scam": 13,
+        "asea intent: raffle scam": 31,
+        "asea intent: loan scam": 5,
+        "asea intent: government spoofing": 12,
+        "asea intent: bank scam": 18,
+        "asea intent: prize scam": 22,
+        "asea intent: commercial spam": 7,
+        "asea intent: investment scam": 1,
+        "asea intent: gambling scam": 1
+      },
+      "binary_mapping_by_original_category": {
+        "asea intent: bank scam": {
+          "smishing": 18
+        },
+        "asea intent: commercial spam": {
+          "smishing": 1,
+          "ham": 6
+        },
+        "asea intent: delivery scam": {
+          "ham": 1,
+          "smishing": 12
+        },
+        "asea intent: gambling scam": {
+          "smishing": 1
+        },
+        "asea intent: government spoofing": {
+          "smishing": 12
+        },
+        "asea intent: ham": {
+          "ham": 93
+        },
+        "asea intent: investment scam": {
+          "smishing": 1
+        },
+        "asea intent: loan scam": {
+          "smishing": 5
+        },
+        "asea intent: prize scam": {
+          "smishing": 22
+        },
+        "asea intent: raffle scam": {
+          "smishing": 31
+        }
+      }
+    },
+    "GitHub: Scam SMS Reports (crowdsourced, AGR-Yes/ScamMessagesPhilippines)": {
+      "source_categories": {
+        "reported scam: gma wowowin": 1,
+        "reported scam: netflix kuno": 7,
+        "reported scam: email": 1,
+        "reported scam: bank scam": 2,
+        "reported scam: gcash scam": 2,
+        "reported scam: rewards": 2,
+        "reported scam: your phone no has won": 3,
+        "reported scam: shoppee kuno": 2,
+        "reported scam: online casino": 13,
+        "reported scam: gma": 3,
+        "reported scam: claim money": 7,
+        "reported scam: not specified": 1,
+        "reported scam: unclaimed bonus": 3,
+        "reported scam: villar foundation": 1,
+        "reported scam: claim b0nus": 1,
+        "reported scam: pindutin para kunin": 2,
+        "reported scam: libreng pera": 2,
+        "reported scam: magbukas ng account": 3,
+        "reported scam: name": 1,
+        "reported scam: pacquiao foundation": 1,
+        "reported scam: pagcor licensed": 2,
+        "reported scam: raffle": 1,
+        "reported scam: nanalo sa lotto": 1,
+        "reported scam: pretty dealers": 1,
+        "reported scam: gaming platform": 2,
+        "reported scam: salamat sa feedback": 1,
+        "reported scam: bitglobalgood": 1,
+        "reported scam: lazada kuno": 2,
+        "reported scam: jili and fc jackpot": 3,
+        "reported scam: bingo plus": 8,
+        "reported scam: free gifts": 2,
+        "reported scam: cash in/out": 3,
+        "reported scam: paload": 1,
+        "reported scam: nan": 5,
+        "reported scam: loan/pautang": 2,
+        "reported scam: register and win": 5,
+        "reported scam: welcome bonus": 1,
+        "reported scam: free spin": 5,
+        "reported scam: bingo": 2,
+        "reported scam: w.plus": 3,
+        "reported scam: t1bet": 5,
+        "reported scam: se.xy dealer": 1,
+        "reported scam: online games": 10,
+        "reported scam: roulette": 1,
+        "reported scam: mybitglobal": 4,
+        "reported scam: casino": 9,
+        "reported scam: bonus": 5,
+        "reported scam: play to win": 3,
+        "reported scam: winning gadgets": 1,
+        "reported scam: red envelope": 2,
+        "reported scam: various gifts": 1,
+        "reported scam: gaming": 2,
+        "reported scam: free (luckyphil)": 1,
+        "reported scam: jackpot city": 1,
+        "reported scam: gam1ng platf0rm": 1,
+        "reported scam: online cockfighting": 1,
+        "reported scam: online sabong": 1,
+        "reported scam: wildplay betting": 1,
+        "reported scam: atinbet": 1,
+        "reported scam: web platform": 1,
+        "reported scam: sbet": 3,
+        "reported scam: dear vip": 1,
+        "reported scam: get5k blog google ads": 1,
+        "reported scam: slot games": 1,
+        "reported scam: lodibet123": 1,
+        "reported scam: pasa load scam": 1,
+        "reported scam: prizes": 1,
+        "reported scam: jb gaming": 1,
+        "reported scam: mega win": 1,
+        "reported scam: lotto": 1,
+        "reported scam: iphone 14 promax promo": 1,
+        "reported scam: smart winner": 1
+      },
+      "binary_mapping_by_original_category": {
+        "reported scam: atinbet": {
+          "gambling_ad": 1
+        },
+        "reported scam: bank scam": {
+          "smishing": 2
+        },
+        "reported scam: bingo": {
+          "gambling_ad": 2
+        },
+        "reported scam: bingo plus": {
+          "smishing": 1,
+          "gambling_ad": 7
+        },
+        "reported scam: bitglobalgood": {
+          "smishing": 1
+        },
+        "reported scam: bonus": {
+          "gambling_ad": 5
+        },
+        "reported scam: cash in/out": {
+          "smishing": 1,
+          "gambling_ad": 2
+        },
+        "reported scam: casino": {
+          "gambling_ad": 9
+        },
+        "reported scam: claim b0nus": {
+          "smishing": 1
+        },
+        "reported scam: claim money": {
+          "smishing": 7
+        },
+        "reported scam: dear vip": {
+          "gambling_ad": 1
+        },
+        "reported scam: email": {
+          "smishing": 1
+        },
+        "reported scam: free (luckyphil)": {
+          "gambling_ad": 1
+        },
+        "reported scam: free gifts": {
+          "smishing": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: free spin": {
+          "gambling_ad": 5
+        },
+        "reported scam: gam1ng platf0rm": {
+          "gambling_ad": 1
+        },
+        "reported scam: gaming": {
+          "gambling_ad": 2
+        },
+        "reported scam: gaming platform": {
+          "smishing": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: gcash scam": {
+          "smishing": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: get5k blog google ads": {
+          "gambling_ad": 1
+        },
+        "reported scam: gma": {
+          "smishing": 3
+        },
+        "reported scam: gma wowowin": {
+          "smishing": 1
+        },
+        "reported scam: iphone 14 promax promo": {
+          "gambling_ad": 1
+        },
+        "reported scam: jackpot city": {
+          "gambling_ad": 1
+        },
+        "reported scam: jb gaming": {
+          "gambling_ad": 1
+        },
+        "reported scam: jili and fc jackpot": {
+          "smishing": 1,
+          "gambling_ad": 2
+        },
+        "reported scam: lazada kuno": {
+          "ham": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: libreng pera": {
+          "smishing": 2
+        },
+        "reported scam: loan/pautang": {
+          "ham": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: lodibet123": {
+          "gambling_ad": 1
+        },
+        "reported scam: lotto": {
+          "gambling_ad": 1
+        },
+        "reported scam: magbukas ng account": {
+          "smishing": 3
+        },
+        "reported scam: mega win": {
+          "gambling_ad": 1
+        },
+        "reported scam: mybitglobal": {
+          "gambling_ad": 4
+        },
+        "reported scam: name": {
+          "smishing": 1
+        },
+        "reported scam: nan": {
+          "ham": 2,
+          "smishing": 1,
+          "gambling_ad": 2
+        },
+        "reported scam: nanalo sa lotto": {
+          "smishing": 1
+        },
+        "reported scam: netflix kuno": {
+          "ham": 2,
+          "smishing": 5
+        },
+        "reported scam: not specified": {
+          "smishing": 1
+        },
+        "reported scam: online casino": {
+          "smishing": 1,
+          "gambling_ad": 12
+        },
+        "reported scam: online cockfighting": {
+          "gambling_ad": 1
+        },
+        "reported scam: online games": {
+          "gambling_ad": 10
+        },
+        "reported scam: online sabong": {
+          "gambling_ad": 1
+        },
+        "reported scam: pacquiao foundation": {
+          "smishing": 1
+        },
+        "reported scam: pagcor licensed": {
+          "smishing": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: paload": {
+          "smishing": 1
+        },
+        "reported scam: pasa load scam": {
+          "gambling_ad": 1
+        },
+        "reported scam: pindutin para kunin": {
+          "smishing": 2
+        },
+        "reported scam: play to win": {
+          "gambling_ad": 3
+        },
+        "reported scam: pretty dealers": {
+          "smishing": 1
+        },
+        "reported scam: prizes": {
+          "gambling_ad": 1
+        },
+        "reported scam: raffle": {
+          "smishing": 1
+        },
+        "reported scam: red envelope": {
+          "gambling_ad": 2
+        },
+        "reported scam: register and win": {
+          "gambling_ad": 5
+        },
+        "reported scam: rewards": {
+          "smishing": 1,
+          "gambling_ad": 1
+        },
+        "reported scam: roulette": {
+          "gambling_ad": 1
+        },
+        "reported scam: salamat sa feedback": {
+          "smishing": 1
+        },
+        "reported scam: sbet": {
+          "gambling_ad": 3
+        },
+        "reported scam: se.xy dealer": {
+          "gambling_ad": 1
+        },
+        "reported scam: shoppee kuno": {
+          "smishing": 1,
+          "ham": 1
+        },
+        "reported scam: slot games": {
+          "gambling_ad": 1
+        },
+        "reported scam: smart winner": {
+          "gambling_ad": 1
+        },
+        "reported scam: t1bet": {
+          "gambling_ad": 5
+        },
+        "reported scam: unclaimed bonus": {
+          "smishing": 2,
+          "gambling_ad": 1
+        },
+        "reported scam: various gifts": {
+          "gambling_ad": 1
+        },
+        "reported scam: villar foundation": {
+          "smishing": 1
+        },
+        "reported scam: w.plus": {
+          "gambling_ad": 3
+        },
+        "reported scam: web platform": {
+          "gambling_ad": 1
+        },
+        "reported scam: welcome bonus": {
+          "gambling_ad": 1
+        },
+        "reported scam: wildplay betting": {
+          "gambling_ad": 1
+        },
+        "reported scam: winning gadgets": {
+          "gambling_ad": 1
+        },
+        "reported scam: your phone no has won": {
+          "smishing": 3
+        }
+      }
+    },
+    "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+      "source_categories": {
+        "ads": 854,
+        "gov": 44,
+        "spam": 274,
+        "notifs": 8
+      },
+      "binary_mapping_by_original_category": {
+        "ads": {
+          "ham": 854
+        },
+        "gov": {
+          "ham": 44
+        },
+        "notifs": {
+          "ham": 8
+        },
+        "spam": {
+          "smishing": 165,
+          "ham": 3,
+          "gambling_ad": 106
+        }
+      }
+    },
+    "Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+      "source_categories": {
+        "spam": 343
+      },
+      "binary_mapping_by_original_category": {
+        "spam": {
+          "ham": 17,
+          "smishing": 171,
+          "gambling_ad": 155
+        }
+      }
+    },
+    "Kaggle: Tagalog-SMS (ZERO, 2025)": {
+      "source_categories": {
+        "notifs": 1439,
+        "otp": 504,
+        "gov": 50,
+        "spam": 189,
+        "ads": 159
+      },
+      "binary_mapping_by_original_category": {
+        "ads": {
+          "ham": 159
+        },
+        "gov": {
+          "ham": 50
+        },
+        "notifs": {
+          "ham": 1437,
+          "smishing": 2
+        },
+        "otp": {
+          "ham": 503,
+          "smishing": 1
+        },
+        "spam": {
+          "smishing": 64,
+          "ham": 1,
+          "gambling_ad": 124
+        }
+      }
+    },
+    "Team-collected: Facebook": {
+      "source_categories": {
+        "team verified: smishing": 1
+      },
+      "binary_mapping_by_original_category": {
+        "team verified: smishing": {
+          "smishing": 1
+        }
+      }
+    },
+    "Team-collected: Personal (received)": {
+      "source_categories": {
+        "team verified: smishing": 9,
+        "team verified: ham": 1
+      },
+      "binary_mapping_by_original_category": {
+        "team verified: ham": {
+          "ham": 1
+        },
+        "team verified: smishing": {
+          "smishing": 9
+        }
+      }
+    },
+    "Team-collected: Reddit r/ScammersPH": {
+      "source_categories": {
+        "team verified: smishing": 2
+      },
+      "binary_mapping_by_original_category": {
+        "team verified: smishing": {
+          "smishing": 2
+        }
+      }
+    },
+    "Team-collected: Screenshots": {
+      "source_categories": {
+        "team verified: smishing": 6
+      },
+      "binary_mapping_by_original_category": {
+        "team verified: smishing": {
+          "smishing": 6
+        }
+      }
+    }
+  },
+  "active_model": {
+    "algorithm": "Logistic Regression",
+    "features": 5000,
+    "source_sha256": "3ec2fa27951588447fa59800bfb5de0e7d0b61526bb1ff1352358db755ce768a",
+    "asset_sha256": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+    "original_dataset_sha256": "554df67a04b65425e81b7bd577f36b82ddaf48287f2a61677f940213fb66269b",
+    "score": "Uncalibrated sigmoid model score, not fraud probability",
+    "threshold": 0.5,
+    "comparison": "strict_greater",
+    "baseline": {
+      "records": 1276,
+      "precision": 0.9487179487179487,
+      "recall": 1.0,
+      "f1": 0.9736842105263158,
+      "accuracy": 0.9905956112852664,
+      "average_precision": 0.9951165168982499,
+      "roc_auc": 0.9991922662700652,
+      "false_positive_rate": 0.011385199240986717,
+      "false_negative_rate": 0.0,
+      "confusion": {
+        "tn": 1042,
+        "fp": 12,
+        "fn": 0,
+        "tp": 222
+      },
+      "brier": 0.020386221681278634,
+      "log_loss": 0.1208842510834599,
+      "ranking_score": "probability-like, calibration quality unvalidated"
+    },
+    "evaluation": "Resubstitution on claimed full training corpus; unsuitable for model selection",
+    "reproducible_existing_comparison": "Saved 17-model evaluation rechecked from finalized predictions before changes; output/bantaytext-existing-baseline-recheck.md",
+    "training_procedure": "Supplied evidence reports C=2, liblinear, L2, balanced, max_features=5000, word(1,2). Exact original artifact reproduction and original environment unavailable; source export converted unchanged.",
+    "permissions": "No INTERNET; SMS receiver/consent/report controls untouched. Original supplied automatic warnings already enabled by prior team decision; metadata still unapproved.",
+    "runtime": "SmishGuardApp selects asset by build type; development uses ModelLoader/SuppliedDetector v2; ordinary debug has no fitted asset"
+  },
+  "protected_hashes": {
+    "android/app/src/main/AndroidManifest.xml": "038b03799bb302ee250fe06d34bb5fd76b063c40bc1838a1fc04b73909ad22c6",
+    "android/app/src/main/java/ph/smishguard/sms/IncomingSmsReceiver.kt": "4f238544e10f3a94bd245a45ebc70883f67c90d56dade1766e15889efbaa7638",
+    "android/app/src/main/java/ph/smishguard/model/SuppliedDetector.kt": "f372c2fec131c2990805391c9862ccbd25fb2b655540b421f347bd9a658372d6",
+    "android/app/src/main/java/ph/smishguard/privacy/Reports.kt": "e37faeabd42be2a7ef0542a4dc77291d5b0b5e8bbf4ab6c3c991f06faec1ad53",
+    "android/app/src/development/assets/model.json": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+    "android/app/src/lr/assets/model.json": "34aba6fba8399e9bac0369ab59637511155d36849edd3829269edc70450d4623",
+    "android/app/src/lrCalibrated4/assets/model.json": "ab7105a11cf62e7cd2b268ad84181ac61ab1ad6f7237973c518b2bd6fdae9e1b",
+    "android/app/src/mbert/assets/model.json": "044fa5b0a2fbbf3318ab45343b99ef1a3d5b0ebf580078732903669c107c0c14",
+    "android/app/src/mbertQuantized/assets/model.json": "4e14b8de47acf3c0415c13e6529bf1e18b3431431a8f5f5b17182c24a57c9b12",
+    "android/app/src/nb/assets/model.json": "9a06358416cde665d80ed42f8a25cec34ed94cc6f6769fca38d0f56421968b49",
+    "android/app/src/svm/assets/model.json": "d54aa2e06d126e70dc9aeeaf9bce17f8aa202c459b8b63890c50a302d2fc6d19"
+  },
+  "exposure": {
+    "records": 4261,
+    "historical_files": 22,
+    "historical_unique_normalized_texts": 2978,
+    "exact": 3595,
+    "near_only": 13,
+    "no_detected_overlap": 653,
+    "any_known_overlap": 3608,
+    "by_source": {
+      "GitHub: A.S.E.A. SMS Scam Detection (Pineda et al., Angeles University Foundation)": {
+        "records": 203,
+        "exact": 16,
+        "near_only": 0,
+        "no_detected_overlap": 187
+      },
+      "GitHub: Scam SMS Reports (crowdsourced, AGR-Yes/ScamMessagesPhilippines)": {
+        "records": 175,
+        "exact": 60,
+        "near_only": 0,
+        "no_detected_overlap": 115
+      },
+      "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+        "records": 1180,
+        "exact": 1082,
+        "near_only": 1,
+        "no_detected_overlap": 97
+      },
+      "Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+        "records": 343,
+        "exact": 197,
+        "near_only": 7,
+        "no_detected_overlap": 139
+      },
+      "Kaggle: Tagalog-SMS (ZERO, 2025)": {
+        "records": 2341,
+        "exact": 2227,
+        "near_only": 3,
+        "no_detected_overlap": 111
+      },
+      "Team-collected: Facebook": {
+        "records": 1,
+        "exact": 1,
+        "near_only": 0,
+        "no_detected_overlap": 0
+      },
+      "Team-collected: Personal (received)": {
+        "records": 10,
+        "exact": 10,
+        "near_only": 0,
+        "no_detected_overlap": 0
+      },
+      "Team-collected: Reddit r/ScammersPH": {
+        "records": 2,
+        "exact": 2,
+        "near_only": 0,
+        "no_detected_overlap": 0
+      },
+      "Team-collected: Screenshots": {
+        "records": 6,
+        "exact": 0,
+        "near_only": 2,
+        "no_detected_overlap": 4
+      }
+    },
+    "historical_binary_label_disagreement_records": 12,
+    "method": "All discovered historical dataset/case-view/intake and supplied SMS CSVs; normalized exact and SequenceMatcher >=0.85; lossless multiset bound",
+    "limitations": "Old membership is not always available; possible-corpus overlap is conservative exposure evidence, not proof every old row was fitted. No detected overlap is not proof of prospective independence."
+  },
+  "limitations": [
+    "All eligible inputs previously exposed; final test cannot be claimed prospective",
+    "Source/rule mappings already used content, sender and URL rules; source label prediction can reproduce rule shortcuts",
+    "No complete independent review, reliable receipt timestamps, confirmed financial-only scope or unbiased target prevalence",
+    "Raw-source build lacks some upstream files; do not invent its reproduction",
+    "URLs masked upstream; host/shortener ablation unavailable. Sender not included in model input. No campaign identity confirmed"
+  ],
+  "notebook": "New notebook uses existing authorized masked fitting view; holds flagged records and deduplicates before split"
+}

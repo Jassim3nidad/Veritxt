@@ -1,5 +1,25 @@
 # Versioned offline model contract
 
+Latest 13 October raw-input check: [source-preparation replay and raw SMS parity](bantaytext-raw-sms-validation-20261013.md)
+uses a test-only `clean(mask(clean(raw)))` adapter with frozen Unicode whitespace and
+explicit ASCII URL/digit rules. It preserves the selected SVM's fitted parameters
+and produces its original masked-view contract. Production loading is unchanged.
+Physical-phone checks are user-reported completed; source-transfer limitations remain.
+
+Additional 13 October checks: [actual-SVM predeployment parity](bantaytext-predeployment-validation-20261013.md)
+defines schema 6 exclusively in test sources for masked Unicode/English-stopword
+word-bigram SVM scoring. The production loader still rejects it. Frozen features,
+one calibration transform, scores and decisions match Python on JVM/API36 emulator;
+this is engineering evidence, not independent predictive validation or installation.
+
+13 October 2026: [baseline-first retraining and executed notebook](bantaytext-comparison-20261013.md)
+preserve all installed contracts and active parameters. The selected research
+SVM uses Unicode English-stopword word bigrams and is not compatible with the
+existing ASCII unigram comparator path. It remains private and uninstalled.
+A separately fitted portable LR comparator and unchanged supplied model passed
+safe Python/JVM parity; these checks do not validate the research SVM's Android
+compatibility or approve deployment. See the [test report](bantaytext-reproduction-20261013.md).
+
 1 October: **schema v4** is the separate `lrCalibrated4` build's `lr-calibrated-4` contract. Calibration is folded into source coefficients/intercept; the runtime applies one sigmoid and rejects executable calibration fields. It retains strict **score >0.50**, `calibration_status=fitted_unvalidated`, experimental Model score wording, input abstention and disabled reporting/warnings. Source/model identities, matching-guide checks and review limitations are in the [LR4 review](lr-calibrated-4-review.md). The generic loader still rejects v4; only the explicitly selected build loads it. v2 historical and v3 separate-calibration models are unchanged.
 
 29 September complete package: schema v3 adds an explicitly selected calibrated LR candidate path; [review and blocker](mark-complete-findings.md). It preserves the source vocabulary, IDF, coefficients, intercept, and separate sigmoid slope/offset with `score >= 0.40`. Its calibration status is `fitted_unvalidated`, output remains an experimental **Model score**, and empty/unassessable input abstains. The generic loader and historical v2 paths do not accept v3; only `lrCandidate` selects it. No source asset or APK is installed until the actual content review is documented. This does not change v2's strict >0.5 behavior below or deploy the earlier `lr-calibrated-2` artifact.

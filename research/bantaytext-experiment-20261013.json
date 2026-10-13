@@ -1,0 +1,14 @@
+{
+  "seed": 42,
+  "input": "data/newdata-20261013/experiment-v2/dataset.json",
+  "input_sha256": "c3abc4bb23742226deab491821c1828559d895242da55267c77ae6f7dfa07b21",
+  "history": "previously_exposed_retrospective",
+  "random_split": {"train": 0.6, "validation": 0.2, "test": 0.2, "two_step_stratified": true},
+  "grouped_split": {"folds": 10, "allocation": [6, 2, 2], "near_similarity": 0.85},
+  "baseline": {"features": "Unicode word unigrams", "stop_words": null, "nb_alpha": 1.0, "lr_C": 1.0, "svm_C": 1.0},
+  "improvement": {"nb_alpha": [0.03, 0.1, 0.3, 1.0], "C": [0.1, 1.0, 10.0], "class_weight": [null, "balanced"], "word_ngrams": [1, 2], "char_wb_ngrams": [3, 5], "stop_words": ["english", null], "max_features": null, "min_df": 1, "calibration_folds": 3},
+  "threshold": {"grid": [0.05, 0.95, 91], "validation_precision_floor": 0.9, "minimum_true_positives": 5, "objective": "scam F1"},
+  "selection": "Grouped validation only; precision constraint then F1, smaller artifact, ID. Never select using test.",
+  "deployment": "Retain active model: independent labels and genuinely unseen evaluation are unavailable.",
+  "matrix_authority": "experiment_matrix() in smishguard/bantaytext_workflow.py; configuration.json snapshots exact expanded matrix before fitting"
+}

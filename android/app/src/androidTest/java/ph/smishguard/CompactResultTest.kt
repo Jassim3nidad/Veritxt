@@ -37,6 +37,10 @@ class CompactResultTest {
         for (suspicious in listOf(true, false)) {
             val result = Detection.Success(suspicious, if (suspicious) .9229 else .1234, experimental = true)
             scan(result)
+            // The original supplied model's warnings were enabled by the team.
+            // Assert the actual build policy while keeping reporting disabled.
+            val autoWarnings = ViewModelProvider(compose.activity)[CheckViewModel::class.java].state.value.autoWarnings
+            val policyNote = compose.activity.getString(if (autoWarnings) R.string.score_disabled else R.string.automatic_disabled)
             compose.onNodeWithText("Check result").assertExists()
             compose.onNodeWithText("Checked message").assertExists()
             compose.onNodeWithText("Synthetic software fixture").assertExists()
@@ -47,10 +51,10 @@ class CompactResultTest {
             compose.onNodeWithText(ResultCopy.score(result.score)).assertExists()
             compose.onNodeWithText(ResultCopy.DISCLAIMER).assertExists()
             compose.onNode(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).assertExists()
-            compose.onNodeWithText("Automatic warnings and reporting are disabled.").assertDoesNotExist()
+            compose.onNodeWithText(policyNote).assertDoesNotExist()
             compose.onNodeWithText("What does this mean?").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
             compose.onNodeWithText("About this result").assertExists()
-            compose.onNodeWithText("Automatic warnings and reporting are disabled.").performScrollTo().assertExists()
+            compose.onNodeWithText(policyNote).performScrollTo().assertExists()
             compose.onNodeWithText("Close").performClick()
         }
     }

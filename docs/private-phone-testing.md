@@ -1,5 +1,9 @@
 # Private phone testing: SmishGuard 0.2.0-dev
 
+13 October 2026 update: the user reports physical-phone checks completed.
+The pending status and 0.2.0-dev artifact details below describe the earlier handoff.
+No additional model-specific phone measurements are invented from that report.
+
 Status: **Pending physical-device testing**. No phone results have been supplied. Existing emulator results are separate software evidence, not phone results or research accuracy.
 
 ## Verified handoff artifact (2026-09-22)

@@ -1,5 +1,12 @@
 # Physical device testing after official resolution
 
+13 October 2026 update: **physical-phone checks completed as directly reported by
+the user in the retraining chat**. The older pending rows below are the historical
+checklist; they do not negate that report. The exact tested APK/model and measured
+results were not specified in this chat, so no timing or newly exported-SVM test
+result is inferred. Do not request completion again merely because the older form
+is blank. Source-transfer accuracy and raw-input compatibility are separate checks.
+
 Target: Xiaomi M2103K19G, Android 13 / MIUI 14.0.6, user-reported. Current state: `secure_frp_mode=1`, `user_setup_complete=1`, `device_provisioned=1`; restart did not resolve it. Xiaomi support is being contacted. This is blocked by device state, not an established APK defect. No new installation attempt was made in this session. Support correspondence remains private.
 
 Start only after Xiaomi officially resolves the restriction and ordinary authorized installation is available. Never change protected settings, bypass FRP, unlock/flash, remove accounts or factory-reset for this checklist. Preserve existing app data until owner authorization for uninstall/reinstall. Record actual tester/device/build, APK hash, timestamp and a private evidence reference after each observation, not in advance.

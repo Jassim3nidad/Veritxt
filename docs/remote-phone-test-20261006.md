@@ -1,5 +1,10 @@
 # Remote physical-phone test
 
+13 October 2026 update: physical-phone checks are completed as reported directly
+by the user. The older pending form below is historical; exact tested build and
+measured observations were not specified in this retraining chat. Software checks
+and predictive/source-transfer validation remain distinct.
+
 **Physical-device results: pending.** No groupmate test has been received. This is a short engineering check, not a new accuracy experiment. Use only the identical fictional examples below; keep real SMS and contacts out of screenshots and recordings.
 
 The coordinator supplies private, verified LR/NB/SVM APKs from `deliverables/expanded-20261005/` and the repackaged mBERT APK from `deliverables/validation-20261006/`, with the matching SHA-256 manifests. Install only on an Android 8.0/API 26 or newer phone whose owner agrees. Record the exact APK hash/model ID. The four variants coexist; a same-algorithm installation replaces that variant. Preserve the old installers for rollback. Record storage/installation errors honestly; do not bypass device locks or protections.

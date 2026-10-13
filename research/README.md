@@ -1,5 +1,27 @@
 # SmishGuard research and model workflow
 
+Latest 13 October update: [raw-SMS preparation replay and parity](../docs/bantaytext-raw-sms-validation-20261013.md)
+reconstructs all 2,554 source views and verifies a test-only native adapter on 33
+fictional probes. Inherited labels are an explicit limitation, not a blanket demand
+for another labeled upload; phone checks are completed as reported by the user.
+
+Additional candidate checks: [predeployment validation](../docs/bantaytext-predeployment-validation-20261013.md)
+adds paired template intervals, source-complement-only operating points, targeted
+FPR intervals, frozen-input stress checks and actual selected-SVM JVM/emulator
+feature/score parity. `smishguard.predeployment_validation` preserves the original
+candidate and requires a new private output directory. Release remains unapproved:
+the supplied October 12 ZIP is already used and independent labels are still blank.
+
+13 October baseline-first retraining: the fully executed
+[SmishGuard_Model_Training_and_Evaluation.ipynb](SmishGuard_Model_Training_and_Evaluation.ipynb)
+compares standard NB/LR/SVM before a frozen BantayText-informed feature,
+hyperparameter, calibration and threshold matrix on random and template-grouped
+partitions. See the [comparison](../docs/bantaytext-comparison-20261013.md),
+[reproduction/test report](../docs/bantaytext-reproduction-20261013.md) and
+[research candidate card](../docs/bantaytext-model-card-20261013.md).
+The inputs and tests are retrospective; the active model is preserved.
+Fitted artifacts, vocabulary, row ledgers and datasets remain private.
+
 11 October: [fixed-setting retraining and ensemble comparison](../docs/ensemble-comparison-20261011.md)
 adds a separate reproduction of the four standalone models, all eleven equal-weight
 voting combinations and two OOF stacking experiments. See the
