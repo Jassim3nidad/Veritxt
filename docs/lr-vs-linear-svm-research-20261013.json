@@ -1,0 +1,1151 @@
+{
+  "protocol": {
+    "status": "retrospective; prior test exposure; no prospective test available",
+    "seed": 20260929,
+    "source_hashes": {
+      "dataset.json": "c3abc4bb23742226deab491821c1828559d895242da55267c77ae6f7dfa07b21",
+      "splits.json": "67e064af947e5194cada9facff7fa02663d02dd2fff0756acbee9c58c50c4b1f",
+      "configuration.json": "9ed4d0386165811407470f81c2036e316a10533276e97220884ac4c4eb6e18af",
+      "test-predictions.json": "e40621976750028daedf4af79151eb81e67c1aac37e21a6f7f6d56812a928258"
+    },
+    "zip_sha256": "38d00a999306ff11b05a431d9488f167589bd94e701f410edb24e8202bf3b3e6",
+    "code_sha256": "4f6f3526c1fe8415d655a4f76f1d0b04bb2955920f13d8aebdaccac44e442dfb",
+    "grid": {
+      "C": [
+        0.1,
+        1.0,
+        10.0
+      ],
+      "class_weight": [
+        null,
+        "balanced"
+      ],
+      "representations": [
+        "word_unigram",
+        "word_char"
+      ]
+    },
+    "selection": "mean training-fold average precision; iteration order breaks ties",
+    "calibration": "separate calibration partition",
+    "tuning_test_policy": "newly tuned models have no test predictions or metrics; prospective evaluation pending",
+    "threshold_grid": [
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.09999999999999999,
+      0.10999999999999999,
+      0.12,
+      0.13,
+      0.13999999999999999,
+      0.14999999999999997,
+      0.15999999999999998,
+      0.16999999999999998,
+      0.18,
+      0.19,
+      0.19999999999999996,
+      0.20999999999999996,
+      0.21999999999999997,
+      0.22999999999999998,
+      0.24,
+      0.24999999999999994,
+      0.25999999999999995,
+      0.26999999999999996,
+      0.27999999999999997,
+      0.29,
+      0.3,
+      0.30999999999999994,
+      0.31999999999999995,
+      0.32999999999999996,
+      0.33999999999999997,
+      0.3499999999999999,
+      0.35999999999999993,
+      0.36999999999999994,
+      0.37999999999999995,
+      0.38999999999999996,
+      0.3999999999999999,
+      0.4099999999999999,
+      0.41999999999999993,
+      0.42999999999999994,
+      0.43999999999999995,
+      0.4499999999999999,
+      0.4599999999999999,
+      0.4699999999999999,
+      0.4799999999999999,
+      0.48999999999999994,
+      0.49999999999999994,
+      0.5099999999999999,
+      0.5199999999999999,
+      0.5299999999999999,
+      0.5399999999999999,
+      0.5499999999999999,
+      0.5599999999999999,
+      0.57,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.6399999999999999,
+      0.6499999999999999,
+      0.6599999999999999,
+      0.6699999999999999,
+      0.6799999999999999,
+      0.69,
+      0.7,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.7499999999999999,
+      0.7599999999999999,
+      0.7699999999999999,
+      0.7799999999999999,
+      0.7899999999999999,
+      0.7999999999999999,
+      0.8099999999999999,
+      0.82,
+      0.83,
+      0.84,
+      0.8499999999999999,
+      0.8599999999999999,
+      0.8699999999999999,
+      0.8799999999999999,
+      0.8899999999999999,
+      0.8999999999999999,
+      0.9099999999999999,
+      0.9199999999999999,
+      0.9299999999999999,
+      0.94,
+      0.95
+    ],
+    "versions": {
+      "python": "3.12.5",
+      "sklearn": "1.6.1",
+      "numpy": "2.2.6"
+    },
+    "partitions": {
+      "train": {
+        "records": 1860,
+        "labels": {
+          "0": 1637,
+          "1": 223
+        }
+      },
+      "validation": {
+        "records": 622,
+        "labels": {
+          "0": 561,
+          "1": 61
+        }
+      },
+      "calibration": {
+        "records": 410,
+        "labels": {
+          "0": 357,
+          "1": 53
+        }
+      },
+      "test": {
+        "records": 448,
+        "labels": {
+          "0": 392,
+          "1": 56
+        }
+      }
+    },
+    "execution_source_snapshot": "executed-script.py (preserved private)",
+    "current_script_sha256": "78a7e54fec4fbec6a6f73323f04455f526028aed3708f293d84c87b14f86a56c",
+    "source_snapshot_hashes": {
+      "evaluate.py": "64fceffd4b1ab83861732f0ebfd45e0441f9f610fafe7c6003186f4b6df3a312",
+      "fair_compare.py": "66f323b3c47c46acc50c3f017ac73ba2c1e89c54459166b167bbde32961e1684",
+      "preprocessing.py": "a5874558e1867c8650d5c0d6d42d6bf63fd3f0df44d813ddcb0526b1df4f323c",
+      "train.py": "759fe8f9323ed1e592df619945682b2887174e424d8c6c5549804b3121aa90b7"
+    }
+  },
+  "fixed": {
+    "lr": {
+      "training_seconds": 0.05270390000009684,
+      "base_training_seconds": 0.04032920000008744,
+      "serialized_bytes": 180316,
+      "vocabulary_size": 4028,
+      "coefficient_and_idf_bytes": 64448,
+      "threshold": 0.82,
+      "test": {
+        "accuracy": 0.9419642857142857,
+        "specificity": 0.9974489795918368,
+        "precision": 0.96875,
+        "recall": 0.5535714285714286,
+        "f1": 0.7045454545454546,
+        "pr_auc": 0.9430878192223214,
+        "average_precision": 0.9439812370939265,
+        "roc_auc": 0.9866526967930029,
+        "false_positive_rate": 0.002551020408163265,
+        "false_negative_rate": 0.44642857142857145,
+        "brier": 0.025761245797820697,
+        "log_loss": 0.09309046802648978,
+        "reliability_bins": [
+          {
+            "count": 372,
+            "mean_probability": 0.011521532483251232,
+            "observed_positive_rate": 0.010752688172043012
+          },
+          {
+            "count": 9,
+            "mean_probability": 0.129166851719628,
+            "observed_positive_rate": 0.1111111111111111
+          },
+          {
+            "count": 5,
+            "mean_probability": 0.24537539568480002,
+            "observed_positive_rate": 0.2
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.31436793567093424,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.48972659656902073,
+            "observed_positive_rate": 0.5
+          },
+          {
+            "count": 9,
+            "mean_probability": 0.5695656062220896,
+            "observed_positive_rate": 0.1111111111111111
+          },
+          {
+            "count": 11,
+            "mean_probability": 0.6539417637647807,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 4,
+            "mean_probability": 0.7482619434686725,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 7,
+            "mean_probability": 0.8419231431067624,
+            "observed_positive_rate": 0.8571428571428571
+          },
+          {
+            "count": 27,
+            "mean_probability": 0.9645143369068017,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.02528795890257697,
+        "confusion": {
+          "tn": 391,
+          "fp": 1,
+          "fn": 25,
+          "tp": 31
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 0.1784539473684211
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 0.6867088607594938
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 0.9194915254237289
+          }
+        ]
+      },
+      "historical_probability_max_absolute_difference": 0.0,
+      "test_inference_seconds": 0.008371799999963514,
+      "test_ms_per_record": 0.018687053571347128
+    },
+    "svm": {
+      "training_seconds": 0.0529589999999871,
+      "base_training_seconds": 0.04315550000001167,
+      "serialized_bytes": 180277,
+      "vocabulary_size": 4028,
+      "coefficient_and_idf_bytes": 64448,
+      "threshold": 0.59,
+      "test": {
+        "accuracy": 0.9821428571428571,
+        "specificity": 0.9974489795918368,
+        "precision": 0.98,
+        "recall": 0.875,
+        "f1": 0.9245283018867925,
+        "pr_auc": 0.9571458184145363,
+        "average_precision": 0.9579295220230925,
+        "roc_auc": 0.9904792274052479,
+        "false_positive_rate": 0.002551020408163265,
+        "false_negative_rate": 0.125,
+        "brier": 0.024027719637268928,
+        "log_loss": 0.09549370471562717,
+        "reliability_bins": [
+          {
+            "count": 348,
+            "mean_probability": 0.01847347097676389,
+            "observed_positive_rate": 0.0028735632183908046
+          },
+          {
+            "count": 15,
+            "mean_probability": 0.15004432471935075,
+            "observed_positive_rate": 0.13333333333333333
+          },
+          {
+            "count": 21,
+            "mean_probability": 0.282394119865391,
+            "observed_positive_rate": 0.047619047619047616
+          },
+          {
+            "count": 3,
+            "mean_probability": 0.31657598118954405,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "count": 10,
+            "mean_probability": 0.4637675531279428,
+            "observed_positive_rate": 0.2
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.5327628268466003,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 13,
+            "mean_probability": 0.6512055549738169,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 7,
+            "mean_probability": 0.7402361831697953,
+            "observed_positive_rate": 0.8571428571428571
+          },
+          {
+            "count": 9,
+            "mean_probability": 0.8646028987271343,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 21,
+            "mean_probability": 0.9634884941378721,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.049112366012480035,
+        "confusion": {
+          "tn": 391,
+          "fp": 1,
+          "fn": 7,
+          "tp": 49
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 0.25558867362146054
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 0.7760180995475114
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 0.9475138121546961
+          }
+        ]
+      },
+      "historical_probability_max_absolute_difference": 0.0,
+      "test_inference_seconds": 0.008163299999978335,
+      "test_ms_per_record": 0.018221651785665927
+    },
+    "uncertainty": {
+      "draws_used": 2000,
+      "method": "paired whole-template-group percentile bootstrap; conditional on fixed models",
+      "f1_intervals": {
+        "lr": [
+          0.5454545454545454,
+          0.8571428571428571
+        ],
+        "svm": [
+          0.7754557823129251,
+          0.9787234042553191
+        ]
+      },
+      "svm_minus_lr_f1_interval": [
+        0.04928371771435775,
+        0.37232645915476825
+      ]
+    }
+  },
+  "tuned": {
+    "lr": {
+      "selected": {
+        "model": "lr",
+        "representation": "word_char",
+        "C": 10.0,
+        "class_weight": "balanced",
+        "fold_average_precision": [
+          1.0,
+          0.913935524498515,
+          0.9053382247750896,
+          0.9858964219062066,
+          0.9850273189703513
+        ],
+        "mean_average_precision": 0.9580394980300326,
+        "fold_sd": 0.04468674047321608
+      },
+      "threshold": 0.37999999999999995,
+      "validation_fixed_half": {
+        "accuracy": 0.9823151125401929,
+        "specificity": 0.9982174688057041,
+        "precision": 0.9807692307692307,
+        "recall": 0.8360655737704918,
+        "f1": 0.9026548672566371,
+        "pr_auc": 0.9594595653844994,
+        "average_precision": 0.9596379347786302,
+        "roc_auc": 0.9903275766342304,
+        "false_positive_rate": 0.0017825311942959,
+        "false_negative_rate": 0.16393442622950818,
+        "brier": 0.013877884656276951,
+        "log_loss": 0.05415986226420482,
+        "reliability_bins": [
+          {
+            "count": 545,
+            "mean_probability": 0.012496233626170092,
+            "observed_positive_rate": 0.007339449541284404
+          },
+          {
+            "count": 10,
+            "mean_probability": 0.1575387886752519,
+            "observed_positive_rate": 0.1
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.24523786047082669,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "count": 12,
+            "mean_probability": 0.35502439554578324,
+            "observed_positive_rate": 0.25
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.4516361676118314,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.510129780887179,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.7412159647892238,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.8379436356352015,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 49,
+            "mean_probability": 0.9892065627741166,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.012717225815348735,
+        "confusion": {
+          "tn": 560,
+          "fp": 1,
+          "fn": 10,
+          "tp": 51
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 0.3194974874371859
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 0.8257142857142857
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 0.961068189452469
+          }
+        ]
+      },
+      "validation_selected_threshold": {
+        "accuracy": 0.9887459807073955,
+        "specificity": 0.9982174688057041,
+        "precision": 0.9821428571428571,
+        "recall": 0.9016393442622951,
+        "f1": 0.9401709401709402,
+        "pr_auc": 0.9594595653844994,
+        "average_precision": 0.9596379347786302,
+        "roc_auc": 0.9903275766342304,
+        "false_positive_rate": 0.0017825311942959,
+        "false_negative_rate": 0.09836065573770492,
+        "brier": 0.013877884656276951,
+        "log_loss": 0.05415986226420482,
+        "reliability_bins": [
+          {
+            "count": 545,
+            "mean_probability": 0.012496233626170092,
+            "observed_positive_rate": 0.007339449541284404
+          },
+          {
+            "count": 10,
+            "mean_probability": 0.1575387886752519,
+            "observed_positive_rate": 0.1
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.24523786047082669,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "count": 12,
+            "mean_probability": 0.35502439554578324,
+            "observed_positive_rate": 0.25
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.4516361676118314,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.510129780887179,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.7412159647892238,
+            "observed_positive_rate": 0.0
+          },
+          {
+            "count": 1,
+            "mean_probability": 0.8379436356352015,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 49,
+            "mean_probability": 0.9892065627741166,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.012717225815348735,
+        "confusion": {
+          "tn": 560,
+          "fp": 1,
+          "fn": 6,
+          "tp": 55
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 0.33613308059350283
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 0.836314847942755
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 0.9637970887736615
+          }
+        ]
+      },
+      "validation_score_status": "threshold-optimized development result; not unbiased generalization estimate",
+      "final_fit_and_calibration_seconds": 0.9247471999999561,
+      "serialized_bytes": 2637773,
+      "validation_batch_median_seconds": 0.1544823000000406,
+      "single_message_median_ms": 1.7708000000311586,
+      "test_status": "Not evaluated; prospective test unavailable"
+    },
+    "svm": {
+      "selected": {
+        "model": "svm",
+        "representation": "word_char",
+        "C": 10.0,
+        "class_weight": null,
+        "fold_average_precision": [
+          1.0,
+          0.9258039282322051,
+          0.9395397726117558,
+          0.9923629568230071,
+          0.9877741620477088
+        ],
+        "mean_average_precision": 0.9690961639429354,
+        "fold_sd": 0.03388604538937547
+      },
+      "threshold": 0.32999999999999996,
+      "validation_fixed_half": {
+        "accuracy": 0.9807073954983923,
+        "specificity": 0.9982174688057041,
+        "precision": 0.9803921568627451,
+        "recall": 0.819672131147541,
+        "f1": 0.8928571428571429,
+        "pr_auc": 0.9663448861264661,
+        "average_precision": 0.9664952927577816,
+        "roc_auc": 0.9918178895999532,
+        "false_positive_rate": 0.0017825311942959,
+        "false_negative_rate": 0.18032786885245902,
+        "brier": 0.014116124880646721,
+        "log_loss": 0.06313314997273914,
+        "reliability_bins": [
+          {
+            "count": 544,
+            "mean_probability": 0.025102933827986,
+            "observed_positive_rate": 0.0055147058823529415
+          },
+          {
+            "count": 10,
+            "mean_probability": 0.13881861339220156,
+            "observed_positive_rate": 0.1
+          },
+          {
+            "count": 4,
+            "mean_probability": 0.25554950614444727,
+            "observed_positive_rate": 0.25
+          },
+          {
+            "count": 11,
+            "mean_probability": 0.33930866098626994,
+            "observed_positive_rate": 0.36363636363636365
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.45676493573300403,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.6346185971671894,
+            "observed_positive_rate": 0.5
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.7710620385064908,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 5,
+            "mean_probability": 0.8449166211535074,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 42,
+            "mean_probability": 0.9879372384999172,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.02319874760959252,
+        "confusion": {
+          "tn": 560,
+          "fp": 1,
+          "fn": 11,
+          "tp": 50
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 0.3152074975558777
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 0.8228460793804453
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 0.9603204491766236
+          }
+        ]
+      },
+      "validation_selected_threshold": {
+        "accuracy": 0.9903536977491961,
+        "specificity": 0.9982174688057041,
+        "precision": 0.9824561403508771,
+        "recall": 0.9180327868852459,
+        "f1": 0.9491525423728814,
+        "pr_auc": 0.9663448861264661,
+        "average_precision": 0.9664952927577816,
+        "roc_auc": 0.9918178895999532,
+        "false_positive_rate": 0.0017825311942959,
+        "false_negative_rate": 0.08196721311475409,
+        "brier": 0.014116124880646721,
+        "log_loss": 0.06313314997273914,
+        "reliability_bins": [
+          {
+            "count": 544,
+            "mean_probability": 0.025102933827986,
+            "observed_positive_rate": 0.0055147058823529415
+          },
+          {
+            "count": 10,
+            "mean_probability": 0.13881861339220156,
+            "observed_positive_rate": 0.1
+          },
+          {
+            "count": 4,
+            "mean_probability": 0.25554950614444727,
+            "observed_positive_rate": 0.25
+          },
+          {
+            "count": 11,
+            "mean_probability": 0.33930866098626994,
+            "observed_positive_rate": 0.36363636363636365
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.45676493573300403,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 0,
+            "mean_probability": null,
+            "observed_positive_rate": null
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.6346185971671894,
+            "observed_positive_rate": 0.5
+          },
+          {
+            "count": 2,
+            "mean_probability": 0.7710620385064908,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 5,
+            "mean_probability": 0.8449166211535074,
+            "observed_positive_rate": 1.0
+          },
+          {
+            "count": 42,
+            "mean_probability": 0.9879372384999172,
+            "observed_positive_rate": 1.0
+          }
+        ],
+        "expected_calibration_error": 0.02319874760959252,
+        "confusion": {
+          "tn": 560,
+          "fp": 1,
+          "fn": 5,
+          "tp": 56
+        },
+        "hypothetical_base_rates": [
+          {
+            "prevalence": 0.001,
+            "estimated_positive_predictive_value": 0.340165665096638
+          },
+          {
+            "prevalence": 0.01,
+            "estimated_positive_predictive_value": 0.8387665198237886
+          },
+          {
+            "prevalence": 0.05,
+            "estimated_positive_predictive_value": 0.9644205679201842
+          }
+        ]
+      },
+      "validation_score_status": "threshold-optimized development result; not unbiased generalization estimate",
+      "final_fit_and_calibration_seconds": 0.9117705999999544,
+      "serialized_bytes": 2637725,
+      "validation_batch_median_seconds": 0.15329499999995733,
+      "single_message_median_ms": 1.684299999965333,
+      "test_status": "Not evaluated; prospective test unavailable"
+    }
+  },
+  "training_grid": [
+    {
+      "model": "lr",
+      "representation": "word_unigram",
+      "C": 0.1,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.8652626899466699,
+        0.7310547333721467,
+        0.7211516411979332,
+        0.8975317658514566,
+        0.9025725976715424
+      ],
+      "mean_average_precision": 0.8235146856079497,
+      "fold_sd": 0.09013685861265118
+    },
+    {
+      "model": "lr",
+      "representation": "word_unigram",
+      "C": 0.1,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9075178679654903,
+        0.7615491862483741,
+        0.7657618693247875,
+        0.9170413857128684,
+        0.9287066288703207
+      ],
+      "mean_average_precision": 0.8561153876243683,
+      "fold_sd": 0.08474993399071941
+    },
+    {
+      "model": "lr",
+      "representation": "word_unigram",
+      "C": 1.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9791118967440773,
+        0.8648318127096668,
+        0.8275340368615218,
+        0.9581651906883004,
+        0.9578488653982311
+      ],
+      "mean_average_precision": 0.9174983604803595,
+      "fold_sd": 0.06698045788789211
+    },
+    {
+      "model": "lr",
+      "representation": "word_unigram",
+      "C": 1.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9867476599536567,
+        0.8819138935854405,
+        0.8587594615361747,
+        0.9668901714611784,
+        0.9705118068212287
+      ],
+      "mean_average_precision": 0.9329645986715358,
+      "fold_sd": 0.05823644021762341
+    },
+    {
+      "model": "lr",
+      "representation": "word_unigram",
+      "C": 10.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9955776902489522,
+        0.9074907456360958,
+        0.9027552511625159,
+        0.9815820727859607,
+        0.9821335852056594
+      ],
+      "mean_average_precision": 0.9539078690078368,
+      "fold_sd": 0.044916773777834186
+    },
+    {
+      "model": "lr",
+      "representation": "word_unigram",
+      "C": 10.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9965658325414423,
+        0.9094596102026031,
+        0.9054289354773827,
+        0.9822653387750957,
+        0.9842746334369388
+      ],
+      "mean_average_precision": 0.9555988700866924,
+      "fold_sd": 0.04432139892352156
+    },
+    {
+      "model": "svm",
+      "representation": "word_unigram",
+      "C": 0.1,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9900104277358345,
+        0.8979646320193582,
+        0.8406053845798656,
+        0.9710511550985251,
+        0.9739203415898865
+      ],
+      "mean_average_precision": 0.9347103882046941,
+      "fold_sd": 0.06348655066214332
+    },
+    {
+      "model": "svm",
+      "representation": "word_unigram",
+      "C": 0.1,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9922026932020984,
+        0.8988863929516485,
+        0.8919348654476804,
+        0.9744951282509944,
+        0.9792683496620314
+      ],
+      "mean_average_precision": 0.9473574859028906,
+      "fold_sd": 0.04792431842443665
+    },
+    {
+      "model": "svm",
+      "representation": "word_unigram",
+      "C": 1.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9994192799070849,
+        0.9160136093130813,
+        0.9323295156628487,
+        0.9875466516139697,
+        0.9907438259490622
+      ],
+      "mean_average_precision": 0.9652105764892094,
+      "fold_sd": 0.03815294290708789
+    },
+    {
+      "model": "svm",
+      "representation": "word_unigram",
+      "C": 1.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9988655700510494,
+        0.9208309160809506,
+        0.9281246800677032,
+        0.9864536026895484,
+        0.9900498400855848
+      ],
+      "mean_average_precision": 0.9648649217949673,
+      "fold_sd": 0.03723316517335991
+    },
+    {
+      "model": "svm",
+      "representation": "word_unigram",
+      "C": 10.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9976758020558083,
+        0.9140959963342559,
+        0.9368493273468262,
+        0.9888809326679944,
+        0.990004955796236
+      ],
+      "mean_average_precision": 0.9655014028402242,
+      "fold_sd": 0.03756885590300388
+    },
+    {
+      "model": "svm",
+      "representation": "word_unigram",
+      "C": 10.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9988655700510493,
+        0.913671739709756,
+        0.9363161252632367,
+        0.9884441503076976,
+        0.9897758064145443
+      ],
+      "mean_average_precision": 0.9654146783492568,
+      "fold_sd": 0.03796985905193115
+    },
+    {
+      "model": "lr",
+      "representation": "word_char",
+      "C": 0.1,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.8724859617533097,
+        0.7909240009549808,
+        0.8186252045401187,
+        0.9076645386845603,
+        0.9048000314936744
+      ],
+      "mean_average_precision": 0.8588999474853287,
+      "fold_sd": 0.05223065928286424
+    },
+    {
+      "model": "lr",
+      "representation": "word_char",
+      "C": 0.1,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9378163953710357,
+        0.8568993467356013,
+        0.8412806171571923,
+        0.9286492298130392,
+        0.9372349053804215
+      ],
+      "mean_average_precision": 0.900376098891458,
+      "fold_sd": 0.04728165946697814
+    },
+    {
+      "model": "lr",
+      "representation": "word_char",
+      "C": 1.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9850492203470873,
+        0.9007289118307158,
+        0.8780639927505649,
+        0.9712143833478392,
+        0.9696259515913926
+      ],
+      "mean_average_precision": 0.94093649197352,
+      "fold_sd": 0.048102414864747846
+    },
+    {
+      "model": "lr",
+      "representation": "word_char",
+      "C": 1.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        0.9932617532697066,
+        0.9023805017086368,
+        0.8829955010869146,
+        0.9751522974274471,
+        0.9758538490723604
+      ],
+      "mean_average_precision": 0.9459287805130131,
+      "fold_sd": 0.049615985894827325
+    },
+    {
+      "model": "lr",
+      "representation": "word_char",
+      "C": 10.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.997704129865219,
+        0.9168268271041758,
+        0.8930184516718263,
+        0.9847215767545053,
+        0.9838923968545954
+      ],
+      "mean_average_precision": 0.9552326764500645,
+      "fold_sd": 0.04701174906011001
+    },
+    {
+      "model": "lr",
+      "representation": "word_char",
+      "C": 10.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        1.0,
+        0.913935524498515,
+        0.9053382247750896,
+        0.9858964219062066,
+        0.9850273189703513
+      ],
+      "mean_average_precision": 0.9580394980300326,
+      "fold_sd": 0.04468674047321608
+    },
+    {
+      "model": "svm",
+      "representation": "word_char",
+      "C": 0.1,
+      "class_weight": null,
+      "fold_average_precision": [
+        0.9971755886390032,
+        0.920456636598852,
+        0.881852948348615,
+        0.9782111443020259,
+        0.981283623660424
+      ],
+      "mean_average_precision": 0.951795988309784,
+      "fold_sd": 0.048735954477617534
+    },
+    {
+      "model": "svm",
+      "representation": "word_char",
+      "C": 0.1,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        1.0,
+        0.9115183796191811,
+        0.8890355741186542,
+        0.9845232523261988,
+        0.9840940069642922
+      ],
+      "mean_average_precision": 0.9538342426056653,
+      "fold_sd": 0.049945584165268446
+    },
+    {
+      "model": "svm",
+      "representation": "word_char",
+      "C": 1.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        1.0,
+        0.9238756157150096,
+        0.9317002955377827,
+        0.9913727651602761,
+        0.987973318486266
+      ],
+      "mean_average_precision": 0.9669843989798668,
+      "fold_sd": 0.036154848250285115
+    },
+    {
+      "model": "svm",
+      "representation": "word_char",
+      "C": 1.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        1.0,
+        0.9257192996527298,
+        0.9285768472822402,
+        0.9914647951405443,
+        0.9884251791628319
+      ],
+      "mean_average_precision": 0.966837224247669,
+      "fold_sd": 0.036492694164839065
+    },
+    {
+      "model": "svm",
+      "representation": "word_char",
+      "C": 10.0,
+      "class_weight": null,
+      "fold_average_precision": [
+        1.0,
+        0.9258039282322051,
+        0.9395397726117558,
+        0.9923629568230071,
+        0.9877741620477088
+      ],
+      "mean_average_precision": 0.9690961639429354,
+      "fold_sd": 0.03388604538937547
+    },
+    {
+      "model": "svm",
+      "representation": "word_char",
+      "C": 10.0,
+      "class_weight": "balanced",
+      "fold_average_precision": [
+        1.0,
+        0.9258039282322051,
+        0.9395397726117558,
+        0.9923629568230071,
+        0.9877741620477088
+      ],
+      "mean_average_precision": 0.9690961639429354,
+      "fold_sd": 0.03388604538937547
+    }
+  ],
+  "verification": {
+    "independent_metric_recomputation": "passed for both fixed models",
+    "training_candidates": 24,
+    "classifier_fold_fits": 120,
+    "tuned_test_evaluated": false,
+    "archive_all_eight_members_verified": true
+  }
+}
