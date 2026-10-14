@@ -67,12 +67,12 @@ class PrivacyAndCheckPromptTest {
         val id = ph.smishguard.sms.WarningNotifications.warn(app, marker)!!
         val warning = posted(id)
         assertEquals(ph.smishguard.sms.WarningNotifications.CHANNEL, warning.channelId)
-        assertEquals("Possible scam text", warning.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        assertEquals("Possible phishing (scam) text", warning.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
         val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT).joinToString(" ") { warning.extras.getCharSequence(it)?.toString().orEmpty() }
         assertFalse("Warning must not contain the message", shown.contains("SGTEST") || shown.contains("example.com"))
         assertEquals(Notification.VISIBILITY_SECRET, warning.visibility)
         warning.contentIntent.send()
-        compose.waitUntil(10000) { compose.onAllNodesWithText("Likely phishing").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Likely phishing (scam)").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Experimental result").assertExists()
         compose.onNodeWithText(marker).assertExists()
     }

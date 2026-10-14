@@ -25,7 +25,7 @@ class NotificationBehaviorTest {
         awaitNotificationState { manager.activeNotifications.any { it.id == id } }
         val notification = manager.activeNotifications.first { it.id == id }.notification
         assertEquals(Notification.VISIBILITY_SECRET, notification.visibility)
-        assertEquals("Possible scam text", notification.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        assertEquals("Possible phishing (scam) text", notification.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
         assertFalse(notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString().contains("SGTEST"))
         assertNotNull(notification.contentIntent)
         manager.cancelAll()

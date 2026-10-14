@@ -90,6 +90,6 @@ object WarningNotifications {
                 lockscreenVisibility = android.app.Notification.VISIBILITY_SECRET
             })
     }
-    /** Posts "Possible scam text" (no message content); "See why" opens Veritxt and shows the result. */
+    /** Posts "Possible phishing (scam) text" (no message content); "See why" opens Veritxt and shows the result. */
     fun warn(context: Context, text: String): Int? = CheckPrompt.show(context, text, CheckPrompt.Kind.WARNING)
 }

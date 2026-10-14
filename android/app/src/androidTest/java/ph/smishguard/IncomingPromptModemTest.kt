@@ -47,10 +47,10 @@ class IncomingPromptModemTest {
                 if (posted == null) Thread.sleep(500)
             }
             assertNotNull("No automatic warning within 60 s of the SMS", posted)
-            assertEquals("Possible scam text", posted!!.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+            assertEquals("Possible phishing (scam) text", posted!!.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
             InstrumentationRegistry.getArguments().getString("pauseMs")?.toLongOrNull()?.let(Thread::sleep)
             posted.contentIntent.send()
-            compose.waitUntil(10000) { compose.onAllNodesWithText("Likely phishing").fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(10000) { compose.onAllNodesWithText("Likely phishing (scam)").fetchSemanticsNodes().isNotEmpty() }
             assertTrue(manager.activeNotifications.none { it.notification.channelId == CheckPrompt.CHANNEL })
             if (InstrumentationRegistry.getArguments().getString("shot") == "true") captureResult(app)
         } finally {

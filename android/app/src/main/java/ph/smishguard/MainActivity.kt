@@ -14,6 +14,7 @@ import android.view.WindowManager
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -79,6 +80,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
+import ph.smishguard.data.AppTheme
 import ph.smishguard.data.Preferences
 import ph.smishguard.model.Detection
 import ph.smishguard.model.DecisionPolicy
@@ -143,8 +145,7 @@ enum class AppLanguage(val tag: String) { SYSTEM(""), ENGLISH("en"), FILIPINO("f
     }
 }
 
-@Composable private fun SmishGuardTheme(solid: Boolean, content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
+@Composable private fun SmishGuardTheme(solid: Boolean, dark: Boolean, content: @Composable () -> Unit) {
     val colors = if (dark) darkColorScheme(primary = Color(0xFF9BD4BE), onPrimary = Color(0xFF00382D), secondary = Color(0xFFBACBBF),
             background = Color(0xFF0E1613), surface = Color(0xFF0E1613), onSurface = Color(0xFFE3EAE5),
             onSurfaceVariant = Color(0xFFBFCAC3), surfaceContainer = Color(0xFF202B26), secondaryContainer = Color(0xFF344B40))
@@ -182,7 +183,19 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     val keyboard = LocalSoftwareKeyboardController.current
     val focus = LocalFocusManager.current
     LaunchedEffect(state.screen, state.busy) { if (state.screen != Screen.CHECK || state.busy) { focus.clearFocus(); keyboard?.hide() } }
-    SmishGuardTheme(solid = preferences?.reduceTransparency == true) {
+    // Light / Dark / System is applied in Compose, so switching is instant and keeps the user on the same screen.
+    val systemDark = isSystemInDarkTheme()
+    val dark = when (preferences?.theme ?: AppTheme.SYSTEM) { AppTheme.SYSTEM -> systemDark; AppTheme.LIGHT -> false; AppTheme.DARK -> true }
+    LaunchedEffect(dark) {
+        // Status and navigation bar icons must match the chosen theme, not the phone's.
+        val transparent = android.graphics.Color.TRANSPARENT
+        val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+        val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+        (activity as? androidx.activity.ComponentActivity)?.enableEdgeToEdge(
+            statusBarStyle = if (dark) SystemBarStyle.dark(transparent) else SystemBarStyle.light(transparent, transparent),
+            navigationBarStyle = if (dark) SystemBarStyle.dark(darkScrim) else SystemBarStyle.light(lightScrim, darkScrim))
+    }
+    SmishGuardTheme(solid = preferences?.reduceTransparency == true, dark = dark) {
         val haze = remember { HazeState() }
         val showNav = preferences?.privacyAccepted == true && preferences?.onboarded == true
         var navHeight by remember { mutableIntStateOf(0) }
@@ -281,6 +294,16 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
             FilterChip(current == language, { current = language; AppLanguage.set(language) }, { Text(stringResource(label)) },
                 shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 48.dp))
         }
+    }
+}
+
+@Composable private fun ThemePicker(current: AppTheme, choose: (AppTheme) -> Unit) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        listOf(AppTheme.SYSTEM to R.string.language_system, AppTheme.LIGHT to R.string.theme_light, AppTheme.DARK to R.string.theme_dark)
+            .forEach { (theme, label) ->
+                FilterChip(current == theme, { choose(theme) }, { Text(stringResource(label)) },
+                    shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 48.dp))
+            }
     }
 }
 
@@ -700,6 +723,9 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
     GlassSurface(Modifier.fillMaxWidth(), padding = 12.dp) {
         SettingsRow(Icons.Outlined.Translate, stringResource(R.string.language_title))
         Box(Modifier.padding(start = 40.dp)) { LanguagePicker() }
+        HorizontalDivider(color = edge)
+        SettingsRow(Icons.Outlined.DarkMode, stringResource(R.string.theme_title))
+        Box(Modifier.padding(start = 40.dp)) { ThemePicker(preferences.theme) { scope.launch { app.preferences.theme(it) } } }
         HorizontalDivider(color = edge)
         val reduceCd = stringResource(R.string.reduce_title)
         SettingsRow(Icons.Outlined.Contrast, stringResource(R.string.reduce_title), stringResource(R.string.reduce_body)) {

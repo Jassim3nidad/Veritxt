@@ -57,7 +57,7 @@ class CompactResultTest {
             compose.onNodeWithText("What does this mean?").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
             compose.onNodeWithText("About this result").assertExists()
             compose.onNodeWithText(if (suspicious) "Model score: 0.92" else "Model score: 0.12", substring = true).assertExists()
-            compose.onNodeWithText("Texts scoring above 0.50 are shown as Likely phishing.").assertExists()
+            compose.onNodeWithText("Texts scoring above 0.50 are shown as Likely phishing (scam).").assertExists()
             compose.onNodeWithText(policyNote).performScrollTo().assertExists()
             compose.onNodeWithText("Close").performClick()
         }
@@ -96,7 +96,7 @@ class CompactResultTest {
             compose.onRoot(useUnmergedTree = true).printToString())
         compose.onNode(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).assertExists()
         compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
-        compose.onNodeWithText("Texts scoring 0.89 or more are shown as Likely phishing.").performScrollTo().assertExists()
+        compose.onNodeWithText("Texts scoring 0.89 or more are shown as Likely phishing (scam).").performScrollTo().assertExists()
         compose.onNodeWithText(window.explanation()).performScrollTo().assertExists()
         compose.onNodeWithText("Close").performClick()
         compose.onNodeWithText("Check another message").performScrollTo().performClick()

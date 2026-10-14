@@ -72,11 +72,11 @@
     <string name="result_title">Resulta ng pagsusuri</string>
     <string name="verdict_synthetic_title">Synthetic na interface fixture</string>
     <string name="verdict_synthetic_body">Hindi ito totoong pagsusuri.</string>
-    <string name="verdict_scam_title">Malamang na scam</string>
+    <string name="verdict_scam_title">Malamang na phishing (scam)</string>
     <string name="verdict_scam_body">Nakakita ang Veritxt ng malalakas na senyales na scam ang text na ito. Huwag i-tap ang mga link o sumagot.</string>
     <string name="verdict_caution_title">Hindi na-flag, pero mag-ingat</string>
     <string name="verdict_caution_body">Hindi ito na-flag ng model, pero may mga bahagi ng text na kahawig ng karaniwang scam. Mag-ingat.</string>
-    <string name="verdict_safe_title">Hindi na-flag ng model na ito</string>
+    <string name="verdict_safe_title">Walang nakitang phishing (scam)</string>
     <string name="verdict_safe_body">Walang nakitang malalakas na senyales ng scam ang Veritxt. Hindi ito patunay na ligtas ito, kaya mag-ingat pa rin sa mga link at hiling.</string>
     <string name="verdict_missing_title">Walang naka-install na model</string>
     <string name="verdict_missing_body">Walang ginawang prediction. Kailangan muna ng prototype na ito ng nasuring model bago ito makapagsuri ng mga mensahe.</string>
@@ -207,7 +207,7 @@
     <string name="notif_test_title">Test: may bagong text</string>
     <string name="channel_warning_name">Babala sa scam</string>
     <string name="channel_warning_desc">Binabalaan ka kapag mukhang scam ang bagong SMS. Hindi kailanman ipinapakita ang mensahe.</string>
-    <string name="warning_title">Posibleng scam na text</string>
+    <string name="warning_title">Posibleng phishing (scam) na text</string>
     <string name="warning_body">Na-flag ng experimental na model ng Veritxt ang isang bagong SMS. Huwag i-tap ang mga link nito. I-tap ito para makita kung bakit.</string>
     <string name="notif_action_see_why">Tingnan kung bakit</string>
     <string name="incoming_warn">Babalaan ako kapag mukhang scam ang text</string>
@@ -236,4 +236,7 @@
     <string name="score_threshold_inclusive">Ang mga text na %1$s pataas ay ipinapakita bilang %2$s.</string>
     <string name="score_rounding">Naka-round ang score para sa display; ang eksaktong score ang ginagamit sa desisyon.</string>
     <string name="autostart_transsion">Phone Master → Auto-start management → i-on ang Veritxt. Pati Settings → Battery → App battery saver → Veritxt → No restrictions.</string>
+    <string name="theme_title">Tema</string>
+    <string name="theme_light">Maliwanag</string>
+    <string name="theme_dark">Madilim</string>
 </resources>

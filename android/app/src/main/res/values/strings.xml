@@ -79,11 +79,11 @@
     <string name="result_title">Check result</string>
     <string name="verdict_synthetic_title">Synthetic interface fixture</string>
     <string name="verdict_synthetic_body">This is not a real assessment.</string>
-    <string name="verdict_scam_title">Likely phishing</string>
+    <string name="verdict_scam_title">Likely phishing (scam)</string>
     <string name="verdict_scam_body">Veritxt found strong signs this text is a scam. Don\'t tap its links or reply.</string>
     <string name="verdict_caution_title">Not flagged, but be careful</string>
     <string name="verdict_caution_body">The model didn\'t flag it, but parts of this text look like common scams. Be careful.</string>
-    <string name="verdict_safe_title">No phishing detected</string>
+    <string name="verdict_safe_title">No phishing (scam) detected</string>
     <string name="verdict_safe_body">Veritxt didn\'t find strong scam signs. That doesn\'t prove it\'s safe, so stay careful with links and requests.</string>
     <string name="verdict_missing_title">Model unavailable</string>
     <string name="verdict_missing_body">No usable model is bundled. No prediction was made.</string>
@@ -221,7 +221,7 @@
     <string name="notif_test_sample" translatable="false">SAMPLE: Your parcel is on hold. Pay the redelivery fee today at example-parcel.test</string>
     <string name="channel_warning_name">Scam warnings</string>
     <string name="channel_warning_desc">Warns you when a new SMS looks like a scam. Never shows the message.</string>
-    <string name="warning_title">Possible scam text</string>
+    <string name="warning_title">Possible phishing (scam) text</string>
     <string name="warning_body">Veritxt\'s experimental model flagged a new SMS. Don\'t tap its links. Tap to see why.</string>
     <string name="notif_action_see_why">See why</string>
     <string name="incoming_warn">Warn me when a text looks like a scam</string>
@@ -239,7 +239,7 @@
     <string name="result_about">About this result</string>
     <string name="result_close">Close</string>
     <string name="automatic_disabled">Automatic warnings and reporting are disabled.</string>
-    <string name="result_explanation">The score is experimental, not a verified probability or chance of fraud. Research performance is unverified. No phishing detected does not establish that a message is safe. Verify requests through an official app, website entered independently, or a phone number you already know.</string>
+    <string name="result_explanation">The score is experimental, not a verified probability or chance of fraud. Research performance is unverified. No phishing (scam) detected does not establish that a message is safe. Verify requests through an official app, website entered independently, or a phone number you already know.</string>
     <string name="result_abstention">Unable to assess means there is no usable model word outside links or numbers, or the input is blank or obvious keyboard mashing. It can also occur for meaningful words this model does not know. Short messages are allowed; no minimum word count is required.</string>
     <string name="warning_level">Warning signs: %1$s</string>
     <string name="level_high">High</string>
@@ -250,4 +250,7 @@
     <string name="score_threshold_inclusive">Texts scoring %1$s or more are shown as %2$s.</string>
     <string name="score_rounding">The score is rounded for display; the decision uses the exact score.</string>
     <string name="autostart_transsion">Phone Master → Auto-start management → turn on Veritxt. Also Settings → Battery → App battery saver → Veritxt → No restrictions.</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
 </resources>
