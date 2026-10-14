@@ -72,7 +72,8 @@ object Verdict {
             listOf(Offset(w * (.15f + .2f * shift), h * .12f), Offset(w * (.9f - .15f * shift), h * .45f),
                 Offset(w * (.3f + .1f * shift), h * .88f)).forEachIndexed { i, c ->
                 val r = w * (.55f + .1f * i)
-                drawCircle(Brush.radialGradient(listOf(blobs[i].copy(alpha = .75f), Color.Transparent), c, r), r, c)
+                // Dark mode keeps the colour subtle so text panels stay readable on OLED/LCD phones.
+                drawCircle(Brush.radialGradient(listOf(blobs[i].copy(alpha = if (style.dark) .38f else .75f), Color.Transparent), c, r), r, c)
             }
         }
     }
@@ -97,10 +98,10 @@ private fun Color.compositeOver(bg: Color): Color {
     val scheme = MaterialTheme.colorScheme
     val style = LocalGlass.current
     val shape = RoundedCornerShape(50)
-    val colors = if (primary) ButtonDefaults.buttonColors(containerColor = scheme.primary.copy(alpha = if (style.solid) 1f else .92f))
+    val colors = if (primary) ButtonDefaults.buttonColors(containerColor = scheme.primary, contentColor = scheme.onPrimary)
         else ButtonDefaults.outlinedButtonColors(containerColor = style.fill, contentColor = scheme.onSurface)
     Button(onClick, modifier.fillMaxWidth().heightIn(min = 56.dp), enabled = enabled, shape = shape, colors = colors,
-        border = if (primary) BorderStroke(1.dp, Color.White.copy(alpha = .25f)) else BorderStroke(1.dp, style.edge),
+        border = if (primary) null else BorderStroke(1.dp, style.edge),
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 14.dp)) {
         leading?.invoke()
         if (icon != null) { Icon(icon, null, Modifier.size(20.dp)); Spacer(Modifier.width(10.dp)) }

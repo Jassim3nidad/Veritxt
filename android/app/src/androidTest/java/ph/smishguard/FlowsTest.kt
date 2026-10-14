@@ -70,7 +70,7 @@ class FlowsTest {
         }
         compose.activity.runOnUiThread { compose.activity.startActivity(intent) }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Synthetic Taglish share: pakiverify ang bayad").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithText("Clear message").performScrollTo().performClick()
+        compose.onNodeWithText("Clear", substring = false).performScrollTo().performClick()
         compose.onNodeWithText("Synthetic Taglish share: pakiverify ang bayad").assertDoesNotExist()
     }
     @Test fun deniedPermissionsStillAllowManualCheck() {

@@ -25,12 +25,13 @@ class DevelopmentFlowTest {
         }
         compose.waitUntil(10000) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.waitUntil(120000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(120000) { compose.onAllNodesWithText("Warning signs:", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText(text).assertExists()
-        compose.onNodeWithText("Model score:", substring = true).assertExists()
+        compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
-        compose.onNodeWithText("Experimental score; not a verified probability.").assertExists()
+        compose.onNodeWithText(compose.activity.getString(R.string.score_disclaimer)).assertExists()
         compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
+        compose.onNodeWithText("Model score:", substring = true).assertExists()
         compose.onNodeWithText("Reporting is disabled in this build.").assertExists()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
         compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()

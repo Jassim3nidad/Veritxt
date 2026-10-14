@@ -14,6 +14,7 @@ import android.view.WindowManager
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -79,8 +80,10 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
+import ph.smishguard.data.AppTheme
 import ph.smishguard.data.Preferences
 import ph.smishguard.model.Detection
+import ph.smishguard.model.DecisionPolicy
 import ph.smishguard.privacy.Brand
 import ph.smishguard.privacy.ReportPayload
 import ph.smishguard.sms.CheckPrompt
@@ -142,8 +145,7 @@ enum class AppLanguage(val tag: String) { SYSTEM(""), ENGLISH("en"), FILIPINO("f
     }
 }
 
-@Composable private fun SmishGuardTheme(solid: Boolean, content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
+@Composable private fun SmishGuardTheme(solid: Boolean, dark: Boolean, content: @Composable () -> Unit) {
     val colors = if (dark) darkColorScheme(primary = Color(0xFF9BD4BE), onPrimary = Color(0xFF00382D), secondary = Color(0xFFBACBBF),
             background = Color(0xFF0E1613), surface = Color(0xFF0E1613), onSurface = Color(0xFFE3EAE5),
             onSurfaceVariant = Color(0xFFBFCAC3), surfaceContainer = Color(0xFF202B26), secondaryContainer = Color(0xFF344B40))
@@ -181,7 +183,19 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     val keyboard = LocalSoftwareKeyboardController.current
     val focus = LocalFocusManager.current
     LaunchedEffect(state.screen, state.busy) { if (state.screen != Screen.CHECK || state.busy) { focus.clearFocus(); keyboard?.hide() } }
-    SmishGuardTheme(solid = preferences?.reduceTransparency == true) {
+    // Light / Dark / System is applied in Compose, so switching is instant and keeps the user on the same screen.
+    val systemDark = isSystemInDarkTheme()
+    val dark = when (preferences?.theme ?: AppTheme.SYSTEM) { AppTheme.SYSTEM -> systemDark; AppTheme.LIGHT -> false; AppTheme.DARK -> true }
+    LaunchedEffect(dark) {
+        // Status and navigation bar icons must match the chosen theme, not the phone's.
+        val transparent = android.graphics.Color.TRANSPARENT
+        val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+        val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+        (activity as? androidx.activity.ComponentActivity)?.enableEdgeToEdge(
+            statusBarStyle = if (dark) SystemBarStyle.dark(transparent) else SystemBarStyle.light(transparent, transparent),
+            navigationBarStyle = if (dark) SystemBarStyle.dark(darkScrim) else SystemBarStyle.light(lightScrim, darkScrim))
+    }
+    SmishGuardTheme(solid = preferences?.reduceTransparency == true, dark = dark) {
         val haze = remember { HazeState() }
         val showNav = preferences?.privacyAccepted == true && preferences?.onboarded == true
         var navHeight by remember { mutableIntStateOf(0) }
@@ -280,6 +294,16 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
             FilterChip(current == language, { current = language; AppLanguage.set(language) }, { Text(stringResource(label)) },
                 shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 48.dp))
         }
+    }
+}
+
+@Composable private fun ThemePicker(current: AppTheme, choose: (AppTheme) -> Unit) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        listOf(AppTheme.SYSTEM to R.string.language_system, AppTheme.LIGHT to R.string.theme_light, AppTheme.DARK to R.string.theme_dark)
+            .forEach { (theme, label) ->
+                FilterChip(current == theme, { choose(theme) }, { Text(stringResource(label)) },
+                    shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 48.dp))
+            }
     }
 }
 
@@ -439,6 +463,38 @@ private fun clipboardText(context: Context): String? = context.getSystemService(
     }
 }
 
+/** How strongly a text looks like a scam, in words people understand. Mirrors the verdict rules. */
+internal enum class WarningLevel(val filled: Int, @param:StringRes val label: Int) {
+    HIGH(3, R.string.level_high), SOME(2, R.string.level_some), FEW(1, R.string.level_few);
+    companion object {
+        fun of(result: Detection.Success, hintCount: Int) = when {
+            result.suspicious -> HIGH
+            hintCount >= 2 -> SOME
+            else -> FEW
+        }
+    }
+}
+
+/** Three segments plus a text label, so the level never depends on colour alone. */
+@Composable private fun WarningMeter(level: WarningLevel, color: Color) {
+    val label = stringResource(R.string.warning_level, stringResource(level.label))
+    // TalkBack reads the label once; the bar and the small scale underneath are decorative.
+    Column(Modifier.fillMaxWidth().semantics(mergeDescendants = true) { }, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(label, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            repeat(3) { i ->
+                Box(Modifier.weight(1f).height(10.dp).clip(RoundedCornerShape(50))
+                    .background(if (i < level.filled) color else color.copy(alpha = .18f)))
+            }
+        }
+        Row(Modifier.fillMaxWidth().clearAndSetSemantics { }, horizontalArrangement = Arrangement.SpaceBetween) {
+            listOf(R.string.level_few, R.string.level_some, R.string.level_high).forEach {
+                Text(stringResource(it), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
 private data class VerdictLook(@param:StringRes val title: Int, @param:StringRes val body: Int, val icon: ImageVector, val color: Color)
 
 @Composable private fun ColumnScope.ResultScreen(state: CheckState, vm: CheckViewModel) {
@@ -475,8 +531,8 @@ private data class VerdictLook(@param:StringRes val title: Int, @param:StringRes
             }
             Text(stringResource(look.body))
             if (result is Detection.Success && !result.synthetic) {
-                ScoreBar(result.score, look.color)
-                Text(stringResource(R.string.score_model, "%.1f".format(Locale.ROOT, result.score * 100)), style = MaterialTheme.typography.titleLarge)
+                // A plain level instead of a number: the score is uncalibrated, so it is never shown as a percentage here.
+                WarningMeter(WarningLevel.of(result, hints.size), look.color)
                 if (result.tokenWindow?.truncated == true) Text(stringResource(R.string.result_truncated))
                 Text(stringResource(R.string.score_disclaimer), style = MaterialTheme.typography.bodySmall)
             }
@@ -528,8 +584,13 @@ private data class VerdictLook(@param:StringRes val title: Int, @param:StringRes
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.result_explanation))
-                (state.result as? Detection.Success)?.let { result ->
-                    result.policy?.let { Text(it.explanation()) }
+                (state.result as? Detection.Success)?.takeIf { !it.synthetic }?.let { result ->
+                    // Exact model details live here, out of the way of the main result.
+                    Text(stringResource(R.string.score_detail, "%.2f".format(Locale.ROOT, result.score)), fontWeight = FontWeight.SemiBold)
+                    val policy = result.policy ?: DecisionPolicy(.5, inclusive = false)
+                    val threshold = "%.2f".format(Locale.ROOT, policy.threshold)
+                    Text(stringResource(if (policy.inclusive) R.string.score_threshold_inclusive else R.string.score_threshold, threshold, stringResource(R.string.verdict_scam_title)))
+                    Text(stringResource(R.string.score_rounding))
                     result.tokenWindow?.takeIf { it.truncated }?.let { Text(it.explanation()) }
                 }
                 Text(stringResource(R.string.result_abstention))
@@ -663,6 +724,9 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
         SettingsRow(Icons.Outlined.Translate, stringResource(R.string.language_title))
         Box(Modifier.padding(start = 40.dp)) { LanguagePicker() }
         HorizontalDivider(color = edge)
+        SettingsRow(Icons.Outlined.DarkMode, stringResource(R.string.theme_title))
+        Box(Modifier.padding(start = 40.dp)) { ThemePicker(preferences.theme) { scope.launch { app.preferences.theme(it) } } }
+        HorizontalDivider(color = edge)
         val reduceCd = stringResource(R.string.reduce_title)
         SettingsRow(Icons.Outlined.Contrast, stringResource(R.string.reduce_title), stringResource(R.string.reduce_body)) {
             Switch(preferences.reduceTransparency, { on -> scope.launch { app.preferences.reduceTransparency(on) } },
@@ -719,10 +783,12 @@ private enum class HelpStatus { OK, FIX, INFO }
 private enum class PhoneBrand(val display: String, @param:StringRes val steps: Int) {
     XIAOMI("Xiaomi / Redmi / POCO", R.string.autostart_xiaomi), OPPO("OPPO / realme / OnePlus", R.string.autostart_oppo),
     VIVO("vivo / iQOO", R.string.autostart_vivo), HUAWEI("Huawei / Honor", R.string.autostart_huawei),
-    SAMSUNG("Samsung", R.string.autostart_samsung), OTHER("", R.string.autostart_other);
+    SAMSUNG("Samsung", R.string.autostart_samsung), TRANSSION("Infinix / Tecno / itel", R.string.autostart_transsion),
+    OTHER("", R.string.autostart_other);
     companion object {
         fun detect(): PhoneBrand = Build.MANUFACTURER.lowercase(Locale.ROOT).let { m ->
             when {
+                listOf("infinix", "tecno", "itel", "transsion").any { it in m } -> TRANSSION
                 listOf("xiaomi", "redmi", "poco").any { it in m } -> XIAOMI
                 listOf("oppo", "realme", "oneplus").any { it in m } -> OPPO
                 listOf("vivo", "iqoo").any { it in m } -> VIVO

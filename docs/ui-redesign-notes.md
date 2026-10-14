@@ -40,3 +40,16 @@ Model code and loading; the meaning of `automaticWarningsAllowed`; `FLAG_SECURE`
 - Glass panels sit over the already-blurred background; only the nav bar does a live blur of content.
 - Real verdicts need the trained model (Jassim's part); screenshots use a test-only stub detector.
 - Privacy-notice contact is a placeholder: set `privacy_contact_value` in `res/values/strings.xml`.
+
+## Round 3 — clearer result score (Oct 14, 2026)
+Prompt: [score-ux-prompt.md](score-ux-prompt.md). Screenshots: `docs/screenshots/veritxt/score/` (Android 11, light/dark, Filipino).
+- **No more percentage on the result card.** "Model score: 87.0%" is replaced by a plain **Warning signs: High / Some / Few** meter (3 segments plus a text label, so it never relies on colour alone). High = the model flagged it; Some = not flagged but 2+ warning signs; Few = otherwise.
+- **Plainer sentences** under the headline, and one honesty line: "Experimental — Veritxt can be wrong. Always double-check with the official app or hotline."
+- **Exact details moved into "What does this mean?"**: the score on a 0–1 scale (2 decimals), the threshold rule worded with the same headline the user saw, and a note that rounding never changes the decision.
+- **Check screen:** the main button is a solid colour with dark text (readable on phones like the Infinix Note 10 Pro); "Clear message" is now "Clear" so it fits on one line.
+- **Dark mode background** is calmer (colour blobs at about half strength).
+- **Infinix / Tecno / itel** Autostart steps added to "Why didn't I get a notification?" (Phone Master → Auto-start management).
+- Model code, the threshold, and automatic-warning rules are unchanged. `ResultCopy.score()` (percentage) is no longer shown in the UI but kept for its unit test.
+- Tests: new `warningLevelMatchesVerdictAndWarningSigns`; result tests now assert no "%" on the card and the exact score inside the dialog. 51/51 instrumented tests pass on Android 11 (API 30).
+- **Wording:** "phishing (scam)" everywhere so users who don't know "phishing" still understand — "Likely phishing (scam)", "No phishing (scam) detected", notification "Possible phishing (scam) text"; Filipino "Malamang na phishing (scam)", "Walang nakitang phishing (scam)", "Posibleng phishing (scam) na text". The threshold sentence in "What does this mean?" reuses the headline text.
+- **Theme setting:** Settings → Preferences → **Theme: System default / Light / Dark** (Filipino: Tema / Maliwanag / Madilim). Applied instantly in Compose (no screen restart), status/navigation bar icons follow it, saved with the other display settings and reset by "Clear local data". New `ThemeSettingTest`; 52/52 instrumented tests pass on Android 11.

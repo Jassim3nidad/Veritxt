@@ -32,8 +32,8 @@ class AssessabilityTest {
             assertEquals("Model score: 33.6%", ResultCopy.score(.336317))
             assertEquals("Model score: 0.0%", ResultCopy.score(0.0))
             assertEquals("Model score: 100.0%", ResultCopy.score(1.0))
-            assertEquals("No phishing detected", ResultCopy.heading(Detection.Success(false, .5)))
-            assertEquals("Likely phishing", ResultCopy.heading(Detection.Success(true, .50001)))
+            assertEquals("No phishing (scam) detected", ResultCopy.heading(Detection.Success(false, .5)))
+            assertEquals("Likely phishing (scam)", ResultCopy.heading(Detection.Success(true, .50001)))
         } finally { Locale.setDefault(prior) }
     }
 }

@@ -43,7 +43,7 @@ object PendingChecks {
 /**
  * Notifications about a new SMS. None of them ever show the message, the sender, or a link.
  * [Kind.PROMPT]: neutral "New text received — check it?" (no model can warn automatically).
- * [Kind.WARNING]: "Possible scam text" after the model flagged it. [Kind.TEST]: sample from Settings.
+ * [Kind.WARNING]: "Possible phishing (scam) text" after the model flagged it. [Kind.TEST]: sample from Settings.
  */
 object CheckPrompt {
     enum class Kind { PROMPT, WARNING, TEST }

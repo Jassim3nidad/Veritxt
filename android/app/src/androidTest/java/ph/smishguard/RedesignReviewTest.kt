@@ -45,12 +45,23 @@ class RedesignReviewTest {
             check(app, Detection.Success(true, .87, experimental = true),
                 "SGTEST BDO reminds you that your 7,352 points will expire today. Visit sgtest-rewards.example.com to redeem.", "04-check")
             capture("05-result-scam")
+            compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
+            compose.waitUntil(5000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
+            capture("05b-details")
+            compose.onNodeWithText("Close").performClick()
             compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
             capture("06-report")
             check(app, Detection.Success(false, .31, experimental = true), "SGTEST Congrats! You won a reward. Claim today at sgtest-prize.example.com", null)
             capture("07-result-caution")
             compose.onNodeWithText("Settings").performClick()
             capture("08-settings")
+            // Theme choice: pick Dark while the phone may be in light mode, then go back to System default.
+            val themeChip = { label: String -> compose.onAllNodesWithText(label).let { it[it.fetchSemanticsNodes().size - 1] } }
+            themeChip("Dark").performScrollTo().performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { it() }
+            Thread.sleep(800)
+            capture("08b-theme-dark")
+            themeChip("System default").performScrollTo().performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { it() }
+            compose.onNodeWithText("Privacy & settings").performScrollTo()
             compose.onNodeWithText("Why didn't I get a notification?").performScrollTo().performClick()
             capture("09-help")
             // Filipino
@@ -84,6 +95,7 @@ class RedesignReviewTest {
         if (compose.onAllNodesWithText(button).fetchSemanticsNodes().isEmpty()) compose.onNodeWithText("Check").performClick()
         compose.onNode(hasSetTextAction()).performTextInput(text)
         compose.waitForIdle()
+        Thread.sleep(600) // let the keyboard finish opening, as it would for a person, before tapping Check
         shot?.let(::capture)
         compose.onNodeWithText(button, substring = false).performScrollTo().performSemanticsAction(SemanticsActions.OnClick) { it() }
         compose.waitUntil(10000) { compose.onAllNodesWithText(resultTitle).fetchSemanticsNodes().isNotEmpty() }

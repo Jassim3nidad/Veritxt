@@ -48,15 +48,30 @@ class CompactResultTest {
             compose.onNode(isSelectable() and hasText("Check")).assertIsSelected()
             compose.onNodeWithText("Check another message", substring = false).assertHeightIsAtLeast(48.dp)
             compose.onNodeWithText(ResultCopy.heading(result)).assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
-            compose.onNodeWithText(ResultCopy.score(result.score)).assertExists()
-            compose.onNodeWithText(ResultCopy.DISCLAIMER).assertExists()
+            // Plain level on the card, no percentage; exact score only inside "What does this mean?".
+            compose.onNodeWithText(if (suspicious) "Warning signs: High" else "Warning signs: Few").assertExists()
+            compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
+            compose.onNodeWithText(compose.activity.getString(R.string.score_disclaimer)).assertExists()
             compose.onNode(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).assertExists()
             compose.onNodeWithText(policyNote).assertDoesNotExist()
             compose.onNodeWithText("What does this mean?").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
             compose.onNodeWithText("About this result").assertExists()
+            compose.onNodeWithText(if (suspicious) "Model score: 0.92" else "Model score: 0.12", substring = true).assertExists()
+            compose.onNodeWithText("Texts scoring above 0.50 are shown as Likely phishing (scam).").assertExists()
             compose.onNodeWithText(policyNote).performScrollTo().assertExists()
             compose.onNodeWithText("Close").performClick()
         }
+    }
+
+    @Test fun warningLevelMatchesVerdictAndWarningSigns() {
+        scan(Detection.Success(true, .9, experimental = true))
+        compose.onNodeWithText("Warning signs: High").assertExists()
+        scan(Detection.Success(false, .3, experimental = true), "BDO: verify your account today at bdo-check.example.com")
+        compose.onNodeWithText("Not flagged, but be careful").assertExists()
+        compose.onNodeWithText("Warning signs: Some").assertExists()
+        scan(Detection.Success(false, .1, experimental = true), "See you at lunch later")
+        compose.onNodeWithText("Warning signs: Few").assertExists()
+        compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
     }
 
     @Test fun abstentionNeverShowsPercentageAndEditClearsOldResult() {
@@ -81,7 +96,7 @@ class CompactResultTest {
             compose.onRoot(useUnmergedTree = true).printToString())
         compose.onNode(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).assertExists()
         compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
-        compose.onNodeWithText(policy.explanation()).performScrollTo().assertExists()
+        compose.onNodeWithText("Texts scoring 0.89 or more are shown as Likely phishing (scam).").performScrollTo().assertExists()
         compose.onNodeWithText(window.explanation()).performScrollTo().assertExists()
         compose.onNodeWithText("Close").performClick()
         compose.onNodeWithText("Check another message").performScrollTo().performClick()
@@ -118,7 +133,7 @@ class CompactResultTest {
         }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Test a message").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.waitUntil(10000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Warning signs:", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check result").performScrollTo()
         recordReliabilitySnapshot(compose.activity, "compact-result", null, "Synthetic test; input cleared; shipped model")
     }
