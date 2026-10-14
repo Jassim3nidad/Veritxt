@@ -63,7 +63,7 @@
     <string name="check_button">Suriin ito</string>
     <string name="check_busy">Sinusuri sa phone mo…</string>
     <string name="check_paste">I-paste</string>
-    <string name="check_clear">Burahin ang mensahe</string>
+    <string name="check_clear">Burahin</string>
     <string name="check_links_note">%1$s. Hindi binubuksan o kinukuha ang mga link.</string>
     <string name="error_empty">Maglagay ng mensaheng susuriin.</string>
     <string name="error_too_long">Hanggang 10,000 character lang. Inalis ang sobra; tingnan muna bago suriin.</string>
@@ -73,11 +73,11 @@
     <string name="verdict_synthetic_title">Synthetic na interface fixture</string>
     <string name="verdict_synthetic_body">Hindi ito totoong pagsusuri.</string>
     <string name="verdict_scam_title">Malamang na scam</string>
-    <string name="verdict_scam_body">Posibleng scam ang mensaheng ito. Huminto muna bago sumunod sa anumang hiling ng pera o access sa account.</string>
+    <string name="verdict_scam_body">Nakakita ang Veritxt ng malalakas na senyales na scam ang text na ito. Huwag i-tap ang mga link o sumagot.</string>
     <string name="verdict_caution_title">Hindi na-flag, pero mag-ingat</string>
-    <string name="verdict_caution_body">Hindi ito na-flag ng model, pero may mga senyales ng babala. Hindi patunay ang mababang score na totoo ang mensahe.</string>
+    <string name="verdict_caution_body">Hindi ito na-flag ng model, pero may mga bahagi ng text na kahawig ng karaniwang scam. Mag-ingat.</string>
     <string name="verdict_safe_title">Hindi na-flag ng model na ito</string>
-    <string name="verdict_safe_body">Hindi na-flag ng model ang mensaheng ito. Hindi ito nangangahulugang lehitimo ito.</string>
+    <string name="verdict_safe_body">Walang nakitang malalakas na senyales ng scam ang Veritxt. Hindi ito patunay na ligtas ito, kaya mag-ingat pa rin sa mga link at hiling.</string>
     <string name="verdict_missing_title">Walang naka-install na model</string>
     <string name="verdict_missing_body">Walang ginawang prediction. Kailangan muna ng prototype na ito ng nasuring model bago ito makapagsuri ng mga mensahe.</string>
     <string name="verdict_invalid_title">Hindi suportado o sirang model</string>
@@ -218,8 +218,7 @@
     <string name="verdict_abstain_body">Maglagay ng SMS na may makabuluhang teksto.</string>
     <string name="verdict_busy_title">Tinatapos pa ang naunang pagsusuri</string>
     <string name="verdict_busy_body">Maghintay at subukang muli. Kung hindi pa rin matapos, isara ang app sa Android settings at buksan muli. Walang bagong pagsusuring sinimulan.</string>
-    <string name="score_model">Iskor ng modelo: %1$s%%</string>
-    <string name="score_disclaimer">Eksperimental na iskor; hindi napatunayang probabilidad.</string>
+    <string name="score_disclaimer">Experimental — maaaring magkamali ang Veritxt. Laging i-double check sa opisyal na app o hotline.</string>
     <string name="result_truncated">Mahabang mensahe: simula lamang ang nasuri.</string>
     <string name="checked_message">Sinuring mensahe</string>
     <string name="result_explain">Ano ang ibig sabihin nito?</string>
@@ -228,4 +227,13 @@
     <string name="automatic_disabled">Naka-off ang awtomatikong babala at pag-uulat.</string>
     <string name="result_explanation">Eksperimental ang iskor at hindi napatunayang posibilidad ng panloloko. Hindi pa napatunayan ang pagganap sa pananaliksik. Hindi garantiya ng kaligtasan ang kawalan ng babala. Tiyakin ang mga kahilingan sa opisyal na app, website na ikaw mismo ang nag-type, o numerong kilala mo na.</string>
     <string name="result_abstention">Hindi masuri kung walang salitang magagamit ang modelo maliban sa mga link o numero, blangko ang teksto, o basta pagpindot sa keyboard. Maaari rin itong mangyari sa makabuluhang salitang hindi alam ng modelo. Pinapayagan ang maiikling mensahe; walang minimum na bilang ng salita.</string>
+    <string name="warning_level">Mga senyales ng babala: %1$s</string>
+    <string name="level_high">Marami</string>
+    <string name="level_some">Ilan</string>
+    <string name="level_few">Kaunti</string>
+    <string name="score_detail">Score ng model: %1$s sa sukat na 0 hanggang 1. Hindi ito probability o tsansa ng panloloko.</string>
+    <string name="score_threshold">Ang mga text na lampas sa %1$s ay ipinapakita bilang %2$s.</string>
+    <string name="score_threshold_inclusive">Ang mga text na %1$s pataas ay ipinapakita bilang %2$s.</string>
+    <string name="score_rounding">Naka-round ang score para sa display; ang eksaktong score ang ginagamit sa desisyon.</string>
+    <string name="autostart_transsion">Phone Master → Auto-start management → i-on ang Veritxt. Pati Settings → Battery → App battery saver → Veritxt → No restrictions.</string>
 </resources>
