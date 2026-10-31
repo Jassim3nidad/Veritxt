@@ -30,7 +30,7 @@ class UsbDemoReceiver : BroadcastReceiver() {
             try {
                 val id = withTimeout(7000) { IncomingSmsNotifications.show(app, text, "5550100", demo = true) }
                 pending.setResultCode(if (id == null) 3 else -1)
-                pending.setResultData(if (id == null) "Open Veritxt and accept privacy; enable Android notifications and both report channels" else "Demo report posted")
+                pending.setResultData(if (id == null) "Open VeriText and accept privacy; enable Android notifications and both report channels" else "Demo report posted")
             } catch (_: Exception) {
                 pending.setResultCode(4)
                 pending.setResultData("Demo processing unavailable; retry")

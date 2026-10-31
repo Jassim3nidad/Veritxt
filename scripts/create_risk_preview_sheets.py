@@ -38,7 +38,7 @@ def main():
     sheets = [
         ("01-main-screens.png", [("Onboarding", "01-onboarding.png"), ("Home", "02-home.png"),
           ("Check", "03-check.png"), ("Settings", "04-settings.png")], 4,
-         "Veritxt · Current Android emulator screens · Selected SVM build"),
+         "VeriText · Current Android emulator screens · Selected SVM build"),
         ("02-risk-results.png", [("Low Risk", "06-low-risk.png"), ("Medium Risk", "07-medium-risk.png"),
           ("High Risk", "08-high-risk.png"), ("Unable to Assess", "13-unable-to-assess.png")], 4,
          "Actual installed model · Fictional SMS examples · Scores are evidence indices, not probabilities"),
@@ -48,7 +48,7 @@ def main():
         ("04-dialogs-and-blocking.png", [("Permission Consent", "05-permission-consent.png"),
           ("Explanation", "11-explanation.png"), ("Reporting Disabled", "12-reporting-disabled.png"),
           ("Block Confirmation", "09-block-confirmation.png"), ("Manual Instructions", "10-block-instructions.png")], 3,
-         "Genuine app dialogs · Veritxt does not directly block numbers or submit reports"),
+         "Genuine app dialogs · VeriText does not directly block numbers or submit reports"),
         ("05-unavailable-checks.png", [("Model Unavailable", "14-model-unavailable.png"),
           ("Invalid Model", "15-invalid-model.png"), ("Check Failed", "16-check-failed.png")], 3,
          "Test-only failure-state fixtures · Each uses Unable to Assess without a numerical score"),

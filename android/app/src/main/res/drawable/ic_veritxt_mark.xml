@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Full-colour Veritxt mark for in-app branding. -->
+<!-- Full-colour VeriText mark for in-app branding. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="32dp" android:height="32dp" android:viewportWidth="512" android:viewportHeight="512">
     <clip-path android:pathData="M116,0 H396 A116,116 0 0,1 512,116 V396 A116,116 0 0,1 396,512 H116 A116,116 0 0,1 0,396 V116 A116,116 0 0,1 116,0 Z" />

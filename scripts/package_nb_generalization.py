@@ -44,7 +44,7 @@ def package(export, emulator_evidence, destination):
     shutil.copy2(apk, target)
     delivery = dict(apk=target.name, apk_sha256=digest(target), apk_bytes=target.stat().st_size,
         application_id='ph.smishguard.nb.generalization', min_android='8.0 (API 26)',
-        app_label='Veritxt · Retrained NB', version_name='0.3.0-nb-generalization-experimental',
+        app_label='VeriText · Retrained NB', version_name='0.3.0-nb-generalization-experimental',
         signing='Android debug key; experimental local build',
         model=manifest, jvm_parity=host, android_parity=device,
         emulator_status=emulator['status'], physical_device_tested=False,

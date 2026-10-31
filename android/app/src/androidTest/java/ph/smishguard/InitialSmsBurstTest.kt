@@ -104,7 +104,7 @@ class InitialSmsBurstTest {
             val deadline = android.os.SystemClock.uptimeMillis() + 45000
             while (reports().size < 5 && android.os.SystemClock.uptimeMillis() < deadline) Thread.sleep(50)
             val posted = reports()
-            assertEquals("Five modem SMS must produce exactly five Veritxt notifications", 5, posted.size)
+            assertEquals("Five modem SMS must produce exactly five VeriText notifications", 5, posted.size)
             assertEquals(5, posted.map { it.tag }.distinct().size)
             assertEquals(5, posted.map { it.key }.distinct().size)
             assertTrue(posted.all { it.tag != null && it.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0 })
