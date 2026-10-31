@@ -21,9 +21,9 @@ class ThemeSettingTest {
         runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard(); app.preferences.themeMode(ThemeMode.SYSTEM) }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Settings").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Settings").performClick()
-        for ((label, expected) in listOf("Dark mode" to ThemeMode.DARK, "Light mode" to ThemeMode.LIGHT, "System default" to ThemeMode.SYSTEM)) {
-            // "System default" also labels a language chip; the Theme row comes after Language, so take the last match.
-            val chip = { compose.onAllNodesWithText(label).let { it[it.fetchSemanticsNodes().size - 1] } }
+        for (expected in listOf(ThemeMode.DARK, ThemeMode.LIGHT, ThemeMode.SYSTEM)) {
+            // Theme and Language both have a system option; target the theme control explicitly.
+            val chip = { compose.onNodeWithTag("theme_${expected.storedValue}") }
             // Press the chip itself; a coordinate tap after scrolling can land on the floating nav bar.
             chip().performScrollTo().performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { it() }
             compose.waitUntil(5000) { runBlocking { app.preferences.flow.first().themeMode } == expected }
