@@ -55,9 +55,20 @@ class CompactResultTest {
             compose.onNodeWithText(policyNote).assertDoesNotExist()
             compose.onNodeWithText("What does this mean?").performScrollTo().assertHeightIsAtLeast(48.dp).performClick()
             compose.onNodeWithText("About this result").assertExists()
+            compose.onNodeWithText(ResultCopy.score(result.score)).assertExists()
             compose.onNodeWithText(policyNote).performScrollTo().assertExists()
             compose.onNodeWithText("Close").performClick()
         }
+    }
+
+    @Test fun riskLevelMatchesTheEvidence() {
+        scan(Detection.Success(true, .9, experimental = true))
+        compose.onNodeWithText("Medium Risk").assertExists()
+        scan(Detection.Success(false, .3, experimental = true), "Please send your password")
+        compose.onNodeWithText("High Risk").assertExists()
+        scan(Detection.Success(false, .1, experimental = true), "See you at lunch later")
+        compose.onNodeWithText("Low Risk").assertExists()
+        compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
     }
 
     @Test fun abstentionNeverShowsPercentageAndEditClearsOldResult() {

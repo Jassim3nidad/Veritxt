@@ -31,6 +31,7 @@ class DevelopmentFlowTest {
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
         compose.onNodeWithText(ph.smishguard.model.ResultCopy.DISCLAIMER).assertExists()
         compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
+        compose.onNodeWithText("Research model output:", substring = true).assertExists()
         compose.onNodeWithText("Reporting is disabled in this build.").assertExists()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()
         compose.onNodeWithText("Submit report · unavailable").performScrollTo().assertIsNotEnabled()

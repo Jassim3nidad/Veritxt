@@ -39,4 +39,3 @@ ambiguous,Synthetic ambiguous offer,Claim your cashback in the official app befo
 phone_in_message,Synthetic contact message,Please call [synthetic phone redacted] when you arrive.,,Ham,"[0.3969358542840282, -0.5616015418075558, -0.8921597607804166]",Ham,"[0.4742124673130039, -0.5101402888797397, -1.0730880811614862]"
 
 short,Synthetic short message,Hi,,Ham,"[0.46731648299844614, -0.9555967897851882, -0.5010694796125176]",Ham,"[0.4525185297909538, -0.95953337254423, -0.4716511596362719]"
-

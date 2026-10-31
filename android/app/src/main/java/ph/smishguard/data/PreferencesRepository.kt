@@ -28,7 +28,7 @@ enum class ThemeMode(val storedValue: String) {
     SYSTEM("system"), LIGHT("light"), DARK("dark");
 
     companion object {
-        fun fromStored(value: String?): ThemeMode = entries.firstOrNull { it.storedValue == value } ?: SYSTEM
+        fun fromStored(value: String?): ThemeMode = entries.firstOrNull { it.storedValue.equals(value, ignoreCase = true) } ?: SYSTEM
     }
 }
 
@@ -43,12 +43,13 @@ class PreferencesRepository(context: Context) {
     private val scanning = booleanPreferencesKey("incoming_sms_consent")
     private val solid = booleanPreferencesKey("reduce_transparency")
     private val theme = stringPreferencesKey("theme_mode")
+    private val legacyTheme = stringPreferencesKey("theme")
     // Only the notice version and the date (no time, no identity) are kept as proof of consent.
     private val privacyVersion = intPreferencesKey("privacy_notice_version")
     private val privacyDate = stringPreferencesKey("privacy_notice_accepted_on")
     val flow = store.data.catch { if (it is IOException) emit(emptyPreferences()) else throw it }.map {
         Preferences(it[consent] ?: false, it[scanning] ?: false, it[solid] ?: false, it[privacyVersion] ?: 0, it[privacyDate],
-            ThemeMode.fromStored(it[theme]))
+            ThemeMode.fromStored(it[theme] ?: it[legacyTheme]))
     }
     suspend fun onboard() { store.edit { it[consent] = true } }
     suspend fun scanning(enabled: Boolean) { store.edit { it[scanning] = enabled } }

@@ -812,10 +812,12 @@ private enum class HelpStatus { OK, FIX, INFO }
 private enum class PhoneBrand(val display: String, @param:StringRes val steps: Int) {
     XIAOMI("Xiaomi / Redmi / POCO", R.string.autostart_xiaomi), OPPO("OPPO / realme / OnePlus", R.string.autostart_oppo),
     VIVO("vivo / iQOO", R.string.autostart_vivo), HUAWEI("Huawei / Honor", R.string.autostart_huawei),
-    SAMSUNG("Samsung", R.string.autostart_samsung), OTHER("", R.string.autostart_other);
+    SAMSUNG("Samsung", R.string.autostart_samsung), TRANSSION("Infinix / Tecno / itel", R.string.autostart_transsion),
+    OTHER("", R.string.autostart_other);
     companion object {
         fun detect(): PhoneBrand = Build.MANUFACTURER.lowercase(Locale.ROOT).let { m ->
             when {
+                listOf("infinix", "tecno", "itel", "transsion").any { it in m } -> TRANSSION
                 listOf("xiaomi", "redmi", "poco").any { it in m } -> XIAOMI
                 listOf("oppo", "realme", "oneplus").any { it in m } -> OPPO
                 listOf("vivo", "iqoo").any { it in m } -> VIVO
