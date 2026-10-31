@@ -2,7 +2,6 @@ package ph.smishguard
 
 import android.graphics.Bitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
-import android.view.WindowManager
 import androidx.compose.ui.test.*
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -21,7 +20,6 @@ class VisualReviewTest {
         val app = compose.activity.application as SmishGuardApp
         runBlocking { app.preferences.clear(); app.preferences.acceptPrivacy() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Continue without permissions").fetchSemanticsNodes().isNotEmpty() }
-        compose.activityRule.scenario.onActivity { it.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
         try {
             compose.waitUntil(15000) { compose.onAllNodesWithText("Loading model status", substring = true).fetchSemanticsNodes().isEmpty() }
             capture("onboarding")
@@ -71,7 +69,6 @@ class VisualReviewTest {
             testApp.testDetector = null
         } finally {
             (app as SoftwareTestApp).testDetector = null
-            compose.activityRule.scenario.onActivity { it.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE) }
         }
     }
     private fun capture(name: String) {

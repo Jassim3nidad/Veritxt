@@ -17,15 +17,18 @@ import ph.smishguard.model.*
 class ComparisonDemoTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun actualPasteRepeatedScansAndFictionalScreenshots() {
-        assumeTrue(BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm", "mbert"))
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm", "mbert", "selectedSvm"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
         val detector = runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard(); app.detector() }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Check a message").fetchSemanticsNodes().isNotEmpty() }
-        val versionPrefix=JSONObject(compose.activity.assets.open("model.json").bufferedReader().use { it.readText() })
-            .getString("model_version")
-        compose.waitUntil(120000) { compose.onAllNodesWithText(versionPrefix, substring=true).fetchSemanticsNodes().isNotEmpty() }
-        compose.onNodeWithText(versionPrefix, substring=true).performScrollTo()
+        val versionPrefix = if (BuildConfig.BUILD_TYPE == "selectedSvm") "svm-C-10.0" else
+            JSONObject(compose.activity.assets.open("model.json").bufferedReader().use { it.readText() }).getString("model_version")
+        assertTrue("The actual detector must match the bundled candidate", detector.status.contains(versionPrefix))
+        val visibleStatus = compose.activity.getString(if (BuildConfig.BUILD_TYPE == "selectedSvm")
+            R.string.status_linear_svm else R.string.status_experimental)
+        compose.waitUntil(15000) { compose.onAllNodesWithText(visibleStatus).fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText(visibleStatus).performScrollTo()
         recordReliabilitySnapshot(compose.activity,"comparison-home",null,"Fictional demo; actual algorithm and model version")
         val probes = listOf("Your account is suspended. Verify your password at https://account.example now.",
             "Bayad na po. Salamat sa tulong, kita tayo bukas.")
@@ -44,8 +47,9 @@ class ComparisonDemoTest {
             compose.onNodeWithText("Check message",substring=false).performScrollTo().performClick()
             compose.waitUntil(10000) { compose.onAllNodesWithText("What does this mean?").fetchSemanticsNodes().isNotEmpty() }
             val expected=runBlocking { detector.detect(text) }
-            if (expected is Detection.Success) compose.onNodeWithText(ResultCopy.score(expected.score)).assertExists()
-            else compose.onNodeWithText("Unable to assess").assertExists()
+            val assessment = RiskPolicy.assess(text, expected)
+            compose.onNodeWithText(ResultCopy.heading(assessment)).assertExists()
+            assessment.score?.let { compose.onNodeWithText(ResultCopy.riskScore(it)).assertExists() }
             compose.onNodeWithText("Check result").performScrollTo()
             recordReliabilitySnapshot(compose.activity,"comparison-result-$index",null,"Fictional demo; real bundled inference")
         }

@@ -11,7 +11,7 @@ import org.junit.Assume.assumeTrue
 class DevelopmentFlowTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     @Test fun suppliedModelShareShowsExperimentalResultAndCannotReport() {
-        assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr", "nb", "svm", "mbert", "lrCalibrated4"))
+        assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "selectedSvm", "nbGeneralization", "lr", "nb", "svm", "mbert", "lrCalibrated4"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
         runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
@@ -25,11 +25,11 @@ class DevelopmentFlowTest {
         }
         compose.waitUntil(10000) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.waitUntil(120000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(120000) { compose.onAllNodesWithText("Risk Score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText(text).assertExists()
-        compose.onNodeWithText("Model score:", substring = true).assertExists()
+        compose.onNodeWithText("Risk Score:", substring = true).assertExists()
         compose.onAllNodesWithText("Estimated suspicious-class probability", substring = true).assertCountEquals(0)
-        compose.onNodeWithText("Experimental score; not a verified probability.").assertExists()
+        compose.onNodeWithText(ph.smishguard.model.ResultCopy.DISCLAIMER).assertExists()
         compose.onNodeWithText("What does this mean?").performScrollTo().performClick()
         compose.onNodeWithText("Reporting is disabled in this build.").assertExists()
         compose.onNodeWithText("Review reporting options").performScrollTo().performClick()

@@ -1,0 +1,2896 @@
+{
+  "audit": {
+    "input_records": 2554,
+    "eligible_records": 2554,
+    "unique_raw_messages": 2554,
+    "unique_normalized_messages": 2554,
+    "exact_duplicate_extra_rows": 0,
+    "conflicting_exact_groups": 0,
+    "exclusions": {},
+    "missing": {
+      "text": 0,
+      "label": 0,
+      "source": 0,
+      "language": 0,
+      "category": 0,
+      "received_at": 2554,
+      "sender": 2554,
+      "campaign": 2554,
+      "conversation": 2554
+    },
+    "distributions": {
+      "label": {
+        "0": 2229,
+        "1": 325
+      },
+      "source": {
+        "tagalog": 1424,
+        "marketing": 1002,
+        "bwandowando": 128
+      },
+      "language": {
+        "English": 1709,
+        "Filipino/Taglish": 845
+      },
+      "category": {
+        "Legit message": 2229,
+        "Impersonation (bank, e-wallet, government, courier, or brand)": 178,
+        "Fake prize / reward / refund": 59,
+        "Fake emergency / load request": 1,
+        "Fake prize (reply or text to claim)": 7,
+        "Fake winnings/credit (gambling lure)": 56,
+        "Fake friend testimony (gambling or investment lure)": 14,
+        "Account / fine / delivery threat": 10
+      }
+    },
+    "label_mapping": {
+      "0": "ham (inherited, independently unverified)",
+      "1": "smishing (positive, inherited, independently unverified)"
+    },
+    "preprocessing": "Collapse whitespace only before vectorization; preserve raw text/original labels privately; no translation/stemming/stopwords",
+    "label_quality": "No silent relabeling; generic spam/marketing are unsupported without explicit phishing labels",
+    "limitations": [
+      "Source categories and language metadata are inherited, not verified annotations",
+      "Masked existing views have already replaced identifiers/links; raw traffic performance needs independent testing",
+      "No verified receipt timestamps: chronological evaluation unavailable",
+      "Entire available study corpus historically exposed; no untouched test claim",
+      "Published source licenses do not establish all acquisition/privacy/redistribution rights"
+    ],
+    "template_groups": 1840,
+    "mixed_label_groups": 0,
+    "group_policy": "Existing label-blind .85 normalized SequenceMatcher connected components plus exact Unicode casefold and supplied template/campaign/sender/conversation groups",
+    "source_isolation": "Sources deliberately span partitions; only three sources cannot support 70/15/15 whole-source splits. Source-transfer diagnostics are separate.",
+    "input": {
+      "container_sha256": "a3418c84e88b284b492628a85c624bbfd481d2ba0c907858d4ae697b453184e9",
+      "member": "dataset.json",
+      "member_sha256": "a3418c84e88b284b492628a85c624bbfd481d2ba0c907858d4ae697b453184e9",
+      "loaded_records": 2554,
+      "encoding": "strict UTF-8"
+    },
+    "partitions": {
+      "train": {
+        "records": 1744,
+        "groups": 1273,
+        "labels": {
+          "0": 1514,
+          "1": 230
+        },
+        "fraction": 0.682850430696946
+      },
+      "validation": {
+        "records": 383,
+        "groups": 292,
+        "labels": {
+          "0": 354,
+          "1": 29
+        },
+        "fraction": 0.1499608457321848
+      },
+      "test": {
+        "records": 427,
+        "groups": 275,
+        "labels": {
+          "0": 361,
+          "1": 66
+        },
+        "fraction": 0.16718872357086922
+      }
+    },
+    "pairwise_group_overlap": {
+      "train-validation": 0,
+      "test-train": 0,
+      "test-validation": 0
+    }
+  },
+  "upstream_cleaning_audit": {
+    "before": {
+      "records": 3340,
+      "ham": 2947,
+      "smishing": 393,
+      "scam_fraction": 0.11766467065868264
+    },
+    "after": {
+      "records": 2554,
+      "ham": 2229,
+      "smishing": 325,
+      "scam_fraction": 0.12725137039937354
+    },
+    "removals": {
+      "duplicate_masked_casefold_text": 727,
+      "pending_flagged_review": 59
+    },
+    "conflicting_exact_groups": 0,
+    "missing_fields": {
+      "text": 0,
+      "source": 0,
+      "category": 0,
+      "language": 0
+    },
+    "input_labels": {
+      "0": 2947,
+      "1": 393
+    },
+    "transformations": "Remove known placeholder spans, collapse whitespace, hold flagged/unsupported/conflicting records, retain first masked casefold duplicate",
+    "label_mapping": {
+      "0": "ham",
+      "1": "smishing"
+    },
+    "label_status": "Inherited source/rule labels; independently unverified",
+    "template_groups": 1840,
+    "mixed_label_template_groups": 0,
+    "grouping": "Label-blind supplied templates + ASCII URL/identifier-stripped SequenceMatcher >=.85 connected components; heuristic, not verified campaign identity",
+    "sources": {
+      "bwandowando": {
+        "records": 128,
+        "ham": 0,
+        "smishing": 128,
+        "scam_fraction": 1.0
+      },
+      "marketing": {
+        "records": 1002,
+        "ham": 858,
+        "smishing": 144,
+        "scam_fraction": 0.1437125748502994
+      },
+      "tagalog": {
+        "records": 1424,
+        "ham": 1371,
+        "smishing": 53,
+        "scam_fraction": 0.037219101123595506
+      }
+    },
+    "human_review": "Pending; no category converted to ground truth",
+    "data_history": "Previously exposed; retrospective comparisons only"
+  },
+  "upstream_record_audit": {
+    "input_sha256": "c3abc4bb23742226deab491821c1828559d895242da55267c77ae6f7dfa07b21",
+    "audit": {
+      "input_records": 3340,
+      "eligible_records": 3281,
+      "unique_raw_messages": 2615,
+      "unique_normalized_messages": 2554,
+      "exact_duplicate_extra_rows": 727,
+      "conflicting_exact_groups": 0,
+      "exclusions": {
+        "pending_manual_review": 59
+      },
+      "missing": {
+        "text": 0,
+        "label": 0,
+        "source": 0,
+        "language": 0,
+        "category": 0,
+        "received_at": 3340,
+        "sender": 3340,
+        "campaign": 3340,
+        "conversation": 3340
+      },
+      "distributions": {
+        "label": {
+          "0": 2926,
+          "1": 355
+        },
+        "source": {
+          "tagalog": 2106,
+          "marketing": 1029,
+          "bwandowando": 146
+        },
+        "language": {
+          "English": 2387,
+          "Filipino/Taglish": 894
+        },
+        "category": {
+          "Legit message": 2926,
+          "Impersonation (bank, e-wallet, government, courier, or brand)": 198,
+          "Fake prize / reward / refund": 66,
+          "Fake emergency / load request": 1,
+          "Fake prize (reply or text to claim)": 7,
+          "Fake winnings/credit (gambling lure)": 58,
+          "Fake friend testimony (gambling or investment lure)": 15,
+          "Account / fine / delivery threat": 10
+        }
+      },
+      "label_mapping": {
+        "0": "ham (inherited, independently unverified)",
+        "1": "smishing (positive, inherited, independently unverified)"
+      },
+      "preprocessing": "Collapse whitespace only before vectorization; preserve raw text/original labels privately; no translation/stemming/stopwords",
+      "label_quality": "No silent relabeling; generic spam/marketing are unsupported without explicit phishing labels",
+      "limitations": [
+        "Source categories and language metadata are inherited, not verified annotations",
+        "Masked existing views have already replaced identifiers/links; raw traffic performance needs independent testing",
+        "No verified receipt timestamps: chronological evaluation unavailable",
+        "Entire available study corpus historically exposed; no untouched test claim",
+        "Published source licenses do not establish all acquisition/privacy/redistribution rights"
+      ]
+    }
+  },
+  "reproducibility": {
+    "splits_identical": true,
+    "selection_identical": true,
+    "all_family_holdout_score_errors": {
+      "A": 0.0,
+      "B": 0.0,
+      "C": 0.0,
+      "D": 0.0,
+      "E": 0.0
+    },
+    "native_inference_parameters_identical": true,
+    "old_source_snapshot_matches_freeze": true,
+    "corrected_missing_labels": 0,
+    "interpretation": "Fresh notebook repeats fixed method after audit-count-only correction; no tuning/reselection from prior holdout"
+  },
+  "matched_character_ablation": {
+    "combined": {
+      "default": {
+        "records": 383,
+        "accuracy": 0.95822454308094,
+        "precision": 0.76,
+        "recall": 0.6551724137931034,
+        "f1": 0.7037037037037037,
+        "macro_f1": 0.8406158967956721,
+        "average_precision": 0.825372083164668,
+        "pr_auc": 0.8224680207029791,
+        "roc_auc": 0.9817845314630821,
+        "confusion": {
+          "tn": 348,
+          "fp": 6,
+          "fn": 10,
+          "tp": 19
+        },
+        "fpr": 0.01694915254237288,
+        "brier": 0.031780604765364526,
+        "probability_estimate": true
+      },
+      "operating_point": {
+        "threshold": 0.9560955346185261,
+        "metrics": {
+          "records": 383,
+          "accuracy": 0.9556135770234987,
+          "precision": 0.9285714285714286,
+          "recall": 0.4482758620689655,
+          "f1": 0.6046511627906976,
+          "macro_f1": 0.7905690115474926,
+          "average_precision": 0.825372083164668,
+          "pr_auc": 0.8224680207029791,
+          "roc_auc": 0.9817845314630821,
+          "confusion": {
+            "tn": 353,
+            "fp": 1,
+            "fn": 16,
+            "tp": 13
+          },
+          "fpr": 0.002824858757062147,
+          "brier": 0.031780604765364526,
+          "probability_estimate": true
+        }
+      },
+      "feature_count": 64829,
+      "training_seconds": 3.3031268000004275
+    },
+    "word_only": {
+      "default": {
+        "records": 383,
+        "accuracy": 0.9556135770234987,
+        "precision": 0.75,
+        "recall": 0.6206896551724138,
+        "f1": 0.6792452830188679,
+        "macro_f1": 0.827701182883908,
+        "average_precision": 0.7878314441793282,
+        "pr_auc": 0.7844416204775387,
+        "roc_auc": 0.9703876875121762,
+        "confusion": {
+          "tn": 348,
+          "fp": 6,
+          "fn": 11,
+          "tp": 18
+        },
+        "fpr": 0.01694915254237288,
+        "brier": 0.033000087265136945,
+        "probability_estimate": true
+      },
+      "operating_point": {
+        "threshold": 0.8889890725687726,
+        "metrics": {
+          "records": 383,
+          "accuracy": 0.9530026109660574,
+          "precision": 0.9230769230769231,
+          "recall": 0.41379310344827586,
+          "f1": 0.5714285714285714,
+          "macro_f1": 0.7732833464877664,
+          "average_precision": 0.7878314441793282,
+          "pr_auc": 0.7844416204775387,
+          "roc_auc": 0.9703876875121762,
+          "confusion": {
+            "tn": 353,
+            "fp": 1,
+            "fn": 17,
+            "tp": 12
+          },
+          "fpr": 0.002824858757062147,
+          "brier": 0.033000087265136945,
+          "probability_estimate": true
+        }
+      },
+      "feature_count": 23958,
+      "training_seconds": 0.6372350000001461
+    }
+  },
+  "baseline_replay": [
+    {
+      "id": "svm-C-10.0",
+      "max_score_error": 0.0,
+      "metrics": {
+        "records": 498,
+        "precision": 0.9459459459459459,
+        "recall": 0.958904109589041,
+        "f1": 0.9523809523809523,
+        "accuracy": 0.9859437751004017,
+        "average_precision": 0.9852930833663742,
+        "roc_auc": 0.997324738114424,
+        "false_positive_rate": 0.009411764705882352,
+        "false_negative_rate": 0.0410958904109589,
+        "confusion": {
+          "tn": 421,
+          "fp": 4,
+          "fn": 3,
+          "tp": 70
+        },
+        "brier": 0.015670706124958904,
+        "log_loss": 0.06074149424438773,
+        "ranking_score": "probability-like, calibration quality unvalidated"
+      },
+      "pipeline_sha256": "761e9e4de331b0229eaf337d14ce63a4ea3a1482563c2ff07ee0aa4a0a5947d6"
+    },
+    {
+      "id": "lr-C-10.0",
+      "max_score_error": 0.0,
+      "metrics": {
+        "records": 498,
+        "precision": 0.9295774647887324,
+        "recall": 0.9041095890410958,
+        "f1": 0.9166666666666666,
+        "accuracy": 0.9759036144578314,
+        "average_precision": 0.964889375339977,
+        "roc_auc": 0.9911039484286867,
+        "false_positive_rate": 0.011764705882352941,
+        "false_negative_rate": 0.0958904109589041,
+        "confusion": {
+          "tn": 420,
+          "fp": 5,
+          "fn": 7,
+          "tp": 66
+        },
+        "brier": 0.03977516249798566,
+        "log_loss": 0.13343686659050383,
+        "ranking_score": "probability-like, calibration quality unvalidated"
+      },
+      "pipeline_sha256": "a149cd81b973740a7b41ac62a9194639a61ee0fa1c9c547b63b5f8e7838219b0"
+    },
+    {
+      "id": "nb-word1-english",
+      "max_score_error": 0.0,
+      "metrics": {
+        "records": 498,
+        "precision": 0.9516129032258065,
+        "recall": 0.8082191780821918,
+        "f1": 0.874074074074074,
+        "accuracy": 0.9658634538152611,
+        "average_precision": 0.9491788700715966,
+        "roc_auc": 0.9852377115229654,
+        "false_positive_rate": 0.007058823529411765,
+        "false_negative_rate": 0.1917808219178082,
+        "confusion": {
+          "tn": 422,
+          "fp": 3,
+          "fn": 14,
+          "tp": 59
+        },
+        "brier": 0.030866603646149095,
+        "log_loss": 0.10858795476537703,
+        "ranking_score": "probability-like, calibration quality unvalidated"
+      },
+      "pipeline_sha256": "cdf701eac430c272998a3f3dd263467d76ddf80b5bf4aa01004343f3ddccef9a"
+    }
+  ],
+  "selection": {
+    "selected": {
+      "id": "E-065-sigmoid",
+      "fit_id": "E-065",
+      "family": "E",
+      "spec": {
+        "id": "E-065",
+        "family": "E",
+        "algorithm": "nb",
+        "combined": false,
+        "min_df": 2,
+        "max_features": 20000,
+        "word_ngrams": [
+          1,
+          2
+        ],
+        "char_ngrams": [
+          3,
+          5
+        ],
+        "value": 0.03,
+        "class_weight": null
+      },
+      "mode": "sigmoid",
+      "threshold": 0.5147900878024994,
+      "validation": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "default_validation": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "feasible": true,
+      "training_seconds": 0.6138007999998081,
+      "artifact_bytes": 685981,
+      "feature_count": 9265,
+      "sparse_training_bytes": 1089560
+    },
+    "family_winners": {
+      "A": {
+        "id": "A-007-sigmoid",
+        "fit_id": "A-007",
+        "family": "A",
+        "spec": {
+          "id": "A-007",
+          "family": "A",
+          "algorithm": "lr",
+          "combined": false,
+          "min_df": 2,
+          "max_features": 20000,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_ngrams": [
+            3,
+            5
+          ],
+          "value": 0.1,
+          "class_weight": "balanced"
+        },
+        "mode": "sigmoid",
+        "threshold": 0.7521182698988875,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.95822454308094,
+          "precision": 1.0,
+          "recall": 0.4482758620689655,
+          "f1": 0.6190476190476191,
+          "macro_f1": 0.7984740857669035,
+          "average_precision": 0.6621570962315797,
+          "pr_auc": 0.6594676984203249,
+          "roc_auc": 0.9001558542762517,
+          "confusion": {
+            "tn": 354,
+            "fp": 0,
+            "fn": 16,
+            "tp": 13
+          },
+          "fpr": 0.0,
+          "brier": 0.04064656219569546,
+          "probability_estimate": true
+        },
+        "default_validation": {
+          "records": 383,
+          "accuracy": 0.9530026109660574,
+          "precision": 0.7894736842105263,
+          "recall": 0.5172413793103449,
+          "f1": 0.625,
+          "macro_f1": 0.7999651810584958,
+          "average_precision": 0.6621570962315797,
+          "pr_auc": 0.6594676984203249,
+          "roc_auc": 0.9001558542762517,
+          "confusion": {
+            "tn": 350,
+            "fp": 4,
+            "fn": 14,
+            "tp": 15
+          },
+          "fpr": 0.011299435028248588,
+          "brier": 0.04064656219569546,
+          "probability_estimate": true
+        },
+        "feasible": true,
+        "training_seconds": 0.7512485999995988,
+        "artifact_bytes": 463585,
+        "feature_count": 9265,
+        "sparse_training_bytes": 1089560
+      },
+      "B": {
+        "id": "B-019-sigmoid",
+        "fit_id": "B-019",
+        "family": "B",
+        "spec": {
+          "id": "B-019",
+          "family": "B",
+          "algorithm": "svm",
+          "combined": false,
+          "min_df": 2,
+          "max_features": 20000,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_ngrams": [
+            3,
+            5
+          ],
+          "value": 0.1,
+          "class_weight": "balanced"
+        },
+        "mode": "sigmoid",
+        "threshold": 0.9079593275012872,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.9530026109660574,
+          "precision": 0.9230769230769231,
+          "recall": 0.41379310344827586,
+          "f1": 0.5714285714285714,
+          "macro_f1": 0.7732833464877664,
+          "average_precision": 0.7779744205813066,
+          "pr_auc": 0.7742266476203323,
+          "roc_auc": 0.9699006428988896,
+          "confusion": {
+            "tn": 353,
+            "fp": 1,
+            "fn": 17,
+            "tp": 12
+          },
+          "fpr": 0.002824858757062147,
+          "brier": 0.032931799499559315,
+          "probability_estimate": true
+        },
+        "default_validation": {
+          "records": 383,
+          "accuracy": 0.9556135770234987,
+          "precision": 0.7727272727272727,
+          "recall": 0.5862068965517241,
+          "f1": 0.6666666666666666,
+          "macro_f1": 0.8214452214452215,
+          "average_precision": 0.7779744205813066,
+          "pr_auc": 0.7742266476203323,
+          "roc_auc": 0.9699006428988896,
+          "confusion": {
+            "tn": 349,
+            "fp": 5,
+            "fn": 12,
+            "tp": 17
+          },
+          "fpr": 0.014124293785310734,
+          "brier": 0.032931799499559315,
+          "probability_estimate": true
+        },
+        "feasible": true,
+        "training_seconds": 0.9249808000004123,
+        "artifact_bytes": 463552,
+        "feature_count": 9265,
+        "sparse_training_bytes": 1089560
+      },
+      "C": {
+        "id": "C-025-sigmoid",
+        "fit_id": "C-025",
+        "family": "C",
+        "spec": {
+          "id": "C-025",
+          "family": "C",
+          "algorithm": "svm",
+          "combined": true,
+          "min_df": 1,
+          "max_features": null,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_ngrams": [
+            3,
+            5
+          ],
+          "value": 0.1,
+          "class_weight": "balanced"
+        },
+        "mode": "sigmoid",
+        "threshold": 0.9560955346185261,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.9556135770234987,
+          "precision": 0.9285714285714286,
+          "recall": 0.4482758620689655,
+          "f1": 0.6046511627906976,
+          "macro_f1": 0.7905690115474926,
+          "average_precision": 0.825372083164668,
+          "pr_auc": 0.8224680207029791,
+          "roc_auc": 0.9817845314630821,
+          "confusion": {
+            "tn": 353,
+            "fp": 1,
+            "fn": 16,
+            "tp": 13
+          },
+          "fpr": 0.002824858757062147,
+          "brier": 0.031780604765364526,
+          "probability_estimate": true
+        },
+        "default_validation": {
+          "records": 383,
+          "accuracy": 0.95822454308094,
+          "precision": 0.76,
+          "recall": 0.6551724137931034,
+          "f1": 0.7037037037037037,
+          "macro_f1": 0.8406158967956721,
+          "average_precision": 0.825372083164668,
+          "pr_auc": 0.8224680207029791,
+          "roc_auc": 0.9817845314630821,
+          "confusion": {
+            "tn": 348,
+            "fp": 6,
+            "fn": 10,
+            "tp": 19
+          },
+          "fpr": 0.01694915254237288,
+          "brier": 0.031780604765364526,
+          "probability_estimate": true
+        },
+        "feasible": true,
+        "training_seconds": 3.3234819999997853,
+        "artifact_bytes": 1871081,
+        "feature_count": 64829,
+        "sparse_training_bytes": 7940216
+      },
+      "D": {
+        "id": "D-049-sigmoid",
+        "fit_id": "D-049",
+        "family": "D",
+        "spec": {
+          "id": "D-049",
+          "family": "D",
+          "algorithm": "lr",
+          "combined": true,
+          "min_df": 2,
+          "max_features": 30000,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_ngrams": [
+            3,
+            5
+          ],
+          "value": 0.1,
+          "class_weight": "balanced"
+        },
+        "mode": "sigmoid",
+        "threshold": 0.8393226074643342,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.9608355091383812,
+          "precision": 1.0,
+          "recall": 0.4827586206896552,
+          "f1": 0.6511627906976745,
+          "macro_f1": 0.8152079513654347,
+          "average_precision": 0.6900917134896241,
+          "pr_auc": 0.6875684742622801,
+          "roc_auc": 0.9235339957140074,
+          "confusion": {
+            "tn": 354,
+            "fp": 0,
+            "fn": 15,
+            "tp": 14
+          },
+          "fpr": 0.0,
+          "brier": 0.041840094015192036,
+          "probability_estimate": true
+        },
+        "default_validation": {
+          "records": 383,
+          "accuracy": 0.9503916449086162,
+          "precision": 0.7272727272727273,
+          "recall": 0.5517241379310345,
+          "f1": 0.6274509803921569,
+          "macro_f1": 0.8004387769093652,
+          "average_precision": 0.6900917134896241,
+          "pr_auc": 0.6875684742622801,
+          "roc_auc": 0.9235339957140074,
+          "confusion": {
+            "tn": 348,
+            "fp": 6,
+            "fn": 13,
+            "tp": 16
+          },
+          "fpr": 0.01694915254237288,
+          "brier": 0.041840094015192036,
+          "probability_estimate": true
+        },
+        "feasible": true,
+        "training_seconds": 3.016697100001693,
+        "artifact_bytes": 1470136,
+        "feature_count": 33098,
+        "sparse_training_bytes": 7559444
+      },
+      "E": {
+        "id": "E-065-sigmoid",
+        "fit_id": "E-065",
+        "family": "E",
+        "spec": {
+          "id": "E-065",
+          "family": "E",
+          "algorithm": "nb",
+          "combined": false,
+          "min_df": 2,
+          "max_features": 20000,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_ngrams": [
+            3,
+            5
+          ],
+          "value": 0.03,
+          "class_weight": null
+        },
+        "mode": "sigmoid",
+        "threshold": 0.5147900878024994,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.9765013054830287,
+          "precision": 0.9166666666666666,
+          "recall": 0.7586206896551724,
+          "f1": 0.8301886792452831,
+          "macro_f1": 0.9087829791738337,
+          "average_precision": 0.8811403225750355,
+          "pr_auc": 0.8790773525179822,
+          "roc_auc": 0.9850964348334307,
+          "confusion": {
+            "tn": 352,
+            "fp": 2,
+            "fn": 7,
+            "tp": 22
+          },
+          "fpr": 0.005649717514124294,
+          "brier": 0.02274956495947629,
+          "probability_estimate": true
+        },
+        "default_validation": {
+          "records": 383,
+          "accuracy": 0.9765013054830287,
+          "precision": 0.9166666666666666,
+          "recall": 0.7586206896551724,
+          "f1": 0.8301886792452831,
+          "macro_f1": 0.9087829791738337,
+          "average_precision": 0.8811403225750355,
+          "pr_auc": 0.8790773525179822,
+          "roc_auc": 0.9850964348334307,
+          "confusion": {
+            "tn": 352,
+            "fp": 2,
+            "fn": 7,
+            "tp": 22
+          },
+          "fpr": 0.005649717514124294,
+          "brier": 0.02274956495947629,
+          "probability_estimate": true
+        },
+        "feasible": true,
+        "training_seconds": 0.6138007999998081,
+        "artifact_bytes": 685981,
+        "feature_count": 9265,
+        "sparse_training_bytes": 1089560
+      }
+    },
+    "policy": {
+      "precision_floor": 0.9,
+      "fpr_ceiling": 0.02,
+      "minimum_tp": 5,
+      "objective": "recall, then phishing F1, average precision, smaller serialized model",
+      "status": "Provisional research goals; independent deployment acceptance pending"
+    },
+    "history": "previously_used",
+    "interpretation": "Validation-selected retrospective research candidate; production unchanged; no future-traffic winner",
+    "seed_variability": [
+      {
+        "seed": 43,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.9712793733681462,
+          "precision": 0.9090909090909091,
+          "recall": 0.6896551724137931,
+          "f1": 0.7843137254901961,
+          "macro_f1": 0.8844645550527903,
+          "average_precision": 0.8811403225750355,
+          "pr_auc": 0.8790773525179822,
+          "roc_auc": 0.9850964348334307,
+          "confusion": {
+            "tn": 352,
+            "fp": 2,
+            "fn": 9,
+            "tp": 20
+          },
+          "fpr": 0.005649717514124294,
+          "brier": 0.02272308941615167,
+          "probability_estimate": true
+        }
+      },
+      {
+        "seed": 44,
+        "validation": {
+          "records": 383,
+          "accuracy": 0.9765013054830287,
+          "precision": 0.9166666666666666,
+          "recall": 0.7586206896551724,
+          "f1": 0.8301886792452831,
+          "macro_f1": 0.9087829791738337,
+          "average_precision": 0.8811403225750355,
+          "pr_auc": 0.8790773525179822,
+          "roc_auc": 0.9850964348334307,
+          "confusion": {
+            "tn": 352,
+            "fp": 2,
+            "fn": 7,
+            "tp": 22
+          },
+          "fpr": 0.005649717514124294,
+          "brier": 0.02278475111878373,
+          "probability_estimate": true
+        }
+      }
+    ]
+  },
+  "holdout": {
+    "results": {
+      "A": {
+        "candidate": {
+          "id": "A-007-sigmoid",
+          "fit_id": "A-007",
+          "family": "A",
+          "spec": {
+            "id": "A-007",
+            "family": "A",
+            "algorithm": "lr",
+            "combined": false,
+            "min_df": 2,
+            "max_features": 20000,
+            "word_ngrams": [
+              1,
+              2
+            ],
+            "char_ngrams": [
+              3,
+              5
+            ],
+            "value": 0.1,
+            "class_weight": "balanced"
+          },
+          "mode": "sigmoid",
+          "threshold": 0.7521182698988875,
+          "validation": {
+            "records": 383,
+            "accuracy": 0.95822454308094,
+            "precision": 1.0,
+            "recall": 0.4482758620689655,
+            "f1": 0.6190476190476191,
+            "macro_f1": 0.7984740857669035,
+            "average_precision": 0.6621570962315797,
+            "pr_auc": 0.6594676984203249,
+            "roc_auc": 0.9001558542762517,
+            "confusion": {
+              "tn": 354,
+              "fp": 0,
+              "fn": 16,
+              "tp": 13
+            },
+            "fpr": 0.0,
+            "brier": 0.04064656219569546,
+            "probability_estimate": true
+          },
+          "default_validation": {
+            "records": 383,
+            "accuracy": 0.9530026109660574,
+            "precision": 0.7894736842105263,
+            "recall": 0.5172413793103449,
+            "f1": 0.625,
+            "macro_f1": 0.7999651810584958,
+            "average_precision": 0.6621570962315797,
+            "pr_auc": 0.6594676984203249,
+            "roc_auc": 0.9001558542762517,
+            "confusion": {
+              "tn": 350,
+              "fp": 4,
+              "fn": 14,
+              "tp": 15
+            },
+            "fpr": 0.011299435028248588,
+            "brier": 0.04064656219569546,
+            "probability_estimate": true
+          },
+          "feasible": true,
+          "training_seconds": 0.7512485999995988,
+          "artifact_bytes": 463585,
+          "feature_count": 9265,
+          "sparse_training_bytes": 1089560
+        },
+        "holdout": {
+          "records": 427,
+          "accuracy": 0.9625292740046838,
+          "precision": 0.9807692307692307,
+          "recall": 0.7727272727272727,
+          "f1": 0.864406779661017,
+          "macro_f1": 0.9213338246131172,
+          "average_precision": 0.9424244045550857,
+          "pr_auc": 0.9421482018458154,
+          "roc_auc": 0.9803575925459582,
+          "confusion": {
+            "tn": 360,
+            "fp": 1,
+            "fn": 15,
+            "tp": 51
+          },
+          "fpr": 0.002770083102493075,
+          "brier": 0.027394497120132824,
+          "probability_estimate": true
+        },
+        "subgroups": {
+          "language:English": {
+            "records": 324,
+            "ham": 266,
+            "phishing": 58,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 324,
+              "accuracy": 0.9537037037037037,
+              "precision": 0.9777777777777777,
+              "recall": 0.7586206896551724,
+              "f1": 0.8543689320388349,
+              "macro_f1": 0.9134229981295092,
+              "average_precision": 0.9477727196021392,
+              "pr_auc": 0.9474640786959033,
+              "roc_auc": 0.9809437386569874,
+              "confusion": {
+                "tn": 265,
+                "fp": 1,
+                "fn": 14,
+                "tp": 44
+              },
+              "fpr": 0.0037593984962406013,
+              "brier": 0.033261959736264786,
+              "probability_estimate": true
+            }
+          },
+          "language:Filipino/Taglish": {
+            "records": 103,
+            "ham": 95,
+            "phishing": 8,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 103,
+              "accuracy": 0.9902912621359223,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333,
+              "macro_f1": 0.9640488656195463,
+              "average_precision": 1.0,
+              "pr_auc": 1.0,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 95,
+                "fp": 0,
+                "fn": 1,
+                "tp": 7
+              },
+              "fpr": 0.0,
+              "brier": 0.008937624424727437,
+              "probability_estimate": true
+            }
+          },
+          "source:bwandowando": {
+            "records": 24,
+            "ham": 0,
+            "phishing": 24,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "source:marketing": {
+            "records": 156,
+            "ham": 121,
+            "phishing": 35,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 156,
+              "accuracy": 0.9615384615384616,
+              "precision": 0.967741935483871,
+              "recall": 0.8571428571428571,
+              "f1": 0.9090909090909091,
+              "macro_f1": 0.9423503325942351,
+              "average_precision": 0.9757499490824918,
+              "pr_auc": 0.9754956669929242,
+              "roc_auc": 0.9891381345926801,
+              "confusion": {
+                "tn": 120,
+                "fp": 1,
+                "fn": 5,
+                "tp": 30
+              },
+              "fpr": 0.008264462809917356,
+              "brier": 0.027446120002069484,
+              "probability_estimate": true
+            }
+          },
+          "source:tagalog": {
+            "records": 247,
+            "ham": 240,
+            "phishing": 7,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 247,
+              "accuracy": 0.9919028340080972,
+              "precision": 1.0,
+              "recall": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "macro_f1": 0.9145919778699863,
+              "average_precision": 0.807017543859649,
+              "pr_auc": 0.8019214703425228,
+              "roc_auc": 0.9839285714285714,
+              "confusion": {
+                "tn": 240,
+                "fp": 0,
+                "fn": 2,
+                "tp": 5
+              },
+              "fpr": 0.0,
+              "brier": 0.009894512337083118,
+              "probability_estimate": true
+            }
+          },
+          "category:Account / fine / delivery threat": {
+            "records": 2,
+            "ham": 0,
+            "phishing": 2,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake friend testimony (gambling or investment lure)": {
+            "records": 1,
+            "ham": 0,
+            "phishing": 1,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake prize / reward / refund": {
+            "records": 10,
+            "ham": 0,
+            "phishing": 10,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake winnings/credit (gambling lure)": {
+            "records": 3,
+            "ham": 0,
+            "phishing": 3,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Impersonation (bank, e-wallet, government, courier, or brand)": {
+            "records": 50,
+            "ham": 0,
+            "phishing": 50,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Legit message": {
+            "records": 361,
+            "ham": 361,
+            "phishing": 0,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          }
+        },
+        "latency": {
+          "host_batch_ms_per_sms": 0.05945737705031896,
+          "host_single_p50_ms": 0.46459999975922983,
+          "host_single_p95_ms": 0.6424250015697908,
+          "samples": 100,
+          "android": "Separate JVM and instrumentation checks; physical-device benchmark pending"
+        },
+        "predictions_file": "holdout-A-predictions.json"
+      },
+      "B": {
+        "candidate": {
+          "id": "B-019-sigmoid",
+          "fit_id": "B-019",
+          "family": "B",
+          "spec": {
+            "id": "B-019",
+            "family": "B",
+            "algorithm": "svm",
+            "combined": false,
+            "min_df": 2,
+            "max_features": 20000,
+            "word_ngrams": [
+              1,
+              2
+            ],
+            "char_ngrams": [
+              3,
+              5
+            ],
+            "value": 0.1,
+            "class_weight": "balanced"
+          },
+          "mode": "sigmoid",
+          "threshold": 0.9079593275012872,
+          "validation": {
+            "records": 383,
+            "accuracy": 0.9530026109660574,
+            "precision": 0.9230769230769231,
+            "recall": 0.41379310344827586,
+            "f1": 0.5714285714285714,
+            "macro_f1": 0.7732833464877664,
+            "average_precision": 0.7779744205813066,
+            "pr_auc": 0.7742266476203323,
+            "roc_auc": 0.9699006428988896,
+            "confusion": {
+              "tn": 353,
+              "fp": 1,
+              "fn": 17,
+              "tp": 12
+            },
+            "fpr": 0.002824858757062147,
+            "brier": 0.032931799499559315,
+            "probability_estimate": true
+          },
+          "default_validation": {
+            "records": 383,
+            "accuracy": 0.9556135770234987,
+            "precision": 0.7727272727272727,
+            "recall": 0.5862068965517241,
+            "f1": 0.6666666666666666,
+            "macro_f1": 0.8214452214452215,
+            "average_precision": 0.7779744205813066,
+            "pr_auc": 0.7742266476203323,
+            "roc_auc": 0.9699006428988896,
+            "confusion": {
+              "tn": 349,
+              "fp": 5,
+              "fn": 12,
+              "tp": 17
+            },
+            "fpr": 0.014124293785310734,
+            "brier": 0.032931799499559315,
+            "probability_estimate": true
+          },
+          "feasible": true,
+          "training_seconds": 0.9249808000004123,
+          "artifact_bytes": 463552,
+          "feature_count": 9265,
+          "sparse_training_bytes": 1089560
+        },
+        "holdout": {
+          "records": 427,
+          "accuracy": 0.9672131147540983,
+          "precision": 0.9814814814814815,
+          "recall": 0.803030303030303,
+          "f1": 0.8833333333333333,
+          "macro_f1": 0.9321298819255223,
+          "average_precision": 0.9884570364899382,
+          "pr_auc": 0.98836582311149,
+          "roc_auc": 0.997901452195081,
+          "confusion": {
+            "tn": 360,
+            "fp": 1,
+            "fn": 13,
+            "tp": 53
+          },
+          "fpr": 0.002770083102493075,
+          "brier": 0.014842841934115272,
+          "probability_estimate": true
+        },
+        "subgroups": {
+          "language:English": {
+            "records": 324,
+            "ham": 266,
+            "phishing": 58,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 324,
+              "accuracy": 0.9598765432098766,
+              "precision": 0.9787234042553191,
+              "recall": 0.7931034482758621,
+              "f1": 0.8761904761904762,
+              "macro_f1": 0.9261247040252565,
+              "average_precision": 0.985822874571209,
+              "pr_auc": 0.9856963935983092,
+              "roc_auc": 0.9968887736582835,
+              "confusion": {
+                "tn": 265,
+                "fp": 1,
+                "fn": 12,
+                "tp": 46
+              },
+              "fpr": 0.0037593984962406013,
+              "brier": 0.01940417014194891,
+              "probability_estimate": true
+            }
+          },
+          "language:Filipino/Taglish": {
+            "records": 103,
+            "ham": 95,
+            "phishing": 8,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 103,
+              "accuracy": 0.9902912621359223,
+              "precision": 1.0,
+              "recall": 0.875,
+              "f1": 0.9333333333333333,
+              "macro_f1": 0.9640488656195463,
+              "average_precision": 1.0,
+              "pr_auc": 1.0,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 95,
+                "fp": 0,
+                "fn": 1,
+                "tp": 7
+              },
+              "fpr": 0.0,
+              "brier": 0.0004945862123861557,
+              "probability_estimate": true
+            }
+          },
+          "source:bwandowando": {
+            "records": 24,
+            "ham": 0,
+            "phishing": 24,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "source:marketing": {
+            "records": 156,
+            "ham": 121,
+            "phishing": 35,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 156,
+              "accuracy": 0.967948717948718,
+              "precision": 0.96875,
+              "recall": 0.8857142857142857,
+              "f1": 0.9253731343283582,
+              "macro_f1": 0.952482485531526,
+              "average_precision": 0.9899695028291087,
+              "pr_auc": 0.9898168101730989,
+              "roc_auc": 0.9971664698937426,
+              "confusion": {
+                "tn": 120,
+                "fp": 1,
+                "fn": 4,
+                "tp": 31
+              },
+              "fpr": 0.008264462809917356,
+              "brier": 0.020143176814542165,
+              "probability_estimate": true
+            }
+          },
+          "source:tagalog": {
+            "records": 247,
+            "ham": 240,
+            "phishing": 7,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 247,
+              "accuracy": 0.9919028340080972,
+              "precision": 1.0,
+              "recall": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "macro_f1": 0.9145919778699863,
+              "average_precision": 0.9999999999999998,
+              "pr_auc": 0.9999999999999998,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 240,
+                "fp": 0,
+                "fn": 2,
+                "tp": 5
+              },
+              "fpr": 0.0,
+              "brier": 0.004220655475338361,
+              "probability_estimate": true
+            }
+          },
+          "category:Account / fine / delivery threat": {
+            "records": 2,
+            "ham": 0,
+            "phishing": 2,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake friend testimony (gambling or investment lure)": {
+            "records": 1,
+            "ham": 0,
+            "phishing": 1,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake prize / reward / refund": {
+            "records": 10,
+            "ham": 0,
+            "phishing": 10,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake winnings/credit (gambling lure)": {
+            "records": 3,
+            "ham": 0,
+            "phishing": 3,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Impersonation (bank, e-wallet, government, courier, or brand)": {
+            "records": 50,
+            "ham": 0,
+            "phishing": 50,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Legit message": {
+            "records": 361,
+            "ham": 361,
+            "phishing": 0,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          }
+        },
+        "latency": {
+          "host_batch_ms_per_sms": 0.04615386417134233,
+          "host_single_p50_ms": 0.4695999996329192,
+          "host_single_p95_ms": 0.5836049988829473,
+          "samples": 100,
+          "android": "Separate JVM and instrumentation checks; physical-device benchmark pending"
+        },
+        "predictions_file": "holdout-B-predictions.json"
+      },
+      "C": {
+        "candidate": {
+          "id": "C-025-sigmoid",
+          "fit_id": "C-025",
+          "family": "C",
+          "spec": {
+            "id": "C-025",
+            "family": "C",
+            "algorithm": "svm",
+            "combined": true,
+            "min_df": 1,
+            "max_features": null,
+            "word_ngrams": [
+              1,
+              2
+            ],
+            "char_ngrams": [
+              3,
+              5
+            ],
+            "value": 0.1,
+            "class_weight": "balanced"
+          },
+          "mode": "sigmoid",
+          "threshold": 0.9560955346185261,
+          "validation": {
+            "records": 383,
+            "accuracy": 0.9556135770234987,
+            "precision": 0.9285714285714286,
+            "recall": 0.4482758620689655,
+            "f1": 0.6046511627906976,
+            "macro_f1": 0.7905690115474926,
+            "average_precision": 0.825372083164668,
+            "pr_auc": 0.8224680207029791,
+            "roc_auc": 0.9817845314630821,
+            "confusion": {
+              "tn": 353,
+              "fp": 1,
+              "fn": 16,
+              "tp": 13
+            },
+            "fpr": 0.002824858757062147,
+            "brier": 0.031780604765364526,
+            "probability_estimate": true
+          },
+          "default_validation": {
+            "records": 383,
+            "accuracy": 0.95822454308094,
+            "precision": 0.76,
+            "recall": 0.6551724137931034,
+            "f1": 0.7037037037037037,
+            "macro_f1": 0.8406158967956721,
+            "average_precision": 0.825372083164668,
+            "pr_auc": 0.8224680207029791,
+            "roc_auc": 0.9817845314630821,
+            "confusion": {
+              "tn": 348,
+              "fp": 6,
+              "fn": 10,
+              "tp": 19
+            },
+            "fpr": 0.01694915254237288,
+            "brier": 0.031780604765364526,
+            "probability_estimate": true
+          },
+          "feasible": true,
+          "training_seconds": 3.3234819999997853,
+          "artifact_bytes": 1871081,
+          "feature_count": 64829,
+          "sparse_training_bytes": 7940216
+        },
+        "holdout": {
+          "records": 427,
+          "accuracy": 0.9672131147540983,
+          "precision": 1.0,
+          "recall": 0.7878787878787878,
+          "f1": 0.8813559322033898,
+          "macro_f1": 0.9311670965364776,
+          "average_precision": 0.994433048911273,
+          "pr_auc": 0.9943910943842654,
+          "roc_auc": 0.9989507260975405,
+          "confusion": {
+            "tn": 361,
+            "fp": 0,
+            "fn": 14,
+            "tp": 52
+          },
+          "fpr": 0.0,
+          "brier": 0.008874461131920947,
+          "probability_estimate": true
+        },
+        "subgroups": {
+          "language:English": {
+            "records": 324,
+            "ham": 266,
+            "phishing": 58,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 324,
+              "accuracy": 0.9567901234567902,
+              "precision": 1.0,
+              "recall": 0.7586206896551724,
+              "f1": 0.8627450980392157,
+              "macro_f1": 0.9185520361990951,
+              "average_precision": 0.9928100326068601,
+              "pr_auc": 0.9927482149669132,
+              "roc_auc": 0.9983795696136893,
+              "confusion": {
+                "tn": 266,
+                "fp": 0,
+                "fn": 14,
+                "tp": 44
+              },
+              "fpr": 0.0,
+              "brier": 0.011570840404148937,
+              "probability_estimate": true
+            }
+          },
+          "language:Filipino/Taglish": {
+            "records": 103,
+            "ham": 95,
+            "phishing": 8,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 103,
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "macro_f1": 1.0,
+              "average_precision": 1.0,
+              "pr_auc": 1.0,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 95,
+                "fp": 0,
+                "fn": 0,
+                "tp": 8
+              },
+              "fpr": 0.0,
+              "brier": 0.0003926467221940666,
+              "probability_estimate": true
+            }
+          },
+          "source:bwandowando": {
+            "records": 24,
+            "ham": 0,
+            "phishing": 24,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "source:marketing": {
+            "records": 156,
+            "ham": 121,
+            "phishing": 35,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 156,
+              "accuracy": 0.9615384615384616,
+              "precision": 1.0,
+              "recall": 0.8285714285714286,
+              "f1": 0.90625,
+              "macro_f1": 0.9410282258064516,
+              "average_precision": 0.9943290402285316,
+              "pr_auc": 0.9942458923913212,
+              "roc_auc": 0.9983471074380165,
+              "confusion": {
+                "tn": 121,
+                "fp": 0,
+                "fn": 6,
+                "tp": 29
+              },
+              "fpr": 0.0,
+              "brier": 0.01410178225658171,
+              "probability_estimate": true
+            }
+          },
+          "source:tagalog": {
+            "records": 247,
+            "ham": 240,
+            "phishing": 7,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 247,
+              "accuracy": 0.9919028340080972,
+              "precision": 1.0,
+              "recall": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "macro_f1": 0.9145919778699863,
+              "average_precision": 0.9999999999999998,
+              "pr_auc": 0.9999999999999998,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 240,
+                "fp": 0,
+                "fn": 2,
+                "tp": 5
+              },
+              "fpr": 0.0,
+              "brier": 0.0018306623258891595,
+              "probability_estimate": true
+            }
+          },
+          "category:Account / fine / delivery threat": {
+            "records": 2,
+            "ham": 0,
+            "phishing": 2,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake friend testimony (gambling or investment lure)": {
+            "records": 1,
+            "ham": 0,
+            "phishing": 1,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake prize / reward / refund": {
+            "records": 10,
+            "ham": 0,
+            "phishing": 10,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake winnings/credit (gambling lure)": {
+            "records": 3,
+            "ham": 0,
+            "phishing": 3,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Impersonation (bank, e-wallet, government, courier, or brand)": {
+            "records": 50,
+            "ham": 0,
+            "phishing": 50,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Legit message": {
+            "records": 361,
+            "ham": 361,
+            "phishing": 0,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          }
+        },
+        "latency": {
+          "host_batch_ms_per_sms": 0.20962693208778269,
+          "host_single_p50_ms": 1.3243499997770414,
+          "host_single_p95_ms": 2.067500001066946,
+          "samples": 100,
+          "android": "Separate JVM and instrumentation checks; physical-device benchmark pending"
+        },
+        "predictions_file": "holdout-C-predictions.json"
+      },
+      "D": {
+        "candidate": {
+          "id": "D-049-sigmoid",
+          "fit_id": "D-049",
+          "family": "D",
+          "spec": {
+            "id": "D-049",
+            "family": "D",
+            "algorithm": "lr",
+            "combined": true,
+            "min_df": 2,
+            "max_features": 30000,
+            "word_ngrams": [
+              1,
+              2
+            ],
+            "char_ngrams": [
+              3,
+              5
+            ],
+            "value": 0.1,
+            "class_weight": "balanced"
+          },
+          "mode": "sigmoid",
+          "threshold": 0.8393226074643342,
+          "validation": {
+            "records": 383,
+            "accuracy": 0.9608355091383812,
+            "precision": 1.0,
+            "recall": 0.4827586206896552,
+            "f1": 0.6511627906976745,
+            "macro_f1": 0.8152079513654347,
+            "average_precision": 0.6900917134896241,
+            "pr_auc": 0.6875684742622801,
+            "roc_auc": 0.9235339957140074,
+            "confusion": {
+              "tn": 354,
+              "fp": 0,
+              "fn": 15,
+              "tp": 14
+            },
+            "fpr": 0.0,
+            "brier": 0.041840094015192036,
+            "probability_estimate": true
+          },
+          "default_validation": {
+            "records": 383,
+            "accuracy": 0.9503916449086162,
+            "precision": 0.7272727272727273,
+            "recall": 0.5517241379310345,
+            "f1": 0.6274509803921569,
+            "macro_f1": 0.8004387769093652,
+            "average_precision": 0.6900917134896241,
+            "pr_auc": 0.6875684742622801,
+            "roc_auc": 0.9235339957140074,
+            "confusion": {
+              "tn": 348,
+              "fp": 6,
+              "fn": 13,
+              "tp": 16
+            },
+            "fpr": 0.01694915254237288,
+            "brier": 0.041840094015192036,
+            "probability_estimate": true
+          },
+          "feasible": true,
+          "training_seconds": 3.016697100001693,
+          "artifact_bytes": 1470136,
+          "feature_count": 33098,
+          "sparse_training_bytes": 7559444
+        },
+        "holdout": {
+          "records": 427,
+          "accuracy": 0.9672131147540983,
+          "precision": 0.9814814814814815,
+          "recall": 0.803030303030303,
+          "f1": 0.8833333333333333,
+          "macro_f1": 0.9321298819255223,
+          "average_precision": 0.965585389907108,
+          "pr_auc": 0.9654232645906258,
+          "roc_auc": 0.9875765969948795,
+          "confusion": {
+            "tn": 360,
+            "fp": 1,
+            "fn": 13,
+            "tp": 53
+          },
+          "fpr": 0.002770083102493075,
+          "brier": 0.020524210106382168,
+          "probability_estimate": true
+        },
+        "subgroups": {
+          "language:English": {
+            "records": 324,
+            "ham": 266,
+            "phishing": 58,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 324,
+              "accuracy": 0.9567901234567902,
+              "precision": 0.9782608695652174,
+              "recall": 0.7758620689655172,
+              "f1": 0.8653846153846154,
+              "macro_f1": 0.9198246606334841,
+              "average_precision": 0.9660628863977854,
+              "pr_auc": 0.9658669293795413,
+              "roc_auc": 0.9867772880477055,
+              "confusion": {
+                "tn": 265,
+                "fp": 1,
+                "fn": 13,
+                "tp": 45
+              },
+              "fpr": 0.0037593984962406013,
+              "brier": 0.025290232275008272,
+              "probability_estimate": true
+            }
+          },
+          "language:Filipino/Taglish": {
+            "records": 103,
+            "ham": 95,
+            "phishing": 8,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 103,
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "macro_f1": 1.0,
+              "average_precision": 1.0,
+              "pr_auc": 1.0,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 95,
+                "fp": 0,
+                "fn": 0,
+                "tp": 8
+              },
+              "fpr": 0.0,
+              "brier": 0.005532062702160263,
+              "probability_estimate": true
+            }
+          },
+          "source:bwandowando": {
+            "records": 24,
+            "ham": 0,
+            "phishing": 24,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "source:marketing": {
+            "records": 156,
+            "ham": 121,
+            "phishing": 35,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 156,
+              "accuracy": 0.9615384615384616,
+              "precision": 0.967741935483871,
+              "recall": 0.8571428571428571,
+              "f1": 0.9090909090909091,
+              "macro_f1": 0.9423503325942351,
+              "average_precision": 0.9791861137880064,
+              "pr_auc": 0.9789859295644004,
+              "roc_auc": 0.9898465171192444,
+              "confusion": {
+                "tn": 120,
+                "fp": 1,
+                "fn": 5,
+                "tp": 30
+              },
+              "fpr": 0.008264462809917356,
+              "brier": 0.020528866093487134,
+              "probability_estimate": true
+            }
+          },
+          "source:tagalog": {
+            "records": 247,
+            "ham": 240,
+            "phishing": 7,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 247,
+              "accuracy": 0.9919028340080972,
+              "precision": 1.0,
+              "recall": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "macro_f1": 0.9145919778699863,
+              "average_precision": 0.9047619047619047,
+              "pr_auc": 0.8995052566481136,
+              "roc_auc": 0.9958333333333333,
+              "confusion": {
+                "tn": 240,
+                "fp": 0,
+                "fn": 2,
+                "tp": 5
+              },
+              "fpr": 0.0,
+              "brier": 0.008153327648578958,
+              "probability_estimate": true
+            }
+          },
+          "category:Account / fine / delivery threat": {
+            "records": 2,
+            "ham": 0,
+            "phishing": 2,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake friend testimony (gambling or investment lure)": {
+            "records": 1,
+            "ham": 0,
+            "phishing": 1,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake prize / reward / refund": {
+            "records": 10,
+            "ham": 0,
+            "phishing": 10,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake winnings/credit (gambling lure)": {
+            "records": 3,
+            "ham": 0,
+            "phishing": 3,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Impersonation (bank, e-wallet, government, courier, or brand)": {
+            "records": 50,
+            "ham": 0,
+            "phishing": 50,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Legit message": {
+            "records": 361,
+            "ham": 361,
+            "phishing": 0,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          }
+        },
+        "latency": {
+          "host_batch_ms_per_sms": 0.23220843091148793,
+          "host_single_p50_ms": 1.2230500005898648,
+          "host_single_p95_ms": 1.8136100010451626,
+          "samples": 100,
+          "android": "Separate JVM and instrumentation checks; physical-device benchmark pending"
+        },
+        "predictions_file": "holdout-D-predictions.json"
+      },
+      "E": {
+        "candidate": {
+          "id": "E-065-sigmoid",
+          "fit_id": "E-065",
+          "family": "E",
+          "spec": {
+            "id": "E-065",
+            "family": "E",
+            "algorithm": "nb",
+            "combined": false,
+            "min_df": 2,
+            "max_features": 20000,
+            "word_ngrams": [
+              1,
+              2
+            ],
+            "char_ngrams": [
+              3,
+              5
+            ],
+            "value": 0.03,
+            "class_weight": null
+          },
+          "mode": "sigmoid",
+          "threshold": 0.5147900878024994,
+          "validation": {
+            "records": 383,
+            "accuracy": 0.9765013054830287,
+            "precision": 0.9166666666666666,
+            "recall": 0.7586206896551724,
+            "f1": 0.8301886792452831,
+            "macro_f1": 0.9087829791738337,
+            "average_precision": 0.8811403225750355,
+            "pr_auc": 0.8790773525179822,
+            "roc_auc": 0.9850964348334307,
+            "confusion": {
+              "tn": 352,
+              "fp": 2,
+              "fn": 7,
+              "tp": 22
+            },
+            "fpr": 0.005649717514124294,
+            "brier": 0.02274956495947629,
+            "probability_estimate": true
+          },
+          "default_validation": {
+            "records": 383,
+            "accuracy": 0.9765013054830287,
+            "precision": 0.9166666666666666,
+            "recall": 0.7586206896551724,
+            "f1": 0.8301886792452831,
+            "macro_f1": 0.9087829791738337,
+            "average_precision": 0.8811403225750355,
+            "pr_auc": 0.8790773525179822,
+            "roc_auc": 0.9850964348334307,
+            "confusion": {
+              "tn": 352,
+              "fp": 2,
+              "fn": 7,
+              "tp": 22
+            },
+            "fpr": 0.005649717514124294,
+            "brier": 0.02274956495947629,
+            "probability_estimate": true
+          },
+          "feasible": true,
+          "training_seconds": 0.6138007999998081,
+          "artifact_bytes": 685981,
+          "feature_count": 9265,
+          "sparse_training_bytes": 1089560
+        },
+        "holdout": {
+          "records": 427,
+          "accuracy": 0.9789227166276346,
+          "precision": 0.9672131147540983,
+          "recall": 0.8939393939393939,
+          "f1": 0.9291338582677166,
+          "macro_f1": 0.9583771079509147,
+          "average_precision": 0.982947437239327,
+          "pr_auc": 0.9828308653281165,
+          "roc_auc": 0.9964324687316377,
+          "confusion": {
+            "tn": 359,
+            "fp": 2,
+            "fn": 7,
+            "tp": 59
+          },
+          "fpr": 0.00554016620498615,
+          "brier": 0.016119206853661673,
+          "probability_estimate": true
+        },
+        "subgroups": {
+          "language:English": {
+            "records": 324,
+            "ham": 266,
+            "phishing": 58,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 324,
+              "accuracy": 0.9722222222222222,
+              "precision": 0.9622641509433962,
+              "recall": 0.8793103448275862,
+              "f1": 0.918918918918919,
+              "macro_f1": 0.951079571191303,
+              "average_precision": 0.9812628130390004,
+              "pr_auc": 0.9811161239431399,
+              "roc_auc": 0.9953331604874255,
+              "confusion": {
+                "tn": 264,
+                "fp": 2,
+                "fn": 7,
+                "tp": 51
+              },
+              "fpr": 0.007518796992481203,
+              "brier": 0.020222646175944905,
+              "probability_estimate": true
+            }
+          },
+          "language:Filipino/Taglish": {
+            "records": 103,
+            "ham": 95,
+            "phishing": 8,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 103,
+              "accuracy": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "macro_f1": 1.0,
+              "average_precision": 1.0,
+              "pr_auc": 1.0,
+              "roc_auc": 1.0,
+              "confusion": {
+                "tn": 95,
+                "fp": 0,
+                "fn": 0,
+                "tp": 8
+              },
+              "fpr": 0.0,
+              "brier": 0.003211300635994021,
+              "probability_estimate": true
+            }
+          },
+          "source:bwandowando": {
+            "records": 24,
+            "ham": 0,
+            "phishing": 24,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "source:marketing": {
+            "records": 156,
+            "ham": 121,
+            "phishing": 35,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 156,
+              "accuracy": 0.9807692307692307,
+              "precision": 0.9444444444444444,
+              "recall": 0.9714285714285714,
+              "f1": 0.9577464788732394,
+              "macro_f1": 0.9726491730465783,
+              "average_precision": 0.9934073812423565,
+              "pr_auc": 0.9933088724220431,
+              "roc_auc": 0.9981109799291618,
+              "confusion": {
+                "tn": 119,
+                "fp": 2,
+                "fn": 1,
+                "tp": 34
+              },
+              "fpr": 0.01652892561983471,
+              "brier": 0.013652250615591924,
+              "probability_estimate": true
+            }
+          },
+          "source:tagalog": {
+            "records": 247,
+            "ham": 240,
+            "phishing": 7,
+            "adequate_two_class_support": true,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": {
+              "records": 247,
+              "accuracy": 0.9919028340080972,
+              "precision": 1.0,
+              "recall": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "macro_f1": 0.9145919778699863,
+              "average_precision": 0.947845804988662,
+              "pr_auc": 0.9441609977324261,
+              "roc_auc": 0.9982142857142857,
+              "confusion": {
+                "tn": 240,
+                "fp": 0,
+                "fn": 2,
+                "tp": 5
+              },
+              "fpr": 0.0,
+              "brier": 0.006299385814180511,
+              "probability_estimate": true
+            }
+          },
+          "category:Account / fine / delivery threat": {
+            "records": 2,
+            "ham": 0,
+            "phishing": 2,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake friend testimony (gambling or investment lure)": {
+            "records": 1,
+            "ham": 0,
+            "phishing": 1,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake prize / reward / refund": {
+            "records": 10,
+            "ham": 0,
+            "phishing": 10,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Fake winnings/credit (gambling lure)": {
+            "records": 3,
+            "ham": 0,
+            "phishing": 3,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Impersonation (bank, e-wallet, government, courier, or brand)": {
+            "records": 50,
+            "ham": 0,
+            "phishing": 50,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          },
+          "category:Legit message": {
+            "records": 361,
+            "ham": 361,
+            "phishing": 0,
+            "adequate_two_class_support": false,
+            "interpretation": "descriptive inherited subgroup; not independently validated",
+            "metrics": null
+          }
+        },
+        "latency": {
+          "host_batch_ms_per_sms": 0.04844285713921632,
+          "host_single_p50_ms": 0.8509500003128778,
+          "host_single_p95_ms": 1.1178050003763929,
+          "samples": 100,
+          "android": "Separate JVM and instrumentation checks; physical-device benchmark pending"
+        },
+        "predictions_file": "holdout-E-predictions.json",
+        "conditional_cluster_intervals": {
+          "seed": 42,
+          "repetitions": 1000,
+          "valid": 1000,
+          "intervals": {
+            "recall": {
+              "low": 0.6666666666666666,
+              "high": 0.9682581453634085
+            },
+            "precision": {
+              "low": 0.85,
+              "high": 1.0
+            },
+            "f1": {
+              "low": 0.7547015156201671,
+              "high": 0.9743589743589743
+            }
+          },
+          "scope": "Fixed selected model/threshold, cluster percentile bootstrap; excludes label, exposure, selection and training uncertainty"
+        }
+      }
+    },
+    "selected_id": "E-065-sigmoid",
+    "history": "previously_used",
+    "interpretation": "Historically exposed holdout; family winners locked before this run. Cannot establish prospective performance. Never reselect using these results."
+  },
+  "calibration_bins": {
+    "A": {
+      "mean_probability": [
+        1.0014339393530528e-05,
+        6.316117535993168e-05,
+        0.0008146318750496837,
+        0.005529106408355946,
+        0.015447120838619164,
+        0.04369655833275847,
+        0.1936300128391392,
+        0.9765933178758197
+      ],
+      "observed_phishing_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03773584905660377,
+        0.018867924528301886,
+        0.18867924528301888,
+        0.9814814814814815
+      ],
+      "bins": "8 quantile bins, ties may merge",
+      "brier": 0.027394497120132824,
+      "interpretation": "Inherited-label historical holdout diagnostic, no population calibration claim"
+    },
+    "B": {
+      "mean_probability": [
+        0.00025031046190926405,
+        0.0004931692452878703,
+        0.0013732951940508247,
+        0.0030057627953062,
+        0.0068966665808513645,
+        0.01998845898473193,
+        0.22696082208739904,
+        0.9929060949977357
+      ],
+      "observed_phishing_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.24528301886792453,
+        0.9814814814814815
+      ],
+      "bins": "8 quantile bins, ties may merge",
+      "brier": 0.014842841934115272,
+      "interpretation": "Inherited-label historical holdout diagnostic, no population calibration claim"
+    },
+    "C": {
+      "mean_probability": [
+        0.00026693050194675556,
+        0.0005201812978496982,
+        0.0012132992282745925,
+        0.002491117331237833,
+        0.006017944974381613,
+        0.017612319437756714,
+        0.24671232093104292,
+        0.9957534932516824
+      ],
+      "observed_phishing_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.22641509433962265,
+        1.0
+      ],
+      "bins": "8 quantile bins, ties may merge",
+      "brier": 0.008874461131920947,
+      "interpretation": "Inherited-label historical holdout diagnostic, no population calibration claim"
+    },
+    "D": {
+      "mean_probability": [
+        1.0769232416685896e-05,
+        5.22521075046366e-05,
+        0.0003885392802565344,
+        0.0024639828074367264,
+        0.008592023002663584,
+        0.031482982805373816,
+        0.21667180242683126,
+        0.9881657508387097
+      ],
+      "observed_phishing_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03773584905660377,
+        0.0,
+        0.20754716981132076,
+        0.9814814814814815
+      ],
+      "bins": "8 quantile bins, ties may merge",
+      "brier": 0.020524210106382168,
+      "interpretation": "Inherited-label historical holdout diagnostic, no population calibration claim"
+    },
+    "E": {
+      "mean_probability": [
+        1.0163491681756045e-05,
+        4.088212968727842e-05,
+        7.860577198776848e-05,
+        0.000300942049799479,
+        0.0014260482597948342,
+        0.009563601429063841,
+        0.2147455747597896,
+        0.9986662107857401
+      ],
+      "observed_phishing_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.24528301886792453,
+        0.9814814814814815
+      ],
+      "bins": "8 quantile bins, ties may merge",
+      "brier": 0.016119206853661673,
+      "interpretation": "Inherited-label historical holdout diagnostic, no population calibration claim"
+    }
+  },
+  "robustness": {
+    "uppercase": {
+      "records": 383,
+      "changed_records": 380,
+      "prediction_flips": 0,
+      "metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "changed_subset_metrics": {
+        "records": 380,
+        "accuracy": 0.9763157894736842,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087294174161351,
+        "average_precision": 0.8811403225750357,
+        "pr_auc": 0.8790773525179824,
+        "roc_auc": 0.9849690539345711,
+        "confusion": {
+          "tn": 349,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005698005698005698,
+        "brier": 0.02292269063749505,
+        "probability_estimate": true
+      },
+      "limitation": "Assumed label-preserving surface edit; spelling variants need manual semantic review; no adversarial-security claim"
+    },
+    "extra_whitespace": {
+      "records": 383,
+      "changed_records": 383,
+      "prediction_flips": 0,
+      "metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "changed_subset_metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "limitation": "Assumed label-preserving surface edit; spelling variants need manual semantic review; no adversarial-security claim"
+    },
+    "terminal_punctuation": {
+      "records": 383,
+      "changed_records": 383,
+      "prediction_flips": 0,
+      "metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "changed_subset_metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.02274956495947629,
+        "probability_estimate": true
+      },
+      "limitation": "Assumed label-preserving surface edit; spelling variants need manual semantic review; no adversarial-security claim"
+    },
+    "spelling_noise": {
+      "records": 383,
+      "changed_records": 77,
+      "prediction_flips": 0,
+      "metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8728462155165171,
+        "pr_auc": 0.8703229431847834,
+        "roc_auc": 0.9853886616014026,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.022886432654707634,
+        "probability_estimate": true
+      },
+      "changed_subset_metrics": {
+        "records": 77,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "macro_f1": 1.0,
+        "average_precision": 1.0,
+        "pr_auc": 1.0,
+        "roc_auc": 1.0,
+        "confusion": {
+          "tn": 66,
+          "fp": 0,
+          "fn": 0,
+          "tp": 11
+        },
+        "fpr": 0.0,
+        "brier": 0.010111991002526624,
+        "probability_estimate": true
+      },
+      "limitation": "Assumed label-preserving surface edit; spelling variants need manual semantic review; no adversarial-security claim"
+    },
+    "taglish_spelling": {
+      "records": 383,
+      "changed_records": 7,
+      "prediction_flips": 0,
+      "metrics": {
+        "records": 383,
+        "accuracy": 0.9765013054830287,
+        "precision": 0.9166666666666666,
+        "recall": 0.7586206896551724,
+        "f1": 0.8301886792452831,
+        "macro_f1": 0.9087829791738337,
+        "average_precision": 0.8811403225750355,
+        "pr_auc": 0.8790773525179822,
+        "roc_auc": 0.9850964348334307,
+        "confusion": {
+          "tn": 352,
+          "fp": 2,
+          "fn": 7,
+          "tp": 22
+        },
+        "fpr": 0.005649717514124294,
+        "brier": 0.022758499115266183,
+        "probability_estimate": true
+      },
+      "changed_subset_metrics": {
+        "records": 7,
+        "accuracy": 1.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "macro_f1": 0.5,
+        "average_precision": null,
+        "pr_auc": null,
+        "roc_auc": null,
+        "confusion": {
+          "tn": 7,
+          "fp": 0,
+          "fn": 0,
+          "tp": 0
+        },
+        "fpr": 0.0,
+        "brier": 0.0009989160051672133,
+        "probability_estimate": true
+      },
+      "limitation": "Assumed label-preserving surface edit; spelling variants need manual semantic review; no adversarial-security claim"
+    }
+  },
+  "shortcuts": {
+    "source_only": {
+      "records": 383,
+      "accuracy": 0.9556135770234987,
+      "precision": 1.0,
+      "recall": 0.41379310344827586,
+      "f1": 0.5853658536585366,
+      "macro_f1": 0.7809587888982338,
+      "average_precision": 0.49305483028720626,
+      "pr_auc": 0.6741136220401549,
+      "roc_auc": 0.8094681472822911,
+      "confusion": {
+        "tn": 354,
+        "fp": 0,
+        "fn": 17,
+        "tp": 12
+      },
+      "fpr": 0.0,
+      "brier": 0.04277094932972439,
+      "probability_estimate": true
+    },
+    "link_marker_only": {
+      "records": 383,
+      "accuracy": 0.9242819843342036,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "macro_f1": 0.48032564450474896,
+      "average_precision": 0.11293896132873513,
+      "pr_auc": 0.27910816132403776,
+      "roc_auc": 0.6029125267874538,
+      "confusion": {
+        "tn": 354,
+        "fp": 0,
+        "fn": 29,
+        "tp": 0
+      },
+      "fpr": 0.0,
+      "brier": 0.07217736950629447,
+      "probability_estimate": true
+    },
+    "selected_frozen_url_removal": {
+      "metrics": {
+        "records": 383,
+        "accuracy": 0.9712793733681462,
+        "precision": 0.875,
+        "recall": 0.7241379310344828,
+        "f1": 0.7924528301886793,
+        "macro_f1": 0.8885125301013523,
+        "average_precision": 0.8721922288457756,
+        "pr_auc": 0.8700423101823945,
+        "roc_auc": 0.983635300993571,
+        "confusion": {
+          "tn": 351,
+          "fp": 3,
+          "fn": 8,
+          "tp": 21
+        },
+        "fpr": 0.00847457627118644,
+        "brier": 0.02371157121829878,
+        "probability_estimate": true
+      },
+      "interpretation": "Frozen feature ablation on validation; not a newly trained model or a label-preserving robustness claim"
+    }
+  },
+  "source_transfer": {
+    "bwandowando": {
+      "training_records": 1652,
+      "held_records": 12,
+      "metrics": {
+        "records": 12,
+        "accuracy": 0.4166666666666667,
+        "precision": 1.0,
+        "recall": 0.4166666666666667,
+        "f1": 0.5882352941176471,
+        "macro_f1": 0.29411764705882354,
+        "average_precision": null,
+        "pr_auc": null,
+        "roc_auc": null,
+        "confusion": {
+          "tn": 0,
+          "fp": 0,
+          "fn": 7,
+          "tp": 5
+        },
+        "fpr": null,
+        "brier": 0.3955334177989458,
+        "probability_estimate": true
+      },
+      "status": "Development transfer stress test; selected spec/threshold influenced by these validation records; not independent source-generalization evidence"
+    },
+    "marketing": {
+      "training_records": 1036,
+      "held_records": 138,
+      "metrics": {
+        "records": 138,
+        "accuracy": 0.9927536231884058,
+        "precision": 1.0,
+        "recall": 0.9166666666666666,
+        "f1": 0.9565217391304348,
+        "macro_f1": 0.9762845849802372,
+        "average_precision": 0.9999999999999999,
+        "pr_auc": 0.9999999999999999,
+        "roc_auc": 1.0,
+        "confusion": {
+          "tn": 126,
+          "fp": 0,
+          "fn": 1,
+          "tp": 11
+        },
+        "fpr": 0.0,
+        "brier": 0.0046009839730177604,
+        "probability_estimate": true
+      },
+      "status": "Development transfer stress test; selected spec/threshold influenced by these validation records; not independent source-generalization evidence"
+    },
+    "tagalog": {
+      "training_records": 800,
+      "held_records": 233,
+      "metrics": {
+        "records": 233,
+        "accuracy": 0.8197424892703863,
+        "precision": 0.06976744186046512,
+        "recall": 0.6,
+        "f1": 0.125,
+        "macro_f1": 0.5122607655502392,
+        "average_precision": 0.38614783517332246,
+        "pr_auc": 0.363008128112977,
+        "roc_auc": 0.8894736842105263,
+        "confusion": {
+          "tn": 188,
+          "fp": 40,
+          "fn": 2,
+          "tp": 3
+        },
+        "fpr": 0.17543859649122806,
+        "brier": 0.11142046837964067,
+        "probability_estimate": true
+      },
+      "status": "Development transfer stress test; selected spec/threshold influenced by these validation records; not independent source-generalization evidence"
+    }
+  },
+  "parity": {
+    "E": {
+      "jvm": {
+        "assessed": 427,
+        "cases": 20,
+        "candidate_json_bytes": 811504,
+        "production_pointer_changed": false,
+        "max_score_error": 5.551115123125783e-16,
+        "raw_sms_adapter_cases": 31,
+        "max_feature_error": 1.1102230246251565e-16,
+        "real_masked_cases": 427,
+        "abstained": 0,
+        "failed": 0,
+        "mean_synthetic_score_ms": 0.23503,
+        "load_ms": 45.2083
+      },
+      "android": {
+        "api": 36,
+        "offline": true,
+        "physical_device": false,
+        "cases": 20,
+        "max_score_error": 5.551115123125783e-16,
+        "max_feature_error": 1.1102230246251565e-16,
+        "raw_sms_adapter_cases": 31,
+        "real_masked_cases": 427,
+        "assessed": 427,
+        "abstained": 0,
+        "failed": 0,
+        "max_real_score_error": 4.052314039881821e-15,
+        "real_detection_p50_ms": 0.632833,
+        "real_detection_p95_ms": 1.422765,
+        "load_ms": 219.907222,
+        "synthetic_score_p50_ms": 0.196947,
+        "synthetic_score_max_ms": 42.54586,
+        "pss_kib_before": 160547,
+        "pss_kib_after": 167862,
+        "memory_note": "Whole instrumentation process samples, not isolated model memory",
+        "production_pointer_changed": false
+      }
+    },
+    "C": {
+      "jvm": {
+        "assessed": 427,
+        "cases": 20,
+        "candidate_json_bytes": 4940204,
+        "production_pointer_changed": false,
+        "max_score_error": 1.8041124150158794e-16,
+        "raw_sms_adapter_cases": 31,
+        "max_feature_error": 8.326672684688674e-17,
+        "real_masked_cases": 427,
+        "abstained": 0,
+        "failed": 0,
+        "mean_synthetic_score_ms": 0.8667,
+        "load_ms": 272.6487
+      },
+      "android": {
+        "api": 36,
+        "offline": true,
+        "physical_device": false,
+        "cases": 20,
+        "max_score_error": 1.8041124150158794e-16,
+        "max_feature_error": 8.326672684688674e-17,
+        "raw_sms_adapter_cases": 31,
+        "real_masked_cases": 427,
+        "assessed": 427,
+        "abstained": 0,
+        "failed": 0,
+        "max_real_score_error": 1.096345236817342e-15,
+        "real_detection_p50_ms": 1.165668,
+        "real_detection_p95_ms": 2.86309,
+        "load_ms": 622.875867,
+        "synthetic_score_p50_ms": 0.364503,
+        "synthetic_score_max_ms": 89.760001,
+        "pss_kib_before": 160430,
+        "pss_kib_after": 179446,
+        "memory_note": "Whole instrumentation process samples, not isolated model memory",
+        "production_pointer_changed": false
+      }
+    }
+  },
+  "qa": {
+    "research": {
+      "summary": [
+        "Ran 145 tests in 17.204s",
+        "OK"
+      ],
+      "sha256": "652a39fd2a7754fcf7c8015a003d4dde6a65572388b55097006c117723838821"
+    },
+    "backend": {
+      "summary": [
+        "Ran 46 tests in 0.630s",
+        "OK"
+      ],
+      "sha256": "935d0b43ed7834e90491127ef88fb3c38132db007375e2565e076624497337ab"
+    },
+    "latest_jvm": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 6
+    },
+    "notebook": "17 cells executed end-to-end in a fresh run, including fitting, locking and retrospective holdout evaluation",
+    "initial_parity_failure": "Two existing comparator tests lacked legacy model.json fixtures. Preserved fixtures supplied; full reruns passed, assertions unchanged.",
+    "initial_backend_failure": "Research venv lacks Flask. Re-run in established backend/.venv: 46 tests passed.",
+    "protected_hashes_verified": 23,
+    "preserved_selected_svm_regression": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5
+    }
+  },
+  "environment": {
+    "python": "3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]",
+    "unicode": "15.0.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "scikit-learn": "1.6.1",
+      "matplotlib": "3.10.7",
+      "joblib": "1.6.0",
+      "threadpoolctl": "3.7.0"
+    },
+    "threads": 1,
+    "transformer": {
+      "torch_available": false,
+      "transformers_available": false,
+      "checkpoint_cached": false,
+      "status": "XLM-R not executed: current research env lacks torch/transformers and a pinned local checkpoint. Existing mBERT is a different model."
+    }
+  },
+  "experiment_artifacts": {
+    "research\\runs\\retraining-20261013\\notebook-run-v2\\freeze.json": "5d5d71dcdd2dcd493782fdbe0ad4c72c94e7268f8783a467c6bd233aa4b55544",
+    "research\\runs\\retraining-20261013\\notebook-run-v2\\configuration.json": "6b6b7f4611d75ae382c670c3bf46e8e348dcc32c6c13b5c0f0c6547a705dd6e0",
+    "research\\runs\\retraining-20261013\\notebook-run-v2\\selection.json": "e99ded125832af07236b92df17290097bc818bff79b7311c46c543781b9e9630",
+    "research\\runs\\retraining-20261013\\notebook-run-v2\\holdout-results.json": "3d53645e8a5867334bca8ee99435ee2f8cfcf0b6bfcd0ddd49994e9d381b793e",
+    "research\\runs\\retraining-20261013\\notebook-run-v2\\validation-results.json": "84d8543bb2c0ca5608b2ffa07776223e195560985ded86d3f2cffe9cc5ac3cf4",
+    "research\\runs\\retraining-20261013\\notebook-run-v2\\candidate-model.json": "47cb443c7498754e363829f54f2d67ca2b6a4101b6b4a4354913a8b2a479568a",
+    "research\\Model_Training_and_Evaluation.ipynb": "1ae4d6928042b72af5ce274d7bc250b36cc402f6211e8325e32856ed20ccd83e"
+  }
+}

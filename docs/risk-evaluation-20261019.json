@@ -1,0 +1,284 @@
+{
+  "date": "2026-10-19",
+  "label_status": "Authored fictional scenario labels, not independent real-world ground truth",
+  "controlled_policy_evaluation": {
+    "policy_version": "evidence-index-v1",
+    "true_negative": 14,
+    "provenance": "Authored fictional regression cases, 2026-10-19. Labels describe intended scenarios; model flags are injected controls, not real model predictions. This is not a representative accuracy benchmark.",
+    "insufficient_cases": 6,
+    "outcomes": [
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L01",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L02",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L03",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L04",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L05",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L06",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L07",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 10,
+        "id": "L08",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 10,
+        "id": "L09",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "MEDIUM",
+        "risk_score": 30,
+        "id": "L10",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "MEDIUM",
+        "risk_score": 30,
+        "id": "L11",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L12",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L13",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 10,
+        "id": "L14",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 10,
+        "id": "L15",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "L16",
+        "label": "legitimate"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 100,
+        "id": "M01",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 80,
+        "id": "M02",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M03",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 80,
+        "id": "M04",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 80,
+        "id": "M05",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M06",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "MEDIUM",
+        "risk_score": 50,
+        "id": "M07",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "MEDIUM",
+        "risk_score": 60,
+        "id": "M08",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M09",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M10",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M11",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M12",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "M13",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "LOW",
+        "risk_score": 0,
+        "id": "M14",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M15",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "HIGH",
+        "risk_score": 70,
+        "id": "M16",
+        "label": "malicious"
+      },
+      {
+        "risk_level": "UNABLE_TO_ASSESS",
+        "risk_score": null,
+        "id": "U01",
+        "label": "insufficient"
+      },
+      {
+        "risk_level": "UNABLE_TO_ASSESS",
+        "risk_score": null,
+        "id": "U02",
+        "label": "insufficient"
+      },
+      {
+        "risk_level": "UNABLE_TO_ASSESS",
+        "risk_score": null,
+        "id": "U03",
+        "label": "insufficient"
+      },
+      {
+        "risk_level": "UNABLE_TO_ASSESS",
+        "risk_score": null,
+        "id": "U04",
+        "label": "insufficient"
+      },
+      {
+        "risk_level": "UNABLE_TO_ASSESS",
+        "risk_score": null,
+        "id": "U05",
+        "label": "insufficient"
+      },
+      {
+        "risk_level": "UNABLE_TO_ASSESS",
+        "risk_score": null,
+        "id": "U06",
+        "label": "insufficient"
+      }
+    ],
+    "false_positive": 2,
+    "false_negative": 2,
+    "true_positive": 14,
+    "positive_definition": "Medium or High Risk; injected model decisions"
+  },
+  "frozen_model_evaluation": {
+    "policy_version": "evidence-index-v1",
+    "models": [
+      {
+        "true_negative": 7,
+        "high_risk_malicious": 12,
+        "insufficient_cases": 6,
+        "high_risk_legitimate": 0,
+        "false_positive": 9,
+        "false_negative": 1,
+        "assessable_scenario_abstentions": 0,
+        "model": "development",
+        "true_positive": 15,
+        "risk_level_counts": {
+          "HIGH": 12,
+          "UNABLE_TO_ASSESS": 6,
+          "MEDIUM": 12,
+          "LOW": 8
+        }
+      },
+      {
+        "true_negative": 10,
+        "high_risk_malicious": 12,
+        "insufficient_cases": 6,
+        "high_risk_legitimate": 0,
+        "false_positive": 6,
+        "false_negative": 1,
+        "assessable_scenario_abstentions": 0,
+        "model": "selectedSvm",
+        "true_positive": 15,
+        "risk_level_counts": {
+          "HIGH": 12,
+          "UNABLE_TO_ASSESS": 6,
+          "MEDIUM": 9,
+          "LOW": 11
+        }
+      }
+    ],
+    "scope": "Actual frozen local models on 38 authored fictional scenarios; not independent or representative validation. Medium or High Risk is positive; abstained malicious scenarios count as missed."
+  }
+}

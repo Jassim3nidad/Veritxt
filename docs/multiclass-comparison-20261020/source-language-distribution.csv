@@ -1,0 +1,21 @@
+partition,field,value,records,Ham,Smishing,Gambling
+train60,source,"Kaggle: PH Spam + Marketing SMS (Chua, 2022)",401,252,93,56
+train60,source,Kaggle: Philippine Spam/Scam SMS (bwandowando),183,0,86,97
+train60,source,"Kaggle: Tagalog-SMS (ZERO, 2025)",1697,1581,39,77
+train60,language,English,1742,1463,145,134
+train60,language,Filipino/Taglish,539,370,73,96
+validation20,source,"Kaggle: PH Spam + Marketing SMS (Chua, 2022)",151,106,30,15
+validation20,source,Kaggle: Philippine Spam/Scam SMS (bwandowando),72,0,30,42
+validation20,source,"Kaggle: Tagalog-SMS (ZERO, 2025)",538,505,13,20
+validation20,language,English,497,419,38,40
+validation20,language,Filipino/Taglish,264,192,35,37
+test20,source,"Kaggle: PH Spam + Marketing SMS (Chua, 2022)",616,548,33,35
+test20,source,Kaggle: Philippine Spam/Scam SMS (bwandowando),53,0,37,16
+test20,source,"Kaggle: Tagalog-SMS (ZERO, 2025)",92,63,2,27
+test20,language,English,496,382,69,45
+test20,language,Filipino/Taglish,265,229,3,33
+train80,source,"Kaggle: PH Spam + Marketing SMS (Chua, 2022)",552,358,123,71
+train80,source,Kaggle: Philippine Spam/Scam SMS (bwandowando),255,0,116,139
+train80,source,"Kaggle: Tagalog-SMS (ZERO, 2025)",2235,2086,52,97
+train80,language,English,2239,1882,183,174
+train80,language,Filipino/Taglish,803,562,108,133

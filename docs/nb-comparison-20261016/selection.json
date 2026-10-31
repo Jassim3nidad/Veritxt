@@ -1,0 +1,22 @@
+{
+  "selected": "NB-alpha-0.01",
+  "best_nb": "NB-alpha-0.01",
+  "policy": {
+    "primary": "validation scam F1",
+    "tie_breaks": [
+      "scam recall",
+      "scam precision",
+      "smaller model bytes",
+      "configuration ID"
+    ],
+    "threshold": "NB posterior >=0.5; SVM margin >=0; no threshold tuning",
+    "refit": "training only; validation never refitted",
+    "deployment_approved": false
+  },
+  "test_evaluation_ids": [
+    "A-baseline",
+    "B-proposed",
+    "SVM-reference",
+    "NB-alpha-0.01"
+  ]
+}

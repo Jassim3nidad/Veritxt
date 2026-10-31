@@ -1,0 +1,374 @@
+{
+  "apk": "C:\\Users\\Jassim Trinidad\\OneDrive\\Desktop\\smishguard\\deliverables\\cashback-review-20261020\\VeriTxt-ThreeClass-CashbackReview-debug.apk",
+  "apk_bytes": 22172945,
+  "apk_sha256": "974d1a67967d6ad2ea7ce73e866dd0abcb32261df6edbbaa22b3a98b0b6af910",
+  "package": "ph.smishguard.svm.cashbackreview",
+  "version": "0.3.0-cashback-review-debug",
+  "signing": "existing local debug key; APK v2 verified",
+  "source_model_sha256": "73c996492889c846a396aba1b6f250eb3e488605104cb18c5318bb75c9dc605a",
+  "packaged_model_sha256": "3703fdb51583f090979ada04fc79201e58cbeb61b0a464cb6389b0baf5b07dd1",
+  "frozen_experiment_files_preserved": true,
+  "preserved_file_count": 211,
+  "unit_tests": {
+    "tests": 57,
+    "skipped": 13,
+    "failures": 0,
+    "errors": 0
+  },
+  "lint_errors": 0,
+  "lint_warnings": 11,
+  "emulator_tests": {
+    "native-parity": 1,
+    "manual-three-categories": 2,
+    "existing-flows": 6,
+    "privacy-lifecycle": 2,
+    "risk-results": 8,
+    "theme-settings": 1,
+    "real_model_incoming_sms": 1
+  },
+  "emulator_test_total": 21,
+  "api": "36",
+  "parity": {
+    "cases": 954,
+    "matching_predictions": 954,
+    "mismatches": 0,
+    "maximum_score_error": 1.9984014443252818e-15,
+    "maximum_feature_error": 6.661338147750939e-16,
+    "wrapper_successes": 950,
+    "wrapper_abstentions": 2,
+    "wrapper_rejections": 2,
+    "thesis_test_messages_used": 0,
+    "tolerance": 1e-10,
+    "load_ms": 1426.6653,
+    "score_p50_ms": 1.8695,
+    "score_p95_ms": 5.8503,
+    "risk_profile": "cashback-claim-deadline-v1",
+    "cashback_model_category": "Ham",
+    "cashback_risk_score": 30,
+    "cashback_risk_level": "MEDIUM",
+    "app_path_cases": 948,
+    "training_percent": 60,
+    "api": 36,
+    "physical_device": false,
+    "offline": true
+  },
+  "practical_parity": {
+    "practical_cases": 20,
+    "predictions_checked": 40,
+    "matching_predictions": 40,
+    "mismatches": 0,
+    "maximum_score_error": 6.661338147750939e-16,
+    "human_verified_labels_available": 0,
+    "risk_rules_changed": false,
+    "results": [
+      {
+        "name": "user_cashback",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.35800430489431845,
+          -0.5576025637333724,
+          -0.852138839597035
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.21681581266547056,
+          -0.43724168862081814,
+          -0.8659298234984641
+        ],
+        "risk_score": 0,
+        "risk_level": "LOW",
+        "authenticity_verified": false
+      },
+      {
+        "name": "cashback_link",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.2424952268633917,
+          -0.5897205647094035,
+          -0.7016125474940222
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.12350839210426243,
+          -0.4841031570926745,
+          -0.7209198654193805
+        ]
+      },
+      {
+        "name": "fake_bank",
+        "svm60_prediction": 1,
+        "svm60_scores": [
+          -0.31235404693400026,
+          0.3696932997706585,
+          -1.1880299753138177
+        ],
+        "svm80_prediction": 1,
+        "svm80_scores": [
+          -0.5821208400205826,
+          0.6330956177770223,
+          -1.1673834028480918
+        ]
+      },
+      {
+        "name": "fake_delivery",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          1.0035275556658791,
+          -0.7930427137801761,
+          -1.2625998428935747
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.951162361390548,
+          -0.8256455144295357,
+          -1.1965266981033504
+        ]
+      },
+      {
+        "name": "credential_request",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.5291722543823276,
+          -0.5601299532451866,
+          -1.0430620024514279
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.30707948087054365,
+          -0.3013451344592639,
+          -1.0906270145831696
+        ]
+      },
+      {
+        "name": "short_link",
+        "svm60_prediction": 1,
+        "svm60_scores": [
+          -0.33791299144444,
+          0.34592954104490176,
+          -1.0544443034477429
+        ],
+        "svm80_prediction": 1,
+        "svm80_scores": [
+          -0.5128076876414014,
+          0.5424079310798708,
+          -1.0902172477431027
+        ]
+      },
+      {
+        "name": "filipino_lure",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.304514178212023,
+          -1.0762315566658025,
+          -0.24190527204185097
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.2539006261343606,
+          -1.0458394966654003,
+          -0.23261680329410822
+        ]
+      },
+      {
+        "name": "taglish_lure",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.18516396081030145,
+          -0.6285302211479511,
+          -0.5352216074779713
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.09781132559883027,
+          -0.5543985476010705,
+          -0.5013093835341546
+        ]
+      },
+      {
+        "name": "unknown_sender",
+        "svm60_prediction": 1,
+        "svm60_scores": [
+          -0.6039985221223632,
+          0.6412595217176036,
+          -1.111728541846737
+        ],
+        "svm80_prediction": 1,
+        "svm80_scores": [
+          -0.8024925846365549,
+          0.791853955401836,
+          -1.101607437036054
+        ]
+      },
+      {
+        "name": "expiry",
+        "svm60_prediction": 1,
+        "svm60_scores": [
+          -0.12153784962308849,
+          -0.06235044916857694,
+          -0.8157389268366881
+        ],
+        "svm80_prediction": 1,
+        "svm80_scores": [
+          -0.27112510141906815,
+          0.18203976823038465,
+          -0.9327928763031319
+        ]
+      },
+      {
+        "name": "ham_filipino",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.5310458788095275,
+          -1.0972408964997045,
+          -0.44816251146590946
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.5882734590967212,
+          -1.097952255763869,
+          -0.5037614980902894
+        ]
+      },
+      {
+        "name": "ham_english",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.38850724843098067,
+          -0.8529870962120106,
+          -0.5542652971585921
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.29560174612572276,
+          -0.7931107066335964,
+          -0.5284872149975449
+        ]
+      },
+      {
+        "name": "ham_taglish",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.25717625495186563,
+          -0.3782911283979611,
+          -0.8689755319108312
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.14221784418165678,
+          -0.4494869742137425,
+          -0.7008150075060932
+        ]
+      },
+      {
+        "name": "otp_warning",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          1.612658199543189,
+          -1.4651728690510843,
+          -1.2253218114221491
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          1.6841338825659624,
+          -1.5136248451236711,
+          -1.2973944783515106
+        ]
+      },
+      {
+        "name": "bank_notice",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          1.333111929830076,
+          -1.1342786781834024,
+          -1.2938529080154377
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          1.347090886016987,
+          -1.1843342678318156,
+          -1.279324887060783
+        ]
+      },
+      {
+        "name": "gambling",
+        "svm60_prediction": 2,
+        "svm60_scores": [
+          -1.1507344392112322,
+          -1.0756499960013652,
+          1.1800762281371953
+        ],
+        "svm80_prediction": 2,
+        "svm80_scores": [
+          -1.3362969718139825,
+          -1.0531510869698395,
+          1.333321336193248
+        ]
+      },
+      {
+        "name": "gambling_taglish",
+        "svm60_prediction": 2,
+        "svm60_scores": [
+          -0.7433748059162822,
+          -1.3424319842483114,
+          1.0463137995722764
+        ],
+        "svm80_prediction": 2,
+        "svm80_scores": [
+          -0.8615765348454885,
+          -1.2719319243923506,
+          1.0679058985177887
+        ]
+      },
+      {
+        "name": "ambiguous",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.22125859768550662,
+          -0.7061208793291508,
+          -0.5643819608485349
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.18259651364080057,
+          -0.7120257986234622,
+          -0.545987940910029
+        ]
+      },
+      {
+        "name": "phone_in_message",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.3969358542840282,
+          -0.5616015418075557,
+          -0.8921597607804166
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.474212467313004,
+          -0.5101402888797398,
+          -1.0730880811614862
+        ]
+      },
+      {
+        "name": "short",
+        "svm60_prediction": 0,
+        "svm60_scores": [
+          0.46731648299844614,
+          -0.9555967897851882,
+          -0.5010694796125176
+        ],
+        "svm80_prediction": 0,
+        "svm80_scores": [
+          0.4525185297909538,
+          -0.95953337254423,
+          -0.4716511596362719
+        ]
+      }
+    ],
+    "application_risk_profile": "cashback-claim-deadline-v1",
+    "application_risk_rules_changed": true
+  },
+  "risk_rules_changed": true,
+  "thesis_test_messages_used": 0,
+  "physical_device_tested": false
+}

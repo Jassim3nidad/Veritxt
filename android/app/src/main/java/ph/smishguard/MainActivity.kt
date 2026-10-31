@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
-import android.view.WindowManager
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -55,6 +54,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.layout.onSizeChanged
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -74,13 +74,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.core.os.LocaleListCompat
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import ph.smishguard.data.Preferences
+import ph.smishguard.data.ThemeMode
+import ph.smishguard.blocking.SystemNumberBlocking
+import ph.smishguard.blocking.SenderNumberClipboard
 import ph.smishguard.model.Detection
+import ph.smishguard.model.AppRiskPolicy as RiskPolicy
+import ph.smishguard.model.RiskLevel
+import ph.smishguard.model.ManualBlocking
+import ph.smishguard.model.BlockingStep
 import ph.smishguard.privacy.Brand
 import ph.smishguard.privacy.ReportPayload
 import ph.smishguard.sms.CheckPrompt
@@ -98,7 +106,6 @@ class MainActivity : AppCompatActivity() {
     private val vm: CheckViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
         enableEdgeToEdge()
         consumeIntent(intent)
         setContent {
@@ -122,10 +129,11 @@ class MainActivity : AppCompatActivity() {
         } else if (incoming.action == CheckPrompt.ACTION_CHECK) {
             // "Check now" carries only an id; the text itself never leaves process memory.
             val id = incoming.getStringExtra(CheckPrompt.EXTRA_ID)
-            CheckPrompt.cancel(this, incoming.getIntExtra(CheckPrompt.EXTRA_NOTIFICATION, 0))
+            CheckPrompt.cancel(this, incoming.getIntExtra(CheckPrompt.EXTRA_NOTIFICATION, 0), id)
             incoming.replaceExtras(null as Bundle?)
             incoming.action = null // so a recreate (rotation, language change) doesn't run it again
-            vm.checkPending(id?.let(PendingChecks::take))
+            val pending = id?.let(PendingChecks::take)
+            vm.checkPending(pending?.text, pending?.senderNumber)
         }
     }
     override fun onStop() { vm.endSession(); super.onStop() }
@@ -142,8 +150,21 @@ enum class AppLanguage(val tag: String) { SYSTEM(""), ENGLISH("en"), FILIPINO("f
     }
 }
 
-@Composable private fun SmishGuardTheme(solid: Boolean, content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
+@Composable private fun SmishGuardTheme(solid: Boolean, mode: ThemeMode, content: @Composable () -> Unit) {
+    val dark = when (mode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+    }
+    val activity = androidx.activity.compose.LocalActivity.current
+    SideEffect {
+        activity?.let {
+            WindowCompat.getInsetsController(it.window, it.window.decorView).apply {
+                isAppearanceLightStatusBars = !dark
+                isAppearanceLightNavigationBars = !dark
+            }
+        }
+    }
     val colors = if (dark) darkColorScheme(primary = Color(0xFF9BD4BE), onPrimary = Color(0xFF00382D), secondary = Color(0xFFBACBBF),
             background = Color(0xFF0E1613), surface = Color(0xFF0E1613), onSurface = Color(0xFFE3EAE5),
             onSurfaceVariant = Color(0xFFBFCAC3), surfaceContainer = Color(0xFF202B26), secondaryContainer = Color(0xFF344B40))
@@ -181,7 +202,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     val keyboard = LocalSoftwareKeyboardController.current
     val focus = LocalFocusManager.current
     LaunchedEffect(state.screen, state.busy) { if (state.screen != Screen.CHECK || state.busy) { focus.clearFocus(); keyboard?.hide() } }
-    SmishGuardTheme(solid = preferences?.reduceTransparency == true) {
+    SmishGuardTheme(solid = preferences?.reduceTransparency == true, mode = preferences?.themeMode ?: ThemeMode.SYSTEM) {
         val haze = remember { HazeState() }
         val showNav = preferences?.privacyAccepted == true && preferences?.onboarded == true
         var navHeight by remember { mutableIntStateOf(0) }
@@ -213,7 +234,7 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
                                 Screen.CHECK -> CheckScreen(state, app, vm)
                                 Screen.RESULT -> ResultScreen(state, vm)
                                 Screen.REPORT -> ReportScreen(state, vm)
-                                Screen.SETTINGS -> SettingsContent(app, prefs, permissions, vm, state.autoWarnings, { permissions = PermissionState.read(app) }, { vm.endSession() })
+                                Screen.SETTINGS -> SettingsContent(app, prefs, permissions, vm, { permissions = PermissionState.read(app) }, { vm.endSession() })
                                 Screen.PRIVACY -> PrivacyNotice(accepting = false, acceptedOn = prefs.privacyAcceptedOn, onAgree = {}, onNotNow = {},
                                     onBack = { vm.navigate(Screen.SETTINGS) })
                                 Screen.HELP -> HelpScreen(app, prefs, permissions, vm)
@@ -243,7 +264,12 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Image(painterResource(R.drawable.ic_veritxt_mark), null, Modifier.size(24.dp).clearAndSetSemantics { })
             Text(stringResource(R.string.app_name) + when (BuildConfig.BUILD_TYPE) {
-                "debug", "development", "release" -> ""
+                "debug", "development", "release", "selectedSvm" -> ""
+                "nbGeneralization" -> " · Retrained NB"
+                "multiclassSvm" -> " · SVM 80%"
+                "multiclassSvm60" -> " · SVM 60%"
+                "cashbackReview" -> " · Review"
+                "oldSvm" -> " · Ham/Smishing"
                 else -> " · " + BuildConfig.BUILD_TYPE
             }, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
         }
@@ -266,10 +292,22 @@ private fun SmishGuardUi(app: SmishGuardApp, vm: CheckViewModel) {
     status.startsWith("Loading") -> stringResource(R.string.status_loading)
     status.startsWith("Model not installed") -> stringResource(R.string.status_missing)
     status.startsWith("Unsupported") -> stringResource(R.string.status_invalid)
+    status.startsWith("Experimental · Linear SVM · svm-C-10.0") -> stringResource(R.string.status_linear_svm)
+    status.startsWith("Experimental · Naive Bayes") -> stringResource(R.string.status_retrained_nb)
     status.startsWith("Experimental") -> stringResource(R.string.status_experimental)
     status.startsWith("Model ready") -> stringResource(R.string.status_ready)
     status.startsWith("Synthetic") -> stringResource(R.string.status_synthetic)
     else -> status
+}
+
+@Composable private fun ThemePicker(selected: ThemeMode, onSelect: (ThemeMode) -> Unit) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        listOf(ThemeMode.SYSTEM to R.string.theme_system, ThemeMode.LIGHT to R.string.theme_light,
+            ThemeMode.DARK to R.string.theme_dark).forEach { (mode, label) ->
+            FilterChip(selected == mode, { onSelect(mode) }, { Text(stringResource(label)) },
+                shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 48.dp).testTag("theme_${mode.storedValue}"))
+        }
+    }
 }
 
 @Composable private fun LanguagePicker() {
@@ -439,87 +477,131 @@ private fun clipboardText(context: Context): String? = context.getSystemService(
     }
 }
 
-private data class VerdictLook(@param:StringRes val title: Int, @param:StringRes val body: Int, val icon: ImageVector, val color: Color)
-
 @Composable private fun ColumnScope.ResultScreen(state: CheckState, vm: CheckViewModel) {
     val dark = LocalGlass.current.dark
     val scheme = MaterialTheme.colorScheme
     val result = state.result
     var explain by remember(result) { mutableStateOf(false) }
-    val hints = state.hints?.hints.orEmpty()
+    val assessment = state.assessment ?: RiskPolicy.assess(state.checkedMessage, result)
     val red = if (dark) Verdict.dangerDark else Verdict.danger
     val amber = if (dark) Verdict.cautionDark else Verdict.caution
     val green = if (dark) Verdict.safeDark else Verdict.safe
-    val look = when (result) {
-        is Detection.Success -> when {
-            result.synthetic -> VerdictLook(R.string.verdict_synthetic_title, R.string.verdict_synthetic_body, Icons.Outlined.Science, scheme.onSurfaceVariant)
-            result.suspicious -> VerdictLook(R.string.verdict_scam_title, R.string.verdict_scam_body, Icons.Outlined.GppBad, red)
-            hints.size >= 2 -> VerdictLook(R.string.verdict_caution_title, R.string.verdict_caution_body, Icons.Outlined.GppMaybe, amber)
-            else -> VerdictLook(R.string.verdict_safe_title, R.string.verdict_safe_body, Icons.Outlined.GppGood, green)
-        }
-        Detection.UnableToAssess -> VerdictLook(R.string.verdict_abstain_title, R.string.verdict_abstain_body, Icons.Outlined.HelpOutline, scheme.onSurfaceVariant)
-        Detection.Busy -> VerdictLook(R.string.verdict_busy_title, R.string.verdict_busy_body, Icons.Outlined.HourglassEmpty, scheme.onSurfaceVariant)
-        Detection.Unavailable -> VerdictLook(R.string.verdict_missing_title, R.string.verdict_missing_body, Icons.Outlined.CloudOff, scheme.onSurfaceVariant)
-        Detection.InvalidModel -> VerdictLook(R.string.verdict_invalid_title, R.string.verdict_invalid_body, Icons.Outlined.ErrorOutline, scheme.onSurfaceVariant)
-        else -> VerdictLook(R.string.verdict_failed_title, R.string.verdict_failed_body, Icons.Outlined.ErrorOutline, scheme.onSurfaceVariant)
+    val (icon, color) = when (assessment.level) {
+        RiskLevel.LOW -> Icons.Outlined.GppGood to green
+        RiskLevel.MEDIUM -> Icons.Outlined.GppMaybe to amber
+        RiskLevel.HIGH -> Icons.Outlined.GppBad to red
+        RiskLevel.UNABLE_TO_ASSESS -> Icons.AutoMirrored.Outlined.HelpOutline to if (dark) Color(0xFFC3C7CB) else Color(0xFF5B5F63)
     }
     var shown by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) { shown = true }
     Heading(stringResource(R.string.result_title))
     AnimatedVisibility(shown, enter = scaleIn(spring(dampingRatio = .7f, stiffness = 380f), initialScale = .85f) + fadeIn()) {
-        GlassSurface(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }.border(1.5.dp, look.color.copy(alpha = .55f), RoundedCornerShape(28.dp)), tint = look.color, padding = 22.dp) {
+        GlassSurface(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }.border(1.5.dp, color.copy(alpha = .55f), RoundedCornerShape(28.dp)), tint = color, padding = 22.dp) {
             if (result is Detection.Success && result.experimental) StatusPill(stringResource(R.string.tag_experimental), Icons.Outlined.Science, amber)
+            if (result is Detection.Success) result.category?.let { category ->
+                Text(stringResource(R.string.sms_category_heading), style = MaterialTheme.typography.labelLarge)
+                Text(stringResource(when (category) {
+                    ph.smishguard.model.SmsCategory.HAM -> R.string.sms_category_ham
+                    ph.smishguard.model.SmsCategory.SMISHING -> R.string.sms_category_smishing
+                    ph.smishguard.model.SmsCategory.GAMBLING -> R.string.sms_category_gambling
+                }), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(if (BuildConfig.BUILD_TYPE == "oldSvm") R.string.sms_category_binary_note else R.string.sms_category_note), style = MaterialTheme.typography.bodySmall)
+            }
+            Text(stringResource(R.string.risk_level), style = MaterialTheme.typography.labelLarge)
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Icon(look.icon, null, Modifier.size(36.dp), tint = look.color)
-                Text(stringResource(look.title), modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold, color = look.color)
+                Icon(icon, null, Modifier.size(36.dp).clearAndSetSemantics { }, tint = color)
+                Text(stringResource(RiskPresentation.label(assessment.level)), modifier = Modifier.semantics { heading() }, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold, color = color)
             }
-            Text(stringResource(look.body))
-            if (result is Detection.Success && !result.synthetic) {
-                ScoreBar(result.score, look.color)
-                Text(stringResource(R.string.score_model, "%.1f".format(Locale.ROOT, result.score * 100)), style = MaterialTheme.typography.titleLarge)
-                if (result.tokenWindow?.truncated == true) Text(stringResource(R.string.result_truncated))
-                Text(stringResource(R.string.score_disclaimer), style = MaterialTheme.typography.bodySmall)
+            assessment.score?.let { score ->
+                Text(stringResource(R.string.risk_score, score), style = MaterialTheme.typography.titleLarge)
+                ScoreBar(score / 100.0, color)
+                Text(stringResource(R.string.risk_score_note), style = MaterialTheme.typography.bodySmall)
             }
+            Text(stringResource(R.string.risk_analysis), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(RiskPresentation.analysis(assessment.level)))
+            assessment.limit?.let { Text(stringResource(RiskPresentation.limit(it))) }
+            if (result is Detection.Success && result.tokenWindow?.truncated == true) Text(stringResource(R.string.result_truncated))
         }
     }
+    state.senderNumber?.let { number -> GlassSurface(Modifier.fillMaxWidth()) {
+        Text(stringResource(R.string.sms_sender, number), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.sms_sender_note), style = MaterialTheme.typography.bodySmall)
+    } }
     if (state.checkedMessage.isNotEmpty()) GlassSurface(Modifier.fillMaxWidth()) {
         Text(stringResource(R.string.checked_message), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
         Text(state.checkedMessage)
     }
-    ResultExplanation(state, explain, { explain = it }) { vm.navigate(Screen.REPORT) }
-    if (hints.isNotEmpty()) GlassSurface(Modifier.fillMaxWidth()) {
+    GlassSurface(Modifier.fillMaxWidth()) {
         Text(stringResource(R.string.signs_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-        hints.forEach { hint ->
+        if (assessment.indicators.isEmpty()) Text(stringResource(if (assessment.score == null) R.string.risk_indicators_unavailable else R.string.risk_indicators_none))
+        assessment.indicators.forEach { indicator ->
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Icon(when (hint.kind) { HintKind.BRAND -> Icons.Outlined.AccountBalance; HintKind.LINK -> Icons.Outlined.Link
-                    HintKind.URGENCY -> Icons.Outlined.Schedule; HintKind.CREDENTIALS -> Icons.Outlined.Password; HintKind.BAIT -> Icons.Outlined.Redeem },
-                    null, Modifier.size(20.dp).clearAndSetSemantics { }, tint = amber)
-                Text(when (hint.kind) {
-                    HintKind.BRAND -> stringResource(R.string.hint_brand, hint.detail.orEmpty())
-                    HintKind.LINK -> stringResource(R.string.hint_link, hint.detail.orEmpty())
-                    HintKind.URGENCY -> stringResource(R.string.hint_urgency)
-                    HintKind.CREDENTIALS -> stringResource(R.string.hint_credentials)
-                    HintKind.BAIT -> stringResource(R.string.hint_bait)
-                })
+                Icon(Icons.Outlined.Info, null, Modifier.size(20.dp).clearAndSetSemantics { }, tint = scheme.onSurfaceVariant)
+                Text(stringResource(RiskPresentation.indicator(indicator)))
             }
         }
-        Text(stringResource(R.string.signs_note), style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
+        Text(stringResource(R.string.risk_evidence_note), style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
     }
     GlassSurface(Modifier.fillMaxWidth()) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Icon(Icons.Outlined.TipsAndUpdates, null, tint = scheme.primary)
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(stringResource(R.string.todo_title), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                val brand = state.hints?.brand
-                Text(if (brand != null) stringResource(R.string.next_step_brand, brand) else stringResource(R.string.next_step_generic))
+                Text(stringResource(RiskPresentation.action(assessment.level)))
             }
         }
     }
+    val context = LocalContext.current
+    if (ManualBlocking.offered(assessment)) ManualBlockingControl(assessment, state.senderNumber) { SystemNumberBlocking.openSettings(context) }
+    ResultExplanation(state, explain, { explain = it }) { vm.navigate(Screen.REPORT) }
     Text(stringResource(R.string.result_cleared), style = MaterialTheme.typography.labelMedium, color = scheme.onSurfaceVariant)
     GlassButton(stringResource(R.string.result_again), { vm.navigate(Screen.CHECK) })
     if (!explain) GlassButton(stringResource(R.string.result_report), { vm.navigate(Screen.REPORT) }, primary = false, icon = Icons.Outlined.Flag)
 }
 
+@Composable internal fun ManualBlockingControl(assessment: ph.smishguard.model.RiskAssessment, senderNumber: String? = null, openBlockedNumbers: () -> Boolean) {
+    val context = LocalContext.current
+    val senderLabel = stringResource(R.string.sender_number_label)
+    var step by remember(assessment, senderNumber) { mutableStateOf(BlockingStep.IDLE) }
+    var launchFailed by remember(assessment, senderNumber) { mutableStateOf(false) }
+    var copied by remember(assessment, senderNumber) { mutableStateOf(false) }
+    GlassButton(stringResource(if (senderNumber == null) R.string.block_number else R.string.block_sender), { launchFailed = false; copied = false; step = ManualBlocking.request() }, primary = false, icon = Icons.Outlined.Block)
+    if (step != BlockingStep.IDLE) AlertDialog(onDismissRequest = { step = ManualBlocking.dismiss() },
+        title = { Text(stringResource(if (step == BlockingStep.AWAITING_CONFIRMATION) {
+            if (senderNumber == null) R.string.block_confirm_title else R.string.block_sender_title
+        } else R.string.block_instructions_title)) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                if (launchFailed) Text(stringResource(R.string.block_unavailable))
+                senderNumber?.let { number ->
+                    Text(stringResource(R.string.sms_sender, number), fontWeight = FontWeight.SemiBold)
+                    Text(stringResource(R.string.sms_sender_note), style = MaterialTheme.typography.bodySmall)
+                    TextButton(onClick = {
+                        val clip = SenderNumberClipboard.createClip(senderLabel, number)
+                        context.getSystemService(ClipboardManager::class.java).setPrimaryClip(clip)
+                        copied = true
+                    }) { Text(stringResource(if (copied) R.string.sender_number_copied else R.string.copy_sender_number)) }
+                }
+                if (senderNumber == null && assessment.kind == ph.smishguard.model.InputKind.MESSAGE) Text(stringResource(R.string.sms_sender_missing))
+                Text(stringResource(if (step == BlockingStep.AWAITING_CONFIRMATION) {
+                    if (senderNumber == null) R.string.block_confirm_body else R.string.block_sender_body
+                } else R.string.block_instructions_body))
+                if (step == BlockingStep.AWAITING_CONFIRMATION) TextButton(onClick = { step = ManualBlocking.confirm(step) }) {
+                    Text(stringResource(R.string.block_show_instructions))
+                }
+            }
+        },
+        confirmButton = { TextButton(onClick = {
+            if (step == BlockingStep.AWAITING_CONFIRMATION) {
+                // Dismiss before leaving; returning from Android must not reopen this dialog.
+                step = ManualBlocking.dismiss()
+                if (!openBlockedNumbers()) { launchFailed = true; step = BlockingStep.INSTRUCTIONS }
+            } else step = ManualBlocking.dismiss()
+        }) {
+            Text(stringResource(if (step == BlockingStep.AWAITING_CONFIRMATION) R.string.block_confirm else R.string.result_close))
+        } },
+        dismissButton = { if (step == BlockingStep.AWAITING_CONFIRMATION) TextButton(onClick = { step = ManualBlocking.dismiss() }) { Text(stringResource(R.string.block_cancel)) } })
+}
 
 @Composable private fun ResultExplanation(state: CheckState, explain: Boolean, setExplain: (Boolean) -> Unit, report: () -> Unit) {
     TextButton(onClick = { setExplain(true) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.result_explain)) }
@@ -528,7 +610,13 @@ private data class VerdictLook(@param:StringRes val title: Int, @param:StringRes
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.result_explanation))
-                (state.result as? Detection.Success)?.let { result ->
+                if (RiskPolicy.linkedCashbackReviewEnabled) Text(stringResource(R.string.linked_cashback_explanation))
+                (state.result as? Detection.Success)?.takeIf { state.assessment?.score != null }?.let { result ->
+                    // Preserve raw research output separately; it is never presented as a risk percentage.
+                    if (result.classScores != null && result.classScores.size == 3) {
+                        Text(stringResource(R.string.multiclass_decision_note))
+                        Text(stringResource(R.string.multiclass_margins, result.classScores[0], result.classScores[1], result.classScores[2]))
+                    } else Text(ph.smishguard.model.ResultCopy.score(result.score))
                     result.policy?.let { Text(it.explanation()) }
                     result.tokenWindow?.takeIf { it.truncated }?.let { Text(it.explanation()) }
                 }
@@ -614,7 +702,7 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable private fun ColumnScope.SettingsContent(app: SmishGuardApp, preferences: Preferences, permissions: PermissionState, vm: CheckViewModel,
-                                                   autoWarnings: Boolean, refresh: () -> Unit, clear: () -> Unit) {
+                                                   refresh: () -> Unit, clear: () -> Unit) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var consentDialog by remember { mutableStateOf(false) }
@@ -634,7 +722,7 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
         val active = preferences.scanning && permissions.active(true)
         val incomingCd = stringResource(R.string.incoming_cd)
         SettingsRow(Icons.Outlined.Sms, stringResource(R.string.incoming_title),
-            stringResource(if (!permissions.telephony) R.string.incoming_unavailable else if (!active) R.string.incoming_off else if (autoWarnings) R.string.incoming_warn else R.string.incoming_ask)) {
+            stringResource(if (!permissions.telephony) R.string.incoming_unavailable else if (!active) R.string.incoming_off else R.string.incoming_all)) {
             Switch(checked = active, onCheckedChange = {
                 if (it) consentDialog = true else scope.launch { app.preferences.scanning(false) }
             }, enabled = permissions.telephony, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp).semantics { contentDescription = incomingCd })
@@ -660,6 +748,11 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
     }
     SectionLabel(stringResource(R.string.section_preferences))
     GlassSurface(Modifier.fillMaxWidth(), padding = 12.dp) {
+        SettingsRow(Icons.Outlined.Palette, stringResource(R.string.theme_title))
+        Box(Modifier.padding(start = 40.dp)) {
+            ThemePicker(preferences.themeMode) { mode -> scope.launch { app.preferences.themeMode(mode) } }
+        }
+        HorizontalDivider(color = edge)
         SettingsRow(Icons.Outlined.Translate, stringResource(R.string.language_title))
         Box(Modifier.padding(start = 40.dp)) { LanguagePicker() }
         HorizontalDivider(color = edge)
@@ -693,7 +786,7 @@ private fun notificationSettings(context: Context) = Intent(Settings.ACTION_APP_
         dismissButton = { TextButton(onClick = { consentDialog = false }) { Text(stringResource(R.string.consent_keep_off)) } })
     if (clearDialog) AlertDialog(onDismissRequest = { clearDialog = false }, title = { Text(stringResource(R.string.clear_title)) },
         text = { Text(stringResource(R.string.clear_body)) },
-        confirmButton = { TextButton(onClick = { clearDialog = false; PendingChecks.clear(); scope.launch { app.preferences.clear(); clear() } }) { Text(stringResource(R.string.clear_confirm)) } },
+        confirmButton = { TextButton(onClick = { clearDialog = false; ph.smishguard.sms.SmsReportGroup.clear(context); PendingChecks.clear(); scope.launch { app.preferences.clear(); clear() } }) { Text(stringResource(R.string.clear_confirm)) } },
         dismissButton = { TextButton(onClick = { clearDialog = false }) { Text(stringResource(R.string.cancel)) } })
 }
 

@@ -1,5 +1,31 @@
 # Veritxt (formerly SmishGuard) — experimental model development milestone
 
+28 October USB defense demo: a separate model-equipped `usbDemo` build accepts fictional ADB messages and automatically posts **Demo** reports through the existing installed-model notification flow. It works without internet, cellular reception, SMS permission, or the incoming-SMS setting. See [setup, scripts, build boundary, and verification](docs/usb-demo-20261028.md).
+
+21 October grouped previews: incoming Veritxt reports now identify each numeric sender and show a bounded message preview in the unlocked shade, under one count-only SMS reports header. Child reports are hidden on the lock screen, each message keeps its own gauge and actions, and privacy-notice version 2 explains notification history. See [behavior and updated APK](docs/grouped-sms-previews-20261021.md).
+
+21 October one-to-one SMS reports: each incoming message now has an independent notification tag and open/dismiss identity. Repeated messages from the same sender remain separate reports; Android may visually group them. See [behavior, updated APK and verification](docs/one-to-one-sms-notifications-20261021.md).
+
+21 October notification gauge: initial SMS reports now include an original color risk dial with a needle driven by the existing 0–100 index. An unavailable scan uses a neutral gray dial with no needle. Text reports and actions remain available. See [gauge behavior and updated APK](docs/sms-notification-risk-gauge-20261021.md).
+
+21 October incoming SMS reports: eligible builds now automatically scan each new SMS and display the initial risk level, risk score and model category directly in its notification. Expand for a short analysis; **View report** opens the full result. Failed/unavailable checks have no score, and message text and sender numbers remain hidden. See [behavior, APK and verification](docs/initial-sms-reports-20261021.md).
+
+20 October supporting-evidence update: the Ham/Smishing app now adds the existing 30-point cashback/rebate deadline cue when a claim action and link are present. Combined with the unchanged model flag (40), the reported message becomes **High Risk, 70/100**. A model flag alone remains Medium Risk. This is a [risk-policy update, not model retraining](docs/linked-cashback-risk-20261020.md); notifications for every SMS are retained.
+
+20 October incoming SMS update: the enabled setting now notifies for every SMS. Low Risk, Medium Risk and unassessable messages offer **New text received / Check now**; High Risk messages retain their existing warning. The frozen Ham/Smishing model is unchanged. See [behavior, updated APK and emulator verification](docs/all-sms-notifications-20261020.md).
+
+20 October showcase builds: screenshots, screen recording and screen sharing are allowed in both APKs. The Activity's secure-window restriction was removed at the user's request. See [capture behavior and verification](docs/screen-capture-20261020.md).
+
+20 October theme control: Settings → Preferences → Theme now offers saved Light mode, Dark mode and Follow system choices in both the SVM and retrained NB APKs. See [cause, implementation and verification](docs/theme-restoration-20261020.md).
+
+20 October retrained NB APK: the separate `nbGeneralization` variant packages the frozen first 80/20 fold (2,734 training / 684 test messages) from the latest generalization audit. See [native model contract, exact model identity and build instructions](docs/nb-generalization-android-20261020.md). This experimental build installs beside the earlier SVM app; its scores remain uncalibrated.
+
+19 October scan results: shared Low/Medium/High Risk bands (0–29 / 30–69 / 70–100), unscored Unable to assess, consistent English/Filipino result sections, and a confirmation-gated handoff to Android's blocked-number screen with manual instructions as a fallback. Incoming SMS results show the numeric sender supplied with the SMS and offer **Block sender** for Medium/High Risk, including an explicit copy-number action. Sender metadata stays in memory and clears with the scan; it is not displayed in notifications. The user adds and confirms the actual sender in Android; Veritxt does not modify the blocklist or infer the sender from message text. Scores are provisional evidence indices, not probabilities. Existing trained models are preserved. See [risk criteria, research sources, limitations, and validation](docs/risk-policy.md).
+
+13 October source-based model improvement: [51-configuration experiment and results](docs/source-robustness-results-20261013.md) selects a new research-only word/character Linear SVM using source-based validation and explicit false-alert goals. Historical models, labels and the current APK are preserved. This new feature contract is not installed in Android; it requires separate native integration and parity testing. Its results remain retrospective.
+
+13 October Linear SVM app integration: the user-requested `selectedSvm` build combines the current groupmates' UI/features with the frozen `svm-C-10.0` training candidate and verified raw-SMS adapter. Build with `scripts/build.ps1 -Variant selectedSvm -ModelParityDir <private raw-sms-v2/parity path>`. It retains experimental incoming warnings behind privacy consent, scanning consent and Android permissions. The original development model and comparison builds remain available. See [integration and verification](docs/linear-svm-app-integration-20261013.md). Earlier candidate-only deployment statements below describe the preceding milestones.
+
 13 October integration: `main` combines the thesis/research branch with the Veritxt Liquid Glass interface, privacy consent, English/Filipino support, and incoming-SMS prompts. The original supplied model can issue experimental automatic warnings with consent and Android permissions, as enabled on the UI branch. Candidate, folded LR, comparison and mBERT variants remain manual-only. Model abstention, exact decision-policy/truncation details, transient checked-message display and inference recovery are preserved. Reporting remains disabled; the standalone backend still has a historical city-based contract. Dated milestones below describe earlier states.
 
 <img src="docs/brand/veritxt-wordmark.svg" alt="Veritxt" width="320">
@@ -69,7 +95,7 @@ adb shell am start -n ph.smishguard.dev/ph.smishguard.MainActivity
 .\scripts\build.ps1 -Variant development -ConnectedTests
 ```
 
-An API 36 `SmishGuard_Test_API36` emulator was created for this milestone. The tests cover manual entry, empty/long Taglish input, share/clear, denied SMS state, unavailable reporting, lifecycle clearing and static-screen capture. Synthetic inputs remain within test code. Do not use real private SMS for screenshots or test logs. `VisualReviewTest` disables screenshot protection **only within instrumentation** while capturing static, empty screens; production always enables protection.
+An API 36 `SmishGuard_Test_API36` emulator was created for this milestone. The tests cover manual entry, empty/long Taglish input, share/clear, denied SMS state, unavailable reporting, lifecycle clearing and static-screen capture. Synthetic inputs remain within test code. As requested on 20 October, screenshots, screen recording and screen sharing are allowed in the app. Showcase captures use fictional messages.
 
 For expanded emulator verification (software models, modem SMS, multipart receipt, notifications and private-storage inspection):
 

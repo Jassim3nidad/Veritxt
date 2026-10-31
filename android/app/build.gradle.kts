@@ -20,6 +20,57 @@ android {
         manifestPlaceholders["appLabel"] = "Veritxt"
     }
     buildTypes {
+        configureEach { buildConfigField("boolean", "USB_DEMO_ENABLED", "false") }
+        create("usbDemo") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".demo.usb"
+            versionNameSuffix = "-usb-demo"
+            manifestPlaceholders["appLabel"] = "Veritxt · USB Demo"
+            buildConfigField("boolean", "USB_DEMO_ENABLED", "true")
+            matchingFallbacks += listOf("debug")
+        }
+        create("oldSvm") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".svm.oldbinary"
+            versionNameSuffix = "-ham-smishing-debug"
+            manifestPlaceholders["appLabel"] = "VeriTxt · Ham/Smishing"
+            matchingFallbacks += listOf("debug")
+        }
+        create("cashbackReview") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".svm.cashbackreview"
+            versionNameSuffix = "-cashback-review-debug"
+            manifestPlaceholders["appLabel"] = "VeriTxt · Cashback Review"
+            matchingFallbacks += listOf("debug")
+        }
+        create("multiclassSvm60") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".svm.multiclass60"
+            versionNameSuffix = "-svm60-debug"
+            manifestPlaceholders["appLabel"] = "VeriTxt · SVM 60%"
+            matchingFallbacks += listOf("debug")
+        }
+        create("multiclassSvm") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".svm.multiclass80"
+            versionNameSuffix = "-svm80-debug"
+            manifestPlaceholders["appLabel"] = "VeriTxt · SVM 80%"
+            matchingFallbacks += listOf("debug")
+        }
+        create("nbGeneralization") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".nb.generalization"
+            versionNameSuffix = "-nb-generalization-experimental"
+            manifestPlaceholders["appLabel"] = "Veritxt · Retrained NB"
+            matchingFallbacks += listOf("debug")
+        }
+        create("selectedSvm") {
+            initWith(getByName("debug"))
+            applicationIdSuffix = ".svm.selected"
+            versionNameSuffix = "-linear-svm-experimental"
+            manifestPlaceholders["appLabel"] = "Veritxt"
+            matchingFallbacks += listOf("debug")
+        }
         create("mbertQuantized") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".mbert.int8"
@@ -81,6 +132,18 @@ android {
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 tasks.withType<Test>().configureEach {
+    providers.gradleProperty("svm60ParityDir").orNull?.let {
+        systemProperty("smishguard.svm60.parity.dir", it)
+        inputs.dir(it)
+    }
+    providers.gradleProperty("multiclassParityDir").orNull?.let {
+        systemProperty("smishguard.multiclass.parity.dir", it)
+        inputs.dir(it)
+    }
+    providers.gradleProperty("nbParityDir").orNull?.let {
+        systemProperty("smishguard.nb.parity.dir", it)
+        inputs.dir(it)
+    }
     providers.gradleProperty("mbertParityDir").orNull?.let {
         systemProperty("smishguard.mbert.parity.dir", it)
         inputs.dir(it)
@@ -99,6 +162,52 @@ tasks.withType<Test>().configureEach {
     }
 }
 configurations.getByName("developmentImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("multiclassSvmImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("multiclassSvm60Implementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("cashbackReviewImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("oldSvmImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("usbDemoImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+android.sourceSets.getByName("usbDemo").assets.srcDir("src/selectedSvm/assets")
+if (android.testBuildType == "usbDemo") android.sourceSets.getByName("androidTest").java.srcDir("src/usbDemoAndroidTest/java")
+android.sourceSets.getByName("oldSvm").assets.srcDir("src/selectedSvm/assets")
+providers.gradleProperty("oldSvmParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+android.sourceSets.getByName("cashbackReview").assets.srcDir("src/multiclassSvm60/assets")
+providers.gradleProperty("svm60ParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+val verifyMulticlassSvm60Model by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/multiclassSvm60/assets").asFile
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json")) { "Only the exact frozen SVM 60% asset may be packaged" }
+        val digest = MessageDigest.getInstance("SHA-256").digest(directory.resolve("model.json").readBytes()).joinToString("") { "%02x".format(it) }
+        check(digest == "3703fdb51583f090979ada04fc79201e58cbeb61b0a464cb6389b0baf5b07dd1") { "Wrong SVM 60% export" }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model contamination" }
+    }
+}
+tasks.matching { it.name == "preMulticlassSvm60Build" || it.name == "mergeMulticlassSvm60Assets" }.configureEach { dependsOn(verifyMulticlassSvm60Model) }
+tasks.matching { it.name == "preCashbackReviewBuild" || it.name == "mergeCashbackReviewAssets" }.configureEach { dependsOn(verifyMulticlassSvm60Model) }
+providers.gradleProperty("multiclassParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+val verifyMulticlassSvmModel by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/multiclassSvm/assets").asFile
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json")) { "Only the frozen multiclass SVM export may be packaged" }
+        val model = directory.resolve("model.json")
+        val digest = MessageDigest.getInstance("SHA-256").digest(model.readBytes()).joinToString("") { "%02x".format(it) }
+        check(digest == "ba6fc0bf7f32cd4405402534fdda408eed418072279928958ae4ba88c83894d6") { "Wrong frozen multiclass SVM asset" }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) { "Shared model contamination" }
+    }
+}
+tasks.matching { it.name == "preMulticlassSvmBuild" || it.name == "mergeMulticlassSvmAssets" }
+    .configureEach { dependsOn(verifyMulticlassSvmModel) }
+providers.gradleProperty("nbParityDir").orNull?.let {
+    android.sourceSets.getByName("androidTest").assets.srcDir("$it/android-test-assets")
+}
+configurations.getByName("selectedSvmImplementation").extendsFrom(configurations.getByName("debugImplementation"))
+configurations.getByName("nbGeneralizationImplementation").extendsFrom(configurations.getByName("debugImplementation"))
 configurations.getByName("mbertImplementation").extendsFrom(configurations.getByName("debugImplementation"))
 configurations.getByName("mbertQuantizedImplementation").extendsFrom(configurations.getByName("debugImplementation"))
 val verifyMbertQuantizedModel by tasks.registering {
@@ -282,6 +391,49 @@ for (algorithm in listOf("lr", "nb", "svm")) {
     val title = algorithm.replaceFirstChar { it.uppercase() }
     tasks.matching { it.name == "pre${title}Build" || it.name == "merge${title}Assets" }.configureEach { dependsOn(verify) }
 }
+
+// This private asset is intentionally absent from public checkouts. A development
+val verifySelectedSvmModel by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/selectedSvm/assets").asFile
+        val expected = mapOf(
+            "model.json" to "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+            "raw-sms-adapter.json" to "11c3ee93fb7523e72b5658bec9f4bc5ee7389d9e5add25d5ca3fceceeedb5b8c"
+        )
+        check(directory.listFiles()?.map { it.name }?.toSet() == expected.keys) {
+            "Selected SVM requires the frozen private model and raw-SMS adapter only."
+        }
+        for ((name, hash) in expected) {
+            val digest = MessageDigest.getInstance("SHA-256").digest(directory.resolve(name).readBytes())
+                .joinToString("") { "%02x".format(it) }
+            check(digest == hash) { "Selected SVM training contract changed: $name" }
+        }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) {
+            "Shared model asset would contaminate variants"
+        }
+    }
+}
+tasks.matching { it.name in listOf("preSelectedSvmBuild", "mergeSelectedSvmAssets", "preOldSvmBuild", "mergeOldSvmAssets", "preUsbDemoBuild", "mergeUsbDemoAssets") }
+    .configureEach { dependsOn(verifySelectedSvmModel) }
+
+val verifyNbGeneralizationModel by tasks.registering {
+    doLast {
+        val directory = layout.projectDirectory.dir("src/nbGeneralization/assets").asFile
+        check(directory.listFiles()?.map { it.name }?.toSet() == setOf("model.json")) {
+            "Retrained NB requires only its frozen private model asset"
+        }
+        val digest = MessageDigest.getInstance("SHA-256").digest(directory.resolve("model.json").readBytes())
+            .joinToString("") { "%02x".format(it) }
+        check(digest == "7cd219db2c9c4559aec60fdea2558821e48cc73085455a9c9caf0b5465d9df5c") {
+            "Retrained NB differs from frozen group-fold-0 alpha=0.1"
+        }
+        check(!layout.projectDirectory.file("src/main/assets/model.json").asFile.exists()) {
+            "Shared model asset would contaminate variants"
+        }
+    }
+}
+tasks.matching { it.name == "preNbGeneralizationBuild" || it.name == "mergeNbGeneralizationAssets" }
+    .configureEach { dependsOn(verifyNbGeneralizationModel) }
 
 // This private asset is intentionally absent from public checkouts. A development
 // APK must never silently fall back to the model-free debug experience.

@@ -24,6 +24,8 @@ object Preprocessing {
     fun tokens(text: String): List<String> = normalize(text).split(' ').filter { it.isNotEmpty() }
 }
 
+enum class SmsCategory { HAM, SMISHING, GAMBLING }
+
 sealed interface Detection {
     data object UnableToAssess : Detection
     data object Unavailable : Detection
@@ -32,7 +34,8 @@ sealed interface Detection {
     data object Busy : Detection
     data class Success(val suspicious: Boolean, val score: Double, val probability: Boolean = false,
                        val synthetic: Boolean = false, val experimental: Boolean = false,
-                       val policy: DecisionPolicy? = null, val tokenWindow: TokenWindow? = null) : Detection
+                       val policy: DecisionPolicy? = null, val tokenWindow: TokenWindow? = null,
+                       val category: SmsCategory? = null, val classScores: List<Double>? = null) : Detection
 }
 
 interface Detector {

@@ -1,5 +1,7 @@
 # BantayText experiment research candidate model card
 
+Subsequent user-requested app integration: the separate `selectedSvm` APK now uses this frozen candidate and the validated raw-SMS adapter with the current Veritxt UI. See [integration record](linear-svm-app-integration-20261013.md). Candidate-only/app-unchanged statements below describe the previous research milestone; the accuracy limitations remain applicable.
+
 Latest 13 October clarification: inherited labels are a documented research
 limitation, not an added blanket requirement for another human-labeled upload.
 The user reports physical-phone checks completed. [Raw-SMS validation](bantaytext-raw-sms-validation-20261013.md)

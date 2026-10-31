@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Shell (ADB) holds DUMP; ordinary installed applications do not. No carrier SMS APIs. -->
+        <receiver android:name=".demo.UsbDemoReceiver" android:exported="true"
+            android:permission="android.permission.DUMP" />
+    </application>
+</manifest>

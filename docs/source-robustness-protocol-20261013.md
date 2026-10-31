@@ -1,0 +1,29 @@
+# Source-based development experiment — 13 October 2026
+
+The user authorized investigating false alerts and comparing SVM, LR and NB using source-based validation, regularization and word/character features. This is a new private research experiment. Historical models, dataset labels, original partitions and the current APK are preserved. No app model is automatically replaced by a development winner.
+
+## Data and boundaries
+
+Use the frozen 2,554-record masked dataset and existing template groups from `notebook-run-v3`. Development is the original grouped train plus validation partitions (2,056 records). Reserve the original 498 test records from all new fitting, calibration, feature/configuration selection and threshold selection. These data, including that test, were historically exposed; all resulting estimates are retrospective. No fresh independently labeled SMS is available in this run. Source/rule labels remain unchanged and independently unverified. Filipino/Taglish is a combined existing field; do not invent separate Tagalog/Taglish labels.
+
+For each candidate, hold out each of the three development sources in turn. Fit only on development records from the source complement, purging every template group present in the held source. Fit vocabulary/IDF and model parameters only on that complement. For SVM, fit a sigmoid from three group-disjoint training-only OOF margin folds, each with its own vocabulary/IDF. No source name is a feature. If a training/calibration partition lacks both classes, record it as unsupported rather than manufacturing labels or retrying favorable seeds.
+
+Concatenate source-held-out development predictions in original development order. This is source-based validation used for selecting configurations and thresholds, not an independent final test. Audit group/record/source exclusions and save the fold memberships privately. BWandowando has only positive labels; its false-positive rate is unestimable.
+
+## Prespecified search and warning policy
+
+Compare word unigrams/bigrams with English stopwords, word unigrams/bigrams without stopwords, character-within-word 3–5 grams, and combined word/character features without stopwords. New candidates use minimum document frequency 2 to investigate rarer features; retain the three historical word/English/min_df=1 configurations as explicit controls. LR/SVM C values are 0.01, 0.1, 1 and 10 with unchanged class weights. NB alpha values are 0.03, 0.1, 1 and 10. Use existing raw TF-IDF, smooth IDF, L2 normalization, seed 42 and actual fitted sklearn implementations. No transformer fit or synthetic message augmentation is included.
+
+For each candidate, choose an inclusive threshold from the empirical source-validation score boundaries, plus 0, 0.5 and 1. Operational development goals: false-positive rate ≤2% in every source/language subgroup with at least 100 ham records, and recall ≥50% in every source with at least 20 smishing records. These are provisional research goals, not deployment guarantees. Among feasible thresholds, maximize equal-source mean smishing F1; ties prefer lower worst-subgroup FPR, then higher pooled recall, then higher threshold. If none meets both goals, require the recall floor and minimize the worst-subgroup FPR, then maximize equal-source mean F1. Mark this fallback explicitly as not meeting the warning goal. Always report whether a nontrivial candidate meets the goals; never treat an all-negative predictor as success.
+
+Within each algorithm family, prefer candidates meeting both goals; then rank using the same criteria, followed by fewer source-fit features and lexicographic candidate ID. Select the overall development candidate by that same rule. Exclude any failed or unsupported candidate. No model is chosen using the reserved-test metrics.
+
+Refit each family winner and the overall winner (deduplicated) on the entire development pool, with training-group OOF SVM calibration. Retain its source-validation-selected threshold. Save all fitted pipelines and a selection/parameter freeze before opening reserved-test predictions. Evaluate each frozen family candidate on the same 498 reserved IDs and report confusion counts, precision/recall/F1/FPR, source and language supports, and explicit experimental status. Include the original APK candidate's saved test metrics as a historical comparator with its original training size/threshold identified; do not make a matched-fit causal claim.
+
+## Error review and integrity
+
+Investigate the original 133 Tagalog-source-holdout SVM false positives using the existing private prediction/source joins. Produce a private masked review packet with inherited labels, scores and blank review fields. Report category/language/source counts and score distributions publicly; learned feature contributions and messages remain private. Do not decide that a label is wrong merely because a model disagrees. These stress-test mistakes came from a separately fitted SVM, not the exact installed APK.
+
+Hash the original dataset, splits, configurations, 62 candidate pipelines, nine held-source pipelines, installed model/adapter, original development asset and delivery APK before fitting. Verify those hashes before final testing and after completion. Save package versions, code/protocol hashes, fit failures and warnings. Recompute final predictions from saved pipelines and verify their scores and confusion counts. Prepare an empty prospective intake template with separate language choices and source/label evidence fields; no fresh records, human decisions, physical-phone measurements or approval are fabricated.
+
+The implementation and tests must enforce development/test isolation, source/template purging, training-only feature extraction/calibration, threshold feasibility/fallback, positive-only-source metric handling, and immutable historical artifacts.

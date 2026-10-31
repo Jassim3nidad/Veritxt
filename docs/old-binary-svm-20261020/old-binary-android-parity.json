@@ -1,0 +1,24 @@
+{
+  "parity": {
+    "cases": 515,
+    "maximum_score_error": 4.440892098500626E-16,
+    "maximum_feature_error": 1.1102230246251565E-16,
+    "required_abstentions": 7,
+    "model_bytes": 1333723,
+    "load_ms": 2005.48,
+    "mean_score_ms": 1.6633120388349518,
+    "production_loader_rejects": true
+  },
+  "raw_parity": {
+    "raw_cases": 33,
+    "maximum_score_error": 1.1102230246251565E-16,
+    "required_abstentions": 8,
+    "raw_view_matches": true
+  },
+  "app_path_cases": 32,
+  "model_sha256": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+  "risk_profile": "evidence-index-v1",
+  "cashback_rule_enabled": false,
+  "api": 36,
+  "physical_device": false
+}

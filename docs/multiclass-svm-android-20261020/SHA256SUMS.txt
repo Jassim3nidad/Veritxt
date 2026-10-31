@@ -1,0 +1,1 @@
+e31e440d1e02512b0cf2718cde2fcf87e3f7cc9de944eb0fe5e8ad1dcfd0d8ec  VeriTxt-LinearSVM-80-New-debug.apk

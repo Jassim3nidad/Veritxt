@@ -1,0 +1,11 @@
+fold,portion,records,groups,Ham,Smishing,Gambling
+1,train,2317,442,1838,233,246
+1,validation,725,84,606,58,61
+2,train,2457,442,1978,233,246
+2,validation,585,84,466,58,61
+3,train,2464,406,1986,233,245
+3,validation,578,120,458,58,62
+4,train,2465,407,1987,232,246
+4,validation,577,119,457,59,61
+5,train,2465,407,1987,233,245
+5,validation,577,119,457,58,62

@@ -13,13 +13,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import ph.smishguard.model.Detection
 import ph.smishguard.model.MAX_MESSAGE_LENGTH
+import ph.smishguard.model.RiskAssessment
+import ph.smishguard.model.AppRiskPolicy as RiskPolicy
 import ph.smishguard.privacy.SafeDomain
+import ph.smishguard.sms.SenderNumbers
 import java.time.ZonedDateTime
 
 enum class Screen { HOME, CHECK, RESULT, REPORT, SETTINGS, PRIVACY, HELP }
 data class CheckState(val screen: Screen = Screen.HOME, val text: String = "", val busy: Boolean = false,
     val checkedMessage: String = "", @param:StringRes val error: Int? = null, val result: Detection? = null, val domain: String? = null,
-    val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val autoWarnings: Boolean = false, val modelStatus: String = "Loading model status…")
+    val checkedAt: ZonedDateTime? = null, val hints: HintSummary? = null, val autoWarnings: Boolean = false, val modelStatus: String = "Loading model status…",
+    val assessment: RiskAssessment? = null, val senderNumber: String? = null)
 
 class CheckViewModel(application: android.app.Application) : AndroidViewModel(application) {
     private val app = application as SmishGuardApp
@@ -40,17 +44,17 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     fun edit(text: String) {
         cancelWork()
         mutable.value = mutable.value.copy(text = text.take(MAX_MESSAGE_LENGTH), busy = false,
-            checkedMessage = "", result = null, domain = null, checkedAt = null, hints = null,
+            checkedMessage = "", result = null, domain = null, checkedAt = null, hints = null, assessment = null, senderNumber = null,
             error = if (text.length > MAX_MESSAGE_LENGTH) R.string.error_too_long else null)
     }
     fun share(text: String) { endSession(Screen.CHECK); edit(text) }
-    fun checkPending(text: String?) {
+    fun checkPending(text: String?, senderNumber: String? = null) {
         if (text == null) { endSession(Screen.CHECK); mutable.value = mutable.value.copy(error = R.string.error_expired) }
-        else { share(text); scan() }
+        else { share(text); mutable.value = mutable.value.copy(senderNumber = SenderNumbers.normalize(senderNumber)); scan() }
     }
     fun navigate(screen: Screen) {
         if (screen in setOf(Screen.HOME, Screen.CHECK, Screen.SETTINGS, Screen.PRIVACY, Screen.HELP)) endSession(screen)
-        else mutable.value = mutable.value.copy(screen = screen, checkedMessage = "")
+        else mutable.value = mutable.value.copy(screen = screen, checkedMessage = "", senderNumber = null)
     }
     fun endSession(screen: Screen = Screen.HOME) {
         cancelWork()
@@ -58,7 +62,8 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
     }
     fun scan() {
         if (mutable.value.text.isBlank()) {
-            mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", checkedMessage = "", result = Detection.UnableToAssess, error = null)
+            mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", checkedMessage = "", result = Detection.UnableToAssess,
+                assessment = RiskPolicy.assess("", Detection.UnableToAssess), error = null)
             return
         }
         if (mutable.value.busy) return
@@ -75,7 +80,7 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
                 generation++
                 job?.cancel()
                 mutable.value = mutable.value.copy(screen = Screen.RESULT, text = "", checkedMessage = "", busy = false,
-                    result = Detection.Failure, error = null)
+                    result = Detection.Failure, assessment = RiskPolicy.assess(submittedText, Detection.Failure), error = null)
             }
         }
         job = viewModelScope.launch {
@@ -84,11 +89,13 @@ class CheckViewModel(application: android.app.Application) : AndroidViewModel(ap
                 val status = if (result is Detection.Success) app.detector().status else mutable.value.modelStatus
                 if (session == generation) mutable.value = mutable.value.copy(screen = Screen.RESULT,
                     text = "", checkedMessage = submittedText, busy = false, error = null,
-                    result = result, modelStatus = status, hints = Hints.read(submittedText), domain = SafeDomain.fromMessage(submittedText), checkedAt = ZonedDateTime.now())
+                    result = result, assessment = RiskPolicy.assess(submittedText, result), modelStatus = status,
+                    hints = Hints.read(submittedText), domain = SafeDomain.fromMessage(submittedText), checkedAt = ZonedDateTime.now())
             } catch (e: CancellationException) { throw e }
             catch (_: Exception) {
                 if (session == generation) mutable.value = mutable.value.copy(screen = Screen.RESULT,
-                    text = "", checkedMessage = submittedText, busy = false, error = null, result = Detection.Failure)
+                    text = "", checkedMessage = submittedText, busy = false, error = null, result = Detection.Failure,
+                    assessment = RiskPolicy.assess(submittedText, Detection.Failure))
             } finally {
                 if (session == generation) watchdog?.cancel()
             }

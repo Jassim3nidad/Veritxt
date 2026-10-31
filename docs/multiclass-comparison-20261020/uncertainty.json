@@ -1,0 +1,46 @@
+{
+  "svm-80 minus nb-80": {
+    "difference": 0.013918725462818915,
+    "percentile_95": [
+      -0.006676160397904437,
+      0.04236083163822843
+    ],
+    "valid_replicates": 2000,
+    "requested_replicates": 2000,
+    "groups": 132,
+    "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+  },
+  "svm-60 minus nb-60": {
+    "difference": 0.005235990374958477,
+    "percentile_95": [
+      -0.025208867716381044,
+      0.02935249728600675
+    ],
+    "valid_replicates": 2000,
+    "requested_replicates": 2000,
+    "groups": 132,
+    "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+  },
+  "svm-80 minus svm-60": {
+    "difference": 0.009257120346680914,
+    "percentile_95": [
+      -0.011531684130168343,
+      0.04199299294645248
+    ],
+    "valid_replicates": 2000,
+    "requested_replicates": 2000,
+    "groups": 132,
+    "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+  },
+  "nb-80 minus nb-60": {
+    "difference": 0.0005743852588204756,
+    "percentile_95": [
+      -0.02016249520510851,
+      0.02077843147364281
+    ],
+    "valid_replicates": 2000,
+    "requested_replicates": 2000,
+    "groups": 132,
+    "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+  }
+}

@@ -25,14 +25,20 @@ class NotificationBehaviorTest {
         awaitNotificationState { manager.activeNotifications.any { it.id == id } }
         val notification = manager.activeNotifications.first { it.id == id }.notification
         assertEquals(Notification.VISIBILITY_SECRET, notification.visibility)
-        assertEquals("Possible scam text", notification.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        assertEquals("High Risk SMS", notification.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
         assertFalse(notification.extras.getCharSequence(Notification.EXTRA_TEXT).toString().contains("SGTEST"))
         assertNotNull(notification.contentIntent)
         manager.cancelAll()
         awaitNotificationState { manager.activeNotifications.isEmpty() }
         manager.createNotificationChannel(NotificationChannel(WarningNotifications.CHANNEL, "Scam warnings", NotificationManager.IMPORTANCE_NONE))
-        assertFalse(PermissionState.read(context).notifications)
+        assertFalse(PermissionState.read(context, WarningNotifications.CHANNEL).notifications)
+        assertTrue("Blocking warnings must not block new-SMS prompts", PermissionState.read(context).notifications)
         assertNull(WarningNotifications.warn(context, "SGTEST blocked channel"))
+        val prompt = ph.smishguard.sms.CheckPrompt.show(context, "SGTEST neutral prompt")
+        assertNotNull(prompt)
+        awaitNotificationState { manager.activeNotifications.any { it.id == prompt } }
+        manager.cancelAll()
+        awaitNotificationState { manager.activeNotifications.isEmpty() }
         assertTrue(manager.activeNotifications.isEmpty())
     }
 

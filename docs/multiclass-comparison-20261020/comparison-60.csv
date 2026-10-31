@@ -1,0 +1,3 @@
+id,training_percent,algorithm,parameter,value,cv_mean,cv_std,validation_macro_f1,accuracy,macro_precision,macro_recall,macro_f1,weighted_f1,correct,misclassified,smishing_as_ham,gambling_as_ham,ham_as_smishing,ham_as_gambling
+svm-60,60,svm,C,10.0,,,0.8605887755865611,0.9724047306176085,0.9678520846671711,0.9235542825968358,0.9413363010430755,0.9715082410776438,740,21,14,1,0,5
+nb-60,60,nb,alpha,0.01,,,0.8895232821810896,0.9697766097240473,0.9603200025950539,0.9160756501182034,0.936100310668117,0.9691932719855116,738,23,11,5,0,5

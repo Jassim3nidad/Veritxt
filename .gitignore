@@ -56,7 +56,11 @@ candidate_parity_cases.json
 # Comparison models, local review manifests and APKs never enter public Git.
 android/app/src/lr/assets/
 android/app/src/nb/assets/
+android/app/src/nbGeneralization/assets/
+android/app/src/multiclassSvm/assets/
+android/app/src/multiclassSvm60/assets/
 android/app/src/svm/assets/
+android/app/src/selectedSvm/assets/
 android/app/src/lrCandidate/assets/
 android/app/src/lrCalibrated4/assets/
 android/app/src/mbert/assets/
@@ -72,3 +76,5 @@ SMISHGUARD_complete.zip
 # Separate experimental quantized assets and arbitrary local artifact output.
 android/app/src/mbertQuantized/assets/
 output/
+outputs/
+node_modules/

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="status_retrained_nb">Experimental · Retrained Naive Bayes · 80/20</string>
+    <string name="status_linear_svm">Linear SVM · Experimental</string>
     <!-- English (default). Filipino lives in values-b+fil/ and an identical copy in values-tl/ for older Android versions. -->
     <string name="app_name" translatable="false">Veritxt</string>
     <string name="app_tagline">Check the text before you tap</string>
@@ -13,11 +15,11 @@
     <string name="privacy_title">Your privacy</string>
     <string name="privacy_intro">Read how Veritxt handles your information before you start.</string>
     <string name="privacy_checks_title">What Veritxt checks</string>
-    <string name="privacy_checks_body">Only the SMS text you paste, share, or allow it to receive.</string>
+    <string name="privacy_checks_body">The SMS text you paste, share, or allow it to receive. For incoming SMS, the sender’s number is held temporarily so you can review and choose whether to block it. Sender identity is not verified.</string>
     <string name="privacy_where_title">Where it happens</string>
     <string name="privacy_where_body">On this phone only. Veritxt has no internet permission, so your messages are never sent anywhere.</string>
     <string name="privacy_saved_title">What\'s saved</string>
-    <string name="privacy_saved_body">Message text is never saved. Veritxt keeps only your settings and the fact that you agreed to this notice. Clearing local data removes them.</string>
+    <string name="privacy_saved_body">Message text and sender numbers are not saved to app storage. Incoming reports show the numeric sender and a short message preview in unlocked notifications. Those reports are hidden on the lock screen; the group header shows only a count. Android notification history and notification-access apps may retain displayed previews. Pending checks expire after 10 minutes; leaving the app clears the current scan. Veritxt saves only your settings and notice acceptance. Copying a sender’s number uses Android’s clipboard only when you choose.</string>
     <string name="privacy_optional_title">SMS access is optional</string>
     <string name="privacy_optional_body">You can check messages by pasting or sharing them. Reading new SMS needs your permission, and you can turn it off anytime.</string>
     <string name="privacy_rights_title">Your rights</string>
@@ -77,37 +79,14 @@
 
     <!-- Result -->
     <string name="result_title">Check result</string>
-    <string name="verdict_synthetic_title">Synthetic interface fixture</string>
     <string name="verdict_synthetic_body">This is not a real assessment.</string>
-    <string name="verdict_scam_title">Likely phishing</string>
-    <string name="verdict_scam_body">This message may be a scam. Pause before acting on any request for money or account access.</string>
-    <string name="verdict_caution_title">Not flagged, but be careful</string>
-    <string name="verdict_caution_body">The model didn\'t flag it, but it has warning signs. A low score doesn\'t prove a message is real.</string>
-    <string name="verdict_safe_title">No phishing detected</string>
-    <string name="verdict_safe_body">The model did not flag this message. This does not establish that it is legitimate.</string>
-    <string name="verdict_missing_title">Model unavailable</string>
     <string name="verdict_missing_body">No usable model is bundled. No prediction was made.</string>
-    <string name="verdict_invalid_title">Model unavailable</string>
     <string name="verdict_invalid_body">The bundled model is invalid or unsupported. No prediction was made.</string>
-    <string name="verdict_failed_title">Could not complete the check</string>
     <string name="verdict_failed_body">No result is available. Try checking again. If loading or checking remains stuck, close the app through Android settings and reopen it. A slow native check may still be finishing.</string>
     <string name="tag_experimental">Experimental result</string>
-    <string name="score_uncalibrated">Uncalibrated model score: %1$s. This is not a likelihood of fraud.</string>
-    <string name="score_above">Above provisional threshold (0.5).</string>
-    <string name="score_below">At or below provisional threshold (0.5).</string>
     <string name="score_disabled">Reporting is disabled in this build.</string>
-    <string name="score_probability">Estimated suspicious-class probability: %1$s%%. This is a model estimate, not certainty.</string>
-    <string name="score_none">No confidence percentage is available.</string>
-    <string name="signs_title">Warning signs found</string>
-    <string name="hint_brand">Mentions %1$s</string>
-    <string name="hint_link">Link goes to %1$s, not an official site</string>
-    <string name="hint_credentials">Asks about an OTP, PIN, or password</string>
-    <string name="hint_urgency">Pushes you to act fast</string>
-    <string name="hint_bait">Offers a prize, reward, or refund</string>
-    <string name="signs_note">These are simple pattern checks, not the model\'s reasoning.</string>
-    <string name="todo_title">What to do</string>
-    <string name="next_step_brand">Don\'t tap the link. Open the official %1$s app, or call a number you already trust.</string>
-    <string name="next_step_generic">Don\'t tap any link or reply. Contact the sender through an official channel you already trust.</string>
+    <string name="signs_title">Detected Indicators</string>
+    <string name="todo_title">Recommended Action</string>
     <string name="result_cleared">Your checked message is shown only for this result. It is cleared when you check another message, navigate away, or leave the app. No scan history is saved.</string>
     <string name="result_again">Check another message</string>
     <string name="result_report">Review reporting options</string>
@@ -151,6 +130,10 @@
     <string name="test_needs_notifications">Turn on notifications first.</string>
     <string name="why_title">Why didn\'t I get a notification?</string>
     <string name="language_title">Language</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light mode</string>
+    <string name="theme_dark">Dark mode</string>
     <string name="language_system">System default</string>
     <string name="language_en" translatable="false">English</string>
     <string name="language_fil" translatable="false">Filipino</string>
@@ -163,7 +146,7 @@
     <string name="local_limits">Android treats SMS access as a restricted permission and may refuse it. Force-stopping the app pauses incoming checks until you open it again.</string>
     <string name="clear_button">Clear local preferences and session</string>
     <string name="consent_title">Allow incoming SMS checks?</string>
-    <string name="consent_body">When a new SMS arrives, Veritxt checks its text on this phone and then discards it. If the text looks like a scam, Veritxt warns you. Without a model, it asks whether you want to check the text instead. It won\'t read your inbox or change messages. Android may refuse this restricted permission. Notifications are a separate choice.</string>
+    <string name="consent_body">With your consent, supported builds assess new SMS on this phone. Each unlocked notification shows the numeric sender, a short message preview, risk level and gauge. Expand for the score, model category and initial analysis. An unavailable scan has no score. Reports are grouped together, with one report per SMS. Sender and preview are hidden on the lock screen. Android notification history and notification-access apps may retain previews. Pending messages expire after 10 minutes and are not saved to app storage. View report opens the exact message. Veritxt does not read your inbox or change messages. Android may restrict SMS access. Notifications need separate permission.</string>
     <string name="consent_agree">Agree and continue</string>
     <string name="consent_keep_off">Keep off</string>
     <string name="sms_granted_note">SMS permission granted. Veritxt will check new texts as they arrive.</string>
@@ -211,7 +194,7 @@
 
     <!-- Notifications -->
     <string name="channel_check_name">New text checks</string>
-    <string name="channel_check_desc">Asks if you want to check a new SMS. Never shows the message.</string>
+    <string name="channel_check_desc">Initial SMS reports show the sender, short preview and result while unlocked.</string>
     <string name="notif_check_title">New text received</string>
     <string name="notif_check_body">Check it with Veritxt before you tap any link.</string>
     <string name="notif_check_public">New text to check</string>
@@ -219,27 +202,94 @@
     <string name="notif_action_dismiss">Dismiss</string>
     <string name="notif_test_title">Test: new text received</string>
     <string name="notif_test_sample" translatable="false">SAMPLE: Your parcel is on hold. Pay the redelivery fee today at example-parcel.test</string>
-    <string name="channel_warning_name">Scam warnings</string>
-    <string name="channel_warning_desc">Warns you when a new SMS looks like a scam. Never shows the message.</string>
-    <string name="warning_title">Possible scam text</string>
-    <string name="warning_body">Veritxt\'s experimental model flagged a new SMS. Don\'t tap its links. Tap to see why.</string>
+    <string name="channel_warning_name">High Risk SMS alerts</string>
+    <string name="channel_warning_desc">High Risk SMS reports show sender and preview while unlocked. Reports are hidden on the lock screen.</string>
+    <string name="warning_title">High Risk SMS</string>
+    <string name="warning_body">Strong suspicious indicators were identified. Avoid interacting until verified. Open Veritxt to review the analysis.</string>
     <string name="notif_action_see_why">See why</string>
-    <string name="incoming_warn">Warn me when a text looks like a scam</string>
-    <string name="home_note_experimental">Automatic warnings use an experimental model and can be wrong. Reporting is disabled.</string>
-    <string name="home_note_missing">No model is installed, so new texts can only be checked when you tap Check now. Reporting is disabled.</string>
+    <string name="notif_report_title">%1$s SMS</string>
+    <string name="notif_report_initial">Initial scan · Experimental</string>
+    <string name="notif_report_unavailable">Automatic scan unavailable. Open Veritxt to check again.</string>
+    <string name="notif_action_report">View report</string>
+    <string name="incoming_all">Notify me about every SMS</string>
+    <string name="home_note_experimental">New SMS are scanned automatically while incoming SMS is on. Grouped reports identify each sender and show a short preview, risk level and gauge while unlocked. Expand for the score and analysis. Results are experimental and may be incorrect. Reporting is disabled.</string>
+    <string name="home_note_missing">Automatic scanning is unavailable in this build. Incoming notifications show Unable to assess without a score. Open View report to try a manual check. Reporting is disabled.</string>
     <string name="error_slow">Loading or checking is taking longer. You can clear or leave this screen.</string>
     <string name="verdict_abstain_title">Unable to assess</string>
-    <string name="verdict_abstain_body">Enter an SMS message with meaningful text.</string>
-    <string name="verdict_busy_title">Previous check is still finishing</string>
     <string name="verdict_busy_body">Wait, then check again. If it remains stuck, close the app through Android settings and reopen it. No new check was started.</string>
-    <string name="score_model">Model score: %1$s%%</string>
-    <string name="score_disclaimer">Experimental score; not a verified probability.</string>
-    <string name="result_truncated">Long message: only the beginning was assessed.</string>
+    <string name="result_truncated">The SMS model assessed only the beginning; visible-text indicators cover the full submitted message.</string>
     <string name="checked_message">Checked message</string>
     <string name="result_explain">What does this mean?</string>
     <string name="result_about">About this result</string>
     <string name="result_close">Close</string>
     <string name="automatic_disabled">Automatic warnings and reporting are disabled.</string>
-    <string name="result_explanation">The score is experimental, not a verified probability or chance of fraud. Research performance is unverified. No phishing detected does not establish that a message is safe. Verify requests through an official app, website entered independently, or a phone number you already know.</string>
-    <string name="result_abstention">Unable to assess means there is no usable model word outside links or numbers, or the input is blank or obvious keyboard mashing. It can also occur for meaningful words this model does not know. Short messages are allowed; no minimum word count is required.</string>
+    <string name="result_explanation">Risk scores are provisional evidence indices, not statistical probabilities: Low Risk 0–29, Medium Risk 30–69, High Risk 70–100. Repeated indicators count once. A model flag contributes 40 points; requests to send or share credentials 70; credential entry requests, payment requests, and obscured URL structures 30 each; urgency, reward language, and shortened URLs 10 each. Link presence and organization names alone add no points. The total is capped at 100. A low score does not establish authenticity. These weights and thresholds require representative validation.</string>
+    <string name="result_abstention">Unable to assess has no numerical score. It applies when evidence or a usable model is unavailable, a check fails, or the input falls outside supported analysis. Phone numbers alone cannot establish fraud. Plain URLs and email addresses cannot establish reputation or identity. Email text is assessed only for visible patterns, without using the SMS model. No live domain reputation or email authentication check is available. Veritxt never blocks numbers automatically.</string>
+    <!-- Shared evidence-based risk results and user-controlled blocking. -->
+    <string name="risk_low">Low Risk</string>
+    <string name="risk_medium">Medium Risk</string>
+    <string name="risk_high">High Risk</string>
+    <string name="risk_level">Risk Level</string>
+    <string name="risk_score">Risk Score: %1$d/100</string>
+    <string name="risk_score_note">Provisional evidence index; not a probability of fraud.</string>
+    <string name="risk_analysis">Analysis</string>
+    <string name="risk_low_analysis">No significant indicators of fraudulent activity were detected.</string>
+    <string name="risk_medium_analysis">Potentially suspicious elements were identified. Further verification is recommended.</string>
+    <string name="risk_high_analysis">Strong indicators associated with phishing, smishing, or fraudulent activity were identified.</string>
+    <string name="risk_unable_analysis">Insufficient information was available to determine a reliable risk classification.</string>
+    <string name="risk_low_action">No immediate action is required. Continue exercising caution when interacting with unfamiliar senders or links.</string>
+    <string name="risk_medium_action">Verify the sender’s identity before responding, opening links, or sharing personal information. Consider blocking the number if the contact is unwanted.</string>
+    <string name="risk_high_action">Avoid interacting with the sender, opening suspicious links, or providing sensitive information. Consider blocking and reporting the number.</string>
+    <string name="risk_unable_action">Verify the sender through an official channel or provide additional information for further analysis.</string>
+    <string name="risk_indicators_none">No significant indicators were identified by the available checks.</string>
+    <string name="risk_indicators_unavailable">The available evidence does not support a reliable assessment.</string>
+    <string name="risk_evidence_note">Indicators suggest possible risk; they do not confirm fraud. Links and sender identities are not verified. No live threat intelligence is available.</string>
+    <string name="risk_limit_content">Provide meaningful message text. Numbers, links alone, and unrecognized text may not provide sufficient evidence.</string>
+    <string name="risk_limit_phone">A phone number alone does not establish identity or fraudulent activity. This app has no phone reputation lookup.</string>
+    <string name="risk_limit_url">Only the visible URL structure was checked. The destination was not opened and its reputation is unknown.</string>
+    <string name="risk_limit_email">Only visible text patterns can be checked. Email ownership, headers, authentication, and sender identity are not verified; the SMS model is not used for email classification.</string>
+    <string name="indicator_credentials">A request to send or share a password, PIN, OTP, or other sensitive credential was identified.</string>
+    <string name="indicator_credential_entry">A request to enter or verify sensitive credentials was identified. It may be legitimate; verify the destination independently.</string>
+    <string name="indicator_identity">An organization name is mentioned. Its identity is unverified; the name alone adds no risk points.</string>
+    <string name="indicator_url_structure">A URL uses a numeric address, internationalized hostname, or embedded user information. These structures can obscure the destination and also occur on legitimate sites.</string>
+    <string name="indicator_payment">A request involving payment or a money transfer was identified. Verify it independently.</string>
+    <string name="indicator_model">The SMS model flagged language patterns associated with suspicious messages. This is a supporting signal, not confirmation of fraud.</string>
+    <string name="indicator_urgency">Time pressure or account restriction language was identified.</string>
+    <string name="indicator_reward">Prize or reward language was identified.</string>
+    <string name="indicator_short_url">A shortened URL conceals the final destination.</string>
+    <string name="indicator_link">A link is present. Link presence alone does not increase the risk score.</string>
+    <string name="block_number">Block Number</string>
+    <string name="block_sender">Block sender</string>
+    <string name="block_sender_title">Block this sender?</string>
+    <string name="block_sender_body">Copy the sender’s number if needed, then open Android’s blocked-number screen. Add or paste the number and confirm there. Check it against the conversation in Messages first. Veritxt cannot confirm whether it was blocked. Leaving Veritxt clears this scan.</string>
+    <string name="sms_sender">Sender: %1$s</string>
+    <string name="sms_sender_note">Number supplied with the incoming SMS. Sender identity is not verified.</string>
+    <string name="sms_sender_missing">The sender’s number is unavailable for this scan. Check the original conversation in Messages; numbers in the message text may belong to someone else.</string>
+    <string name="sender_number_label">Sender number</string>
+    <string name="copy_sender_number">Copy sender number</string>
+    <string name="sender_number_copied">Sender number copied</string>
+    <string name="block_confirm_title">Review manual blocking?</string>
+    <string name="block_confirm_body">Open Android’s blocked-number screen, then add and confirm the sender’s number there. Verify the sender in your Messages or Phone app first; a number inside a message may belong to someone else. Veritxt does not select a number or confirm whether it was blocked. Leaving Veritxt clears this scan.</string>
+    <string name="block_confirm">Open blocked numbers</string>
+    <string name="block_show_instructions">Show instructions</string>
+    <string name="block_unavailable">Android’s blocked-number screen could not be opened on this device or user profile. Use the steps below instead.</string>
+    <string name="block_cancel">Cancel</string>
+    <string name="block_instructions_title">How to block a number</string>
+    <string name="block_instructions_body">1. Open the conversation in Messages, or the caller in Phone → Recents.\n2. Check the actual sender or caller number.\n3. Open Details, Info, or the menu, then select Block number or Block and report spam.\n4. Review the selected number and confirm there.\n\nMenu names vary by device and app. For email, use your email app to block or report the sender. For a suspicious URL, report it through the impersonated service using an official channel. Veritxt cannot confirm whether a number was blocked.</string>
+    <string name="sms_category_heading">SMS category</string>
+    <string name="sms_category_ham">Ham</string>
+    <string name="sms_category_smishing">Smishing</string>
+    <string name="sms_category_gambling">Gambling</string>
+    <string name="sms_category_note">The model predicts legitimate SMS, fraudulent SMS, or gambling advertising. The risk index below also considers visible warning signs.</string>
+    <string name="sms_category_binary_note">The model predicts Ham or Smishing. The risk index below also considers visible warning signs.</string>
+    <string name="multiclass_decision_note">The category with the largest model margin is selected. These margins are not probabilities or the risk index.</string>
+    <string name="multiclass_margins">Model margins: Ham %1$.6f; Smishing %2$.6f; Gambling %3$.6f</string>
+    <string name="indicator_cashback_deadline">A cashback offer asks you to claim it before a deadline. Verify it independently through the bank’s app or official contact details.</string>
+    <string name="linked_cashback_explanation">A cashback or rebate claim with an expiry deadline and a link adds 30 points. A model flag adds 40 points; together they give High Risk at 70 points. A model flag alone stays Medium Risk.</string>
+    <string name="notif_sender_risk">%1$s · %2$s</string>
+    <string name="notif_unknown_sender">Unknown sender</string>
+    <string name="notif_group_channel">SMS report group</string>
+    <string name="notif_group_title">%1$d SMS reports</string>
+    <string name="notif_group_body">Expand to see the sender, preview and result for each SMS.</string>
+    <string name="notif_group_single">1 SMS report</string>
 </resources>

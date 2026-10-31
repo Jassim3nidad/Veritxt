@@ -1,0 +1,16 @@
+{
+  "source_pipeline_sha256": "73c996492889c846a396aba1b6f250eb3e488605104cb18c5318bb75c9dc605a",
+  "model_sha256": "3703fdb51583f090979ada04fc79201e58cbeb61b0a464cb6389b0baf5b07dd1",
+  "features": 30227,
+  "training_records": 2281,
+  "validation_records": 761,
+  "test_records": 761,
+  "C": 10.0,
+  "cases": 954,
+  "practical_examples": 20,
+  "thesis_test_messages_used": 0,
+  "refitted": false,
+  "arrays_unchanged": true,
+  "script_sha256": "45dc45508e94e6d77c5d06cc04e3768a47e4e7890adcd49e40e805f20983d9a5",
+  "training_seal_sha256": "9697592b46250599e28c692e5dc4c9b74498092dd7630ef68a7b8449b646bc69"
+}

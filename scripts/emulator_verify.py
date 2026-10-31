@@ -4,6 +4,7 @@ Build app + androidTest APKs first. Uses synthetic SMS; the emulator messaging
 provider may retain them, although SmishGuard must not. No research metrics.
 """
 import argparse
+import hashlib
 import io
 import json
 from pathlib import Path
@@ -21,12 +22,12 @@ def main():
     global PACKAGE, RUNNER
     parser = argparse.ArgumentParser()
     parser.add_argument("--serial", default="emulator-5554")
-    parser.add_argument("--variant", choices=["debug", "development", "lr", "nb", "svm", "mbert", "mbertQuantized", "lrCalibrated4"], default="debug")
+    parser.add_argument("--variant", choices=["debug", "development", "selectedSvm", "nbGeneralization", "lr", "nb", "svm", "mbert", "mbertQuantized", "lrCalibrated4"], default="debug")
     parser.add_argument("--diagnostics", action="store_true", help="Save test-only failure screenshots/state under ignored deliverables")
     parser.add_argument("--output", type=Path, help="Optional separate sanitized verification record")
     parser.add_argument("--demo-screenshots", type=Path, help="Private deliverables directory for fictional real-model screenshots")
     args = parser.parse_args()
-    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "lr": ".lr", "nb": ".nb", "svm": ".svm", "mbert": ".mbert", "mbertQuantized": ".mbert.int8", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
+    PACKAGE = NAMESPACE + {"debug": "", "development": ".dev", "selectedSvm": ".svm.selected", "nbGeneralization": ".nb.generalization", "lr": ".lr", "nb": ".nb", "svm": ".svm", "mbert": ".mbert", "mbertQuantized": ".mbert.int8", "lrCalibrated4": ".lr.calibrated4"}[args.variant]
     comparison = args.variant in {"lr", "nb", "svm"}
     modern = comparison and json.loads((ROOT / f"android/app/src/{args.variant}/assets/model.json").read_text(encoding="utf-8"))["schema_version"] == 1
     RUNNER = PACKAGE + ".test/" + NAMESPACE + ".SoftwareTestRunner"
@@ -43,6 +44,8 @@ def main():
     prior_wifi = command("shell", "settings", "get", "global", "wifi_on").strip() == b"1"
     prior_font = command("shell", "settings", "get", "system", "font_scale").decode().strip()
     results = {"variant": args.variant, "api": command("shell", "getprop", "ro.build.version.sdk").decode().strip()}
+    if args.variant == "nbGeneralization":
+        results["apk_sha256"] = hashlib.sha256((ROOT / "android/app/build/outputs/apk/nbGeneralization/app-nbGeneralization.apk").read_bytes()).hexdigest()
     target = ROOT / ("docs/development-emulator-results.json" if args.variant == "development" else "docs/emulator-results.json")
     if args.output is not None:
         target = args.output
@@ -50,6 +53,10 @@ def main():
         target = ROOT / f"docs/comparison-{args.variant}-emulator-results.json"
     elif args.variant == "lrCalibrated4":
         target = ROOT / "docs/lr-calibrated-4-emulator.json"
+    elif args.variant == "selectedSvm":
+        target = ROOT / "docs/selected-svm-emulator-results.json"
+    elif args.variant == "nbGeneralization":
+        target = ROOT / "docs/nb-generalization-emulator-results.json"
     results["status"] = "incomplete"
     def run_test(label, classes, extra=()):
         diagnostics = ("-e", "diagnostics", "true") if args.diagnostics else ()
@@ -75,8 +82,10 @@ def main():
         command("install", "-r", str(ROOT / f"android/app/build/outputs/apk/androidTest/{args.variant}/app-{args.variant}-androidTest.apk"))
         command("shell", "pm", "clear", PACKAGE)
         command("shell", "cmd", "uimode", "night", "no")
+        # A retained emulator notification shade steals clipboard/input focus.
+        command("shell", "cmd", "statusbar", "collapse")
         ui = ["FlowsTest", "PrivacyLifecycleTest", "SmsDecodingTest", "ModelInitializationTest"]
-        if modern or args.variant in {"mbert", "mbertQuantized"}:
+        if modern or args.variant in {"mbert", "mbertQuantized", "selectedSvm", "nbGeneralization"}:
             ui += ["DevelopmentFlowTest", "CompactResultTest"]
         elif args.variant in {"development", "lr"}:
             ui += ["DevelopmentFlowTest", "CompactResultTest", "AssessabilityModelTest"]
@@ -89,6 +98,11 @@ def main():
         run_test("offline_sklearn_exports", NAMESPACE + ".OfflineModelTest" + ("," + NAMESPACE + ".SuppliedModelTest" if args.variant in {"development", "lr"} and not modern else ""), ("-e", "offline", "true"))
         if modern:
             run_test("actual_export_parity", NAMESPACE + ".ComparisonExportTest", ("-e", "offline", "true"))
+        if args.variant == "selectedSvm":
+            run_test("selected_svm_raw_and_frozen_parity", NAMESPACE + ".SelectedSvmAndroidTest", ("-e", "offline", "true", "-e", "rawSms", "true"))
+        if args.variant == "nbGeneralization":
+            run_test("retrained_nb_frozen_parity", NAMESPACE + ".NbGeneralizationAndroidTest", ("-e", "offline", "true"))
+            results["nb_native_parity"] = json.loads(command("exec-out", "run-as", PACKAGE, "cat", "files/nb-android-parity.json"))
         if args.variant in {"mbert", "mbertQuantized"}:
             run_test("mbert_parity_policy_latency", NAMESPACE + ".MbertDeviceTest", ("-e", "offline", "true"))
         if args.variant == "lrCalibrated4":
@@ -134,6 +148,38 @@ def main():
                 process.kill()
                 process.communicate()
         run_test("notification_granted_and_channel_blocked", NAMESPACE + ".NotificationBehaviorTest#privateNotificationConstructionAndBlockedChannel", ("-e", "granted", "true"))
+        if args.variant in {"selectedSvm", "nbGeneralization"}:
+            command("shell", "pm", "clear", PACKAGE)
+            command("shell", "pm", "grant", PACKAGE, "android.permission.RECEIVE_SMS")
+            command("shell", "pm", "grant", PACKAGE, "android.permission.POST_NOTIFICATIONS")
+            process = subprocess.Popen(adb + ["shell", "am", "instrument", "-w", "-r", "-e", "class",
+                NAMESPACE + ".IncomingPromptModemTest#realSmsFlaggedByModelShowsAutomaticWarning",
+                "-e", "modemWarning", "true", "-e", "realModel", "true", RUNNER],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            try:
+                deadline = time.monotonic() + 45
+                while time.monotonic() < deadline:
+                    ready_probe = subprocess.run(adb + ["shell", "run-as", PACKAGE, "test", "-f", "files/automatic-warning-ready"], capture_output=True, timeout=10)
+                    if ready_probe.returncode == 0:
+                        break
+                    if process.poll() is not None:
+                        raise RuntimeError(process.communicate()[0].decode(errors="replace"))
+                    time.sleep(.3)
+                else:
+                    raise RuntimeError("Real-model warning test was not ready")
+                message = ("SGTEST Your bank account is suspended. Send your OTP and PIN to https://example.invalid/account immediately."
+                    if args.variant == "nbGeneralization" else "SGTEST paki verify nyo ninyo na po at HTTPS://example.invalid/synthetic?otp=123")
+                inject("send", "5550100", message)
+                response = process.communicate(timeout=90)[0].decode(errors="replace")
+                warning_key = "actual_nb_incoming_warning" if args.variant == "nbGeneralization" else "actual_svm_incoming_warning"
+                results[warning_key] = response.strip()
+                if "OK (1 test)" not in response or "FAILURES!!!" in response:
+                    raise RuntimeError(response)
+                print(warning_key + ": passed", flush=True)
+            finally:
+                if process.poll() is None:
+                    process.kill()
+                    process.communicate()
         command("shell", "settings", "put", "system", "font_scale", "2.0")
         run_test("accessibility_large_text", NAMESPACE + ".AccessibilityTest", ("-e", "largeFont", "true"))
         command("shell", "settings", "put", "system", "font_scale", prior_font if prior_font != "null" else "1.0")

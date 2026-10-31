@@ -1,0 +1,17 @@
+{
+  "python": "3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]",
+  "unicode": "15.0.0",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+  "packages": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "scikit-learn": "1.6.1",
+    "pandas": "2.3.3",
+    "matplotlib": "3.10.7",
+    "joblib": "1.6.0",
+    "threadpoolctl": "3.7.0"
+  },
+  "implementation_sha256": "5b31231810f1b7598bedc00c18cf76ee08ae7949ab761939f3218b145a2c12ac",
+  "timestamp_utc": "2026-10-15T16:38:18Z"
+}

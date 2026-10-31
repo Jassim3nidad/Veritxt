@@ -18,8 +18,7 @@ fun recordReliabilitySnapshot(activity: MainActivity, label: String, error: Thro
         summary = "screen=${state.screen}, busy=${state.busy}, length=${state.text.length}, " +
             "result=${state.result?.javaClass?.simpleName}, focus=${activity.hasWindowFocus()}, " +
             "fontScale=${activity.resources.configuration.fontScale}"
-        // Render only the test-owned view. FLAG_SECURE remains enabled; native
-        // screenshots of this emulator can be black and are not layout evidence.
+        // Render only this app's test-owned view, excluding other apps' windows.
         val view = activity.window.decorView
         bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         view.draw(Canvas(bitmap))

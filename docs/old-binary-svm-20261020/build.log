@@ -1,0 +1,123 @@
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+> Task :app:preBuild UP-TO-DATE
+> Task :app:verifySelectedSvmModel
+> Task :app:preOldSvmBuild
+> Task :app:mergeOldSvmNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateOldSvmBuildConfig
+> Task :app:processOldSvmNavigationResources
+> Task :app:compileOldSvmNavigationResources
+> Task :app:generateOldSvmResValues
+> Task :app:checkOldSvmAarMetadata
+> Task :app:mapOldSvmSourceSetPaths
+> Task :app:generateOldSvmResources
+> Task :app:packageOldSvmResources
+> Task :app:createOldSvmCompatibleScreenManifests
+> Task :app:extractDeepLinksOldSvm
+> Task :app:parseOldSvmLocalResources
+> Task :app:processOldSvmMainManifest
+> Task :app:processOldSvmManifest
+> Task :app:javaPreCompileOldSvm
+> Task :app:mergeOldSvmShaders
+> Task :app:compileOldSvmShaders NO-SOURCE
+> Task :app:generateOldSvmAssets UP-TO-DATE
+> Task :app:mergeOldSvmAssets
+> Task :app:compressOldSvmAssets
+> Task :app:mergeOldSvmResources
+> Task :app:desugarOldSvmFileDependencies
+> Task :app:mergeOldSvmJniLibFolders
+> Task :app:validateSigningOldSvm
+> Task :app:writeOldSvmAppMetadata
+> Task :app:mergeOldSvmNativeLibs
+> Task :app:writeOldSvmSigningConfigVersions
+> Task :app:preOldSvmAndroidTestBuild SKIPPED
+> Task :app:generateOldSvmAndroidTestResValues
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:preOldSvmUnitTestBuild UP-TO-DATE
+> Task :app:checkOldSvmDuplicateClasses
+> Task :app:javaPreCompileOldSvmUnitTest
+
+> Task :app:stripOldSvmDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+
+> Task :app:mergeLibDexOldSvm
+> Task :app:processOldSvmUnitTestManifest
+> Task :app:processOldSvmAndroidTestManifest
+> Task :app:generateOldSvmAndroidTestBuildConfig
+> Task :app:checkOldSvmAndroidTestAarMetadata
+> Task :app:processOldSvmAndroidTestNavigationResources
+> Task :app:compileOldSvmAndroidTestNavigationResources
+> Task :app:mapOldSvmAndroidTestSourceSetPaths
+> Task :app:generateOldSvmAndroidTestResources
+> Task :app:javaPreCompileOldSvmAndroidTest
+> Task :app:mergeOldSvmAndroidTestShaders
+> Task :app:compileOldSvmAndroidTestShaders NO-SOURCE
+> Task :app:generateOldSvmAndroidTestAssets UP-TO-DATE
+> Task :app:mergeOldSvmAndroidTestAssets
+> Task :app:desugarOldSvmAndroidTestFileDependencies
+> Task :app:checkOldSvmAndroidTestDuplicateClasses
+> Task :app:mergeOldSvmAndroidTestJniLibFolders
+> Task :app:compressOldSvmAndroidTestAssets
+> Task :app:mergeOldSvmAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripOldSvmAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningOldSvmAndroidTest
+> Task :app:writeOldSvmAndroidTestSigningConfigVersions
+> Task :app:mergeLibDexOldSvmAndroidTest
+> Task :app:processOldSvmManifestForPackage
+> Task :app:mergeOldSvmAndroidTestResources
+> Task :app:mergeExtDexOldSvmAndroidTest
+> Task :app:processOldSvmAndroidTestResources
+> Task :app:processOldSvmResources
+> Task :app:packageOldSvmUnitTestForUnitTest
+> Task :app:generateOldSvmUnitTestConfig
+> Task :app:mergeExtDexOldSvm
+
+> Task :app:compileOldSvmKotlin
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/main/java/ph/smishguard/ui/Glass.kt:124:52 Unnecessary non-null assertion (!!) on a non-null receiver of type 'HazeState'.
+
+> Task :app:compileOldSvmJavaWithJavac
+> Task :app:dexBuilderOldSvm
+> Task :app:processOldSvmJavaRes
+> Task :app:mergeOldSvmGlobalSynthetics
+> Task :app:generateOldSvmLintReportModel
+> Task :app:mergeProjectDexOldSvm
+> Task :app:bundleOldSvmClassesToCompileJar
+> Task :app:bundleOldSvmClassesToRuntimeJar
+> Task :app:generateOldSvmAndroidTestLintModel
+> Task :app:generateOldSvmUnitTestLintModel
+> Task :app:mergeOldSvmJavaResource
+> Task :app:compileOldSvmUnitTestKotlin
+> Task :app:compileOldSvmUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processOldSvmUnitTestJavaRes
+
+> Task :app:testOldSvmUnitTest
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+
+> Task :app:compileOldSvmAndroidTestKotlin
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/androidTest/java/ph/smishguard/CashbackReviewFlowTest.kt:43:47 No cast needed.
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/androidTest/java/ph/smishguard/MulticlassSvmFlowTest.kt:42:47 No cast needed.
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/androidTest/java/ph/smishguard/Svm60FlowTest.kt:43:47 No cast needed.
+
+> Task :app:compileOldSvmAndroidTestJavaWithJavac
+> Task :app:dexBuilderOldSvmAndroidTest
+> Task :app:mergeOldSvmAndroidTestGlobalSynthetics
+> Task :app:processOldSvmAndroidTestJavaRes
+> Task :app:packageOldSvm
+> Task :app:createOldSvmApkListingFileRedirect
+> Task :app:assembleOldSvm
+> Task :app:mergeProjectDexOldSvmAndroidTest
+> Task :app:mergeOldSvmAndroidTestJavaResource
+> Task :app:lintAnalyzeOldSvm
+> Task :app:packageOldSvmAndroidTest
+> Task :app:createOldSvmAndroidTestApkListingFileRedirect
+> Task :app:assembleOldSvmAndroidTest
+> Task :app:lintAnalyzeOldSvmAndroidTest
+> Task :app:lintAnalyzeOldSvmUnitTest
+
+> Task :app:lintReportOldSvm
+Wrote HTML report to file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/build/reports/lint-results-oldSvm.html
+
+> Task :app:lintOldSvm
+
+BUILD SUCCESSFUL in 2m 11s
+88 actionable tasks: 87 executed, 1 up-to-date

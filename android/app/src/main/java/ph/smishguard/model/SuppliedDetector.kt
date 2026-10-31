@@ -19,7 +19,7 @@ class PythonUnicode private constructor(
         }
         return false
     }
-    fun tokens(text: String): List<String> {
+    fun lowercase(text: String): String {
         val codepoints = text.codePoints().toArray()
         val lowered = StringBuilder()
         for (i in codepoints.indices) {
@@ -33,8 +33,11 @@ class PythonUnicode private constructor(
                 lowered.appendCodePoint(if (final) 0x03C2 else 0x03C3)
             } else lowered.append(lower[cp] ?: String(Character.toChars(cp)))
         }
+        return lowered.toString()
+    }
+    fun tokens(text: String): List<String> {
         val result = mutableListOf<String>(); val token = StringBuilder()
-        lowered.toString().codePoints().forEach { cp ->
+        lowercase(text).codePoints().forEach { cp ->
             if (contains(words, cp)) token.appendCodePoint(cp)
             else if (token.isNotEmpty()) { result.add(token.toString()); token.clear() }
         }

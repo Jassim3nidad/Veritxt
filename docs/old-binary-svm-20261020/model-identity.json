@@ -1,0 +1,12 @@
+{
+  "old_apk_sha256": "47c511970ac8dfb4ff09e4ea35bd5862c29af1e8faf902d4cdaa7b37dfe8997a",
+  "model_sha256": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+  "adapter_sha256": "11c3ee93fb7523e72b5658bec9f4bc5ee7389d9e5add25d5ca3fceceeedb5b8c",
+  "classes": [
+    "ham",
+    "smishing"
+  ],
+  "features": 18473,
+  "threshold": 0.36999999999999994,
+  "no_retraining": true
+}

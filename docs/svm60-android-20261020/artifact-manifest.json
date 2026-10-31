@@ -1,0 +1,18 @@
+{
+  "build-verification.json": "577bfe993706fc6a40f2e6f9135142f163dfcd764f6526c251b5fa852faac235",
+  "build.log": "1e069328af1738aeab71694fbfa7542f258adfb9bcc2a74639791742eba95aef",
+  "DEPLOYMENT.md": "776ac2784b5f8886f6aead3157f02259884ef9fef69733f2df11973f53dbb971",
+  "emulator-results.json": "9118c5eca833db8cdb4848fad235e8cfb8ee9c3fd8dfd8c2cc498084900ef16a",
+  "export-manifest.json": "3c46cf30a8cb829f20b613adb0d900e2321f8eca35d1d27ba638e1ec3ce9101a",
+  "Gambling.png": "4852534431c596666d03e738eb2657b32a61ca46327ed88686dfc65d3bb02697",
+  "Ham.png": "770a4325ca0da99499ca66e5c8a7824c2a6169cf1da85d159fac1980bf04dab8",
+  "practical-android-parity.json": "699c8e06528bad81a668648286bb67975239d358c0695eb6556a6cc7a6cc0fab",
+  "practical-comparison.csv": "e8a98acbd5d97ccbee0339947306be06517ac20389b48ce936f0d8d5cba41b49",
+  "practical-comparison.json": "2daed6edb083c0784ec17826f5759eacb25c459d788d34dca2c6fbc678c36da0",
+  "practical-jvm-parity.json": "b60297e18920cc088ba330e2513ed5fe8755a5bdeb8e941bac829b4b637ad504",
+  "SHA256SUMS.txt": "4afdb25a57fc4d1f546a2dd07a6b4f53ef30af0fa4a145557bdb434abefbb5ca",
+  "signature-final.txt": "b9c6879e48d25a9786d2beb8a15738c06edce7d06f2722dd860894618592bd09",
+  "Smishing.png": "c3bff2b7dcf8af800c07861c2c80f6f0ae8bd0970eeb1c64b5b31fa544b7821d",
+  "svm60-android-parity.json": "e246591a6acf6d5fd66da1d139d860e3f389b25a3a4452eb82d755a0c4a26c5e",
+  "svm60-jvm-parity.json": "02936f6d4c26bc921ceeac6a36a5f0e8f24f6e07b522db0267c141fda24c97f9"
+}

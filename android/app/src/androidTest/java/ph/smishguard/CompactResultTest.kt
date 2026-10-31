@@ -47,8 +47,9 @@ class CompactResultTest {
             compose.onNodeWithText("SMS message").assertDoesNotExist()
             compose.onNode(isSelectable() and hasText("Check")).assertIsSelected()
             compose.onNodeWithText("Check another message", substring = false).assertHeightIsAtLeast(48.dp)
-            compose.onNodeWithText(ResultCopy.heading(result)).assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
-            compose.onNodeWithText(ResultCopy.score(result.score)).assertExists()
+            val assessment = RiskPolicy.assess("Synthetic software fixture", result)
+            compose.onNodeWithText(ResultCopy.heading(assessment)).assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
+            compose.onNodeWithText(ResultCopy.riskScore(assessment.score!!)).assertExists()
             compose.onNodeWithText(ResultCopy.DISCLAIMER).assertExists()
             compose.onNode(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite)).assertExists()
             compose.onNodeWithText(policyNote).assertDoesNotExist()
@@ -62,7 +63,7 @@ class CompactResultTest {
     @Test fun abstentionNeverShowsPercentageAndEditClearsOldResult() {
         scan(Detection.UnableToAssess, "qwertyuiop")
         compose.onNodeWithText("Unable to assess").assertExists()
-        compose.onNodeWithText("Enter an SMS message with meaningful text.").assertExists()
+        compose.onNodeWithText(compose.activity.getString(R.string.risk_unable_analysis)).assertExists()
         compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
         compose.onNodeWithText("Check another message").performScrollTo().performClick()
         compose.onNodeWithText("qwertyuiop").assertDoesNotExist()
@@ -102,13 +103,13 @@ class CompactResultTest {
         compose.onNodeWithText("Unable to assess").assertExists()
         compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
         scan(Detection.InvalidModel)
-        compose.onNodeWithText("Model unavailable").assertExists()
+        compose.onNodeWithText("Unable to assess").assertExists()
         compose.onNodeWithText("The bundled model is invalid or unsupported. No prediction was made.").assertExists()
         compose.onAllNodes(hasText("%", substring = true)).assertCountEquals(0)
     }
 
     @Test fun shippedModelSyntheticScanScreenshot() {
-        org.junit.Assume.assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "lr", "nb", "svm"))
+        org.junit.Assume.assumeTrue(BuildConfig.BUILD_TYPE in listOf("development", "selectedSvm", "nbGeneralization", "lr", "nb", "svm"))
         val app = compose.activity.application as SoftwareTestApp
         app.testDetector = null
         runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard() }
@@ -118,7 +119,7 @@ class CompactResultTest {
         }
         compose.waitUntil(10000) { compose.onAllNodesWithText("Test a message").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check message", substring = false).performScrollTo().performClick()
-        compose.waitUntil(10000) { compose.onAllNodesWithText("Model score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("Risk Score:", substring = true).fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Check result").performScrollTo()
         recordReliabilitySnapshot(compose.activity, "compact-result", null, "Synthetic test; input cleared; shipped model")
     }

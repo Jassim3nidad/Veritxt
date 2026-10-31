@@ -1,7 +1,6 @@
 package ph.smishguard
 
 import android.graphics.Bitmap
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
@@ -31,7 +30,6 @@ class RedesignReviewTest {
         val app = compose.activity.application as SoftwareTestApp
         runBlocking { app.preferences.clear() }
         compose.waitForIdle()
-        unsecure()
         try {
             waitFor("Your privacy")
             capture("01-privacy")
@@ -64,11 +62,9 @@ class RedesignReviewTest {
         } finally {
             setLanguage(null)
             app.testDetector = null
-            compose.activityRule.scenario.onActivity { it.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE) }
         }
     }
 
-    private fun unsecure() = compose.activityRule.scenario.onActivity { it.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
     private fun waitFor(text: String) = compose.waitUntil(15000) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
     private fun setLanguage(tag: String?) {
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
@@ -76,7 +72,6 @@ class RedesignReviewTest {
         }
         Thread.sleep(1500) // the activity is recreated in the new language
         compose.waitForIdle()
-        unsecure()
     }
     private fun check(app: SoftwareTestApp, detection: Detection, text: String, shot: String?,
                       button: String = "Check message", resultTitle: String = "Check result") {

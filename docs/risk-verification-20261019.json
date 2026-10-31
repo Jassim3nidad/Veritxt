@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-19",
+  "variant": "selectedSvm",
+  "unit_tests": {
+    "tests": 46,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10
+  },
+  "unit_tests_passed": 36,
+  "optional_skips": "Ten existing private parity/export tests lack configured private parity directories; all new risk tests ran.",
+  "api36_ui_tests": {
+    "tests": 23,
+    "failures": 0,
+    "includes": [
+      "shared sections",
+      "scoreless abstention",
+      "blocking confirmation/cancel",
+      "reporting navigation",
+      "privacy",
+      "accessibility",
+      "actual selected-model result"
+    ]
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 11
+  },
+  "build": "passed",
+  "apk_sha256": "3f2b8ba6d71de1628643f365221cd6fd4cdfcb33a466437bf137ac8aa03aa9f9",
+  "models_unchanged": {
+    "development": "9026c925679f9667b5bd09e34f31dd884cdb72607650d97f9a0708c86fa6bab2",
+    "selectedSvm": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c"
+  },
+  "accuracy_scope": "38 authored fictional regression scenarios; no representative or independent accuracy/calibration claim",
+  "direct_blocking": "Unsupported; confirmation opens manual instructions only",
+  "network_reputation": "Not available; no verified threat claims",
+  "api36_actual_incoming_sms": {
+    "tests": 1,
+    "failures": 0,
+    "model": "actual frozen selected SVM",
+    "verified": [
+      "radio-enabled emulator SMS delivery",
+      "private High Risk notification",
+      "See why opens consistent risk result"
+    ],
+    "environment_note": "The first delivery attempt timed out while the existing emulator was in airplane mode. Radio-enabled retry passed; original setting restored."
+  },
+  "emulator_tests_passed_total": 24
+}

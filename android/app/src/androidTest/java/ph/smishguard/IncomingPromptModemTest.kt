@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.os.Build
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -33,12 +34,18 @@ class IncomingPromptModemTest {
         if (Build.VERSION.SDK_INT >= 33) automation.grantRuntimePermission(app.packageName, Manifest.permission.POST_NOTIFICATIONS)
         val manager = app.getSystemService(NotificationManager::class.java)
         manager.cancelAll()
-        app.testDetector = object : ph.smishguard.model.Detector {
+        val realModel = InstrumentationRegistry.getArguments().getString("realModel") == "true"
+        app.testDetector = if (realModel) null else object : ph.smishguard.model.Detector {
             override val status = "Experimental model · test stub"
             override val automaticWarningsAllowed = true
             override suspend fun detect(text: String) = ph.smishguard.model.Detection.Success(text.contains("BDO"), .9, experimental = true)
         }
         runBlocking { app.preferences.acceptPrivacy(); app.preferences.onboard(); app.preferences.scanning(true) }
+        val signal = java.io.File(app.filesDir, "automatic-warning-ready")
+        if (realModel) {
+            assertTrue(runBlocking { app.detector() }.automaticWarningsAllowed)
+            signal.writeText("ready")
+        }
         try {
             var posted: Notification? = null
             val deadline = System.currentTimeMillis() + 60_000
@@ -47,29 +54,48 @@ class IncomingPromptModemTest {
                 if (posted == null) Thread.sleep(500)
             }
             assertNotNull("No automatic warning within 60 s of the SMS", posted)
-            assertEquals("Possible scam text", posted!!.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+            assertTrue(posted!!.extras.getCharSequence(Notification.EXTRA_TITLE).toString().endsWith("· High Risk"))
+            val expectedSender = InstrumentationRegistry.getArguments().getString("expectedSender")
+            if (expectedSender != null) assertTrue(posted.extras.toString().contains(expectedSender))
+            assertEquals(Notification.VISIBILITY_SECRET, posted.visibility)
             InstrumentationRegistry.getArguments().getString("pauseMs")?.toLongOrNull()?.let(Thread::sleep)
             posted.contentIntent.send()
-            compose.waitUntil(10000) { compose.onAllNodesWithText("Likely phishing").fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(10000) { compose.onAllNodesWithText("High Risk").fetchSemanticsNodes().isNotEmpty() }
+            if (expectedSender != null) {
+                compose.onNodeWithText("Sender: $expectedSender").assertExists()
+                compose.onNodeWithText("Block sender").performScrollTo().assertIsDisplayed()
+                compose.onNodeWithText("Block sender").performClick()
+                compose.onNodeWithText("Block this sender?").assertExists()
+                compose.onAllNodesWithText("Sender: $expectedSender").assertCountEquals(2)
+                if (InstrumentationRegistry.getArguments().getString("shot") == "true") {
+                    val bitmap = compose.onNode(isDialog()).captureToImage().asAndroidBitmap()
+                    val directory = java.io.File(app.filesDir, "visual-review").apply { mkdirs() }
+                    java.io.File(directory, "sender-block-confirmation.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+                    bitmap.recycle()
+                }
+                compose.onNodeWithText("Cancel").performClick()
+            }
             assertTrue(manager.activeNotifications.none { it.notification.channelId == CheckPrompt.CHANNEL })
             if (InstrumentationRegistry.getArguments().getString("shot") == "true") captureResult(app)
         } finally {
+            signal.delete()
             app.testDetector = null
             runBlocking { app.preferences.scanning(false) }
         }
     }
 
-    /** Test-only screenshot of the result after "See why" (lifts FLAG_SECURE briefly, then restores it). */
+    /** Test-only native rendering, excluding other apps' notifications. */
     private fun captureResult(app: SoftwareTestApp) {
-        compose.activityRule.scenario.onActivity { it.window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE) }
-        try {
-            Thread.sleep(1200)
-            val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
-            val dir = java.io.File(app.filesDir, "visual-review").apply { mkdirs() }
-            java.io.File(dir, "warning-result.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
-        } finally {
-            compose.activityRule.scenario.onActivity { it.window.addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE) }
+        compose.waitForIdle()
+        lateinit var bitmap: android.graphics.Bitmap
+        compose.activityRule.scenario.onActivity {
+            val view = it.window.decorView
+            bitmap = android.graphics.Bitmap.createBitmap(view.width, view.height, android.graphics.Bitmap.Config.ARGB_8888)
+            view.draw(android.graphics.Canvas(bitmap))
         }
+        val dir = java.io.File(app.filesDir, "visual-review").apply { mkdirs() }
+        java.io.File(dir, "warning-result.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+        bitmap.recycle()
     }
 
     @Test fun realSmsShowsNeutralPromptAndCheckNowWorks() {
@@ -91,7 +117,9 @@ class IncomingPromptModemTest {
             }
             assertNotNull("No check prompt within 60 s of the SMS", posted)
             val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT).joinToString(" ") { posted!!.extras.getCharSequence(it)?.toString().orEmpty() }
-            assertEquals("New text received Check it with Veritxt before you tap any link.", shown)
+            assertTrue(shown.contains("· Unable to assess"))
+            assertTrue(posted!!.extras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString().contains("Automatic scan unavailable"))
+            assertEquals(Notification.VISIBILITY_SECRET, posted!!.visibility)
             // Optional pause so a host script can screenshot the notification (-e pauseMs 8000).
             InstrumentationRegistry.getArguments().getString("pauseMs")?.toLongOrNull()?.let(Thread::sleep)
             posted!!.contentIntent.send()

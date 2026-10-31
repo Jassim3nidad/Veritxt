@@ -1,0 +1,15 @@
+{
+  "mismatches": 0,
+  "wrapper_rejections": 2,
+  "cases": 954,
+  "maximum_score_error": 1.9984014443252818E-15,
+  "wrapper_abstentions": 2,
+  "thesis_test_messages_used": 0,
+  "load_ms": 480.4092,
+  "score_p50_ms": 0.3043,
+  "score_p95_ms": 1.0553,
+  "wrapper_successes": 950,
+  "maximum_feature_error": 6.661338147750939E-16,
+  "matching_predictions": 954,
+  "tolerance": 1.0E-10
+}

@@ -1,0 +1,100 @@
+{
+  "status": "completed_retrospective_only",
+  "unbiased_winner": null,
+  "cohort": {
+    "svm_partition_sizes": {
+      "train": 1540,
+      "validation": 516,
+      "test": 498
+    },
+    "nb_partition_sizes": {
+      "train": 2734,
+      "test": 684
+    },
+    "matching_raw_lineage_and_labels": 2554,
+    "original_test_intersection": 72,
+    "original_test_intersection_labels": {
+      "0": 65,
+      "1": 7
+    },
+    "nb_test_excluding_svm_train_validation": 392,
+    "retained": 11,
+    "retained_labels": {
+      "1": 9,
+      "0": 2
+    },
+    "retained_components": 10,
+    "retained_sources": {
+      "Kaggle: Tagalog-SMS (ZERO, 2025)": 1,
+      "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": 7,
+      "Kaggle: Philippine Spam/Scam SMS (bwandowando)": 3
+    },
+    "train_validation_row_overlap": 0,
+    "conservative_component_overlap": 0,
+    "history": "historically exposed, inherited labels; no prospective independent test available"
+  },
+  "models": {
+    "svm": {
+      "records": 11,
+      "accuracy": 0.8181818181818182,
+      "precision": 1.0,
+      "recall": 0.7777777777777778,
+      "f1": 0.875,
+      "balanced_accuracy": 0.8888888888888888,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.2222222222222222,
+      "confusion": {
+        "tn": 2,
+        "fp": 0,
+        "fn": 2,
+        "tp": 7
+      }
+    },
+    "nb": {
+      "records": 11,
+      "accuracy": 0.7272727272727273,
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1": 0.8,
+      "balanced_accuracy": 0.8333333333333333,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.3333333333333333,
+      "confusion": {
+        "tn": 2,
+        "fp": 0,
+        "fn": 3,
+        "tp": 6
+      }
+    }
+  },
+  "inference_parity": {
+    "svm": {
+      "cases": 498,
+      "max_score_error": 2.220446049250313e-16
+    },
+    "nb": {
+      "cases": 684,
+      "max_score_error": 7.882583474838611e-15
+    }
+  },
+  "paired_outcomes": {
+    "both_correct": 8,
+    "svm_only_correct": 1,
+    "nb_only_correct": 0,
+    "both_wrong": 2
+  },
+  "paired_component_bootstrap": {
+    "draws": 20000,
+    "seed": 20261020,
+    "components": 10,
+    "metric": "NB minus SVM smishing F1",
+    "observed": -0.07499999999999996,
+    "conditional_95_percentile_interval": [
+      -0.30000000000000004,
+      0.0
+    ],
+    "limitations": "Conditional on tiny historically exposed sample and inherited labels; not a prospective superiority test"
+  },
+  "freeze_sha256": "aaeb9428fe20384eb44357f93f03a145b4bd9c3cf5eb88ced2b6e3a457dac132",
+  "caveat": "Different original tests cannot establish a winner; retained sample is tiny and class/source unrepresentative. No new independent labels/test set. Classifier metrics only, not app risk-index or abstention-adjusted end-to-end performance."
+}

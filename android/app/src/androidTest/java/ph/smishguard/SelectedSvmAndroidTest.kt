@@ -12,6 +12,27 @@ import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class SelectedSvmAndroidTest {
+    @Test fun bundledSelectedSvmIsTheActualAppDetector() = runBlocking {
+        assumeTrue(BuildConfig.BUILD_TYPE == "selectedSvm")
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val context = instrumentation.targetContext
+        val app = context.applicationContext as SoftwareTestApp
+        app.testDetector = null
+        val actual = app.detector()
+        assertTrue(actual is ph.smishguard.model.SelectedSvmDetector)
+        assertTrue(actual.automaticWarningsAllowed)
+        fun asset(name: String) = context.assets.open(name).bufferedReader().use { it.readText() }
+        val model = asset("model.json")
+        val adapter = asset("raw-sms-adapter.json")
+        val expected = ph.smishguard.model.SelectedSvmDetector(model, adapter)
+        val cases = org.json.JSONArray(instrumentation.context.assets.open("raw-sms-cases.json").bufferedReader().use { it.readText() })
+        for (i in 0 until cases.length()) {
+            val raw = cases.getJSONObject(i).getString("raw")
+            assertEquals("Bundled app path at probe $i", expected.detect(raw), app.assess(raw))
+        }
+        assertEquals(.37, org.json.JSONObject(model).getDouble("threshold"), 1e-15)
+    }
+
     @Test fun rawSmsPreparationMatchesTrainingOffline() = runBlocking {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val arguments = InstrumentationRegistry.getArguments()

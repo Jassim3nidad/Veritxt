@@ -1,0 +1,110 @@
+{
+  "seed": 42,
+  "positive_class": "smishing",
+  "label_mapping": {
+    "ham": 0,
+    "smishing": 1
+  },
+  "matrix": [
+    {
+      "id": "A-baseline",
+      "algorithm": "nb",
+      "alpha": 1.0
+    },
+    {
+      "id": "B-proposed",
+      "algorithm": "nb",
+      "alpha": 0.1
+    },
+    {
+      "id": "NB-alpha-0.01",
+      "algorithm": "nb",
+      "alpha": 0.01
+    },
+    {
+      "id": "NB-alpha-0.5",
+      "algorithm": "nb",
+      "alpha": 0.5
+    },
+    {
+      "id": "NB-alpha-2.0",
+      "algorithm": "nb",
+      "alpha": 2.0
+    },
+    {
+      "id": "SVM-reference",
+      "algorithm": "svm",
+      "C": 1.0
+    }
+  ],
+  "policy": {
+    "primary": "validation scam F1",
+    "tie_breaks": [
+      "scam recall",
+      "scam precision",
+      "smaller model bytes",
+      "configuration ID"
+    ],
+    "threshold": "NB posterior >=0.5; SVM margin >=0; no threshold tuning",
+    "refit": "training only; validation never refitted",
+    "deployment_approved": false
+  },
+  "input_identity": {
+    "zip_sha256": "38d00a999306ff11b05a431d9488f167589bd94e701f410edb24e8202bf3b3e6",
+    "member": "smishguard_dataset_2026-10-12/smishguard_dataset.csv",
+    "csv_sha256": "96002aafa49210a49d3307d3e63c651c5453de4025a86817b0f8dab00a06062c",
+    "bytes": 2108010,
+    "schema": [
+      "id",
+      "text",
+      "label",
+      "category",
+      "language",
+      "source",
+      "source_category",
+      "sender",
+      "date",
+      "template_group",
+      "label_method",
+      "confidence",
+      "needs_review"
+    ],
+    "extraction": "Known CSV read into memory; other ZIP files never executed"
+  },
+  "preprocessing": {
+    "normalization": "whitespace collapse then Python Unicode lowercase",
+    "token_pattern": "(?u)https?://[^\\s<>]+|www\\.[^\\s<>]+|[₱$€£]\\s?\\d+(?:[,.]\\d+)*|\\b\\d+(?:[,.]\\d+)*\\b|\\b\\w+\\b",
+    "stop_words": [
+      "from",
+      "the",
+      "their",
+      "theirs",
+      "these",
+      "those",
+      "which",
+      "whom",
+      "whose",
+      "with",
+      "yours",
+      "yourself",
+      "yourselves"
+    ],
+    "ngram_range": [
+      1,
+      2
+    ],
+    "min_df": 1,
+    "max_features": null,
+    "tf": "raw",
+    "idf": "smooth",
+    "norm": "l2",
+    "no_language_detection": true
+  },
+  "history": "previously_used; retrospective, no new independent test cohort",
+  "source_scope": [
+    "Kaggle: Tagalog-SMS (ZERO, 2025)",
+    "Kaggle: PH Spam + Marketing SMS (Chua, 2022)",
+    "Kaggle: Philippine Spam/Scam SMS (bwandowando)"
+  ],
+  "selection_uses_test": false
+}

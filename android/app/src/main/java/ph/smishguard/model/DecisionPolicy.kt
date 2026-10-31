@@ -4,9 +4,9 @@ package ph.smishguard.model
 data class DecisionPolicy(val threshold: Double, val inclusive: Boolean) {
     init { require(threshold.isFinite()) }
     fun suspicious(score: Double): Boolean = if (inclusive) score >= threshold else score > threshold
-    fun explanation(): String = "Likely phishing means the unrounded model score is " +
+    fun explanation(): String = "The SMS model contributes a supporting risk indicator when its unrounded output is " +
         (if (inclusive) "greater than or equal to" else "strictly greater than") +
-        " $threshold (on the model's score scale). The displayed percentage is rounded to one decimal; rounding does not change the classification."
+        " $threshold (on the model's own score scale). This model threshold is separate from the 0–100 risk index. The risk level is always determined by the displayed integer risk score."
 }
 
 data class TokenWindow(val totalContentTokens: Int, val retainedContentTokens: Int, val maxTokens: Int) {

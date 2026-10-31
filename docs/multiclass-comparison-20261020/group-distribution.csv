@@ -1,0 +1,5 @@
+partition,records,groups,largest_group,largest_group_fraction,Ham_bearing_groups,Smishing_bearing_groups,Gambling_bearing_groups
+train60,2281,395,606,0.2656729504603244,84,96,216
+validation20,761,131,466,0.6123521681997371,28,32,72
+test20,761,132,417,0.5479632063074902,28,32,72
+train80,3042,526,606,0.1992110453648915,112,128,288

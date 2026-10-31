@@ -1,0 +1,2896 @@
+{
+  "selected": "NB-alpha-0.01",
+  "audit": {
+    "input_records": 4261,
+    "input_labels": {
+      "smishing": 577,
+      "ham": 3184,
+      "gambling_ad": 500
+    },
+    "raw_exact_duplicate_extra_rows": 0,
+    "normalized_duplicate_extra_rows": 0,
+    "conflicting_normalized_groups": 0,
+    "conflicting_record_ids": [],
+    "missing": {
+      "id": 0,
+      "text": 0,
+      "label": 0,
+      "category": 0,
+      "language": 0,
+      "source": 0,
+      "source_category": 0,
+      "sender": 761,
+      "date": 389,
+      "template_group": 0,
+      "label_method": 0,
+      "confidence": 0,
+      "needs_review": 0
+    },
+    "exclusion_reason_counts": {
+      "existing_source_scope_hold": 397,
+      "flagged_for_label_review": 118,
+      "unsupported_label_gambling_ad": 500
+    },
+    "excluded_records": 843,
+    "after_cleaning": {
+      "records": 3418,
+      "ham": 3055,
+      "smishing": 363,
+      "scam_fraction": 0.10620245757753072
+    },
+    "language_before": {
+      "English": 3018,
+      "Filipino/Taglish": 1243
+    },
+    "language_after": {
+      "English": 2516,
+      "Filipino/Taglish": 902
+    },
+    "sources_after": {
+      "Kaggle: Tagalog-SMS (ZERO, 2025)": 2203,
+      "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": 1062,
+      "Kaggle: Philippine Spam/Scam SMS (bwandowando)": 153
+    },
+    "label_status": "Inherited source/rule labels, not independently verified",
+    "source_policy": "Existing three-source research scope; GitHub permission and team consent/use remain unresolved",
+    "text_policy": "Dataset CSV text, whitespace collapsed only; URLs/numbers/currency preserved; no further redaction",
+    "groups": 300,
+    "mixed_label_template_groups": 0,
+    "partitions": {
+      "train": {
+        "records": 2734,
+        "ham": 2444,
+        "smishing": 290,
+        "scam_fraction": 0.10607168983174835,
+        "groups": 291,
+        "fraction": 0.7998829724985371
+      },
+      "test": {
+        "records": 684,
+        "ham": 611,
+        "smishing": 73,
+        "scam_fraction": 0.1067251461988304,
+        "groups": 9,
+        "fraction": 0.20011702750146285
+      }
+    },
+    "group_overlap": 0,
+    "normalized_text_overlap": 0,
+    "cv_partitions": [
+      {
+        "train": {
+          "records": 2100,
+          "ham": 1945,
+          "smishing": 155,
+          "scam_fraction": 0.07380952380952381
+        },
+        "validation": {
+          "records": 634,
+          "ham": 499,
+          "smishing": 135,
+          "scam_fraction": 0.21293375394321767
+        }
+      },
+      {
+        "train": {
+          "records": 1243,
+          "ham": 1021,
+          "smishing": 222,
+          "scam_fraction": 0.17860016090104586
+        },
+        "validation": {
+          "records": 1491,
+          "ham": 1423,
+          "smishing": 68,
+          "scam_fraction": 0.04560697518443997
+        }
+      },
+      {
+        "train": {
+          "records": 2125,
+          "ham": 1922,
+          "smishing": 203,
+          "scam_fraction": 0.09552941176470588
+        },
+        "validation": {
+          "records": 609,
+          "ham": 522,
+          "smishing": 87,
+          "scam_fraction": 0.14285714285714285
+        }
+      }
+    ]
+  },
+  "results": [
+    {
+      "spec": {
+        "id": "A-baseline",
+        "algorithm": "nb",
+        "alpha": 1.0
+      },
+      "cv": {
+        "accuracy": 0.9118507681053402,
+        "precision": 1.0,
+        "recall": 0.16896551724137931,
+        "f1": 0.2890855457227139,
+        "macro_f1": 0.621048914409417,
+        "fpr": 0.0,
+        "fnr": 0.8310344827586207,
+        "confusion_matrix": [
+          [
+            2444,
+            0
+          ],
+          [
+            241,
+            49
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9102420856610801,
+            "recall": 1.0,
+            "f1-score": 0.9530122830961201,
+            "support": 2444.0
+          },
+          "smishing": {
+            "precision": 1.0,
+            "recall": 0.16896551724137931,
+            "f1-score": 0.2890855457227139,
+            "support": 290.0
+          },
+          "accuracy": 0.9118507681053402,
+          "macro avg": {
+            "precision": 0.9551210428305401,
+            "recall": 0.5844827586206897,
+            "f1-score": 0.621048914409417,
+            "support": 2734.0
+          },
+          "weighted avg": {
+            "precision": 0.9197628593107826,
+            "recall": 0.9118507681053402,
+            "f1-score": 0.8825884521384435,
+            "support": 2734.0
+          }
+        }
+      },
+      "cv_folds": [
+        {
+          "accuracy": 0.7965299684542587,
+          "precision": 1.0,
+          "recall": 0.044444444444444446,
+          "f1": 0.0851063829787234,
+          "macro_f1": 0.4853216032018728,
+          "fpr": 0.0,
+          "fnr": 0.9555555555555556,
+          "confusion_matrix": [
+            [
+              499,
+              0
+            ],
+            [
+              129,
+              6
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.7945859872611465,
+              "recall": 1.0,
+              "f1-score": 0.8855368234250222,
+              "support": 499.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.044444444444444446,
+              "f1-score": 0.0851063829787234,
+              "support": 135.0
+            },
+            "accuracy": 0.7965299684542587,
+            "macro avg": {
+              "precision": 0.8972929936305732,
+              "recall": 0.5222222222222223,
+              "f1-score": 0.4853216032018728,
+              "support": 634.0
+            },
+            "weighted avg": {
+              "precision": 0.8383255641061704,
+              "recall": 0.7965299684542587,
+              "f1-score": 0.7150981649703686,
+              "support": 634.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9725016767270288,
+          "precision": 1.0,
+          "recall": 0.39705882352941174,
+          "f1": 0.5684210526315789,
+          "macro_f1": 0.7771097296410405,
+          "fpr": 0.0,
+          "fnr": 0.6029411764705882,
+          "confusion_matrix": [
+            [
+              1423,
+              0
+            ],
+            [
+              41,
+              27
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9719945355191257,
+              "recall": 1.0,
+              "f1-score": 0.9857984066505022,
+              "support": 1423.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.39705882352941174,
+              "f1-score": 0.5684210526315789,
+              "support": 68.0
+            },
+            "accuracy": 0.9725016767270288,
+            "macro avg": {
+              "precision": 0.9859972677595629,
+              "recall": 0.6985294117647058,
+              "f1-score": 0.7771097296410405,
+              "support": 1491.0
+            },
+            "weighted avg": {
+              "precision": 0.9732717800427337,
+              "recall": 0.9725016767270288,
+              "f1-score": 0.9667630880232141,
+              "support": 1491.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.8834154351395731,
+          "precision": 1.0,
+          "recall": 0.1839080459770115,
+          "f1": 0.3106796116504854,
+          "macro_f1": 0.6235012408028211,
+          "fpr": 0.0,
+          "fnr": 0.8160919540229885,
+          "confusion_matrix": [
+            [
+              522,
+              0
+            ],
+            [
+              71,
+              16
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.8802698145025295,
+              "recall": 1.0,
+              "f1-score": 0.9363228699551569,
+              "support": 522.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.1839080459770115,
+              "f1-score": 0.3106796116504854,
+              "support": 87.0
+            },
+            "accuracy": 0.8834154351395731,
+            "macro avg": {
+              "precision": 0.9401349072512648,
+              "recall": 0.5919540229885057,
+              "f1-score": 0.6235012408028211,
+              "support": 609.0
+            },
+            "weighted avg": {
+              "precision": 0.8973741267164539,
+              "recall": 0.8834154351395731,
+              "f1-score": 0.8469452616259181,
+              "support": 609.0
+            }
+          }
+        }
+      ],
+      "cv_seconds": 0.4677076000002671,
+      "training_seconds": 0.18222460000015417,
+      "features": 37674,
+      "model_bytes": 1206138,
+      "vectorizer_bytes": 903760,
+      "test": {
+        "accuracy": 0.9298245614035088,
+        "precision": 1.0,
+        "recall": 0.3424657534246575,
+        "f1": 0.5102040816326531,
+        "macro_f1": 0.736204403021051,
+        "fpr": 0.0,
+        "fnr": 0.6575342465753424,
+        "confusion_matrix": [
+          [
+            611,
+            0
+          ],
+          [
+            48,
+            25
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9271623672230652,
+            "recall": 1.0,
+            "f1-score": 0.9622047244094488,
+            "support": 611.0
+          },
+          "smishing": {
+            "precision": 1.0,
+            "recall": 0.3424657534246575,
+            "f1-score": 0.5102040816326531,
+            "support": 73.0
+          },
+          "accuracy": 0.9298245614035088,
+          "macro avg": {
+            "precision": 0.9635811836115327,
+            "recall": 0.6712328767123288,
+            "f1-score": 0.736204403021051,
+            "support": 684.0
+          },
+          "weighted avg": {
+            "precision": 0.9349359742299602,
+            "recall": 0.9298245614035088,
+            "f1-score": 0.91396488972713,
+            "support": 684.0
+          }
+        }
+      },
+      "subgroups": {
+        "language:English": {
+          "records": 539,
+          "ham": 516,
+          "smishing": 23,
+          "metrics": {
+            "accuracy": 0.9962894248608535,
+            "precision": 1.0,
+            "recall": 0.9130434782608695,
+            "f1": 0.9545454545454546,
+            "macro_f1": 0.9763056092843327,
+            "fpr": 0.0,
+            "fnr": 0.08695652173913043,
+            "confusion_matrix": [
+              [
+                516,
+                0
+              ],
+              [
+                2,
+                21
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9961389961389961,
+                "recall": 1.0,
+                "f1-score": 0.9980657640232108,
+                "support": 516.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.9130434782608695,
+                "f1-score": 0.9545454545454546,
+                "support": 23.0
+              },
+              "accuracy": 0.9962894248608535,
+              "macro avg": {
+                "precision": 0.9980694980694981,
+                "recall": 0.9565217391304348,
+                "f1-score": 0.9763056092843327,
+                "support": 539.0
+              },
+              "weighted avg": {
+                "precision": 0.9963037514057922,
+                "recall": 0.9962894248608535,
+                "f1-score": 0.9962086821716555,
+                "support": 539.0
+              }
+            }
+          }
+        },
+        "language:Filipino/Taglish": {
+          "records": 145,
+          "ham": 95,
+          "smishing": 50,
+          "metrics": {
+            "accuracy": 0.6827586206896552,
+            "precision": 1.0,
+            "recall": 0.08,
+            "f1": 0.14814814814814814,
+            "macro_f1": 0.47661644695543,
+            "fpr": 0.0,
+            "fnr": 0.92,
+            "confusion_matrix": [
+              [
+                95,
+                0
+              ],
+              [
+                46,
+                4
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.6737588652482269,
+                "recall": 1.0,
+                "f1-score": 0.8050847457627118,
+                "support": 95.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.08,
+                "f1-score": 0.14814814814814814,
+                "support": 50.0
+              },
+              "accuracy": 0.6827586206896552,
+              "macro avg": {
+                "precision": 0.8368794326241135,
+                "recall": 0.54,
+                "f1-score": 0.47661644695543,
+                "support": 145.0
+              },
+              "weighted avg": {
+                "precision": 0.7862558082660798,
+                "recall": 0.6827586206896552,
+                "f1-score": 0.5785548845163105,
+                "support": 145.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "records": 41,
+          "ham": 5,
+          "smishing": 36,
+          "metrics": {
+            "accuracy": 0.3902439024390244,
+            "precision": 1.0,
+            "recall": 0.3055555555555556,
+            "f1": 0.46808510638297873,
+            "macro_f1": 0.3768996960486322,
+            "fpr": 0.0,
+            "fnr": 0.6944444444444444,
+            "confusion_matrix": [
+              [
+                5,
+                0
+              ],
+              [
+                25,
+                11
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.16666666666666666,
+                "recall": 1.0,
+                "f1-score": 0.2857142857142857,
+                "support": 5.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.3055555555555556,
+                "f1-score": 0.46808510638297873,
+                "support": 36.0
+              },
+              "accuracy": 0.3902439024390244,
+              "macro avg": {
+                "precision": 0.5833333333333334,
+                "recall": 0.6527777777777778,
+                "f1-score": 0.3768996960486322,
+                "support": 41.0
+              },
+              "weighted avg": {
+                "precision": 0.8983739837398375,
+                "recall": 0.3902439024390244,
+                "f1-score": 0.4458447623989918,
+                "support": 41.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "records": 22,
+          "ham": 0,
+          "smishing": 22,
+          "metrics": null
+        },
+        "source:Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "records": 621,
+          "ham": 606,
+          "smishing": 15,
+          "metrics": {
+            "accuracy": 0.9806763285024155,
+            "precision": 1.0,
+            "recall": 0.2,
+            "f1": 0.3333333333333333,
+            "macro_f1": 0.6617647058823529,
+            "fpr": 0.0,
+            "fnr": 0.8,
+            "confusion_matrix": [
+              [
+                606,
+                0
+              ],
+              [
+                12,
+                3
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9805825242718447,
+                "recall": 1.0,
+                "f1-score": 0.9901960784313726,
+                "support": 606.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.2,
+                "f1-score": 0.3333333333333333,
+                "support": 15.0
+              },
+              "accuracy": 0.9806763285024155,
+              "macro avg": {
+                "precision": 0.9902912621359223,
+                "recall": 0.6,
+                "f1-score": 0.6617647058823529,
+                "support": 621.0
+              },
+              "weighted avg": {
+                "precision": 0.9810515454246986,
+                "recall": 0.9806763285024155,
+                "f1-score": 0.9743298285497775,
+                "support": 621.0
+              }
+            }
+          }
+        }
+      },
+      "parity": {
+        "max_feature_error": 1.6653345369377348e-16,
+        "max_score_error": 6.772360450213455e-15
+      }
+    },
+    {
+      "spec": {
+        "id": "B-proposed",
+        "algorithm": "nb",
+        "alpha": 0.1
+      },
+      "cv": {
+        "accuracy": 0.9751280175566935,
+        "precision": 0.9868421052631579,
+        "recall": 0.7758620689655172,
+        "f1": 0.8687258687258688,
+        "macro_f1": 0.9274942474942476,
+        "fpr": 0.0012274959083469722,
+        "fnr": 0.22413793103448276,
+        "confusion_matrix": [
+          [
+            2441,
+            3
+          ],
+          [
+            65,
+            225
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9740622505985634,
+            "recall": 0.9987725040916531,
+            "f1-score": 0.9862626262626263,
+            "support": 2444.0
+          },
+          "smishing": {
+            "precision": 0.9868421052631579,
+            "recall": 0.7758620689655172,
+            "f1-score": 0.8687258687258688,
+            "support": 290.0
+          },
+          "accuracy": 0.9751280175566935,
+          "macro avg": {
+            "precision": 0.9804521779308606,
+            "recall": 0.8873172865285852,
+            "f1-score": 0.9274942474942476,
+            "support": 2734.0
+          },
+          "weighted avg": {
+            "precision": 0.9754178313786411,
+            "recall": 0.9751280175566935,
+            "f1-score": 0.973795303773358,
+            "support": 2734.0
+          }
+        }
+      },
+      "cv_folds": [
+        {
+          "accuracy": 0.9716088328075709,
+          "precision": 1.0,
+          "recall": 0.8666666666666667,
+          "f1": 0.9285714285714286,
+          "macro_f1": 0.9554274465691789,
+          "fpr": 0.0,
+          "fnr": 0.13333333333333333,
+          "confusion_matrix": [
+            [
+              499,
+              0
+            ],
+            [
+              18,
+              117
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.965183752417795,
+              "recall": 1.0,
+              "f1-score": 0.9822834645669292,
+              "support": 499.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.8666666666666667,
+              "f1-score": 0.9285714285714286,
+              "support": 135.0
+            },
+            "accuracy": 0.9716088328075709,
+            "macro avg": {
+              "precision": 0.9825918762088974,
+              "recall": 0.9333333333333333,
+              "f1-score": 0.9554274465691789,
+              "support": 634.0
+            },
+            "weighted avg": {
+              "precision": 0.9725973067136905,
+              "recall": 0.9716088328075709,
+              "f1-score": 0.970846359110474,
+              "support": 634.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9879275653923542,
+          "precision": 0.9464285714285714,
+          "recall": 0.7794117647058824,
+          "f1": 0.8548387096774194,
+          "macro_f1": 0.9242702995552947,
+          "fpr": 0.0021082220660576245,
+          "fnr": 0.22058823529411764,
+          "confusion_matrix": [
+            [
+              1420,
+              3
+            ],
+            [
+              15,
+              53
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9895470383275261,
+              "recall": 0.9978917779339423,
+              "f1-score": 0.9937018894331701,
+              "support": 1423.0
+            },
+            "smishing": {
+              "precision": 0.9464285714285714,
+              "recall": 0.7794117647058824,
+              "f1-score": 0.8548387096774194,
+              "support": 68.0
+            },
+            "accuracy": 0.9879275653923542,
+            "macro avg": {
+              "precision": 0.9679878048780488,
+              "recall": 0.8886517713199124,
+              "f1-score": 0.9242702995552947,
+              "support": 1491.0
+            },
+            "weighted avg": {
+              "precision": 0.9875805354776744,
+              "recall": 0.9879275653923542,
+              "f1-score": 0.9873687598400172,
+              "support": 1491.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9474548440065681,
+          "precision": 1.0,
+          "recall": 0.632183908045977,
+          "f1": 0.7746478873239436,
+          "macro_f1": 0.8724540551861354,
+          "fpr": 0.0,
+          "fnr": 0.367816091954023,
+          "confusion_matrix": [
+            [
+              522,
+              0
+            ],
+            [
+              32,
+              55
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9422382671480144,
+              "recall": 1.0,
+              "f1-score": 0.9702602230483272,
+              "support": 522.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.632183908045977,
+              "f1-score": 0.7746478873239436,
+              "support": 87.0
+            },
+            "accuracy": 0.9474548440065681,
+            "macro avg": {
+              "precision": 0.9711191335740073,
+              "recall": 0.8160919540229885,
+              "f1-score": 0.8724540551861354,
+              "support": 609.0
+            },
+            "weighted avg": {
+              "precision": 0.9504899432697267,
+              "recall": 0.9474548440065681,
+              "f1-score": 0.9423156036591295,
+              "support": 609.0
+            }
+          }
+        }
+      ],
+      "cv_seconds": 0.47889020000002347,
+      "training_seconds": 0.1706122000000505,
+      "features": 37674,
+      "model_bytes": 1206138,
+      "vectorizer_bytes": 903760,
+      "test": {
+        "accuracy": 0.9970760233918129,
+        "precision": 1.0,
+        "recall": 0.9726027397260274,
+        "f1": 0.9861111111111112,
+        "macro_f1": 0.9922385620915033,
+        "fpr": 0.0,
+        "fnr": 0.0273972602739726,
+        "confusion_matrix": [
+          [
+            611,
+            0
+          ],
+          [
+            2,
+            71
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9967373572593801,
+            "recall": 1.0,
+            "f1-score": 0.9983660130718954,
+            "support": 611.0
+          },
+          "smishing": {
+            "precision": 1.0,
+            "recall": 0.9726027397260274,
+            "f1-score": 0.9861111111111112,
+            "support": 73.0
+          },
+          "accuracy": 0.9970760233918129,
+          "macro avg": {
+            "precision": 0.99836867862969,
+            "recall": 0.9863013698630136,
+            "f1-score": 0.9922385620915033,
+            "support": 684.0
+          },
+          "weighted avg": {
+            "precision": 0.9970855632828672,
+            "recall": 0.9970760233918129,
+            "f1-score": 0.9970581068684784,
+            "support": 684.0
+          }
+        }
+      },
+      "subgroups": {
+        "language:English": {
+          "records": 539,
+          "ham": 516,
+          "smishing": 23,
+          "metrics": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "macro_f1": 1.0,
+            "fpr": 0.0,
+            "fnr": 0.0,
+            "confusion_matrix": [
+              [
+                516,
+                0
+              ],
+              [
+                0,
+                23
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 516.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 23.0
+              },
+              "accuracy": 1.0,
+              "macro avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 539.0
+              },
+              "weighted avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 539.0
+              }
+            }
+          }
+        },
+        "language:Filipino/Taglish": {
+          "records": 145,
+          "ham": 95,
+          "smishing": 50,
+          "metrics": {
+            "accuracy": 0.9862068965517241,
+            "precision": 1.0,
+            "recall": 0.96,
+            "f1": 0.9795918367346939,
+            "macro_f1": 0.9845875850340136,
+            "fpr": 0.0,
+            "fnr": 0.04,
+            "confusion_matrix": [
+              [
+                95,
+                0
+              ],
+              [
+                2,
+                48
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.979381443298969,
+                "recall": 1.0,
+                "f1-score": 0.9895833333333334,
+                "support": 95.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.96,
+                "f1-score": 0.9795918367346939,
+                "support": 50.0
+              },
+              "accuracy": 0.9862068965517241,
+              "macro avg": {
+                "precision": 0.9896907216494846,
+                "recall": 0.98,
+                "f1-score": 0.9845875850340136,
+                "support": 145.0
+              },
+              "weighted avg": {
+                "precision": 0.9864912904372557,
+                "recall": 0.9862068965517241,
+                "f1-score": 0.9861379896786301,
+                "support": 145.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "records": 41,
+          "ham": 5,
+          "smishing": 36,
+          "metrics": {
+            "accuracy": 0.975609756097561,
+            "precision": 1.0,
+            "recall": 0.9722222222222222,
+            "f1": 0.9859154929577465,
+            "macro_f1": 0.9475032010243278,
+            "fpr": 0.0,
+            "fnr": 0.027777777777777776,
+            "confusion_matrix": [
+              [
+                5,
+                0
+              ],
+              [
+                1,
+                35
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.8333333333333334,
+                "recall": 1.0,
+                "f1-score": 0.9090909090909091,
+                "support": 5.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.9722222222222222,
+                "f1-score": 0.9859154929577465,
+                "support": 36.0
+              },
+              "accuracy": 0.975609756097561,
+              "macro avg": {
+                "precision": 0.9166666666666667,
+                "recall": 0.9861111111111112,
+                "f1-score": 0.9475032010243278,
+                "support": 41.0
+              },
+              "weighted avg": {
+                "precision": 0.9796747967479674,
+                "recall": 0.975609756097561,
+                "f1-score": 0.9765466412666688,
+                "support": 41.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "records": 22,
+          "ham": 0,
+          "smishing": 22,
+          "metrics": null
+        },
+        "source:Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "records": 621,
+          "ham": 606,
+          "smishing": 15,
+          "metrics": {
+            "accuracy": 0.998389694041868,
+            "precision": 1.0,
+            "recall": 0.9333333333333333,
+            "f1": 0.9655172413793104,
+            "macro_f1": 0.982346419535492,
+            "fpr": 0.0,
+            "fnr": 0.06666666666666667,
+            "confusion_matrix": [
+              [
+                606,
+                0
+              ],
+              [
+                1,
+                14
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9983525535420099,
+                "recall": 1.0,
+                "f1-score": 0.9991755976916735,
+                "support": 606.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.9333333333333333,
+                "f1-score": 0.9655172413793104,
+                "support": 15.0
+              },
+              "accuracy": 0.998389694041868,
+              "macro avg": {
+                "precision": 0.999176276771005,
+                "recall": 0.9666666666666667,
+                "f1-score": 0.982346419535492,
+                "support": 621.0
+              },
+              "weighted avg": {
+                "precision": 0.998392346934715,
+                "recall": 0.998389694041868,
+                "f1-score": 0.9983625939160126,
+                "support": 621.0
+              }
+            }
+          }
+        }
+      },
+      "parity": {
+        "max_feature_error": 1.6653345369377348e-16,
+        "max_score_error": 6.772360450213455e-15
+      }
+    },
+    {
+      "spec": {
+        "id": "NB-alpha-0.01",
+        "algorithm": "nb",
+        "alpha": 0.01
+      },
+      "cv": {
+        "accuracy": 0.9798829553767374,
+        "precision": 0.9757085020242915,
+        "recall": 0.8310344827586207,
+        "f1": 0.8975791433891993,
+        "macro_f1": 0.9432126096179418,
+        "fpr": 0.0024549918166939444,
+        "fnr": 0.16896551724137931,
+        "confusion_matrix": [
+          [
+            2438,
+            6
+          ],
+          [
+            49,
+            241
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9802975472456775,
+            "recall": 0.997545008183306,
+            "f1-score": 0.9888460758466843,
+            "support": 2444.0
+          },
+          "smishing": {
+            "precision": 0.9757085020242915,
+            "recall": 0.8310344827586207,
+            "f1-score": 0.8975791433891993,
+            "support": 290.0
+          },
+          "accuracy": 0.9798829553767374,
+          "macro avg": {
+            "precision": 0.9780030246349845,
+            "recall": 0.9142897454709633,
+            "f1-score": 0.9432126096179418,
+            "support": 2734.0
+          },
+          "weighted avg": {
+            "precision": 0.9798107794643308,
+            "recall": 0.9798829553767374,
+            "f1-score": 0.9791652380951589,
+            "support": 2734.0
+          }
+        }
+      },
+      "cv_folds": [
+        {
+          "accuracy": 0.9794952681388013,
+          "precision": 0.9841269841269841,
+          "recall": 0.9185185185185185,
+          "f1": 0.9501915708812261,
+          "macro_f1": 0.968640969154615,
+          "fpr": 0.004008016032064128,
+          "fnr": 0.08148148148148149,
+          "confusion_matrix": [
+            [
+              497,
+              2
+            ],
+            [
+              11,
+              124
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9783464566929134,
+              "recall": 0.9959919839679359,
+              "f1-score": 0.9870903674280039,
+              "support": 499.0
+            },
+            "smishing": {
+              "precision": 0.9841269841269841,
+              "recall": 0.9185185185185185,
+              "f1-score": 0.9501915708812261,
+              "support": 135.0
+            },
+            "accuracy": 0.9794952681388013,
+            "macro avg": {
+              "precision": 0.9812367204099488,
+              "recall": 0.9572552512432272,
+              "f1-score": 0.968640969154615,
+              "support": 634.0
+            },
+            "weighted avg": {
+              "precision": 0.9795773260992219,
+              "recall": 0.9794952681388013,
+              "f1-score": 0.9792333681633116,
+              "support": 634.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9892689470154259,
+          "precision": 0.9333333333333333,
+          "recall": 0.8235294117647058,
+          "f1": 0.875,
+          "macro_f1": 0.934696916608269,
+          "fpr": 0.0028109627547434997,
+          "fnr": 0.17647058823529413,
+          "confusion_matrix": [
+            [
+              1419,
+              4
+            ],
+            [
+              12,
+              56
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9916142557651991,
+              "recall": 0.9971890372452565,
+              "f1-score": 0.9943938332165382,
+              "support": 1423.0
+            },
+            "smishing": {
+              "precision": 0.9333333333333333,
+              "recall": 0.8235294117647058,
+              "f1-score": 0.875,
+              "support": 68.0
+            },
+            "accuracy": 0.9892689470154259,
+            "macro avg": {
+              "precision": 0.9624737945492663,
+              "recall": 0.9103592245049812,
+              "f1-score": 0.934696916608269,
+              "support": 1491.0
+            },
+            "weighted avg": {
+              "precision": 0.9889562391821228,
+              "recall": 0.9892689470154259,
+              "f1-score": 0.9889486416278565,
+              "support": 1491.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9573070607553367,
+          "precision": 1.0,
+          "recall": 0.7011494252873564,
+          "f1": 0.8243243243243243,
+          "macro_f1": 0.9000126294518818,
+          "fpr": 0.0,
+          "fnr": 0.2988505747126437,
+          "confusion_matrix": [
+            [
+              522,
+              0
+            ],
+            [
+              26,
+              61
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9525547445255474,
+              "recall": 1.0,
+              "f1-score": 0.9757009345794393,
+              "support": 522.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.7011494252873564,
+              "f1-score": 0.8243243243243243,
+              "support": 87.0
+            },
+            "accuracy": 0.9573070607553367,
+            "macro avg": {
+              "precision": 0.9762773722627738,
+              "recall": 0.8505747126436782,
+              "f1-score": 0.9000126294518818,
+              "support": 609.0
+            },
+            "weighted avg": {
+              "precision": 0.9593326381647549,
+              "recall": 0.9573070607553367,
+              "f1-score": 0.9540757045429944,
+              "support": 609.0
+            }
+          }
+        }
+      ],
+      "cv_seconds": 0.460518900000352,
+      "training_seconds": 0.17704569999978048,
+      "features": 37674,
+      "model_bytes": 1206138,
+      "vectorizer_bytes": 903760,
+      "test": {
+        "accuracy": 0.9956140350877193,
+        "precision": 0.9605263157894737,
+        "recall": 1.0,
+        "f1": 0.9798657718120806,
+        "macro_f1": 0.9887023690889771,
+        "fpr": 0.004909983633387889,
+        "fnr": 0.0,
+        "confusion_matrix": [
+          [
+            608,
+            3
+          ],
+          [
+            0,
+            73
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 1.0,
+            "recall": 0.9950900163666121,
+            "f1-score": 0.9975389663658737,
+            "support": 611.0
+          },
+          "smishing": {
+            "precision": 0.9605263157894737,
+            "recall": 1.0,
+            "f1-score": 0.9798657718120806,
+            "support": 73.0
+          },
+          "accuracy": 0.9956140350877193,
+          "macro avg": {
+            "precision": 0.9802631578947368,
+            "recall": 0.997545008183306,
+            "f1-score": 0.9887023690889771,
+            "support": 684.0
+          },
+          "weighted avg": {
+            "precision": 0.9957871652816251,
+            "recall": 0.9956140350877193,
+            "f1-score": 0.9956527920933197,
+            "support": 684.0
+          }
+        }
+      },
+      "subgroups": {
+        "language:English": {
+          "records": 539,
+          "ham": 516,
+          "smishing": 23,
+          "metrics": {
+            "accuracy": 0.9944341372912802,
+            "precision": 0.8846153846153846,
+            "recall": 1.0,
+            "f1": 0.9387755102040817,
+            "macro_f1": 0.967930029154519,
+            "fpr": 0.005813953488372093,
+            "fnr": 0.0,
+            "confusion_matrix": [
+              [
+                513,
+                3
+              ],
+              [
+                0,
+                23
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 1.0,
+                "recall": 0.9941860465116279,
+                "f1-score": 0.9970845481049563,
+                "support": 516.0
+              },
+              "smishing": {
+                "precision": 0.8846153846153846,
+                "recall": 1.0,
+                "f1-score": 0.9387755102040817,
+                "support": 23.0
+              },
+              "accuracy": 0.9944341372912802,
+              "macro avg": {
+                "precision": 0.9423076923076923,
+                "recall": 0.997093023255814,
+                "f1-score": 0.967930029154519,
+                "support": 539.0
+              },
+              "weighted avg": {
+                "precision": 0.9950763522192093,
+                "recall": 0.9944341372912802,
+                "f1-score": 0.994596407341097,
+                "support": 539.0
+              }
+            }
+          }
+        },
+        "language:Filipino/Taglish": {
+          "records": 145,
+          "ham": 95,
+          "smishing": 50,
+          "metrics": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "macro_f1": 1.0,
+            "fpr": 0.0,
+            "fnr": 0.0,
+            "confusion_matrix": [
+              [
+                95,
+                0
+              ],
+              [
+                0,
+                50
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 95.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 50.0
+              },
+              "accuracy": 1.0,
+              "macro avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 145.0
+              },
+              "weighted avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 145.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "records": 41,
+          "ham": 5,
+          "smishing": 36,
+          "metrics": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "macro_f1": 1.0,
+            "fpr": 0.0,
+            "fnr": 0.0,
+            "confusion_matrix": [
+              [
+                5,
+                0
+              ],
+              [
+                0,
+                36
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 5.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 36.0
+              },
+              "accuracy": 1.0,
+              "macro avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 41.0
+              },
+              "weighted avg": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1-score": 1.0,
+                "support": 41.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "records": 22,
+          "ham": 0,
+          "smishing": 22,
+          "metrics": null
+        },
+        "source:Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "records": 621,
+          "ham": 606,
+          "smishing": 15,
+          "metrics": {
+            "accuracy": 0.9951690821256038,
+            "precision": 0.8333333333333334,
+            "recall": 1.0,
+            "f1": 0.9090909090909091,
+            "macro_f1": 0.9533047597563726,
+            "fpr": 0.0049504950495049506,
+            "fnr": 0.0,
+            "confusion_matrix": [
+              [
+                603,
+                3
+              ],
+              [
+                0,
+                15
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 1.0,
+                "recall": 0.995049504950495,
+                "f1-score": 0.9975186104218362,
+                "support": 606.0
+              },
+              "smishing": {
+                "precision": 0.8333333333333334,
+                "recall": 1.0,
+                "f1-score": 0.9090909090909091,
+                "support": 15.0
+              },
+              "accuracy": 0.9951690821256038,
+              "macro avg": {
+                "precision": 0.9166666666666667,
+                "recall": 0.9975247524752475,
+                "f1-score": 0.9533047597563726,
+                "support": 621.0
+              },
+              "weighted avg": {
+                "precision": 0.9959742351046699,
+                "recall": 0.9951690821256038,
+                "f1-score": 0.9953826756070795,
+                "support": 621.0
+              }
+            }
+          }
+        }
+      },
+      "parity": {
+        "max_feature_error": 1.6653345369377348e-16,
+        "max_score_error": 3.6637359812630166e-15
+      }
+    },
+    {
+      "spec": {
+        "id": "NB-alpha-0.5",
+        "algorithm": "nb",
+        "alpha": 0.5
+      },
+      "cv": {
+        "accuracy": 0.9319678127286027,
+        "precision": 1.0,
+        "recall": 0.3586206896551724,
+        "f1": 0.5279187817258884,
+        "macro_f1": 0.7456306561368897,
+        "fpr": 0.0,
+        "fnr": 0.6413793103448275,
+        "confusion_matrix": [
+          [
+            2444,
+            0
+          ],
+          [
+            186,
+            104
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.929277566539924,
+            "recall": 1.0,
+            "f1-score": 0.9633425305478912,
+            "support": 2444.0
+          },
+          "smishing": {
+            "precision": 1.0,
+            "recall": 0.3586206896551724,
+            "f1-score": 0.5279187817258884,
+            "support": 290.0
+          },
+          "accuracy": 0.9319678127286027,
+          "macro avg": {
+            "precision": 0.964638783269962,
+            "recall": 0.6793103448275862,
+            "f1-score": 0.7456306561368897,
+            "support": 2734.0
+          },
+          "weighted avg": {
+            "precision": 0.9367792145660476,
+            "recall": 0.9319678127286027,
+            "f1-score": 0.9171563977174665,
+            "support": 2734.0
+          }
+        }
+      },
+      "cv_folds": [
+        {
+          "accuracy": 0.8454258675078864,
+          "precision": 1.0,
+          "recall": 0.2740740740740741,
+          "f1": 0.43023255813953487,
+          "macro_f1": 0.6704082498726871,
+          "fpr": 0.0,
+          "fnr": 0.725925925925926,
+          "confusion_matrix": [
+            [
+              499,
+              0
+            ],
+            [
+              98,
+              37
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.8358458961474037,
+              "recall": 1.0,
+              "f1-score": 0.9105839416058394,
+              "support": 499.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.2740740740740741,
+              "f1-score": 0.43023255813953487,
+              "support": 135.0
+            },
+            "accuracy": 0.8454258675078864,
+            "macro avg": {
+              "precision": 0.9179229480737019,
+              "recall": 0.6370370370370371,
+              "f1-score": 0.6704082498726871,
+              "support": 634.0
+            },
+            "weighted avg": {
+              "precision": 0.8707998457059218,
+              "recall": 0.8454258675078864,
+              "f1-score": 0.8083009183125411,
+              "support": 634.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9785378940308518,
+          "precision": 1.0,
+          "recall": 0.5294117647058824,
+          "f1": 0.6923076923076923,
+          "macro_f1": 0.8405944298925536,
+          "fpr": 0.0,
+          "fnr": 0.47058823529411764,
+          "confusion_matrix": [
+            [
+              1423,
+              0
+            ],
+            [
+              32,
+              36
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9780068728522336,
+              "recall": 1.0,
+              "f1-score": 0.9888811674774148,
+              "support": 1423.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.5294117647058824,
+              "f1-score": 0.6923076923076923,
+              "support": 68.0
+            },
+            "accuracy": 0.9785378940308518,
+            "macro avg": {
+              "precision": 0.9890034364261169,
+              "recall": 0.7647058823529411,
+              "f1-score": 0.8405944298925536,
+              "support": 1491.0
+            },
+            "weighted avg": {
+              "precision": 0.9790099128562901,
+              "recall": 0.9785378940308518,
+              "f1-score": 0.9753553483549862,
+              "support": 1491.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9080459770114943,
+          "precision": 1.0,
+          "recall": 0.3563218390804598,
+          "f1": 0.5254237288135594,
+          "macro_f1": 0.7372573189522342,
+          "fpr": 0.0,
+          "fnr": 0.6436781609195402,
+          "confusion_matrix": [
+            [
+              522,
+              0
+            ],
+            [
+              56,
+              31
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.903114186851211,
+              "recall": 1.0,
+              "f1-score": 0.9490909090909091,
+              "support": 522.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.3563218390804598,
+              "f1-score": 0.5254237288135594,
+              "support": 87.0
+            },
+            "accuracy": 0.9080459770114943,
+            "macro avg": {
+              "precision": 0.9515570934256055,
+              "recall": 0.6781609195402298,
+              "f1-score": 0.7372573189522342,
+              "support": 609.0
+            },
+            "weighted avg": {
+              "precision": 0.9169550173010379,
+              "recall": 0.9080459770114943,
+              "f1-score": 0.8885670261941448,
+              "support": 609.0
+            }
+          }
+        }
+      ],
+      "cv_seconds": 0.48117009999987204,
+      "training_seconds": 0.17300740000018777,
+      "features": 37674,
+      "model_bytes": 1206138,
+      "vectorizer_bytes": 903760,
+      "test": {
+        "accuracy": 0.956140350877193,
+        "precision": 1.0,
+        "recall": 0.589041095890411,
+        "f1": 0.7413793103448276,
+        "macro_f1": 0.8587088245014873,
+        "fpr": 0.0,
+        "fnr": 0.410958904109589,
+        "confusion_matrix": [
+          [
+            611,
+            0
+          ],
+          [
+            30,
+            43
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.953198127925117,
+            "recall": 1.0,
+            "f1-score": 0.9760383386581469,
+            "support": 611.0
+          },
+          "smishing": {
+            "precision": 1.0,
+            "recall": 0.589041095890411,
+            "f1-score": 0.7413793103448276,
+            "support": 73.0
+          },
+          "accuracy": 0.956140350877193,
+          "macro avg": {
+            "precision": 0.9765990639625586,
+            "recall": 0.7945205479452055,
+            "f1-score": 0.8587088245014873,
+            "support": 684.0
+          },
+          "weighted avg": {
+            "precision": 0.9581930645646879,
+            "recall": 0.956140350877193,
+            "f1-score": 0.9509943195545325,
+            "support": 684.0
+          }
+        }
+      },
+      "subgroups": {
+        "language:English": {
+          "records": 539,
+          "ham": 516,
+          "smishing": 23,
+          "metrics": {
+            "accuracy": 0.9981447124304267,
+            "precision": 1.0,
+            "recall": 0.9565217391304348,
+            "f1": 0.9777777777777777,
+            "macro_f1": 0.988404861783371,
+            "fpr": 0.0,
+            "fnr": 0.043478260869565216,
+            "confusion_matrix": [
+              [
+                516,
+                0
+              ],
+              [
+                1,
+                22
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9980657640232108,
+                "recall": 1.0,
+                "f1-score": 0.9990319457889641,
+                "support": 516.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.9565217391304348,
+                "f1-score": 0.9777777777777777,
+                "support": 23.0
+              },
+              "accuracy": 0.9981447124304267,
+              "macro avg": {
+                "precision": 0.9990328820116054,
+                "recall": 0.9782608695652174,
+                "f1-score": 0.988404861783371,
+                "support": 539.0
+              },
+              "weighted avg": {
+                "precision": 0.9981483009943911,
+                "recall": 0.9981447124304267,
+                "f1-score": 0.9981249961335703,
+                "support": 539.0
+              }
+            }
+          }
+        },
+        "language:Filipino/Taglish": {
+          "records": 145,
+          "ham": 95,
+          "smishing": 50,
+          "metrics": {
+            "accuracy": 0.8,
+            "precision": 1.0,
+            "recall": 0.42,
+            "f1": 0.5915492957746479,
+            "macro_f1": 0.7295646022252235,
+            "fpr": 0.0,
+            "fnr": 0.58,
+            "confusion_matrix": [
+              [
+                95,
+                0
+              ],
+              [
+                29,
+                21
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.7661290322580645,
+                "recall": 1.0,
+                "f1-score": 0.867579908675799,
+                "support": 95.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.42,
+                "f1-score": 0.5915492957746479,
+                "support": 50.0
+              },
+              "accuracy": 0.8,
+              "macro avg": {
+                "precision": 0.8830645161290323,
+                "recall": 0.71,
+                "f1-score": 0.7295646022252235,
+                "support": 145.0
+              },
+              "weighted avg": {
+                "precision": 0.8467741935483871,
+                "recall": 0.8,
+                "f1-score": 0.7723969387098848,
+                "support": 145.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "records": 41,
+          "ham": 5,
+          "smishing": 36,
+          "metrics": {
+            "accuracy": 0.5853658536585366,
+            "precision": 1.0,
+            "recall": 0.5277777777777778,
+            "f1": 0.6909090909090909,
+            "macro_f1": 0.5306397306397306,
+            "fpr": 0.0,
+            "fnr": 0.4722222222222222,
+            "confusion_matrix": [
+              [
+                5,
+                0
+              ],
+              [
+                17,
+                19
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.22727272727272727,
+                "recall": 1.0,
+                "f1-score": 0.37037037037037035,
+                "support": 5.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.5277777777777778,
+                "f1-score": 0.6909090909090909,
+                "support": 36.0
+              },
+              "accuracy": 0.5853658536585366,
+              "macro avg": {
+                "precision": 0.6136363636363636,
+                "recall": 0.7638888888888888,
+                "f1-score": 0.5306397306397306,
+                "support": 41.0
+              },
+              "weighted avg": {
+                "precision": 0.9057649667405764,
+                "recall": 0.5853658536585366,
+                "f1-score": 0.6518190030385153,
+                "support": 41.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "records": 22,
+          "ham": 0,
+          "smishing": 22,
+          "metrics": null
+        },
+        "source:Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "records": 621,
+          "ham": 606,
+          "smishing": 15,
+          "metrics": {
+            "accuracy": 0.9887278582930756,
+            "precision": 1.0,
+            "recall": 0.5333333333333333,
+            "f1": 0.6956521739130435,
+            "macro_f1": 0.844954881050041,
+            "fpr": 0.0,
+            "fnr": 0.4666666666666667,
+            "confusion_matrix": [
+              [
+                606,
+                0
+              ],
+              [
+                7,
+                8
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9885807504078303,
+                "recall": 1.0,
+                "f1-score": 0.9942575881870386,
+                "support": 606.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.5333333333333333,
+                "f1-score": 0.6956521739130435,
+                "support": 15.0
+              },
+              "accuracy": 0.9887278582930756,
+              "macro avg": {
+                "precision": 0.9942903752039152,
+                "recall": 0.7666666666666666,
+                "f1-score": 0.844954881050041,
+                "support": 621.0
+              },
+              "weighted avg": {
+                "precision": 0.9888565776926654,
+                "recall": 0.9887278582930756,
+                "f1-score": 0.987044897021,
+                "support": 621.0
+              }
+            }
+          }
+        }
+      },
+      "parity": {
+        "max_feature_error": 1.6653345369377348e-16,
+        "max_score_error": 5.995204332975845e-15
+      }
+    },
+    {
+      "spec": {
+        "id": "NB-alpha-2.0",
+        "algorithm": "nb",
+        "alpha": 2.0
+      },
+      "cv": {
+        "accuracy": 0.8964886613021215,
+        "precision": 1.0,
+        "recall": 0.02413793103448276,
+        "f1": 0.04713804713804714,
+        "macro_f1": 0.49620487736906227,
+        "fpr": 0.0,
+        "fnr": 0.9758620689655172,
+        "confusion_matrix": [
+          [
+            2444,
+            0
+          ],
+          [
+            283,
+            7
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.8962229556288962,
+            "recall": 1.0,
+            "f1-score": 0.9452717076000774,
+            "support": 2444.0
+          },
+          "smishing": {
+            "precision": 1.0,
+            "recall": 0.02413793103448276,
+            "f1-score": 0.04713804713804714,
+            "support": 290.0
+          },
+          "accuracy": 0.8964886613021215,
+          "macro avg": {
+            "precision": 0.9481114778144482,
+            "recall": 0.5120689655172413,
+            "f1-score": 0.49620487736906227,
+            "support": 2734.0
+          },
+          "weighted avg": {
+            "precision": 0.9072307620910836,
+            "recall": 0.8964886613021215,
+            "f1-score": 0.8500051525400961,
+            "support": 2734.0
+          }
+        }
+      },
+      "cv_folds": [
+        {
+          "accuracy": 0.7870662460567823,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "macro_f1": 0.440423654015887,
+          "fpr": 0.0,
+          "fnr": 1.0,
+          "confusion_matrix": [
+            [
+              499,
+              0
+            ],
+            [
+              135,
+              0
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.7870662460567823,
+              "recall": 1.0,
+              "f1-score": 0.880847308031774,
+              "support": 499.0
+            },
+            "smishing": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1-score": 0.0,
+              "support": 135.0
+            },
+            "accuracy": 0.7870662460567823,
+            "macro avg": {
+              "precision": 0.39353312302839116,
+              "recall": 0.5,
+              "f1-score": 0.440423654015887,
+              "support": 634.0
+            },
+            "weighted avg": {
+              "precision": 0.6194732756819155,
+              "recall": 0.7870662460567823,
+              "f1-score": 0.6932851840817905,
+              "support": 634.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9577464788732394,
+          "precision": 1.0,
+          "recall": 0.07352941176470588,
+          "f1": 0.136986301369863,
+          "macro_f1": 0.5576646872954506,
+          "fpr": 0.0,
+          "fnr": 0.9264705882352942,
+          "confusion_matrix": [
+            [
+              1423,
+              0
+            ],
+            [
+              63,
+              5
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9576043068640646,
+              "recall": 1.0,
+              "f1-score": 0.9783430732210382,
+              "support": 1423.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.07352941176470588,
+              "f1-score": 0.136986301369863,
+              "support": 68.0
+            },
+            "accuracy": 0.9577464788732394,
+            "macro avg": {
+              "precision": 0.9788021534320324,
+              "recall": 0.5367647058823529,
+              "f1-score": 0.5576646872954506,
+              "support": 1491.0
+            },
+            "weighted avg": {
+              "precision": 0.9595378461888423,
+              "recall": 0.9577464788732394,
+              "f1-score": 0.9399713358059612,
+              "support": 1491.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.8604269293924466,
+          "precision": 1.0,
+          "recall": 0.022988505747126436,
+          "f1": 0.0449438202247191,
+          "macro_f1": 0.4848279774285686,
+          "fpr": 0.0,
+          "fnr": 0.9770114942528736,
+          "confusion_matrix": [
+            [
+              522,
+              0
+            ],
+            [
+              85,
+              2
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.8599670510708401,
+              "recall": 1.0,
+              "f1-score": 0.9247121346324181,
+              "support": 522.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.022988505747126436,
+              "f1-score": 0.0449438202247191,
+              "support": 87.0
+            },
+            "accuracy": 0.8604269293924466,
+            "macro avg": {
+              "precision": 0.9299835255354201,
+              "recall": 0.5114942528735632,
+              "f1-score": 0.4848279774285686,
+              "support": 609.0
+            },
+            "weighted avg": {
+              "precision": 0.8799717580607201,
+              "recall": 0.8604269293924466,
+              "f1-score": 0.7990309468598897,
+              "support": 609.0
+            }
+          }
+        }
+      ],
+      "cv_seconds": 0.46480689999998503,
+      "training_seconds": 0.1750025999999707,
+      "features": 37674,
+      "model_bytes": 1206138,
+      "vectorizer_bytes": 903760,
+      "test": {
+        "accuracy": 0.8932748538011696,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "macro_f1": 0.4718146718146718,
+        "fpr": 0.0,
+        "fnr": 1.0,
+        "confusion_matrix": [
+          [
+            611,
+            0
+          ],
+          [
+            73,
+            0
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.8932748538011696,
+            "recall": 1.0,
+            "f1-score": 0.9436293436293436,
+            "support": 611.0
+          },
+          "smishing": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 73.0
+          },
+          "accuracy": 0.8932748538011696,
+          "macro avg": {
+            "precision": 0.4466374269005848,
+            "recall": 0.5,
+            "f1-score": 0.4718146718146718,
+            "support": 684.0
+          },
+          "weighted avg": {
+            "precision": 0.7979399644335009,
+            "recall": 0.8932748538011696,
+            "f1-score": 0.8429203639729955,
+            "support": 684.0
+          }
+        }
+      },
+      "subgroups": {
+        "language:English": {
+          "records": 539,
+          "ham": 516,
+          "smishing": 23,
+          "metrics": {
+            "accuracy": 0.9573283858998145,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "macro_f1": 0.4890995260663507,
+            "fpr": 0.0,
+            "fnr": 1.0,
+            "confusion_matrix": [
+              [
+                516,
+                0
+              ],
+              [
+                23,
+                0
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9573283858998145,
+                "recall": 1.0,
+                "f1-score": 0.9781990521327014,
+                "support": 516.0
+              },
+              "smishing": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 23.0
+              },
+              "accuracy": 0.9573283858998145,
+              "macro avg": {
+                "precision": 0.47866419294990725,
+                "recall": 0.5,
+                "f1-score": 0.4890995260663507,
+                "support": 539.0
+              },
+              "weighted avg": {
+                "precision": 0.9164776384495441,
+                "recall": 0.9573283858998145,
+                "f1-score": 0.9364577196669275,
+                "support": 539.0
+              }
+            }
+          }
+        },
+        "language:Filipino/Taglish": {
+          "records": 145,
+          "ham": 95,
+          "smishing": 50,
+          "metrics": {
+            "accuracy": 0.6551724137931034,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "macro_f1": 0.3958333333333333,
+            "fpr": 0.0,
+            "fnr": 1.0,
+            "confusion_matrix": [
+              [
+                95,
+                0
+              ],
+              [
+                50,
+                0
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.6551724137931034,
+                "recall": 1.0,
+                "f1-score": 0.7916666666666666,
+                "support": 95.0
+              },
+              "smishing": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 50.0
+              },
+              "accuracy": 0.6551724137931034,
+              "macro avg": {
+                "precision": 0.3275862068965517,
+                "recall": 0.5,
+                "f1-score": 0.3958333333333333,
+                "support": 145.0
+              },
+              "weighted avg": {
+                "precision": 0.42925089179548154,
+                "recall": 0.6551724137931034,
+                "f1-score": 0.5186781609195402,
+                "support": 145.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "records": 41,
+          "ham": 5,
+          "smishing": 36,
+          "metrics": {
+            "accuracy": 0.12195121951219512,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "macro_f1": 0.10869565217391304,
+            "fpr": 0.0,
+            "fnr": 1.0,
+            "confusion_matrix": [
+              [
+                5,
+                0
+              ],
+              [
+                36,
+                0
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.12195121951219512,
+                "recall": 1.0,
+                "f1-score": 0.21739130434782608,
+                "support": 5.0
+              },
+              "smishing": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 36.0
+              },
+              "accuracy": 0.12195121951219512,
+              "macro avg": {
+                "precision": 0.06097560975609756,
+                "recall": 0.5,
+                "f1-score": 0.10869565217391304,
+                "support": 41.0
+              },
+              "weighted avg": {
+                "precision": 0.0148720999405116,
+                "recall": 0.12195121951219512,
+                "f1-score": 0.026511134676564154,
+                "support": 41.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "records": 22,
+          "ham": 0,
+          "smishing": 22,
+          "metrics": null
+        },
+        "source:Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "records": 621,
+          "ham": 606,
+          "smishing": 15,
+          "metrics": {
+            "accuracy": 0.9758454106280193,
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "macro_f1": 0.4938875305623472,
+            "fpr": 0.0,
+            "fnr": 1.0,
+            "confusion_matrix": [
+              [
+                606,
+                0
+              ],
+              [
+                15,
+                0
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9758454106280193,
+                "recall": 1.0,
+                "f1-score": 0.9877750611246944,
+                "support": 606.0
+              },
+              "smishing": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 15.0
+              },
+              "accuracy": 0.9758454106280193,
+              "macro avg": {
+                "precision": 0.48792270531400966,
+                "recall": 0.5,
+                "f1-score": 0.4938875305623472,
+                "support": 621.0
+              },
+              "weighted avg": {
+                "precision": 0.9522742654437677,
+                "recall": 0.9758454106280193,
+                "f1-score": 0.9639157601313443,
+                "support": 621.0
+              }
+            }
+          }
+        }
+      },
+      "parity": {
+        "max_feature_error": 1.6653345369377348e-16,
+        "max_score_error": 1.149080830487037e-14
+      }
+    },
+    {
+      "spec": {
+        "id": "SVM-reference",
+        "algorithm": "svm",
+        "C": 1.0
+      },
+      "cv": {
+        "accuracy": 0.9623262618873446,
+        "precision": 0.9698492462311558,
+        "recall": 0.6655172413793103,
+        "f1": 0.7893660531697342,
+        "macro_f1": 0.8843395841265421,
+        "fpr": 0.0024549918166939444,
+        "fnr": 0.33448275862068966,
+        "confusion_matrix": [
+          [
+            2438,
+            6
+          ],
+          [
+            97,
+            193
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9617357001972386,
+            "recall": 0.997545008183306,
+            "f1-score": 0.9793131150833501,
+            "support": 2444.0
+          },
+          "smishing": {
+            "precision": 0.9698492462311558,
+            "recall": 0.6655172413793103,
+            "f1-score": 0.7893660531697342,
+            "support": 290.0
+          },
+          "accuracy": 0.9623262618873446,
+          "macro avg": {
+            "precision": 0.9657924732141971,
+            "recall": 0.8315311247813082,
+            "f1-score": 0.8843395841265421,
+            "support": 2734.0
+          },
+          "weighted avg": {
+            "precision": 0.9625963177355839,
+            "recall": 0.9623262618873446,
+            "f1-score": 0.959165109247597,
+            "support": 2734.0
+          }
+        }
+      },
+      "cv_folds": [
+        {
+          "accuracy": 0.9416403785488959,
+          "precision": 1.0,
+          "recall": 0.725925925925926,
+          "f1": 0.8412017167381974,
+          "macro_f1": 0.902726462233833,
+          "fpr": 0.0,
+          "fnr": 0.2740740740740741,
+          "confusion_matrix": [
+            [
+              499,
+              0
+            ],
+            [
+              37,
+              98
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9309701492537313,
+              "recall": 1.0,
+              "f1-score": 0.9642512077294686,
+              "support": 499.0
+            },
+            "smishing": {
+              "precision": 1.0,
+              "recall": 0.725925925925926,
+              "f1-score": 0.8412017167381974,
+              "support": 135.0
+            },
+            "accuracy": 0.9416403785488959,
+            "macro avg": {
+              "precision": 0.9654850746268657,
+              "recall": 0.8629629629629629,
+              "f1-score": 0.902726462233833,
+              "support": 634.0
+            },
+            "weighted avg": {
+              "precision": 0.9456689345072743,
+              "recall": 0.9416403785488959,
+              "f1-score": 0.9380498176918952,
+              "support": 634.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9852448021462106,
+          "precision": 0.9259259259259259,
+          "recall": 0.7352941176470589,
+          "f1": 0.819672131147541,
+          "macro_f1": 0.9059899117276167,
+          "fpr": 0.0028109627547434997,
+          "fnr": 0.2647058823529412,
+          "confusion_matrix": [
+            [
+              1419,
+              4
+            ],
+            [
+              18,
+              50
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9874739039665971,
+              "recall": 0.9971890372452565,
+              "f1-score": 0.9923076923076923,
+              "support": 1423.0
+            },
+            "smishing": {
+              "precision": 0.9259259259259259,
+              "recall": 0.7352941176470589,
+              "f1-score": 0.819672131147541,
+              "support": 68.0
+            },
+            "accuracy": 0.9852448021462106,
+            "macro avg": {
+              "precision": 0.9566999149462615,
+              "recall": 0.8662415774461577,
+              "f1-score": 0.9059899117276167,
+              "support": 1491.0
+            },
+            "weighted avg": {
+              "precision": 0.9846668868594437,
+              "recall": 0.9852448021462106,
+              "f1-score": 0.9844343065539094,
+              "support": 1491.0
+            }
+          }
+        },
+        {
+          "accuracy": 0.9277504105090312,
+          "precision": 0.9574468085106383,
+          "recall": 0.5172413793103449,
+          "f1": 0.6716417910447762,
+          "macro_f1": 0.8155256925703586,
+          "fpr": 0.0038314176245210726,
+          "fnr": 0.4827586206896552,
+          "confusion_matrix": [
+            [
+              520,
+              2
+            ],
+            [
+              42,
+              45
+            ]
+          ],
+          "classification_report": {
+            "ham": {
+              "precision": 0.9252669039145908,
+              "recall": 0.9961685823754789,
+              "f1-score": 0.959409594095941,
+              "support": 522.0
+            },
+            "smishing": {
+              "precision": 0.9574468085106383,
+              "recall": 0.5172413793103449,
+              "f1-score": 0.6716417910447762,
+              "support": 87.0
+            },
+            "accuracy": 0.9277504105090312,
+            "macro avg": {
+              "precision": 0.9413568562126146,
+              "recall": 0.7567049808429118,
+              "f1-score": 0.8155256925703586,
+              "support": 609.0
+            },
+            "weighted avg": {
+              "precision": 0.9298640331425976,
+              "recall": 0.9277504105090312,
+              "f1-score": 0.9182999079457744,
+              "support": 609.0
+            }
+          }
+        }
+      ],
+      "cv_seconds": 0.47718110000005254,
+      "training_seconds": 0.18281710000019302,
+      "features": 37674,
+      "model_bytes": 301971,
+      "vectorizer_bytes": 903760,
+      "test": {
+        "accuracy": 0.9824561403508771,
+        "precision": 0.9841269841269841,
+        "recall": 0.8493150684931506,
+        "f1": 0.9117647058823529,
+        "macro_f1": 0.9510122230710466,
+        "fpr": 0.0016366612111292963,
+        "fnr": 0.1506849315068493,
+        "confusion_matrix": [
+          [
+            610,
+            1
+          ],
+          [
+            11,
+            62
+          ]
+        ],
+        "classification_report": {
+          "ham": {
+            "precision": 0.9822866344605475,
+            "recall": 0.9983633387888707,
+            "f1-score": 0.9902597402597403,
+            "support": 611.0
+          },
+          "smishing": {
+            "precision": 0.9841269841269841,
+            "recall": 0.8493150684931506,
+            "f1-score": 0.9117647058823529,
+            "support": 73.0
+          },
+          "accuracy": 0.9824561403508771,
+          "macro avg": {
+            "precision": 0.9832068092937658,
+            "recall": 0.9238392036410107,
+            "f1-score": 0.9510122230710466,
+            "support": 684.0
+          },
+          "weighted avg": {
+            "precision": 0.9824830460477549,
+            "recall": 0.9824561403508771,
+            "f1-score": 0.9818823462399314,
+            "support": 684.0
+          }
+        }
+      },
+      "subgroups": {
+        "language:English": {
+          "records": 539,
+          "ham": 516,
+          "smishing": 23,
+          "metrics": {
+            "accuracy": 0.9962894248608535,
+            "precision": 0.9565217391304348,
+            "recall": 0.9565217391304348,
+            "f1": 0.9565217391304348,
+            "macro_f1": 0.9772918773171554,
+            "fpr": 0.001937984496124031,
+            "fnr": 0.043478260869565216,
+            "confusion_matrix": [
+              [
+                515,
+                1
+              ],
+              [
+                1,
+                22
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.998062015503876,
+                "recall": 0.998062015503876,
+                "f1-score": 0.998062015503876,
+                "support": 516.0
+              },
+              "smishing": {
+                "precision": 0.9565217391304348,
+                "recall": 0.9565217391304348,
+                "f1-score": 0.9565217391304348,
+                "support": 23.0
+              },
+              "accuracy": 0.9962894248608535,
+              "macro avg": {
+                "precision": 0.9772918773171554,
+                "recall": 0.9772918773171554,
+                "f1-score": 0.9772918773171554,
+                "support": 539.0
+              },
+              "weighted avg": {
+                "precision": 0.9962894248608535,
+                "recall": 0.9962894248608535,
+                "f1-score": 0.9962894248608535,
+                "support": 539.0
+              }
+            }
+          }
+        },
+        "language:Filipino/Taglish": {
+          "records": 145,
+          "ham": 95,
+          "smishing": 50,
+          "metrics": {
+            "accuracy": 0.9310344827586207,
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.8888888888888888,
+            "macro_f1": 0.9194444444444444,
+            "fpr": 0.0,
+            "fnr": 0.2,
+            "confusion_matrix": [
+              [
+                95,
+                0
+              ],
+              [
+                10,
+                40
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9047619047619048,
+                "recall": 1.0,
+                "f1-score": 0.95,
+                "support": 95.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.8,
+                "f1-score": 0.8888888888888888,
+                "support": 50.0
+              },
+              "accuracy": 0.9310344827586207,
+              "macro avg": {
+                "precision": 0.9523809523809523,
+                "recall": 0.9,
+                "f1-score": 0.9194444444444444,
+                "support": 145.0
+              },
+              "weighted avg": {
+                "precision": 0.9376026272577997,
+                "recall": 0.9310344827586207,
+                "f1-score": 0.9289272030651342,
+                "support": 145.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: PH Spam + Marketing SMS (Chua, 2022)": {
+          "records": 41,
+          "ham": 5,
+          "smishing": 36,
+          "metrics": {
+            "accuracy": 0.8048780487804879,
+            "precision": 1.0,
+            "recall": 0.7777777777777778,
+            "f1": 0.875,
+            "macro_f1": 0.7152777777777778,
+            "fpr": 0.0,
+            "fnr": 0.2222222222222222,
+            "confusion_matrix": [
+              [
+                5,
+                0
+              ],
+              [
+                8,
+                28
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.38461538461538464,
+                "recall": 1.0,
+                "f1-score": 0.5555555555555556,
+                "support": 5.0
+              },
+              "smishing": {
+                "precision": 1.0,
+                "recall": 0.7777777777777778,
+                "f1-score": 0.875,
+                "support": 36.0
+              },
+              "accuracy": 0.8048780487804879,
+              "macro avg": {
+                "precision": 0.6923076923076923,
+                "recall": 0.8888888888888888,
+                "f1-score": 0.7152777777777778,
+                "support": 41.0
+              },
+              "weighted avg": {
+                "precision": 0.9249530956848029,
+                "recall": 0.8048780487804879,
+                "f1-score": 0.8360433604336044,
+                "support": 41.0
+              }
+            }
+          }
+        },
+        "source:Kaggle: Philippine Spam/Scam SMS (bwandowando)": {
+          "records": 22,
+          "ham": 0,
+          "smishing": 22,
+          "metrics": null
+        },
+        "source:Kaggle: Tagalog-SMS (ZERO, 2025)": {
+          "records": 621,
+          "ham": 606,
+          "smishing": 15,
+          "metrics": {
+            "accuracy": 0.9951690821256038,
+            "precision": 0.9285714285714286,
+            "recall": 0.8666666666666667,
+            "f1": 0.896551724137931,
+            "macro_f1": 0.9470392586064758,
+            "fpr": 0.0016501650165016502,
+            "fnr": 0.13333333333333333,
+            "confusion_matrix": [
+              [
+                605,
+                1
+              ],
+              [
+                2,
+                13
+              ]
+            ],
+            "classification_report": {
+              "ham": {
+                "precision": 0.9967051070840197,
+                "recall": 0.9983498349834984,
+                "f1-score": 0.9975267930750206,
+                "support": 606.0
+              },
+              "smishing": {
+                "precision": 0.9285714285714286,
+                "recall": 0.8666666666666667,
+                "f1-score": 0.896551724137931,
+                "support": 15.0
+              },
+              "accuracy": 0.9951690821256038,
+              "macro avg": {
+                "precision": 0.9626382678277241,
+                "recall": 0.9325082508250826,
+                "f1-score": 0.9470392586064758,
+                "support": 621.0
+              },
+              "weighted avg": {
+                "precision": 0.9950593660571456,
+                "recall": 0.9951690821256038,
+                "f1-score": 0.9950877817480376,
+                "support": 621.0
+              }
+            }
+          }
+        }
+      },
+      "parity": {
+        "max_feature_error": 1.6653345369377348e-16,
+        "max_score_error": 8.881784197001252e-16
+      }
+    }
+  ],
+  "policy": {
+    "outer_split": "80% training / 20% testing, integer-rounded counts",
+    "allocation": "Whole connected groups, exact rounded row/class constraints; seeded group priorities; no score-based retries",
+    "selection": "Pooled 3-fold training-only grouped OOF scam F1; ties: recall, precision, smaller classifier, ID",
+    "thresholds": "NB >=0.5; SVM margin >=0; fixed, no threshold tuning",
+    "final_fit": "Refit all six fixed settings on the entire 80% training partition",
+    "history": "Previously exposed corpus; retrospective, not prospectively unseen",
+    "android_integration": false
+  },
+  "freeze_sha256": "59f6f4c66524a8ed400d97f09e8f114c22ec999bb573ee3525518fc42b381eae"
+}

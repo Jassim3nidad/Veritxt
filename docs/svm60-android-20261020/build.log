@@ -1,0 +1,122 @@
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+> Task :app:preBuild UP-TO-DATE
+> Task :app:verifyMulticlassSvm60Model
+> Task :app:preMulticlassSvm60Build
+> Task :app:mergeMulticlassSvm60NativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateMulticlassSvm60BuildConfig
+> Task :app:processMulticlassSvm60NavigationResources
+> Task :app:checkMulticlassSvm60AarMetadata
+> Task :app:compileMulticlassSvm60NavigationResources
+> Task :app:generateMulticlassSvm60ResValues
+> Task :app:mapMulticlassSvm60SourceSetPaths
+> Task :app:generateMulticlassSvm60Resources
+> Task :app:packageMulticlassSvm60Resources
+> Task :app:createMulticlassSvm60CompatibleScreenManifests
+> Task :app:extractDeepLinksMulticlassSvm60
+> Task :app:parseMulticlassSvm60LocalResources
+> Task :app:processMulticlassSvm60MainManifest
+> Task :app:processMulticlassSvm60Manifest
+> Task :app:mergeMulticlassSvm60Resources
+> Task :app:javaPreCompileMulticlassSvm60
+> Task :app:mergeMulticlassSvm60Shaders
+> Task :app:compileMulticlassSvm60Shaders NO-SOURCE
+> Task :app:generateMulticlassSvm60Assets UP-TO-DATE
+> Task :app:mergeMulticlassSvm60Assets
+> Task :app:desugarMulticlassSvm60FileDependencies
+> Task :app:mergeMulticlassSvm60JniLibFolders
+> Task :app:compressMulticlassSvm60Assets
+> Task :app:validateSigningMulticlassSvm60
+> Task :app:writeMulticlassSvm60AppMetadata
+> Task :app:writeMulticlassSvm60SigningConfigVersions
+> Task :app:preMulticlassSvm60AndroidTestBuild SKIPPED
+> Task :app:generateMulticlassSvm60AndroidTestResValues
+> Task :app:checkMulticlassSvm60DuplicateClasses
+> Task :app:mergeMulticlassSvm60NativeLibs
+> Task :app:mergeLibDexMulticlassSvm60
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:preMulticlassSvm60UnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileMulticlassSvm60UnitTest
+
+> Task :app:stripMulticlassSvm60DebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so. Run with --info option to learn more.
+
+> Task :app:processMulticlassSvm60UnitTestManifest
+> Task :app:processMulticlassSvm60AndroidTestManifest
+> Task :app:generateMulticlassSvm60AndroidTestBuildConfig
+> Task :app:checkMulticlassSvm60AndroidTestAarMetadata
+> Task :app:processMulticlassSvm60AndroidTestNavigationResources
+> Task :app:compileMulticlassSvm60AndroidTestNavigationResources
+> Task :app:mapMulticlassSvm60AndroidTestSourceSetPaths
+> Task :app:generateMulticlassSvm60AndroidTestResources
+> Task :app:mergeMulticlassSvm60AndroidTestShaders
+> Task :app:javaPreCompileMulticlassSvm60AndroidTest
+> Task :app:compileMulticlassSvm60AndroidTestShaders NO-SOURCE
+> Task :app:generateMulticlassSvm60AndroidTestAssets UP-TO-DATE
+> Task :app:mergeMulticlassSvm60AndroidTestAssets
+> Task :app:desugarMulticlassSvm60AndroidTestFileDependencies
+> Task :app:checkMulticlassSvm60AndroidTestDuplicateClasses
+> Task :app:mergeMulticlassSvm60AndroidTestJniLibFolders
+> Task :app:processMulticlassSvm60ManifestForPackage
+> Task :app:mergeMulticlassSvm60AndroidTestResources
+> Task :app:compressMulticlassSvm60AndroidTestAssets
+> Task :app:mergeMulticlassSvm60AndroidTestNativeLibs NO-SOURCE
+> Task :app:stripMulticlassSvm60AndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningMulticlassSvm60AndroidTest
+> Task :app:mergeLibDexMulticlassSvm60AndroidTest
+> Task :app:writeMulticlassSvm60AndroidTestSigningConfigVersions
+> Task :app:mergeExtDexMulticlassSvm60AndroidTest
+> Task :app:processMulticlassSvm60AndroidTestResources
+> Task :app:processMulticlassSvm60Resources
+> Task :app:packageMulticlassSvm60UnitTestForUnitTest
+> Task :app:generateMulticlassSvm60UnitTestConfig
+> Task :app:mergeExtDexMulticlassSvm60
+
+> Task :app:compileMulticlassSvm60Kotlin
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/main/java/ph/smishguard/ui/Glass.kt:124:52 Unnecessary non-null assertion (!!) on a non-null receiver of type 'HazeState'.
+
+> Task :app:compileMulticlassSvm60JavaWithJavac
+> Task :app:dexBuilderMulticlassSvm60
+> Task :app:processMulticlassSvm60JavaRes
+> Task :app:mergeMulticlassSvm60GlobalSynthetics
+> Task :app:generateMulticlassSvm60LintReportModel
+> Task :app:mergeProjectDexMulticlassSvm60
+> Task :app:bundleMulticlassSvm60ClassesToCompileJar
+> Task :app:generateMulticlassSvm60AndroidTestLintModel
+> Task :app:generateMulticlassSvm60UnitTestLintModel
+> Task :app:bundleMulticlassSvm60ClassesToRuntimeJar
+> Task :app:compileMulticlassSvm60UnitTestKotlin
+> Task :app:compileMulticlassSvm60UnitTestJavaWithJavac NO-SOURCE
+> Task :app:processMulticlassSvm60UnitTestJavaRes
+> Task :app:mergeMulticlassSvm60JavaResource
+
+> Task :app:testMulticlassSvm60UnitTest
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+
+> Task :app:compileMulticlassSvm60AndroidTestKotlin
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/androidTest/java/ph/smishguard/MulticlassSvmFlowTest.kt:42:47 No cast needed.
+w: file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/src/androidTest/java/ph/smishguard/Svm60FlowTest.kt:43:47 No cast needed.
+
+> Task :app:compileMulticlassSvm60AndroidTestJavaWithJavac
+> Task :app:dexBuilderMulticlassSvm60AndroidTest
+> Task :app:mergeMulticlassSvm60AndroidTestGlobalSynthetics
+> Task :app:processMulticlassSvm60AndroidTestJavaRes
+> Task :app:packageMulticlassSvm60
+> Task :app:createMulticlassSvm60ApkListingFileRedirect
+> Task :app:assembleMulticlassSvm60
+> Task :app:mergeProjectDexMulticlassSvm60AndroidTest
+> Task :app:mergeMulticlassSvm60AndroidTestJavaResource
+> Task :app:packageMulticlassSvm60AndroidTest
+> Task :app:createMulticlassSvm60AndroidTestApkListingFileRedirect
+> Task :app:assembleMulticlassSvm60AndroidTest
+> Task :app:lintAnalyzeMulticlassSvm60UnitTest
+> Task :app:lintAnalyzeMulticlassSvm60
+> Task :app:lintAnalyzeMulticlassSvm60AndroidTest
+
+> Task :app:lintReportMulticlassSvm60
+Wrote HTML report to file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/build/reports/lint-results-multiclassSvm60.html
+
+> Task :app:lintMulticlassSvm60
+
+BUILD SUCCESSFUL in 2m 9s
+88 actionable tasks: 87 executed, 1 up-to-date

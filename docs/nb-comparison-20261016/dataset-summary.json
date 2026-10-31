@@ -1,0 +1,91 @@
+{
+  "input_records": 4261,
+  "input_labels": {
+    "smishing": 577,
+    "ham": 3184,
+    "gambling_ad": 500
+  },
+  "raw_exact_duplicate_extra_rows": 0,
+  "normalized_duplicate_extra_rows": 0,
+  "conflicting_normalized_groups": 0,
+  "missing": {
+    "id": 0,
+    "text": 0,
+    "label": 0,
+    "category": 0,
+    "language": 0,
+    "source": 0,
+    "source_category": 0,
+    "sender": 761,
+    "date": 389,
+    "template_group": 0,
+    "label_method": 0,
+    "confidence": 0,
+    "needs_review": 0
+  },
+  "exclusion_reason_counts": {
+    "existing_source_scope_hold": 397,
+    "flagged_for_label_review": 118,
+    "unsupported_label_gambling_ad": 500
+  },
+  "excluded_records": 843,
+  "after_cleaning": {
+    "records": 3418,
+    "ham": 3055,
+    "smishing": 363,
+    "scam_fraction": 0.10620245757753072
+  },
+  "language_before": {
+    "English": 3018,
+    "Filipino/Taglish": 1243
+  },
+  "language_after": {
+    "English": 2516,
+    "Filipino/Taglish": 902
+  },
+  "sources_after": {
+    "Kaggle: Tagalog-SMS (ZERO, 2025)": 2203,
+    "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": 1062,
+    "Kaggle: Philippine Spam/Scam SMS (bwandowando)": 153
+  },
+  "label_status": "Inherited source/rule labels, not independently verified",
+  "source_policy": "Existing three-source research scope; GitHub permission and team consent/use remain unresolved",
+  "text_policy": "Dataset CSV text, whitespace collapsed only; URLs/numbers/currency preserved; no further redaction",
+  "grouping_seconds": 84.5461593,
+  "groups": 300,
+  "mixed_label_template_groups": 0,
+  "mixed_label_template_records": 0,
+  "partitions": {
+    "train": {
+      "records": 1577,
+      "ham": 1310,
+      "smishing": 267,
+      "scam_fraction": 0.16930881420418517,
+      "groups": 203
+    },
+    "validation": {
+      "records": 798,
+      "ham": 764,
+      "smishing": 34,
+      "scam_fraction": 0.042606516290726815,
+      "groups": 42
+    },
+    "test": {
+      "records": 1043,
+      "ham": 981,
+      "smishing": 62,
+      "scam_fraction": 0.059443911792905084,
+      "groups": 55
+    }
+  },
+  "group_overlap": {
+    "train-validation": 0,
+    "test-train": 0,
+    "test-validation": 0
+  },
+  "normalized_text_overlap": {
+    "train-validation": 0,
+    "test-train": 0,
+    "test-validation": 0
+  }
+}

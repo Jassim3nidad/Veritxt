@@ -1,0 +1,666 @@
+{
+  "results": [
+    {
+      "size": 60,
+      "algorithm": "svm",
+      "parameter": "C",
+      "value": 10.0,
+      "selection_macro_f1": 0.8605887755865611,
+      "fold_scores": [
+        0.8605887755865611
+      ],
+      "cv_mean": null,
+      "cv_std": null,
+      "validation_macro_f1": 0.8605887755865611,
+      "id": "svm-60",
+      "training_records": 2281,
+      "features": 30227,
+      "test": {
+        "accuracy": 0.9724047306176085,
+        "macro_precision": 0.9678520846671711,
+        "macro_recall": 0.9235542825968358,
+        "macro_f1": 0.9413363010430755,
+        "weighted_f1": 0.9715082410776438,
+        "correct": 740,
+        "misclassified": 21,
+        "smishing_as_ham": 14,
+        "gambling_as_ham": 1,
+        "ham_as_smishing": 0,
+        "ham_as_gambling": 5,
+        "confusion_matrix": [
+          [
+            606,
+            0,
+            5
+          ],
+          [
+            14,
+            57,
+            1
+          ],
+          [
+            1,
+            0,
+            77
+          ]
+        ],
+        "per_class": {
+          "Ham": {
+            "precision": 0.9758454106280193,
+            "recall": 0.9918166939443536,
+            "f1-score": 0.9837662337662337,
+            "support": 611.0
+          },
+          "Smishing": {
+            "precision": 1.0,
+            "recall": 0.7916666666666666,
+            "f1-score": 0.8837209302325582,
+            "support": 72.0
+          },
+          "Gambling": {
+            "precision": 0.927710843373494,
+            "recall": 0.9871794871794872,
+            "f1-score": 0.9565217391304348,
+            "support": 78.0
+          }
+        }
+      }
+    },
+    {
+      "size": 60,
+      "algorithm": "nb",
+      "parameter": "alpha",
+      "value": 0.01,
+      "selection_macro_f1": 0.8895232821810896,
+      "fold_scores": [
+        0.8895232821810896
+      ],
+      "cv_mean": null,
+      "cv_std": null,
+      "validation_macro_f1": 0.8895232821810896,
+      "id": "nb-60",
+      "training_records": 2281,
+      "features": 30227,
+      "test": {
+        "accuracy": 0.9697766097240473,
+        "macro_precision": 0.9603200025950539,
+        "macro_recall": 0.9160756501182034,
+        "macro_f1": 0.936100310668117,
+        "weighted_f1": 0.9691932719855116,
+        "correct": 738,
+        "misclassified": 23,
+        "smishing_as_ham": 11,
+        "gambling_as_ham": 5,
+        "ham_as_smishing": 0,
+        "ham_as_gambling": 5,
+        "confusion_matrix": [
+          [
+            606,
+            0,
+            5
+          ],
+          [
+            11,
+            60,
+            1
+          ],
+          [
+            5,
+            1,
+            72
+          ]
+        ],
+        "per_class": {
+          "Ham": {
+            "precision": 0.9742765273311897,
+            "recall": 0.9918166939443536,
+            "f1-score": 0.9829683698296837,
+            "support": 611.0
+          },
+          "Smishing": {
+            "precision": 0.9836065573770492,
+            "recall": 0.8333333333333334,
+            "f1-score": 0.9022556390977443,
+            "support": 72.0
+          },
+          "Gambling": {
+            "precision": 0.9230769230769231,
+            "recall": 0.9230769230769231,
+            "f1-score": 0.9230769230769231,
+            "support": 78.0
+          }
+        }
+      }
+    },
+    {
+      "size": 80,
+      "algorithm": "svm",
+      "parameter": "C",
+      "value": 10.0,
+      "selection_macro_f1": 0.8873791165918903,
+      "fold_scores": [
+        0.7920005558654419,
+        0.9419340948917613,
+        0.9405926144023459,
+        0.8306332436141052,
+        0.9317350741857965
+      ],
+      "cv_mean": 0.8873791165918903,
+      "cv_std": 0.06339169807925148,
+      "validation_macro_f1": null,
+      "id": "svm-80",
+      "training_records": 3042,
+      "features": 37885,
+      "test": {
+        "accuracy": 0.9763469119579501,
+        "macro_precision": 0.9694311225484462,
+        "macro_recall": 0.9374431714857248,
+        "macro_f1": 0.9505934213897564,
+        "weighted_f1": 0.9758366024321966,
+        "correct": 743,
+        "misclassified": 18,
+        "smishing_as_ham": 11,
+        "gambling_as_ham": 1,
+        "ham_as_smishing": 0,
+        "ham_as_gambling": 5,
+        "confusion_matrix": [
+          [
+            606,
+            0,
+            5
+          ],
+          [
+            11,
+            60,
+            1
+          ],
+          [
+            1,
+            0,
+            77
+          ]
+        ],
+        "per_class": {
+          "Ham": {
+            "precision": 0.9805825242718447,
+            "recall": 0.9918166939443536,
+            "f1-score": 0.9861676159479251,
+            "support": 611.0
+          },
+          "Smishing": {
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1-score": 0.9090909090909091,
+            "support": 72.0
+          },
+          "Gambling": {
+            "precision": 0.927710843373494,
+            "recall": 0.9871794871794872,
+            "f1-score": 0.9565217391304348,
+            "support": 78.0
+          }
+        }
+      }
+    },
+    {
+      "size": 80,
+      "algorithm": "nb",
+      "parameter": "alpha",
+      "value": 0.01,
+      "selection_macro_f1": 0.8956254186297977,
+      "fold_scores": [
+        0.8784709521334282,
+        0.8867911802941872,
+        0.9517188508800095,
+        0.8396598449933269,
+        0.921486264848037
+      ],
+      "cv_mean": 0.8956254186297977,
+      "cv_std": 0.03826152487535538,
+      "validation_macro_f1": null,
+      "id": "nb-80",
+      "training_records": 3042,
+      "features": 37885,
+      "test": {
+        "accuracy": 0.9710906701708278,
+        "macro_precision": 0.9564039744113244,
+        "macro_recall": 0.9203491543917076,
+        "macro_f1": 0.9366746959269375,
+        "weighted_f1": 0.9705415236721201,
+        "correct": 739,
+        "misclassified": 22,
+        "smishing_as_ham": 11,
+        "gambling_as_ham": 3,
+        "ham_as_smishing": 0,
+        "ham_as_gambling": 5,
+        "confusion_matrix": [
+          [
+            606,
+            0,
+            5
+          ],
+          [
+            11,
+            60,
+            1
+          ],
+          [
+            3,
+            2,
+            73
+          ]
+        ],
+        "per_class": {
+          "Ham": {
+            "precision": 0.9774193548387097,
+            "recall": 0.9918166939443536,
+            "f1-score": 0.9845653939886271,
+            "support": 611.0
+          },
+          "Smishing": {
+            "precision": 0.967741935483871,
+            "recall": 0.8333333333333334,
+            "f1-score": 0.8955223880597015,
+            "support": 72.0
+          },
+          "Gambling": {
+            "precision": 0.9240506329113924,
+            "recall": 0.9358974358974359,
+            "f1-score": 0.9299363057324841,
+            "support": 78.0
+          }
+        }
+      }
+    }
+  ],
+  "uncertainty": {
+    "svm-80 minus nb-80": {
+      "difference": 0.013918725462818915,
+      "percentile_95": [
+        -0.006676160397904437,
+        0.04236083163822843
+      ],
+      "valid_replicates": 2000,
+      "requested_replicates": 2000,
+      "groups": 132,
+      "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+    },
+    "svm-60 minus nb-60": {
+      "difference": 0.005235990374958477,
+      "percentile_95": [
+        -0.025208867716381044,
+        0.02935249728600675
+      ],
+      "valid_replicates": 2000,
+      "requested_replicates": 2000,
+      "groups": 132,
+      "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+    },
+    "svm-80 minus svm-60": {
+      "difference": 0.009257120346680914,
+      "percentile_95": [
+        -0.011531684130168343,
+        0.04199299294645248
+      ],
+      "valid_replicates": 2000,
+      "requested_replicates": 2000,
+      "groups": 132,
+      "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+    },
+    "nb-80 minus nb-60": {
+      "difference": 0.0005743852588204756,
+      "percentile_95": [
+        -0.02016249520510851,
+        0.02077843147364281
+      ],
+      "valid_replicates": 2000,
+      "requested_replicates": 2000,
+      "groups": 132,
+      "interpretation": "Conditional paired cluster bootstrap; shared fixed fits, inherited labels, one split; excludes replicates missing a true class"
+    }
+  },
+  "audit": {
+    "input_records": 4261,
+    "retained_records": 3803,
+    "raw_labels": {
+      "smishing": 577,
+      "ham": 3184,
+      "gambling_ad": 500
+    },
+    "retained_labels": {
+      "Ham": 3055,
+      "Smishing": 363,
+      "Gambling": 385
+    },
+    "raw_exact_duplicate_extra_rows": 0,
+    "normalized_duplicate_extra_rows": 0,
+    "conflicting_normalized_groups": 0,
+    "exclusion_reason_counts": {
+      "existing_source_scope_hold": 397,
+      "flagged_for_label_review": 118
+    },
+    "excluded_records": 458,
+    "missing_fields": {
+      "id": 0,
+      "text": 0,
+      "label": 0,
+      "category": 0,
+      "language": 0,
+      "source": 0,
+      "source_category": 0,
+      "sender": 761,
+      "date": 389,
+      "template_group": 0,
+      "label_method": 0,
+      "confidence": 0,
+      "needs_review": 0
+    },
+    "sources_after": {
+      "Kaggle: Tagalog-SMS (ZERO, 2025)": 2327,
+      "Kaggle: PH Spam + Marketing SMS (Chua, 2022)": 1168,
+      "Kaggle: Philippine Spam/Scam SMS (bwandowando)": 308
+    },
+    "languages_after": {
+      "English": 2735,
+      "Filipino/Taglish": 1068
+    },
+    "label_status": "Inherited source/rule labels; not independently adjudicated",
+    "source_status": "Retains existing three-source scope; does not certify source licensing or privacy",
+    "groups": 658,
+    "largest_group_sizes": [
+      606,
+      466,
+      417,
+      148,
+      132,
+      97,
+      89,
+      85,
+      84,
+      62
+    ],
+    "class_bearing_groups": {
+      "Ham": 140,
+      "Smishing": 160,
+      "Gambling": 360
+    },
+    "mixed_label_groups": 2,
+    "overlap_checks": {
+      "train60/validation20": {
+        "records": 0,
+        "groups": 0,
+        "normalized_text": 0
+      },
+      "train60/test20": {
+        "records": 0,
+        "groups": 0,
+        "normalized_text": 0
+      },
+      "validation20/test20": {
+        "records": 0,
+        "groups": 0,
+        "normalized_text": 0
+      }
+    },
+    "allocation": {
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "objective": 0.0012621659661861638,
+      "mip_gap": 0.0,
+      "targets": [
+        2281,
+        761,
+        761
+      ],
+      "class_tolerance": "floor/ceil of proportional count"
+    },
+    "template_group_blank": 0,
+    "supplied_template_groups": 2854,
+    "multirow_components": 154,
+    "partitions": {
+      "train60": {
+        "records": 2281,
+        "fraction": 0.5997896397580857,
+        "groups": 395,
+        "Ham": 1833,
+        "Smishing": 218,
+        "Gambling": 230
+      },
+      "validation20": {
+        "records": 761,
+        "fraction": 0.20010518012095713,
+        "groups": 131,
+        "Ham": 611,
+        "Smishing": 73,
+        "Gambling": 77
+      },
+      "test20": {
+        "records": 761,
+        "fraction": 0.20010518012095713,
+        "groups": 132,
+        "Ham": 611,
+        "Smishing": 72,
+        "Gambling": 78
+      },
+      "train80": {
+        "records": 3042,
+        "fraction": 0.7998948198790429,
+        "groups": 526,
+        "Ham": 2444,
+        "Smishing": 291,
+        "Gambling": 307
+      }
+    },
+    "cv_folds": [
+      {
+        "train": {
+          "records": 2317,
+          "groups": 442,
+          "Ham": 1838,
+          "Smishing": 233,
+          "Gambling": 246
+        },
+        "validation": {
+          "records": 725,
+          "groups": 84,
+          "Ham": 606,
+          "Smishing": 58,
+          "Gambling": 61
+        }
+      },
+      {
+        "train": {
+          "records": 2457,
+          "groups": 442,
+          "Ham": 1978,
+          "Smishing": 233,
+          "Gambling": 246
+        },
+        "validation": {
+          "records": 585,
+          "groups": 84,
+          "Ham": 466,
+          "Smishing": 58,
+          "Gambling": 61
+        }
+      },
+      {
+        "train": {
+          "records": 2464,
+          "groups": 406,
+          "Ham": 1986,
+          "Smishing": 233,
+          "Gambling": 245
+        },
+        "validation": {
+          "records": 578,
+          "groups": 120,
+          "Ham": 458,
+          "Smishing": 58,
+          "Gambling": 62
+        }
+      },
+      {
+        "train": {
+          "records": 2465,
+          "groups": 407,
+          "Ham": 1987,
+          "Smishing": 232,
+          "Gambling": 246
+        },
+        "validation": {
+          "records": 577,
+          "groups": 119,
+          "Ham": 457,
+          "Smishing": 59,
+          "Gambling": 61
+        }
+      },
+      {
+        "train": {
+          "records": 2465,
+          "groups": 407,
+          "Ham": 1987,
+          "Smishing": 233,
+          "Gambling": 245
+        },
+        "validation": {
+          "records": 577,
+          "groups": 119,
+          "Ham": 457,
+          "Smishing": 58,
+          "Gambling": 62
+        }
+      }
+    ]
+  },
+  "configuration": {
+    "policy": {
+      "seed": 42,
+      "labels": {
+        "ham": 0,
+        "smishing": 1,
+        "gambling_ad": 2
+      },
+      "grid": {
+        "svm": [
+          0.001,
+          0.01,
+          0.1,
+          1.0,
+          10.0,
+          100.0,
+          1000.0
+        ],
+        "nb": [
+          0.001,
+          0.01,
+          0.1,
+          0.5,
+          1.0,
+          2.0,
+          10.0
+        ]
+      },
+      "primary_metric": "macro F1",
+      "tie_break": "smaller C or alpha if selection macro F1 is exactly tied",
+      "eligible_sources": [
+        "Kaggle: Tagalog-SMS (ZERO, 2025)",
+        "Kaggle: PH Spam + Marketing SMS (Chua, 2022)",
+        "Kaggle: Philippine Spam/Scam SMS (bwandowando)"
+      ],
+      "review_flagged": "exclude, no relabeling",
+      "grouping": "Unchanged nb_comparison.group_rows: supplied template_group, source-scoped sender/campaign/conversation, URL/number-stripped Unicode SequenceMatcher >=0.85 connected components",
+      "allocation": "Joint 60/20/20 integer allocation; exact rounded row counts; class counts within one of target; minimize class-group count deviations, fixed seed tie-break",
+      "cv": "5 deterministic StratifiedGroupKFold folds, shuffle=False; saved memberships; each fold fits a fresh full pipeline",
+      "tuning60": "Single 20% validation portion, no refit on validation; CV not applicable",
+      "tuning80": "Mean of five fold macro F1 scores; refit on all 80% after selection",
+      "features": "Unchanged legacy.vectorizer: word TF-IDF 1-2 grams, lowercase, conservative English stopwords, raw TF, smooth IDF, L2",
+      "imbalance": "No resampling or class weighting; NB empirical priors; both classifiers receive identical features",
+      "prediction": "Native three-class argmax; no threshold tuning or calibration",
+      "history": "Historically exposed corpus; held out within this run only, retrospective",
+      "interpretation": "Size comparison also changes tuning procedure; cannot attribute all change solely to sample size",
+      "android_integration": false
+    },
+    "dataset": "C:\\Users\\Jassim Trinidad\\OneDrive\\Desktop\\smishguard\\research\\data\\newdata-20261013\\smishguard_dataset_2026-10-12.zip",
+    "input_identity": {
+      "zip_sha256": "38d00a999306ff11b05a431d9488f167589bd94e701f410edb24e8202bf3b3e6",
+      "member": "smishguard_dataset_2026-10-12/smishguard_dataset.csv",
+      "csv_sha256": "96002aafa49210a49d3307d3e63c651c5453de4025a86817b0f8dab00a06062c",
+      "bytes": 2108010,
+      "schema": [
+        "id",
+        "text",
+        "label",
+        "category",
+        "language",
+        "source",
+        "source_category",
+        "sender",
+        "date",
+        "template_group",
+        "label_method",
+        "confidence",
+        "needs_review"
+      ],
+      "extraction": "Known CSV read into memory; other ZIP files never executed"
+    },
+    "vectorizer": {
+      "analyzer": "word",
+      "binary": false,
+      "decode_error": "strict",
+      "dtype": "float64",
+      "encoding": "utf-8",
+      "input": "content",
+      "lowercase": true,
+      "max_df": 1.0,
+      "max_features": null,
+      "min_df": 1,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "norm": "l2",
+      "preprocessor": null,
+      "smooth_idf": true,
+      "stop_words": [
+        "from",
+        "the",
+        "their",
+        "theirs",
+        "these",
+        "those",
+        "which",
+        "whom",
+        "whose",
+        "with",
+        "yours",
+        "yourself",
+        "yourselves"
+      ],
+      "strip_accents": null,
+      "sublinear_tf": false,
+      "token_pattern": "(?u)https?://[^\\s<>]+|www\\.[^\\s<>]+|[₱$€£]\\s?\\d+(?:[,.]\\d+)*|\\b\\d+(?:[,.]\\d+)*\\b|\\b\\w+\\b",
+      "tokenizer": null,
+      "use_idf": true,
+      "vocabulary": null
+    },
+    "sources": {
+      "C:\\Users\\Jassim Trinidad\\OneDrive\\Desktop\\smishguard\\research\\smishguard\\multiclass_comparison.py": "e3e98085e1f16df70a697c78d9e48be6b2a48ec804593d62c572af36444a9915",
+      "C:\\Users\\Jassim Trinidad\\OneDrive\\Desktop\\smishguard\\research\\smishguard\\nb_comparison.py": "0234ce83233c9612e5cac1ad97c640dc15afff5ff3c457f7bc5de6f7c509e062"
+    }
+  },
+  "environment": {
+    "python": "3.12.5 (tags/v3.12.5:ff3bc82, Aug  6 2024, 20:45:27) [MSC v.1940 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "scikit-learn": "1.6.1",
+      "pandas": "2.3.3",
+      "matplotlib": "3.10.7",
+      "joblib": "1.6.0",
+      "threadpoolctl": "3.7.0"
+    }
+  },
+  "training_seal_sha256": "9697592b46250599e28c692e5dc4c9b74498092dd7630ef68a7b8449b646bc69"
+}

@@ -1,0 +1,1 @@
+-r bantaytext-requirements.txt

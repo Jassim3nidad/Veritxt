@@ -1,0 +1,113 @@
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+> Task :app:preBuild UP-TO-DATE
+> Task :app:verifyMulticlassSvm60Model
+> Task :app:preCashbackReviewBuild
+> Task :app:mergeCashbackReviewNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateCashbackReviewBuildConfig UP-TO-DATE
+> Task :app:checkCashbackReviewAarMetadata UP-TO-DATE
+> Task :app:processCashbackReviewNavigationResources UP-TO-DATE
+> Task :app:compileCashbackReviewNavigationResources UP-TO-DATE
+> Task :app:generateCashbackReviewResValues UP-TO-DATE
+> Task :app:mapCashbackReviewSourceSetPaths UP-TO-DATE
+> Task :app:generateCashbackReviewResources UP-TO-DATE
+> Task :app:mergeCashbackReviewResources UP-TO-DATE
+> Task :app:packageCashbackReviewResources UP-TO-DATE
+> Task :app:parseCashbackReviewLocalResources UP-TO-DATE
+> Task :app:createCashbackReviewCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksCashbackReview UP-TO-DATE
+> Task :app:processCashbackReviewMainManifest UP-TO-DATE
+> Task :app:processCashbackReviewManifest UP-TO-DATE
+> Task :app:processCashbackReviewManifestForPackage UP-TO-DATE
+> Task :app:processCashbackReviewResources UP-TO-DATE
+> Task :app:javaPreCompileCashbackReview UP-TO-DATE
+> Task :app:mergeCashbackReviewShaders UP-TO-DATE
+> Task :app:compileCashbackReviewShaders NO-SOURCE
+> Task :app:generateCashbackReviewAssets UP-TO-DATE
+> Task :app:mergeCashbackReviewAssets UP-TO-DATE
+> Task :app:compressCashbackReviewAssets UP-TO-DATE
+> Task :app:desugarCashbackReviewFileDependencies UP-TO-DATE
+> Task :app:checkCashbackReviewDuplicateClasses UP-TO-DATE
+> Task :app:mergeExtDexCashbackReview UP-TO-DATE
+> Task :app:mergeLibDexCashbackReview UP-TO-DATE
+> Task :app:mergeCashbackReviewJniLibFolders UP-TO-DATE
+> Task :app:mergeCashbackReviewNativeLibs UP-TO-DATE
+> Task :app:stripCashbackReviewDebugSymbols UP-TO-DATE
+> Task :app:validateSigningCashbackReview UP-TO-DATE
+> Task :app:writeCashbackReviewAppMetadata UP-TO-DATE
+> Task :app:writeCashbackReviewSigningConfigVersions UP-TO-DATE
+> Task :app:preCashbackReviewAndroidTestBuild SKIPPED
+> Task :app:generateCashbackReviewAndroidTestResValues UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:preCashbackReviewUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileCashbackReviewUnitTest UP-TO-DATE
+> Task :app:packageCashbackReviewUnitTestForUnitTest UP-TO-DATE
+> Task :app:processCashbackReviewUnitTestManifest UP-TO-DATE
+> Task :app:generateCashbackReviewUnitTestConfig UP-TO-DATE
+> Task :app:processCashbackReviewAndroidTestManifest UP-TO-DATE
+> Task :app:generateCashbackReviewAndroidTestBuildConfig UP-TO-DATE
+> Task :app:checkCashbackReviewAndroidTestAarMetadata UP-TO-DATE
+> Task :app:processCashbackReviewAndroidTestNavigationResources UP-TO-DATE
+> Task :app:compileCashbackReviewAndroidTestNavigationResources UP-TO-DATE
+> Task :app:mapCashbackReviewAndroidTestSourceSetPaths UP-TO-DATE
+> Task :app:generateCashbackReviewAndroidTestResources UP-TO-DATE
+> Task :app:mergeCashbackReviewAndroidTestResources UP-TO-DATE
+> Task :app:processCashbackReviewAndroidTestResources UP-TO-DATE
+> Task :app:javaPreCompileCashbackReviewAndroidTest UP-TO-DATE
+> Task :app:mergeCashbackReviewAndroidTestShaders UP-TO-DATE
+> Task :app:compileCashbackReviewAndroidTestShaders NO-SOURCE
+> Task :app:generateCashbackReviewAndroidTestAssets UP-TO-DATE
+> Task :app:mergeCashbackReviewAndroidTestAssets UP-TO-DATE
+> Task :app:compressCashbackReviewAndroidTestAssets UP-TO-DATE
+> Task :app:desugarCashbackReviewAndroidTestFileDependencies UP-TO-DATE
+> Task :app:checkCashbackReviewAndroidTestDuplicateClasses UP-TO-DATE
+> Task :app:mergeExtDexCashbackReviewAndroidTest UP-TO-DATE
+> Task :app:mergeLibDexCashbackReviewAndroidTest UP-TO-DATE
+> Task :app:mergeCashbackReviewAndroidTestJniLibFolders UP-TO-DATE
+> Task :app:mergeCashbackReviewAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripCashbackReviewAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningCashbackReviewAndroidTest UP-TO-DATE
+> Task :app:writeCashbackReviewAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :app:compileCashbackReviewKotlin
+> Task :app:compileCashbackReviewJavaWithJavac UP-TO-DATE
+> Task :app:dexBuilderCashbackReview
+> Task :app:mergeCashbackReviewGlobalSynthetics UP-TO-DATE
+> Task :app:processCashbackReviewJavaRes UP-TO-DATE
+> Task :app:mergeCashbackReviewJavaResource UP-TO-DATE
+> Task :app:mergeProjectDexCashbackReview
+> Task :app:generateCashbackReviewLintReportModel
+> Task :app:bundleCashbackReviewClassesToCompileJar
+> Task :app:packageCashbackReview
+> Task :app:createCashbackReviewApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleCashbackReview
+> Task :app:generateCashbackReviewAndroidTestLintModel
+> Task :app:generateCashbackReviewUnitTestLintModel
+> Task :app:compileCashbackReviewUnitTestKotlin UP-TO-DATE
+> Task :app:compileCashbackReviewUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processCashbackReviewUnitTestJavaRes UP-TO-DATE
+> Task :app:bundleCashbackReviewClassesToRuntimeJar
+> Task :app:compileCashbackReviewAndroidTestKotlin UP-TO-DATE
+
+> Task :app:testCashbackReviewUnitTest
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+
+> Task :app:compileCashbackReviewAndroidTestJavaWithJavac
+> Task :app:dexBuilderCashbackReviewAndroidTest
+> Task :app:mergeCashbackReviewAndroidTestGlobalSynthetics
+> Task :app:processCashbackReviewAndroidTestJavaRes
+> Task :app:mergeProjectDexCashbackReviewAndroidTest
+> Task :app:mergeCashbackReviewAndroidTestJavaResource
+> Task :app:packageCashbackReviewAndroidTest
+> Task :app:createCashbackReviewAndroidTestApkListingFileRedirect
+> Task :app:assembleCashbackReviewAndroidTest
+> Task :app:lintAnalyzeCashbackReviewUnitTest
+> Task :app:lintAnalyzeCashbackReview
+> Task :app:lintAnalyzeCashbackReviewAndroidTest
+
+> Task :app:lintReportCashbackReview
+Wrote HTML report to file:///C:/Users/Jassim%20Trinidad/OneDrive/Desktop/smishguard/android/app/build/reports/lint-results-cashbackReview.html
+
+> Task :app:lintCashbackReview
+
+BUILD SUCCESSFUL in 48s
+88 actionable tasks: 24 executed, 64 up-to-date

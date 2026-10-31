@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1420" viewBox="0 0 1800 1420">
+<title>Veritxt system architecture</title>
+<desc>Offline Android SMS inference, separate research and packaging, and a disconnected Flask reporting prototype. Based on code inspected 19 October 2026.</desc>
+<rect width="1800" height="1420" fill="#f8fafc"/>
+<text x="40" y="32" font-family="Segoe UI,Arial,sans-serif" font-size="42" font-weight="700" fill="#123f35" dominant-baseline="text-before-edge">Veritxt</text>
+<text x="215" y="42" font-family="Segoe UI,Arial,sans-serif" font-size="32" font-weight="700" fill="#1e293b" dominant-baseline="text-before-edge">System architecture</text>
+<text x="40" y="98" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Code-based view  |  19 October 2026  |  selectedSvm inference path</text>
+<text x="40" y="132" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#64748b" dominant-baseline="text-before-edge">Solid arrows: local processing    Dashed arrow: build-time delivery    Backend: separate prototype</text>
+<rect x="40" y="180" width="350" height="970" rx="22" fill="#edf2fc" stroke="#bcccea" stroke-width="2"/>
+<text x="65" y="204" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#304f87" dominant-baseline="text-before-edge">DEVELOPMENT COMPUTER</text>
+<text x="65" y="238" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Research + APK packaging</text>
+<rect x="430" y="180" width="1330" height="970" rx="22" fill="#edf7f3" stroke="#afcec2" stroke-width="2"/>
+<text x="465" y="204" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">ANDROID DEVICE / VERITXT</text>
+<text x="465" y="242" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Kotlin + Jetpack Compose  |  Offline inference  |  English / Filipino</text>
+<text x="1310" y="242" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#185c4d" dominant-baseline="text-before-edge">No prediction-server connection</text>
+<rect x="65" y="290" width="300" height="110" rx="16" fill="#ffffff" stroke="#a0b6e0" stroke-width="2"/>
+<text x="83" y="304" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#304f87" dominant-baseline="text-before-edge">Private SMS data</text>
+<text x="83" y="338" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Source / label review</text>
+<text x="83" y="363" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Preparation + grouped splits</text>
+<rect x="65" y="455" width="300" height="135" rx="16" fill="#ffffff" stroke="#a0b6e0" stroke-width="2"/>
+<text x="83" y="469" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#304f87" dominant-baseline="text-before-edge">Python experiments</text>
+<text x="83" y="503" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">LR / Multinomial NB / SVM</text>
+<text x="83" y="528" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">mBERT fine-tuning</text>
+<text x="83" y="553" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Evaluation + threshold policy</text>
+<rect x="65" y="650" width="300" height="135" rx="16" fill="#ffffff" stroke="#a0b6e0" stroke-width="2"/>
+<text x="83" y="664" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#304f87" dominant-baseline="text-before-edge">Frozen export</text>
+<text x="83" y="698" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Model + preprocessing contract</text>
+<text x="83" y="723" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Reference / JVM / Android</text>
+<text x="83" y="748" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">feature and score parity</text>
+<rect x="65" y="870" width="300" height="135" rx="16" fill="#ffffff" stroke="#a0b6e0" stroke-width="2"/>
+<text x="83" y="884" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#304f87" dominant-baseline="text-before-edge">Gradle build variant</text>
+<text x="83" y="918" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Asset validation + APK</text>
+<text x="83" y="943" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">selectedSvm: model.json</text>
+<text x="83" y="968" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">+ raw-sms-adapter.json</text>
+<polyline points="215,400 215,455" fill="none" stroke="#526db2" stroke-width="3"/>
+<polygon points="215,455 220,445 210,445" fill="#526db2"/>
+<polyline points="215,590 215,650" fill="none" stroke="#526db2" stroke-width="3"/>
+<polygon points="215,650 220,640 210,640" fill="#526db2"/>
+<polyline points="215,785 215,870" fill="none" stroke="#526db2" stroke-width="3"/>
+<polygon points="215,870 220,860 210,860" fill="#526db2"/>
+<text x="65" y="1040" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#304f87" dominant-baseline="text-before-edge">Models train on the computer.</text>
+<text x="65" y="1070" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#304f87" dominant-baseline="text-before-edge">New candidates stay separate</text>
+<text x="65" y="1098" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#304f87" dominant-baseline="text-before-edge">until explicitly integrated.</text>
+<rect x="465" y="300" width="350" height="110" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="483" y="314" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Manual / shared text</text>
+<text x="483" y="348" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Type / paste SMS</text>
+<text x="483" y="373" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Android ACTION_SEND → MainActivity</text>
+<rect x="905" y="300" width="350" height="110" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="923" y="314" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Local preferences</text>
+<text x="923" y="348" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">DataStore: privacy + scanning consent</text>
+<text x="923" y="373" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Onboarding + reduced transparency</text>
+<rect x="1345" y="300" width="380" height="110" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="1363" y="314" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">New incoming SMS</text>
+<text x="1363" y="348" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Android SMS_RECEIVED broadcast</text>
+<text x="1363" y="373" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Multipart body + sender metadata</text>
+<rect x="465" y="475" width="350" height="110" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="483" y="489" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">CheckViewModel</text>
+<text x="483" y="523" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">StateFlow + transient session</text>
+<text x="483" y="548" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Scan job / cancellation / timeout</text>
+<rect x="905" y="475" width="350" height="110" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="923" y="489" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">SmishGuardApp</text>
+<text x="923" y="523" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Cached build-specific detector</text>
+<text x="923" y="548" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Input-kind gate + inference mutex</text>
+<rect x="1345" y="475" width="380" height="110" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="1363" y="489" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">IncomingSmsReceiver</text>
+<text x="1363" y="523" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Privacy + scanning + SMS permission</text>
+<text x="1363" y="548" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Auto-warning gate / neutral prompt</text>
+<polyline points="640,410 640,475" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="640,475 645,465 635,465" fill="#437c6e"/>
+<polyline points="1535,410 1535,475" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1535,475 1540,465 1530,465" fill="#437c6e"/>
+<polyline points="815,530 905,530" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="905,530 895,525 895,535" fill="#437c6e"/>
+<polyline points="1345,530 1255,530" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1255,530 1265,535 1265,525" fill="#437c6e"/>
+<polyline points="1180,410 1180,442 1535,442 1535,475" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1535,475 1540,465 1530,465" fill="#437c6e"/>
+<text x="955" y="422" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="400" fill="#43675e" dominant-baseline="text-before-edge">consent gates incoming checks</text>
+<rect x="590" y="635" width="1000" height="120" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="608" y="649" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Packaged selectedSvm detector</text>
+<text x="608" y="683" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">RawSmsView masking → Unicode tokens / stopwords → word unigram + bigram TF-IDF / L2</text>
+<text x="608" y="708" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Linear SVM → fitted sigmoid → saved threshold; assessability and model-error states</text>
+<polyline points="1080,585 1080,635" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1080,635 1085,625 1075,625" fill="#437c6e"/>
+<polyline points="365,935 550,935 550,695 590,695" fill="none" stroke="#526db2" stroke-width="3" stroke-dasharray="8 6"/>
+<polygon points="590,695 580,690 580,700" fill="#526db2"/>
+<text x="397" y="910" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="400" fill="#304f87" dominant-baseline="text-before-edge">APK assets</text>
+<rect x="590" y="815" width="1000" height="115" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="608" y="829" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Shared RiskPolicy</text>
+<text x="608" y="863" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Original-text indicators + usable suspicious model signal → evidence index (not probability)</text>
+<text x="608" y="888" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Low 0–29  |  Medium 30–69  |  High 70–100  |  Unable to assess: no score</text>
+<polyline points="1090,755 1090,815" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1090,815 1095,805 1085,805" fill="#437c6e"/>
+<rect x="465" y="1000" width="350" height="105" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="483" y="1014" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Result screen</text>
+<text x="483" y="1048" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Risk + indicators + limitations</text>
+<text x="483" y="1073" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Temporary checked-message preview</text>
+<rect x="905" y="1000" width="350" height="105" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="923" y="1014" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Private SMS notifications</text>
+<text x="923" y="1048" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">High Risk warning / neutral prompt</text>
+<text x="923" y="1073" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Generic text; permission + channel gate</text>
+<rect x="1345" y="1000" width="380" height="105" rx="16" fill="#ffffff" stroke="#8ab8aa" stroke-width="2"/>
+<text x="1363" y="1014" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#185c4d" dominant-baseline="text-before-edge">Android blocklist handoff</text>
+<text x="1363" y="1048" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Explicit user confirmation + entry</text>
+<text x="1363" y="1073" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Settings UI / fallback instructions</text>
+<polyline points="765,930 765,965 640,965 640,1000" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="640,1000 645,990 635,990" fill="#437c6e"/>
+<polyline points="1080,930 1080,1000" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1080,1000 1085,990 1075,990" fill="#437c6e"/>
+<text x="1100" y="948" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="400" fill="#43675e" dominant-baseline="text-before-edge">incoming branch</text>
+<polyline points="1725,530 1742,530 1742,970 1280,970 1280,1040 1255,1040" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1255,1040 1265,1045 1265,1035" fill="#437c6e"/>
+<text x="1345" y="941" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="400" fill="#43675e" dominant-baseline="text-before-edge">auto warnings off → neutral prompt</text>
+<polyline points="640,1105 640,1128 1535,1128 1535,1105" fill="none" stroke="#437c6e" stroke-width="3"/>
+<polygon points="1535,1105 1530,1115 1540,1115" fill="#437c6e"/>
+<text x="850" y="1105" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="400" fill="#43675e" dominant-baseline="text-before-edge">eligible result → user requests blocking</text>
+<rect x="40" y="1190" width="1720" height="180" rx="20" fill="#f0f1f5" stroke="#c4c7d0" stroke-width="2"/>
+<text x="65" y="1207" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#505563" dominant-baseline="text-before-edge">SEPARATE LOCAL PROTOTYPE / DISCONNECTED FROM ANDROID</text>
+<rect x="65" y="1252" width="460" height="95" rx="16" fill="#ffffff" stroke="#c4c7d0" stroke-width="2"/>
+<text x="83" y="1266" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#505563" dominant-baseline="text-before-edge">Android reporting disabled</text>
+<text x="83" y="1300" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">DisabledReportingRepository; no INTERNET</text>
+<rect x="680" y="1252" width="300" height="95" rx="16" fill="#ffffff" stroke="#c4c7d0" stroke-width="2"/>
+<text x="698" y="1266" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#505563" dominant-baseline="text-before-edge">Flask report API</text>
+<text x="698" y="1300" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">POST /api/reports + validation</text>
+<rect x="1065" y="1252" width="230" height="95" rx="16" fill="#ffffff" stroke="#c4c7d0" stroke-width="2"/>
+<text x="1083" y="1266" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#505563" dominant-baseline="text-before-edge">SQLite</text>
+<text x="1083" y="1300" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Report metadata</text>
+<rect x="1380" y="1252" width="345" height="95" rx="16" fill="#ffffff" stroke="#c4c7d0" stroke-width="2"/>
+<text x="1398" y="1266" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#505563" dominant-baseline="text-before-edge">Aggregate dashboard</text>
+<text x="1398" y="1300" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#334155" dominant-baseline="text-before-edge">Flask GET / → HTML</text>
+<polyline points="980,1300 1065,1300" fill="none" stroke="#85858e" stroke-width="3"/>
+<polygon points="1065,1300 1055,1295 1055,1305" fill="#85858e"/>
+<polyline points="1295,1300 1380,1300" fill="none" stroke="#85858e" stroke-width="3"/>
+<polygon points="1380,1300 1370,1295 1370,1305" fill="#85858e"/>
+<text x="40" y="1385" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="400" fill="#64748b" dominant-baseline="text-before-edge">Messages: transient app memory  |  Pending notification checks: single-use IDs, 10-minute expiry  |  No persistent scan history</text>
+</svg>

@@ -14,6 +14,9 @@ import ph.smishguard.model.ModelLoader
 import ph.smishguard.model.MissingDetector
 import ph.smishguard.model.ComparisonDetector
 import ph.smishguard.model.SuppliedDetector
+import ph.smishguard.model.SelectedSvmDetector
+import ph.smishguard.model.NbGeneralizationDetector
+import ph.smishguard.model.MulticlassSvmDetector
 import ph.smishguard.privacy.DisabledReportingRepository
 import ph.smishguard.sms.WarningNotifications
 import java.io.FileNotFoundException
@@ -41,6 +44,17 @@ open class SmishGuardApp : Application() {
         }
         return if (BuildConfig.BUILD_TYPE in listOf("mbert", "mbertQuantized")) Class.forName("ph.smishguard.model.MbertDetector")
             .getConstructor(android.content.Context::class.java, String::class.java).newInstance(this, json) as Detector
+        else if (BuildConfig.BUILD_TYPE in listOf("multiclassSvm", "multiclassSvm60", "cashbackReview")) {
+            val percent = if (BuildConfig.BUILD_TYPE == "multiclassSvm") 80 else 60
+            val hash = java.security.MessageDigest.getInstance("SHA-256").digest(json.toByteArray(Charsets.UTF_8))
+                .joinToString("") { "%02x".format(it) }
+            require(hash == if (percent == 60) MulticlassSvmDetector.ASSET60_SHA256 else MulticlassSvmDetector.ASSET_SHA256)
+            MulticlassSvmDetector.parse(json, percent)
+        }
+        else if (BuildConfig.BUILD_TYPE == "nbGeneralization") NbGeneralizationDetector.parse(json)
+        else if (BuildConfig.BUILD_TYPE in listOf("selectedSvm", "oldSvm", "usbDemo")) SelectedSvmDetector(json,
+            assets.open("raw-sms-adapter.json").bufferedReader().use { it.readText() },
+            showCategory = BuildConfig.BUILD_TYPE in listOf("oldSvm", "usbDemo"))
         else if (BuildConfig.BUILD_TYPE == "lrCalibrated4") SuppliedDetector.parse(json, folded = true)
         else if (BuildConfig.BUILD_TYPE == "lrCandidate") SuppliedDetector.parse(json, candidate = true)
         else if (BuildConfig.BUILD_TYPE in listOf("lr", "nb", "svm"))
@@ -61,6 +75,10 @@ open class SmishGuardApp : Application() {
     // The permit remains held until synchronous native work actually returns.
     // Cancellation prevents publication; it cannot forcibly interrupt session.run.
     suspend fun assess(text: String): Detection {
+        // The installed classifier is trained for SMS. Other pasted input types use visible
+        // indicators only in RiskPolicy; a phone number or email address alone always abstains.
+        if (ph.smishguard.model.RiskPolicy.inputKind(text) != ph.smishguard.model.InputKind.MESSAGE)
+            return Detection.UnableToAssess
         if (!inference.tryLock()) return Detection.Busy
         return try {
             withContext(Dispatchers.Default) {
@@ -70,5 +88,10 @@ open class SmishGuardApp : Application() {
             }
         } finally { inference.unlock() }
     }
-    override fun onCreate() { super.onCreate(); WarningNotifications.createChannel(this); ph.smishguard.sms.CheckPrompt.createChannel(this) }
+    override fun onCreate() {
+        super.onCreate()
+        WarningNotifications.createChannel(this)
+        ph.smishguard.sms.CheckPrompt.createChannel(this)
+        ph.smishguard.sms.SmsReportGroup.createChannel(this)
+    }
 }

@@ -48,7 +48,7 @@ class FlowsTest {
         compose.onNodeWithText("Check message", substring = false).performScrollTo()
             .performSemanticsAction(SemanticsActions.OnClick) { it() }
         try {
-            compose.waitUntil(10000) { compose.onAllNodesWithText("Model unavailable", substring = false).fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(10000) { compose.onAllNodesWithText("Unable to assess", substring = false).fetchSemanticsNodes().isNotEmpty() }
         } catch (error: Exception) {
             var summary = ""
             compose.activityRule.scenario.onActivity {
@@ -114,9 +114,9 @@ class FlowsTest {
         val app = compose.activity.application as SoftwareTestApp
         val invocations = java.util.concurrent.atomic.AtomicInteger()
         val cases = listOf(
-            ph.smishguard.model.Detection.InvalidModel to "Model unavailable",
-            ph.smishguard.model.Detection.Failure to "Could not complete the check",
-            ph.smishguard.model.Detection.Success(true, .99, probability = true, synthetic = true) to "Synthetic interface fixture"
+            ph.smishguard.model.Detection.InvalidModel to "Unable to assess",
+            ph.smishguard.model.Detection.Failure to "Unable to assess",
+            ph.smishguard.model.Detection.Success(true, .99, probability = true, synthetic = true) to "Unable to assess"
         )
         try {
             for ((index, entry) in cases.withIndex()) {

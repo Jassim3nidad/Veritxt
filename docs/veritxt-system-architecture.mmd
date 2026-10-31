@@ -1,0 +1,59 @@
+flowchart TB
+    subgraph WORKSTATION["Development computer · offline research and packaging"]
+        DATA["Private SMS datasets<br/>provenance, labels and grouped splits"]
+        TRAIN["Python training and evaluation<br/>LR · Multinomial NB · Linear SVM · mBERT"]
+        EXPORT["Frozen model export + preprocessing contract<br/>reference / JVM / Android parity checks"]
+        BUILD["Gradle build variant + asset validation<br/>selectedSvm: model.json + raw-sms-adapter.json"]
+        DATA --> TRAIN --> EXPORT --> BUILD
+    end
+
+    subgraph DEVICE["Android device · Veritxt · Kotlin / Jetpack Compose · offline inference"]
+        USER["User: type / paste SMS"]
+        SHARE["Other Android app<br/>ACTION_SEND: text/plain"]
+        SMS["Android SMS_RECEIVED broadcast<br/>new SMS + multipart assembly"]
+        UI["MainActivity / Compose<br/>privacy, onboarding, Home, Check, Settings, Help<br/>English / Filipino"]
+        PREFS[("Preferences DataStore<br/>privacy acceptance, scanning consent,<br/>onboarding, reduced transparency")]
+        VM["CheckViewModel<br/>StateFlow, session state, cancellation / timeout"]
+        GATE["IncomingSmsReceiver<br/>privacy + scanning consent + telephony + SMS permission"]
+        AUTO{"Detector allows<br/>automatic warnings?"}
+        APP["SmishGuardApp.assess()<br/>input-kind gate, cached detector, inference mutex"]
+        MODEL["selectedSvm detector<br/>RawSmsView → Unicode tokens / stopwords<br/>word unigram + bigram TF-IDF / L2<br/>Linear SVM → fitted sigmoid → saved threshold"]
+        RISK["Shared RiskPolicy<br/>original-text indicators + suspicious model signal<br/>Low 0–29 · Medium 30–69 · High 70–100<br/>Unable to assess: no score"]
+        RESULT["Result screen<br/>risk, indicators, limitations, temporary message preview"]
+        HIGH{"Incoming path:<br/>High Risk?"}
+        NOTIFY["CheckPrompt / WarningNotifications<br/>notification permission + enabled channel<br/>generic text only; no SMS body or sender"]
+        PENDING[("PendingChecks: process memory<br/>single-use ID, 10-minute expiry<br/>temporary SMS + numeric sender")]
+        BLOCK["ManualBlocking + SystemNumberBlocking<br/>user confirmation → Android blocklist UI<br/>user adds sender; instructions if unavailable"]
+        USER --> UI
+        SHARE --> UI
+        UI <--> PREFS
+        UI --> VM --> APP
+        SMS --> GATE
+        PREFS --> GATE
+        GATE --> AUTO
+        AUTO -->|Yes| APP
+        AUTO -->|No: neutral check prompt| NOTIFY
+        APP --> MODEL --> RISK
+        RISK -->|manual / opened notification| RESULT
+        RISK --> HIGH
+        HIGH -->|Yes: recheck scanning + permissions| NOTIFY
+        NOTIFY --> PENDING
+        PENDING -->|tap notification: ID lookup| UI
+        RESULT -->|eligible input + explicit confirmation| BLOCK
+    end
+    BUILD -.->|packaged assets in APK; no live training link| MODEL
+
+    subgraph PROTOTYPE["Separate local prototype · disconnected from Android"]
+        DISABLED["Android reporting disabled<br/>DisabledReportingRepository<br/>no INTERNET permission; no report traffic"]
+        API["Flask POST /api/reports<br/>validation + optional bearer token"]
+        DB[("SQLite reports")]
+        DASH["Flask GET /<br/>aggregate HTML dashboard"]
+        API --> DB --> DASH
+    end
+
+    classDef active fill:#edf7f4,stroke:#247466,color:#18372f;
+    classDef research fill:#edf2fc,stroke:#526db2,color:#23365c;
+    classDef isolated fill:#f4f4f5,stroke:#85858e,color:#45454f;
+    class USER,SHARE,SMS,UI,PREFS,VM,GATE,AUTO,APP,MODEL,RISK,RESULT,HIGH,NOTIFY,PENDING,BLOCK active;
+    class DATA,TRAIN,EXPORT,BUILD research;
+    class DISABLED,API,DB,DASH isolated;

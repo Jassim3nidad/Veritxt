@@ -1,0 +1,510 @@
+{
+  "A-baseline": {
+    "cases": 1158,
+    "synthetic_cases": 115,
+    "frozen_test_cases": 1043,
+    "invalid_input_checks": {
+      "none": "invalid_input",
+      "nul": "invalid_input",
+      "unpaired_surrogate": "invalid_input",
+      "overlong": "invalid_input"
+    },
+    "max_feature_error": 1.6653345369377348e-16,
+    "max_score_error": 9.992007221626409e-15,
+    "note": "Python JSON reference parity only; Android scorer cannot load schema 8. Zero features returns class prior/margin, not evidence of safety or fraud.",
+    "probes": [
+      {
+        "name": "empty",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "punctuation",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "random",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "short",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "numeric",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "url_only",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_english",
+        "raw_score": 0.038312099922071824,
+        "recognized_features": 7,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_tagalog",
+        "raw_score": 0.15029461529289995,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_taglish",
+        "raw_score": 0.3131366000641214,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "bank_notice",
+        "raw_score": 0.001519197171302126,
+        "recognized_features": 14,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_english",
+        "raw_score": 0.19831084441822483,
+        "recognized_features": 13,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_tagalog",
+        "raw_score": 0.09045937338589614,
+        "recognized_features": 12,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_taglish",
+        "raw_score": 0.08215815336335235,
+        "recognized_features": 11,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "recognizable_fragments",
+        "raw_score": 0.42894302062884093,
+        "recognized_features": 5,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "unicode",
+        "raw_score": 0.011895358635448518,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      }
+    ],
+    "seeded_noise": {
+      "cases": 100,
+      "zero_features": 100,
+      "min_raw_score": 0.1693088142041852,
+      "max_raw_score": 0.1693088142041852
+    }
+  },
+  "B-proposed": {
+    "cases": 1158,
+    "synthetic_cases": 115,
+    "frozen_test_cases": 1043,
+    "invalid_input_checks": {
+      "none": "invalid_input",
+      "nul": "invalid_input",
+      "unpaired_surrogate": "invalid_input",
+      "overlong": "invalid_input"
+    },
+    "max_feature_error": 1.6653345369377348e-16,
+    "max_score_error": 5.995204332975845e-15,
+    "note": "Python JSON reference parity only; Android scorer cannot load schema 8. Zero features returns class prior/margin, not evidence of safety or fraud.",
+    "probes": [
+      {
+        "name": "empty",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "punctuation",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "random",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "short",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "numeric",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "url_only",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_english",
+        "raw_score": 0.041834893938702634,
+        "recognized_features": 7,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_tagalog",
+        "raw_score": 0.21673325720009717,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_taglish",
+        "raw_score": 0.8978535881876533,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "bank_notice",
+        "raw_score": 0.00011590834044240146,
+        "recognized_features": 14,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_english",
+        "raw_score": 0.7835483290412933,
+        "recognized_features": 13,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "fictional_scam_tagalog",
+        "raw_score": 0.17633265671582746,
+        "recognized_features": 12,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_taglish",
+        "raw_score": 0.31217384715485264,
+        "recognized_features": 11,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "recognizable_fragments",
+        "raw_score": 0.9045350696544041,
+        "recognized_features": 5,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "unicode",
+        "raw_score": 0.015907775301412047,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      }
+    ],
+    "seeded_noise": {
+      "cases": 100,
+      "zero_features": 100,
+      "min_raw_score": 0.1693088142041852,
+      "max_raw_score": 0.1693088142041852
+    }
+  },
+  "SVM-reference": {
+    "cases": 1158,
+    "synthetic_cases": 115,
+    "frozen_test_cases": 1043,
+    "invalid_input_checks": {
+      "none": "invalid_input",
+      "nul": "invalid_input",
+      "unpaired_surrogate": "invalid_input",
+      "overlong": "invalid_input"
+    },
+    "max_feature_error": 1.6653345369377348e-16,
+    "max_score_error": 6.661338147750939e-16,
+    "note": "Python JSON reference parity only; Android scorer cannot load schema 8. Zero features returns class prior/margin, not evidence of safety or fraud.",
+    "probes": [
+      {
+        "name": "empty",
+        "raw_score": -0.5148858349824664,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "punctuation",
+        "raw_score": -0.5148858349824664,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "random",
+        "raw_score": -0.5148858349824664,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "short",
+        "raw_score": -0.5148858349824664,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "numeric",
+        "raw_score": -0.5148858349824664,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "url_only",
+        "raw_score": -0.5148858349824664,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_english",
+        "raw_score": -0.3078079261236026,
+        "recognized_features": 7,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_tagalog",
+        "raw_score": -0.38919835857852053,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_taglish",
+        "raw_score": -0.20112434112470456,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "bank_notice",
+        "raw_score": -1.0945429487764762,
+        "recognized_features": 14,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_english",
+        "raw_score": 0.1797354034135049,
+        "recognized_features": 13,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "fictional_scam_tagalog",
+        "raw_score": -0.7169616168441757,
+        "recognized_features": 12,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_taglish",
+        "raw_score": -0.07925317961049733,
+        "recognized_features": 11,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "recognizable_fragments",
+        "raw_score": 0.44895060788311825,
+        "recognized_features": 5,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "unicode",
+        "raw_score": -0.8029948241340811,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      }
+    ],
+    "seeded_noise": {
+      "cases": 100,
+      "zero_features": 100,
+      "min_raw_score": -0.5148858349824664,
+      "max_raw_score": -0.5148858349824664
+    }
+  },
+  "NB-alpha-0.01": {
+    "cases": 1158,
+    "synthetic_cases": 115,
+    "frozen_test_cases": 1043,
+    "invalid_input_checks": {
+      "none": "invalid_input",
+      "nul": "invalid_input",
+      "unpaired_surrogate": "invalid_input",
+      "overlong": "invalid_input"
+    },
+    "max_feature_error": 1.6653345369377348e-16,
+    "max_score_error": 5.6066262743570405e-15,
+    "note": "Python JSON reference parity only; Android scorer cannot load schema 8. Zero features returns class prior/margin, not evidence of safety or fraud.",
+    "probes": [
+      {
+        "name": "empty",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "punctuation",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "random",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "short",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "numeric",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "url_only",
+        "raw_score": 0.1693088142041852,
+        "recognized_features": 0,
+        "diagnostic_status": "abstain_zero_features",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_english",
+        "raw_score": 0.03365445416424287,
+        "recognized_features": 7,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_tagalog",
+        "raw_score": 0.06012490860369187,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "ordinary_taglish",
+        "raw_score": 0.9915905996862138,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "bank_notice",
+        "raw_score": 3.37993968446317e-06,
+        "recognized_features": 14,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_english",
+        "raw_score": 0.9638995485970137,
+        "recognized_features": 13,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "fictional_scam_tagalog",
+        "raw_score": 0.06909776820983546,
+        "recognized_features": 12,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "fictional_scam_taglish",
+        "raw_score": 0.46105232762531917,
+        "recognized_features": 11,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      },
+      {
+        "name": "recognizable_fragments",
+        "raw_score": 0.9895001804074482,
+        "recognized_features": 5,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": true
+      },
+      {
+        "name": "unicode",
+        "raw_score": 0.016605666731303672,
+        "recognized_features": 8,
+        "diagnostic_status": "score_is_uncalibrated",
+        "suspicious": false
+      }
+    ],
+    "seeded_noise": {
+      "cases": 100,
+      "zero_features": 100,
+      "min_raw_score": 0.1693088142041852,
+      "max_raw_score": 0.1693088142041852
+    }
+  }
+}

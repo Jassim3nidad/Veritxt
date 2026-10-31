@@ -1,0 +1,11 @@
+{
+  "model_sha256": "3703fdb51583f090979ada04fc79201e58cbeb61b0a464cb6389b0baf5b07dd1",
+  "frozen_pipeline_sha256": "73c996492889c846a396aba1b6f250eb3e488605104cb18c5318bb75c9dc605a",
+  "risk_profile": "cashback-claim-deadline-v1",
+  "source_files": {
+    "android/app/src/main/java/ph/smishguard/model/CashbackDeadlineReview.kt": "7b9f74247dfb9728313ca3c67e06264dd5a98aaa935c9b66f075000ebbc9876d",
+    "android/app/src/main/java/ph/smishguard/model/AppRiskPolicy.kt": "0baf255e0974674e6fb979d31c9e3c9524b9eafbde358a659022f25e4596c50f",
+    "android/app/src/main/java/ph/smishguard/model/RiskAssessment.kt": "b50ac41b9155811ee21cf772656b425350ece9f2714f26ed4ce2099ad77ecbe6",
+    "android/app/src/test/java/ph/smishguard/CashbackReviewTest.kt": "3f8da07bbc48c0f11e7699988e81c2b94b1b2b9526df81185ef3d98f94681482"
+  }
+}

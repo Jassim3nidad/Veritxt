@@ -22,7 +22,7 @@ class PrivacyAndCheckPromptTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
     private val app get() = compose.activity.application as SoftwareTestApp
     private val manager get() = app.getSystemService(NotificationManager::class.java)
-    private val marker = "SGTEST BDO account on hold, verify at sgtest-verify.example.com"
+    private val marker = "SGTEST BDO account on hold, send your OTP at sgtest-verify.example.com"
 
     @After fun reset() { app.testDetector = null; manager.cancelAll(); PendingChecks.clear() }
 
@@ -52,8 +52,8 @@ class PrivacyAndCheckPromptTest {
         posted.contentIntent.send()
         compose.waitUntil(10000) { compose.onAllNodesWithText("Check result").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText(marker).assertExists()
-        compose.onNodeWithText("Model unavailable", substring = false).assertExists()
-        compose.onNodeWithText("Link goes to sgtest-verify.example.com, not an official site").performScrollTo().assertExists()
+        compose.onNodeWithText("Unable to assess", substring = false).assertExists()
+        compose.onNodeWithText("No usable model is bundled. No prediction was made.").assertExists()
         assertTrue("Notification should be cancelled after Check now", manager.activeNotifications.none { it.id == id })
     }
 
@@ -64,17 +64,21 @@ class PrivacyAndCheckPromptTest {
             override val automaticWarningsAllowed = true
             override suspend fun detect(text: String) = ph.smishguard.model.Detection.Success(true, .9, experimental = true)
         }
-        val id = ph.smishguard.sms.WarningNotifications.warn(app, marker)!!
+        val sender = "+16505550100"
+        val id = ph.smishguard.sms.WarningNotifications.warn(app, marker, sender)!!
         val warning = posted(id)
         assertEquals(ph.smishguard.sms.WarningNotifications.CHANNEL, warning.channelId)
-        assertEquals("Possible scam text", warning.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
+        assertEquals("High Risk SMS", warning.extras.getCharSequence(Notification.EXTRA_TITLE)?.toString())
         val shown = listOf(Notification.EXTRA_TITLE, Notification.EXTRA_TEXT).joinToString(" ") { warning.extras.getCharSequence(it)?.toString().orEmpty() }
         assertFalse("Warning must not contain the message", shown.contains("SGTEST") || shown.contains("example.com"))
+        assertFalse("Warning must not contain its sender", warning.extras.toString().contains(sender))
         assertEquals(Notification.VISIBILITY_SECRET, warning.visibility)
         warning.contentIntent.send()
-        compose.waitUntil(10000) { compose.onAllNodesWithText("Likely phishing").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitUntil(10000) { compose.onAllNodesWithText("High Risk").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithText("Experimental result").assertExists()
         compose.onNodeWithText(marker).assertExists()
+        compose.onNodeWithText("Sender: $sender").assertExists()
+        compose.onNodeWithText("Block sender").assertExists()
     }
 
     @Test fun expiredTextExplainsWhatToDo() {

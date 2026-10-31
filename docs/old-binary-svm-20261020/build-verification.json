@@ -1,0 +1,65 @@
+{
+  "apk": "C:\\Users\\Jassim Trinidad\\OneDrive\\Desktop\\smishguard\\deliverables\\old-binary-svm-20261020\\VeriTxt-OldModel-Ham-Smishing-debug.apk",
+  "apk_sha256": "9994b695389c5ef65ba35729278ee9e4a2a272042a4e3447e16a36a47f0f30fb",
+  "apk_bytes": 21502066,
+  "package": "ph.smishguard.svm.oldbinary",
+  "launcher": "VeriTxt \u00b7 Ham/Smishing",
+  "version": "0.3.0-ham-smishing-debug",
+  "model_identity": {
+    "old_apk_sha256": "47c511970ac8dfb4ff09e4ea35bd5862c29af1e8faf902d4cdaa7b37dfe8997a",
+    "model_sha256": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+    "adapter_sha256": "11c3ee93fb7523e72b5658bec9f4bc5ee7389d9e5add25d5ca3fceceeedb5b8c",
+    "classes": [
+      "ham",
+      "smishing"
+    ],
+    "features": 18473,
+    "threshold": 0.36999999999999994,
+    "no_retraining": true
+  },
+  "parity": {
+    "parity": {
+      "cases": 515,
+      "maximum_score_error": 4.440892098500626e-16,
+      "maximum_feature_error": 1.1102230246251565e-16,
+      "required_abstentions": 7,
+      "model_bytes": 1333723,
+      "load_ms": 2005.48,
+      "mean_score_ms": 1.6633120388349518,
+      "production_loader_rejects": true
+    },
+    "raw_parity": {
+      "raw_cases": 33,
+      "maximum_score_error": 1.1102230246251565e-16,
+      "required_abstentions": 8,
+      "raw_view_matches": true
+    },
+    "app_path_cases": 32,
+    "model_sha256": "15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c",
+    "risk_profile": "evidence-index-v1",
+    "cashback_rule_enabled": false,
+    "api": 36,
+    "physical_device": false
+  },
+  "unit_tests": {
+    "tests": 57,
+    "skipped": 11,
+    "failures": 0,
+    "errors": 0
+  },
+  "android_tests": {
+    "native-parity": 1,
+    "manual-two-categories": 1,
+    "existing-flows": 6,
+    "privacy-lifecycle": 2,
+    "risk-results": 8,
+    "theme-settings": 1,
+    "real_model_incoming_sms": 1
+  },
+  "android_test_total": 20,
+  "preserved_file_count": 510,
+  "lint_errors": 0,
+  "lint_warnings": 11,
+  "signing": "Existing debug key; APK v2 verified",
+  "physical_device_tested": false
+}

@@ -24,7 +24,7 @@ class PrivacyLifecycleTest {
         compose.activityRule.scenario.recreate()
         compose.onNodeWithText("SYNTHETIC_PRIVATE_SESSION_MARKER").assertDoesNotExist()
         compose.activityRule.scenario.onActivity {
-            assertTrue(it.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)
+            assertEquals(0, it.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE)
         }
     }
 
@@ -45,7 +45,7 @@ class PrivacyLifecycleTest {
                 compose.onNodeWithText(message).assertExists()
                 compose.activityRule.scenario.onActivity {
                     assertEquals("", androidx.lifecycle.ViewModelProvider(it)[CheckViewModel::class.java].state.value.text)
-                    assertTrue(it.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE != 0)
+                    assertEquals(0, it.window.attributes.flags and WindowManager.LayoutParams.FLAG_SECURE)
                 }
                 when (exit) {
                     "another" -> compose.onNodeWithText("Check another message").performScrollTo().performClick()

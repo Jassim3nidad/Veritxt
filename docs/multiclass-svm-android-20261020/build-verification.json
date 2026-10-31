@@ -1,0 +1,52 @@
+{
+  "apk": "C:\\Users\\Jassim Trinidad\\OneDrive\\Desktop\\smishguard\\deliverables\\multiclass-svm-80-20261020\\VeriTxt-LinearSVM-80-New-debug.apk",
+  "apk_bytes": 22451611,
+  "apk_sha256": "e31e440d1e02512b0cf2718cde2fcf87e3f7cc9de944eb0fe5e8ad1dcfd0d8ec",
+  "package": "ph.smishguard.svm.multiclass80",
+  "version": "0.3.0-svm80-debug",
+  "signing": "existing local debug key; APK v2 verified",
+  "source_model_sha256": "957fe1ef05885a81d909c495d23a06487908c07b891f204109fdd13b474f8104",
+  "packaged_model_sha256": "ba6fc0bf7f32cd4405402534fdda408eed418072279928958ae4ba88c83894d6",
+  "frozen_experiment_files_preserved": true,
+  "preserved_file_count": 119,
+  "unit_tests": {
+    "tests": 51,
+    "skipped": 11,
+    "failures": 0,
+    "errors": 0
+  },
+  "lint_errors": 0,
+  "lint_warnings": 11,
+  "emulator_tests": {
+    "native-parity": 1,
+    "manual-three-categories": 1,
+    "existing-flows": 6,
+    "privacy-lifecycle": 2,
+    "risk-results": 8,
+    "theme-settings": 1,
+    "real_model_incoming_sms": 1
+  },
+  "emulator_test_total": 20,
+  "api": "36",
+  "parity": {
+    "cases": 1062,
+    "matching_predictions": 1062,
+    "mismatches": 0,
+    "maximum_score_error": 2.4424906541753444e-15,
+    "maximum_feature_error": 1.6653345369377348e-15,
+    "wrapper_successes": 1058,
+    "wrapper_abstentions": 2,
+    "wrapper_rejections": 2,
+    "thesis_test_messages_used": 0,
+    "tolerance": 1e-10,
+    "load_ms": 643.837,
+    "score_p50_ms": 1.0378,
+    "score_p95_ms": 1.7012,
+    "app_path_cases": 1056,
+    "api": 36,
+    "offline": true,
+    "physical_device": false
+  },
+  "thesis_test_messages_used": 0,
+  "physical_device_tested": false
+}

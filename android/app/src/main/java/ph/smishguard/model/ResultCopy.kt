@@ -3,10 +3,16 @@ package ph.smishguard.model
 import java.util.Locale
 
 object ResultCopy {
-    fun heading(result: Detection.Success): String =
-        if (result.suspicious) "Likely phishing" else "No phishing detected"
+    fun heading(assessment: RiskAssessment): String = when (assessment.level) {
+        RiskLevel.LOW -> "Low Risk"
+        RiskLevel.MEDIUM -> "Medium Risk"
+        RiskLevel.HIGH -> "High Risk"
+        RiskLevel.UNABLE_TO_ASSESS -> "Unable to assess"
+    }
+    fun riskScore(value: Int): String = "Risk Score: $value/100"
+    /** Raw model output for the explanation dialog only. Never a percentage or risk index. */
     fun score(value: Double): String =
-        String.format(Locale.ROOT, "Model score: %.1f%%", value * 100)
-    const val LONG_MESSAGE = "Long message: only the beginning was assessed."
-    const val DISCLAIMER = "Experimental score; not a verified probability."
+        String.format(Locale.ROOT, "Research model output: %.4f", value)
+    const val LONG_MESSAGE = "The SMS model assessed only the beginning; visible-text indicators cover the full submitted message."
+    const val DISCLAIMER = "Provisional evidence index; not a probability of fraud."
 }

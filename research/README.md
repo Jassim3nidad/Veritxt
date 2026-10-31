@@ -1,5 +1,73 @@
 # SmishGuard research and model workflow
 
+20 October controlled **three-class** Linear SVM versus Multinomial NB comparison:
+[thesis report and complete tables](../docs/multiclass-comparison-20261020/THESIS-REPORT.md)
+and [protocol/reproduction](../docs/multiclass-comparison-20261020/PROTOCOL.md).
+`smishguard.multiclass_comparison` compares nested 60% and 80% training portions
+on one shared 761-message test set, retaining Gambling as a separate class.
+The 80% condition uses five training-only group folds and macro F1 selection.
+The observed SVM advantage is uncertain; historical exposure and inherited labels
+remain limitations. Private models/membership stay in
+`research/runs/multiclass-20261020/run-v1/`; Android/APK integration is unchanged.
+
+19 October NB memorization concern: [findings](../docs/nb-generalization-20261019/FINDINGS.md)
+and [all measurements](../docs/nb-generalization-20261019/RESULTS.md) replace the
+unqualified interpretation of the 99.71% single-split result. Five disjoint 80/20
+folds have 60 test components each; additional source-held-out tests purge related
+groups. Original alpha=.1 group-CV F1 is 90.00%, but Tagalog-source F1 is 22.22%.
+Exact-copy leakage was not detected; source transfer remains poor. Identifier
+removal and stronger smoothing do not consistently fix it. Fresh fold pipelines,
+source-only and shuffled-label controls stay private under
+`research/runs/nb-generalization-20261019/run-v1/`. App/prior artifacts are preserved.
+
+19 October expanded all-algorithm 80/20 retraining: the
+[frozen protocol](../docs/all-algorithms-8020-20261019/PROTOCOL.md) covers LR,
+Linear SVM, NB, Random Forest, KNN, mBERT, word+character LR/SVM, eleven voting
+combinations and two OOF stacking models on the same 2,734/684 records. Use
+`smishguard.all_algorithms_8020`; fresh fits and private fold artifacts stay under
+`research/runs/all-algorithms-8020-20261019/`. The expanded comparison is
+retrospective because the earlier test results were already viewed.
+Completed deliverables: [all 35 results](../docs/all-algorithms-8020-20261019/RESULTS.md)
+and the [executed reproduction notebook](All_Algorithms_80_20_Comparison.ipynb).
+
+19 October requested 80/20 retraining: `smishguard.holdout_8020` reruns the latest
+five NB settings and Linear SVM reference with integer-rounded 80%/20% outer
+partitions, whole template/sender groups and three-fold training-only selection.
+See [results and reproduction](../docs/holdout-8020-20261019/RESULTS.md).
+Private models and membership stay under `research/runs/holdout-8020-20261019/`.
+
+16 October requested NB comparison: [executed notebook](NB_Baseline_Proposed_Comparison.ipynb)
+and [measured results, limitations and reproduction](../docs/nb-comparison-20261016/RESULTS.md).
+The same raw-CSV feature policy and sender/template-separated splits compare
+alpha=1.0 against 0.1, the five requested alpha values, and a Linear SVM reference.
+Validation selects NB alpha=0.01. The substantial split/prevalence drift, inherited
+labels, historical exposure and qualitative Taglish/scam probe failures limit the
+result. Separate schema-8 artifacts remain private under
+`research/runs/nb-comparison-20261016/notebook-run-v3/`; Android integration is
+incompatible and production assets are preserved. No deployment is recommended.
+
+Latest explicit A–E retraining: [audit](../docs/retraining-audit-20261013.md),
+[actual results and commands](../docs/retraining-experiment-20261013.md), and
+[Model_Training_and_Evaluation.ipynb](Model_Training_and_Evaluation.ipynb).
+The new approximate 70/15/15 template-grouped comparison selects calibrated NB
+on validation under a prespecified recall/precision policy. All available data
+are historically exposed; this remains retrospective and production is unchanged.
+Separate actual NB and combined SVM exports passed JVM/API36 offline parity.
+Private models/data/ledgers remain in `research/runs/retraining-20261013/`;
+`notebook-run-v2/` is the fresh executed run, with the first run preserved.
+The established notebook and all original model assets are preserved.
+
+13 October source-based improvement: [results](../docs/source-robustness-results-20261013.md) and
+[prespecified protocol](../docs/source-robustness-protocol-20261013.md). A new 51-configuration SVM/LR/NB
+search uses source-held-out development predictions, template purging, training-only calibration and
+explicit false-alert/recall goals. The selected research candidate combines word/character TF-IDF in
+Linear SVM (C=1, min_df=2). All original models and the current APK are preserved. The new candidate
+requires a different Android feature scorer; it is not installed. Private trained pipelines, the
+133-case review packet and an empty future-intake template are under
+`research/runs/source-robustness-20261013/run-v1/`. Run
+`python -m smishguard.source_robustness --original research/runs/bantaytext-20261013/notebook-run-v3 --output research/runs/source-robustness-20261013/NEW-RUN`
+with `PYTHONPATH=research`. Nine new leakage/threshold guards and all 130 research tests passed.
+
 Latest 13 October update: [raw-SMS preparation replay and parity](../docs/bantaytext-raw-sms-validation-20261013.md)
 reconstructs all 2,554 source views and verifies a test-only native adapter on 33
 fictional probes. Inherited labels are an explicit limitation, not a blanket demand

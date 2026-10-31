@@ -1,4 +1,4 @@
-param([switch]$ConnectedTests, [switch]$EmulatorTests, [ValidateSet("debug", "development", "lr", "lrCandidate", "lrCalibrated4", "nb", "svm", "mbert", "mbertQuantized")][string]$Variant = "debug", [string]$ModelParityDir, [string]$FoldedParityDir, [string]$MbertParityDir)
+param([switch]$ConnectedTests, [switch]$EmulatorTests, [ValidateSet("debug", "development", "selectedSvm", "nbGeneralization", "lr", "lrCandidate", "lrCalibrated4", "nb", "svm", "mbert", "mbertQuantized")][string]$Variant = "debug", [string]$ModelParityDir, [string]$FoldedParityDir, [string]$MbertParityDir, [string]$NbParityDir)
 $ErrorActionPreference = 'Stop'
 Push-Location (Split-Path $PSScriptRoot -Parent)
 try {
@@ -8,6 +8,7 @@ try {
     $env:JAVA_TOOL_OPTIONS = "$priorJavaOptions -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir".Trim()
     $variantTask = $Variant.Substring(0, 1).ToUpperInvariant() + $Variant.Substring(1)
     $gradleOptions = @("-PinstrumentedBuild=$Variant", '--console=plain')
+    if ($NbParityDir) { $gradleOptions += "-PnbParityDir=$NbParityDir" }
     if ($ModelParityDir) { $gradleOptions += "-PmodelParityDir=$ModelParityDir" }
     if ($FoldedParityDir) { $gradleOptions += "-PfoldedParityDir=$FoldedParityDir" }
     if ($MbertParityDir) { $gradleOptions += "-PmbertParityDir=$MbertParityDir" }
@@ -17,6 +18,12 @@ try {
     if ($EmulatorTests -and $Variant -eq 'lrCalibrated4' -and -not $FoldedParityDir) {
         throw 'LR4 emulator verification requires -FoldedParityDir pointing to the private parity output.'
     }
+    if ($EmulatorTests -and $Variant -eq 'selectedSvm' -and -not $ModelParityDir) {
+        throw 'Selected SVM emulator checks require -ModelParityDir pointing to the private raw-SMS parity fixtures.'
+    }
+    if ($EmulatorTests -and $Variant -eq 'nbGeneralization' -and -not $NbParityDir) {
+        throw 'Retrained NB emulator checks require -NbParityDir pointing to the frozen private fixtures.'
+    }
     & .\gradlew.bat ":app:assemble$variantTask" ":app:lint$variantTask" ":app:test${variantTask}UnitTest" @gradleOptions
     if ($LASTEXITCODE -ne 0) { throw 'Android build/checks failed.' }
     if ($ConnectedTests) {
@@ -24,7 +31,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Connected Android tests failed.' }
     }
     if ($EmulatorTests) {
-        if ($Variant -notin @('debug', 'development', 'lr', 'nb', 'svm', 'lrCalibrated4', 'mbert', 'mbertQuantized')) { throw 'Use connected tests for other model variants; this verifier has no corresponding private parity setup.' }
+        if ($Variant -notin @('debug', 'development', 'selectedSvm', 'nbGeneralization', 'lr', 'nb', 'svm', 'lrCalibrated4', 'mbert', 'mbertQuantized')) { throw 'Use connected tests for other model variants; this verifier has no corresponding private parity setup.' }
         & .\gradlew.bat ":app:assemble${variantTask}AndroidTest" @gradleOptions
         if ($LASTEXITCODE -ne 0) { throw 'Android test APK build failed.' }
         if ($Variant -in @('mbert', 'mbertQuantized')) {

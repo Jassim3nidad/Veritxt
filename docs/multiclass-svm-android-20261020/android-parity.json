@@ -1,0 +1,19 @@
+{
+  "cases": 1062,
+  "matching_predictions": 1062,
+  "mismatches": 0,
+  "maximum_score_error": 2.4424906541753444e-15,
+  "maximum_feature_error": 1.6653345369377348e-15,
+  "wrapper_successes": 1058,
+  "wrapper_abstentions": 2,
+  "wrapper_rejections": 2,
+  "thesis_test_messages_used": 0,
+  "tolerance": 1e-10,
+  "load_ms": 643.837,
+  "score_p50_ms": 1.0378,
+  "score_p95_ms": 1.7012,
+  "app_path_cases": 1056,
+  "api": 36,
+  "offline": true,
+  "physical_device": false
+}

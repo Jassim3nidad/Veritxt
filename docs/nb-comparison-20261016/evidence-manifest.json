@@ -1,0 +1,29 @@
+{
+  "private_run": "research/runs/nb-comparison-20261016/notebook-run-v3",
+  "executed_notebook_sha256": "248d6da9c0e3bf812463a1754e7912c76f32d9add3c7b17743bec74e287d3c17",
+  "source_sha256": "5b31231810f1b7598bedc00c18cf76ee08ae7949ab761939f3218b145a2c12ac",
+  "run_evidence": {
+    "data-audit.json": "0a2700b8d9a83a99f8cfaa12e0ff523189564ecb73bf003b0ad51bb072dc38e3",
+    "splits.json": "93517d1b36e007166e7f0b98c47542f656d65e10d5cee887b59e03c2c0ac71c4",
+    "configuration.json": "8b90a14e63bb00198a63e077b2e27ba2f4873015297c8c9126c879b10e8bd702",
+    "metadata.json": "d2c1e3fd6044dd77fe6657f6925257338d0d9f80d587475c18bd1025fac3b2c2",
+    "selection.json": "a9031a3d482cb0343005e5df386dfdc67b4c76aa42c555c52cb73f5e7174dd93",
+    "freeze.json": "19dd22d8dd4120cd10ee1ff7345bc9ead15d8233eac8ca1a204a3e7c198e3906",
+    "validation-results.json": "5df70f2767fce7098e4766b85223f4b1ae952e4ca465a8b22fe5695439ffc6ea",
+    "test-results.json": "f402e21ff219969358a11ecc80140d1e387fe9ab994bd2254e4a7928abcf4a9a"
+  },
+  "public_files": {
+    "comparison.csv": "c2d52f976b3b7639e66e7f7554dd6c62881a0a5ea0645bc844c9a994c0f5877d",
+    "comparison.png": "b34623dc740a46ba80e5eb1effa85061e069b8566a480d252518fc8841cc4a4d",
+    "configuration.json": "8b90a14e63bb00198a63e077b2e27ba2f4873015297c8c9126c879b10e8bd702",
+    "confusion-matrices.png": "804a70803195c232634cc60e19f747c592cfc4e1555784301b4d35342f57a6c2",
+    "dataset-summary.json": "5a57f33f9370fb44f1e5c0b47cffa726157a2b1c996f82b0201d79e8ddc7a649",
+    "hyperparameters.csv": "10c8f9c3a3d08d746cb429ea9cd054b1ebae6305e91dd42bb3e677dbdf25e6d0",
+    "inference-summary.json": "0c0f8bc8095efec8a7dcfcd1afcee79f3bd1260898b6c2905bddb79ebeab180d",
+    "metadata.json": "d2c1e3fd6044dd77fe6657f6925257338d0d9f80d587475c18bd1025fac3b2c2",
+    "RESULTS.md": "05617fceb2c4c69805a20a7374bde356ecb52978f9f0c373d546acaa684a0e17",
+    "selection.json": "a9031a3d482cb0343005e5df386dfdc67b4c76aa42c555c52cb73f5e7174dd93",
+    "test-results.json": "f402e21ff219969358a11ecc80140d1e387fe9ab994bd2254e4a7928abcf4a9a",
+    "validation-results.json": "5df70f2767fce7098e4766b85223f4b1ae952e4ca465a8b22fe5695439ffc6ea"
+  }
+}

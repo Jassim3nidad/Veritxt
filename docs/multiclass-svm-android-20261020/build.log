@@ -1,0 +1,110 @@
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+> Task :app:preBuild UP-TO-DATE
+> Task :app:verifyMulticlassSvmModel
+> Task :app:preMulticlassSvmBuild
+> Task :app:mergeMulticlassSvmNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:generateMulticlassSvmBuildConfig UP-TO-DATE
+> Task :app:checkMulticlassSvmAarMetadata UP-TO-DATE
+> Task :app:processMulticlassSvmNavigationResources UP-TO-DATE
+> Task :app:compileMulticlassSvmNavigationResources UP-TO-DATE
+> Task :app:generateMulticlassSvmResValues UP-TO-DATE
+> Task :app:mapMulticlassSvmSourceSetPaths UP-TO-DATE
+> Task :app:generateMulticlassSvmResources UP-TO-DATE
+> Task :app:mergeMulticlassSvmResources UP-TO-DATE
+> Task :app:packageMulticlassSvmResources UP-TO-DATE
+> Task :app:parseMulticlassSvmLocalResources UP-TO-DATE
+> Task :app:createMulticlassSvmCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksMulticlassSvm UP-TO-DATE
+> Task :app:processMulticlassSvmMainManifest UP-TO-DATE
+> Task :app:processMulticlassSvmManifest UP-TO-DATE
+> Task :app:processMulticlassSvmManifestForPackage UP-TO-DATE
+> Task :app:processMulticlassSvmResources UP-TO-DATE
+> Task :app:javaPreCompileMulticlassSvm UP-TO-DATE
+> Task :app:mergeMulticlassSvmShaders UP-TO-DATE
+> Task :app:compileMulticlassSvmShaders NO-SOURCE
+> Task :app:generateMulticlassSvmAssets UP-TO-DATE
+> Task :app:mergeMulticlassSvmAssets UP-TO-DATE
+> Task :app:compressMulticlassSvmAssets UP-TO-DATE
+> Task :app:checkMulticlassSvmDuplicateClasses UP-TO-DATE
+> Task :app:desugarMulticlassSvmFileDependencies UP-TO-DATE
+> Task :app:mergeExtDexMulticlassSvm UP-TO-DATE
+> Task :app:mergeLibDexMulticlassSvm UP-TO-DATE
+> Task :app:mergeMulticlassSvmJniLibFolders UP-TO-DATE
+> Task :app:mergeMulticlassSvmNativeLibs UP-TO-DATE
+> Task :app:stripMulticlassSvmDebugSymbols UP-TO-DATE
+> Task :app:validateSigningMulticlassSvm UP-TO-DATE
+> Task :app:writeMulticlassSvmAppMetadata UP-TO-DATE
+> Task :app:writeMulticlassSvmSigningConfigVersions UP-TO-DATE
+> Task :app:preMulticlassSvmAndroidTestBuild SKIPPED
+> Task :app:generateMulticlassSvmAndroidTestResValues UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:preMulticlassSvmUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileMulticlassSvmUnitTest UP-TO-DATE
+> Task :app:packageMulticlassSvmUnitTestForUnitTest UP-TO-DATE
+> Task :app:processMulticlassSvmUnitTestManifest UP-TO-DATE
+> Task :app:generateMulticlassSvmUnitTestConfig UP-TO-DATE
+> Task :app:processMulticlassSvmAndroidTestManifest UP-TO-DATE
+> Task :app:generateMulticlassSvmAndroidTestBuildConfig UP-TO-DATE
+> Task :app:checkMulticlassSvmAndroidTestAarMetadata UP-TO-DATE
+> Task :app:processMulticlassSvmAndroidTestNavigationResources UP-TO-DATE
+> Task :app:compileMulticlassSvmAndroidTestNavigationResources UP-TO-DATE
+> Task :app:mapMulticlassSvmAndroidTestSourceSetPaths UP-TO-DATE
+> Task :app:generateMulticlassSvmAndroidTestResources UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestResources UP-TO-DATE
+> Task :app:processMulticlassSvmAndroidTestResources UP-TO-DATE
+> Task :app:javaPreCompileMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestShaders UP-TO-DATE
+> Task :app:compileMulticlassSvmAndroidTestShaders NO-SOURCE
+> Task :app:generateMulticlassSvmAndroidTestAssets UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestAssets UP-TO-DATE
+> Task :app:compressMulticlassSvmAndroidTestAssets UP-TO-DATE
+> Task :app:checkMulticlassSvmAndroidTestDuplicateClasses UP-TO-DATE
+> Task :app:desugarMulticlassSvmAndroidTestFileDependencies UP-TO-DATE
+> Task :app:mergeExtDexMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:mergeLibDexMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestJniLibFolders UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripMulticlassSvmAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:writeMulticlassSvmAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :app:compileMulticlassSvmKotlin
+> Task :app:compileMulticlassSvmJavaWithJavac UP-TO-DATE
+> Task :app:dexBuilderMulticlassSvm
+> Task :app:mergeMulticlassSvmGlobalSynthetics UP-TO-DATE
+> Task :app:processMulticlassSvmJavaRes UP-TO-DATE
+> Task :app:mergeMulticlassSvmJavaResource UP-TO-DATE
+> Task :app:generateMulticlassSvmLintReportModel
+> Task :app:mergeProjectDexMulticlassSvm
+> Task :app:bundleMulticlassSvmClassesToCompileJar
+> Task :app:generateMulticlassSvmAndroidTestLintModel
+> Task :app:generateMulticlassSvmUnitTestLintModel
+> Task :app:bundleMulticlassSvmClassesToRuntimeJar
+> Task :app:packageMulticlassSvm
+> Task :app:createMulticlassSvmApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleMulticlassSvm
+> Task :app:compileMulticlassSvmUnitTestKotlin UP-TO-DATE
+> Task :app:compileMulticlassSvmUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processMulticlassSvmUnitTestJavaRes UP-TO-DATE
+
+> Task :app:testMulticlassSvmUnitTest
+Picked up JAVA_TOOL_OPTIONS: -Djdk.net.unixdomain.tmpdir=C:/sg-nonexistent-socket-dir
+
+> Task :app:compileMulticlassSvmAndroidTestKotlin UP-TO-DATE
+> Task :app:compileMulticlassSvmAndroidTestJavaWithJavac UP-TO-DATE
+> Task :app:dexBuilderMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestGlobalSynthetics UP-TO-DATE
+> Task :app:processMulticlassSvmAndroidTestJavaRes UP-TO-DATE
+> Task :app:mergeMulticlassSvmAndroidTestJavaResource UP-TO-DATE
+> Task :app:mergeProjectDexMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:packageMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:createMulticlassSvmAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleMulticlassSvmAndroidTest UP-TO-DATE
+> Task :app:lintAnalyzeMulticlassSvmUnitTest
+> Task :app:lintAnalyzeMulticlassSvmAndroidTest
+> Task :app:lintAnalyzeMulticlassSvm
+> Task :app:lintReportMulticlassSvm UP-TO-DATE
+> Task :app:lintMulticlassSvm
+
+BUILD SUCCESSFUL in 46s
+88 actionable tasks: 15 executed, 73 up-to-date

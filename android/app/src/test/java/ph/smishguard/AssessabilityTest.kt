@@ -28,12 +28,12 @@ class AssessabilityTest {
         val prior = Locale.getDefault()
         try {
             Locale.setDefault(Locale.GERMANY)
-            assertEquals("Model score: 92.3%", ResultCopy.score(.9229))
-            assertEquals("Model score: 33.6%", ResultCopy.score(.336317))
-            assertEquals("Model score: 0.0%", ResultCopy.score(0.0))
-            assertEquals("Model score: 100.0%", ResultCopy.score(1.0))
-            assertEquals("No phishing detected", ResultCopy.heading(Detection.Success(false, .5)))
-            assertEquals("Likely phishing", ResultCopy.heading(Detection.Success(true, .50001)))
+            assertEquals("Research model output: 0.9229", ResultCopy.score(.9229))
+            assertEquals("Research model output: 0.3363", ResultCopy.score(.336317))
+            assertEquals("Research model output: 0.0000", ResultCopy.score(0.0))
+            assertEquals("Research model output: 1.0000", ResultCopy.score(1.0))
+            assertEquals("Low Risk", ResultCopy.heading(RiskPolicy.assess("Hello there", Detection.Success(false, .5))))
+            assertEquals("Medium Risk", ResultCopy.heading(RiskPolicy.assess("Hello there", Detection.Success(true, .50001))))
         } finally { Locale.setDefault(prior) }
     }
 }
