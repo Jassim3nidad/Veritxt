@@ -17,7 +17,7 @@ android {
         versionCode = 3
         versionName = "0.3.0"
         testInstrumentationRunner = "ph.smishguard.SoftwareTestRunner"
-        manifestPlaceholders["appLabel"] = "Veritxt"
+        manifestPlaceholders["appLabel"] = "VeriText"
     }
     buildTypes {
         configureEach { buildConfigField("boolean", "USB_DEMO_ENABLED", "false") }
@@ -25,7 +25,7 @@ android {
             initWith(getByName("debug"))
             applicationIdSuffix = ".demo.usb"
             versionNameSuffix = "-usb-demo"
-            manifestPlaceholders["appLabel"] = "Veritxt · USB Demo"
+            manifestPlaceholders["appLabel"] = "VeriText · USB Demo"
             buildConfigField("boolean", "USB_DEMO_ENABLED", "true")
             matchingFallbacks += listOf("debug")
         }
@@ -33,70 +33,70 @@ android {
             initWith(getByName("debug"))
             applicationIdSuffix = ".svm.oldbinary"
             versionNameSuffix = "-ham-smishing-debug"
-            manifestPlaceholders["appLabel"] = "VeriTxt · Ham/Smishing"
+            manifestPlaceholders["appLabel"] = "VeriText · Ham/Smishing"
             matchingFallbacks += listOf("debug")
         }
         create("cashbackReview") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".svm.cashbackreview"
             versionNameSuffix = "-cashback-review-debug"
-            manifestPlaceholders["appLabel"] = "VeriTxt · Cashback Review"
+            manifestPlaceholders["appLabel"] = "VeriText · Cashback Review"
             matchingFallbacks += listOf("debug")
         }
         create("multiclassSvm60") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".svm.multiclass60"
             versionNameSuffix = "-svm60-debug"
-            manifestPlaceholders["appLabel"] = "VeriTxt · SVM 60%"
+            manifestPlaceholders["appLabel"] = "VeriText · SVM 60%"
             matchingFallbacks += listOf("debug")
         }
         create("multiclassSvm") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".svm.multiclass80"
             versionNameSuffix = "-svm80-debug"
-            manifestPlaceholders["appLabel"] = "VeriTxt · SVM 80%"
+            manifestPlaceholders["appLabel"] = "VeriText · SVM 80%"
             matchingFallbacks += listOf("debug")
         }
         create("nbGeneralization") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".nb.generalization"
             versionNameSuffix = "-nb-generalization-experimental"
-            manifestPlaceholders["appLabel"] = "Veritxt · Retrained NB"
+            manifestPlaceholders["appLabel"] = "VeriText · Retrained NB"
             matchingFallbacks += listOf("debug")
         }
         create("selectedSvm") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".svm.selected"
             versionNameSuffix = "-linear-svm-experimental"
-            manifestPlaceholders["appLabel"] = "Veritxt"
+            manifestPlaceholders["appLabel"] = "VeriText"
             matchingFallbacks += listOf("debug")
         }
         create("mbertQuantized") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".mbert.int8"
             versionNameSuffix = "-mbert-int8-experimental"
-            manifestPlaceholders["appLabel"] = "Veritxt · mBERT INT8"
+            manifestPlaceholders["appLabel"] = "VeriText · mBERT INT8"
             matchingFallbacks += listOf("debug")
         }
         create("mbert") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".mbert"
             versionNameSuffix = "-mbert-exploratory"
-            manifestPlaceholders["appLabel"] = "Veritxt · mBERT"
+            manifestPlaceholders["appLabel"] = "VeriText · mBERT"
             matchingFallbacks += listOf("debug")
         }
         create("lrCalibrated4") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".lr.calibrated4"
             versionNameSuffix = "-lr-calibrated-4-experimental"
-            manifestPlaceholders["appLabel"] = "Veritxt · LR Calibrated 4"
+            manifestPlaceholders["appLabel"] = "VeriText · LR Calibrated 4"
             matchingFallbacks += listOf("debug")
         }
         create("lrCandidate") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".lr.candidate"
             versionNameSuffix = "-lr-candidate-experimental"
-            manifestPlaceholders["appLabel"] = "Veritxt · LR Candidate"
+            manifestPlaceholders["appLabel"] = "VeriText · LR Candidate"
             matchingFallbacks += listOf("debug")
         }
         for ((algorithm, label) in listOf("lr" to "LR", "nb" to "NB", "svm" to "SVM")) {
@@ -104,7 +104,7 @@ android {
                 initWith(getByName("debug"))
                 applicationIdSuffix = ".$algorithm"
                 versionNameSuffix = "-$algorithm-experimental"
-                manifestPlaceholders["appLabel"] = "Veritxt · $label"
+                manifestPlaceholders["appLabel"] = "VeriText · $label"
                 matchingFallbacks += listOf("debug")
             }
         }

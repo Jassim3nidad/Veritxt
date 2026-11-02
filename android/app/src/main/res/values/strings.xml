@@ -3,7 +3,7 @@
     <string name="status_retrained_nb">Experimental · Retrained Naive Bayes · 80/20</string>
     <string name="status_linear_svm">Linear SVM · Experimental</string>
     <!-- English (default). Filipino lives in values-b+fil/ and an identical copy in values-tl/ for older Android versions. -->
-    <string name="app_name" translatable="false">Veritxt</string>
+    <string name="app_name" translatable="false">VeriText</string>
     <string name="app_tagline">Check the text before you tap</string>
 
     <string name="nav_home">Home</string>
@@ -13,19 +13,19 @@
 
     <!-- Privacy notice (Data Privacy Act of 2012, RA 10173). Have the adviser review this wording. -->
     <string name="privacy_title">Your privacy</string>
-    <string name="privacy_intro">Read how Veritxt handles your information before you start.</string>
-    <string name="privacy_checks_title">What Veritxt checks</string>
+    <string name="privacy_intro">Read how VeriText handles your information before you start.</string>
+    <string name="privacy_checks_title">What VeriText checks</string>
     <string name="privacy_checks_body">The SMS text you paste, share, or allow it to receive. For incoming SMS, the sender’s number is held temporarily so you can review and choose whether to block it. Sender identity is not verified.</string>
     <string name="privacy_where_title">Where it happens</string>
-    <string name="privacy_where_body">On this phone only. Veritxt has no internet permission, so your messages are never sent anywhere.</string>
+    <string name="privacy_where_body">On this phone only. VeriText has no internet permission, so your messages are never sent anywhere.</string>
     <string name="privacy_saved_title">What\'s saved</string>
-    <string name="privacy_saved_body">Message text and sender numbers are not saved to app storage. Incoming reports show the numeric sender and a short message preview in unlocked notifications. Those reports are hidden on the lock screen; the group header shows only a count. Android notification history and notification-access apps may retain displayed previews. Pending checks expire after 10 minutes; leaving the app clears the current scan. Veritxt saves only your settings and notice acceptance. Copying a sender’s number uses Android’s clipboard only when you choose.</string>
+    <string name="privacy_saved_body">Message text and sender numbers are not saved to app storage. Incoming reports show the numeric sender and a short message preview in unlocked notifications. Those reports are hidden on the lock screen; the group header shows only a count. Android notification history and notification-access apps may retain displayed previews. Pending checks expire after 10 minutes; leaving the app clears the current scan. VeriText saves only your settings and notice acceptance. Copying a sender’s number uses Android’s clipboard only when you choose.</string>
     <string name="privacy_optional_title">SMS access is optional</string>
     <string name="privacy_optional_body">You can check messages by pasting or sharing them. Reading new SMS needs your permission, and you can turn it off anytime.</string>
     <string name="privacy_rights_title">Your rights</string>
-    <string name="privacy_rights_body">Under the Data Privacy Act of 2012 (Republic Act No. 10173), you have the right to be informed, to object, to access, and to have your data corrected or erased. Because Veritxt stores no messages, only the settings on your phone can be accessed or erased.</string>
+    <string name="privacy_rights_body">Under the Data Privacy Act of 2012 (Republic Act No. 10173), you have the right to be informed, to object, to access, and to have your data corrected or erased. Because VeriText stores no messages, only the settings on your phone can be accessed or erased.</string>
     <string name="privacy_contact_title">Questions</string>
-    <string name="privacy_contact_body">Contact the Veritxt research team: %1$s</string>
+    <string name="privacy_contact_body">Contact the VeriText research team: %1$s</string>
     <string name="privacy_contact_value" translatable="false">[add research team email]</string>
     <string name="privacy_checkbox">I have read and understood this notice</string>
     <string name="privacy_agree">Agree and continue</string>
@@ -39,7 +39,7 @@
     <string name="onb2_title">Your message stays here</string>
     <string name="onb2_body">Checks happen on this phone. Message text is never stored or sent, and it\'s cleared when you leave the app.</string>
     <string name="onb3_title">A warning tool</string>
-    <string name="onb3_body">Veritxt never blocks, deletes, or changes your SMS. It can miss scams or flag real messages, so always double-check.</string>
+    <string name="onb3_body">VeriText never blocks, deletes, or changes your SMS. It can miss scams or flag real messages, so always double-check.</string>
     <string name="onb_model_experimental">Experimental model: research performance is unverified, so warnings can be wrong. Reporting is disabled.</string>
     <string name="onb_model_missing">This build has no usable model yet, so it can\'t assess messages.</string>
     <string name="onb_permissions_note">Paste or share works without any permissions. Incoming SMS checks are optional and off.</string>
@@ -75,7 +75,7 @@
     <string name="check_links_note">%1$s. Links are never opened or fetched.</string>
     <string name="error_empty">Enter a message to check.</string>
     <string name="error_too_long">Limit is 10,000 characters. Extra text was removed; review before checking.</string>
-    <string name="error_expired">This message is no longer available. Open your messaging app and share it to Veritxt.</string>
+    <string name="error_expired">This message is no longer available. Open your messaging app and share it to VeriText.</string>
 
     <!-- Result -->
     <string name="result_title">Check result</string>
@@ -116,7 +116,7 @@
     <string name="incoming_cd">Scan incoming SMS</string>
     <string name="notif_title">Notifications</string>
     <string name="notif_on">On</string>
-    <string name="notif_off">Off · Veritxt can\'t ask you to check new texts</string>
+    <string name="notif_off">Off · VeriText can\'t ask you to check new texts</string>
     <string name="notif_turn_on">Turn on</string>
     <string name="status_lines">Telephony: %1$s\nSMS permission: %2$s\nNotifications: %3$s</string>
     <string name="value_available">available</string>
@@ -146,10 +146,10 @@
     <string name="local_limits">Android treats SMS access as a restricted permission and may refuse it. Force-stopping the app pauses incoming checks until you open it again.</string>
     <string name="clear_button">Clear local preferences and session</string>
     <string name="consent_title">Allow incoming SMS checks?</string>
-    <string name="consent_body">With your consent, supported builds assess new SMS on this phone. Each unlocked notification shows the numeric sender, a short message preview, risk level and gauge. Expand for the score, model category and initial analysis. An unavailable scan has no score. Reports are grouped together, with one report per SMS. Sender and preview are hidden on the lock screen. Android notification history and notification-access apps may retain previews. Pending messages expire after 10 minutes and are not saved to app storage. View report opens the exact message. Veritxt does not read your inbox or change messages. Android may restrict SMS access. Notifications need separate permission.</string>
+    <string name="consent_body">With your consent, supported builds assess new SMS on this phone. Each unlocked notification shows the numeric sender, a short message preview, risk level and gauge. Expand for the score, model category and initial analysis. An unavailable scan has no score. Reports are grouped together, with one report per SMS. Sender and preview are hidden on the lock screen. Android notification history and notification-access apps may retain previews. Pending messages expire after 10 minutes and are not saved to app storage. View report opens the exact message. VeriText does not read your inbox or change messages. Android may restrict SMS access. Notifications need separate permission.</string>
     <string name="consent_agree">Agree and continue</string>
     <string name="consent_keep_off">Keep off</string>
-    <string name="sms_granted_note">SMS permission granted. Veritxt will check new texts as they arrive.</string>
+    <string name="sms_granted_note">SMS permission granted. VeriText will check new texts as they arrive.</string>
     <string name="sms_denied_note">SMS permission was not granted. You can still paste or share messages, or allow it later in Android settings.</string>
     <string name="clear_title">Clear local records?</string>
     <string name="clear_body">This clears your privacy agreement, consent and display preferences, and current checking session. You\'ll see the privacy notice again. Android permissions remain under system settings.</string>
@@ -157,46 +157,46 @@
     <string name="cancel">Cancel</string>
 
     <!-- Notification help -->
-    <string name="help_intro">Veritxt can only warn you about a new text if these are all OK. Fix anything marked below.</string>
+    <string name="help_intro">VeriText can only warn you about a new text if these are all OK. Fix anything marked below.</string>
     <string name="help_ok">OK</string>
     <string name="help_fix">Needs attention</string>
     <string name="help_info">Good to know</string>
     <string name="help_sms_title">SMS permission</string>
     <string name="help_sms_ok">Granted.</string>
     <string name="help_sms_bad">Not granted. Turn on “When a new SMS arrives” in Settings, or allow SMS in Android settings.</string>
-    <string name="help_scan_title">Incoming checks in Veritxt</string>
+    <string name="help_scan_title">Incoming checks in VeriText</string>
     <string name="help_scan_ok">On.</string>
     <string name="help_scan_bad">Off. Turn it on in Settings.</string>
     <string name="help_notif_title">Notifications</string>
     <string name="help_notif_ok">Allowed.</string>
-    <string name="help_notif_bad">Blocked or muted. Allow notifications for Veritxt.</string>
+    <string name="help_notif_bad">Blocked or muted. Allow notifications for VeriText.</string>
     <string name="help_battery_title">Battery optimization</string>
-    <string name="help_battery_ok">Veritxt isn\'t restricted.</string>
-    <string name="help_battery_bad">Android may stop Veritxt in the background. Set Veritxt to “Unrestricted” or “Don\'t optimize”.</string>
+    <string name="help_battery_ok">VeriText isn\'t restricted.</string>
+    <string name="help_battery_bad">Android may stop VeriText in the background. Set VeriText to “Unrestricted” or “Don\'t optimize”.</string>
     <string name="help_open_battery">Open battery settings</string>
     <string name="help_open_notifications">Open notification settings</string>
     <string name="help_open_app">Open app info</string>
     <string name="help_autostart_title">Autostart (%1$s)</string>
-    <string name="autostart_xiaomi">Settings → Apps → Manage apps → Veritxt → turn on Autostart. Also set Battery saver to “No restrictions”.</string>
-    <string name="autostart_oppo">Settings → Battery → App battery management (or More settings) → Veritxt → allow Background activity and Auto launch.</string>
-    <string name="autostart_vivo">Settings → Battery → Background power consumption management → Veritxt → Allow. Also turn on Veritxt in i Manager → App manager → Autostart.</string>
-    <string name="autostart_huawei">Settings → Battery → App launch → Veritxt → choose Manage manually and turn on Auto-launch and Run in background.</string>
-    <string name="autostart_samsung">Settings → Battery → Background usage limits → make sure Veritxt is not in Sleeping or Deep sleeping apps.</string>
-    <string name="autostart_other">Look for Autostart or Background activity in your battery settings and allow Veritxt.</string>
+    <string name="autostart_xiaomi">Settings → Apps → Manage apps → VeriText → turn on Autostart. Also set Battery saver to “No restrictions”.</string>
+    <string name="autostart_oppo">Settings → Battery → App battery management (or More settings) → VeriText → allow Background activity and Auto launch.</string>
+    <string name="autostart_vivo">Settings → Battery → Background power consumption management → VeriText → Allow. Also turn on VeriText in i Manager → App manager → Autostart.</string>
+    <string name="autostart_huawei">Settings → Battery → App launch → VeriText → choose Manage manually and turn on Auto-launch and Run in background.</string>
+    <string name="autostart_samsung">Settings → Battery → Background usage limits → make sure VeriText is not in Sleeping or Deep sleeping apps.</string>
+    <string name="autostart_other">Look for Autostart or Background activity in your battery settings and allow VeriText.</string>
     <string name="help_other_brands">Other phone brands</string>
     <string name="help_forcestop_title">Force stop</string>
-    <string name="help_forcestop_body">If you force-stop Veritxt, Android won\'t deliver new texts to it until you open the app again.</string>
+    <string name="help_forcestop_body">If you force-stop VeriText, Android won\'t deliver new texts to it until you open the app again.</string>
     <string name="help_restricted_title">“Restricted setting” message</string>
     <string name="help_restricted_body">On Android 13 and newer, apps installed from an APK may need extra approval: open App info → ⋮ (top right) → Allow restricted settings, then turn on SMS again.</string>
     <string name="help_rcs_title">Chat messages (RCS)</string>
-    <string name="help_rcs_body">Chat messages in Google Messages or Samsung Messages aren\'t SMS, so Veritxt never sees them. Copy and paste them instead.</string>
+    <string name="help_rcs_body">Chat messages in Google Messages or Samsung Messages aren\'t SMS, so VeriText never sees them. Copy and paste them instead.</string>
     <string name="help_test_body">Send a test notification to make sure alerts reach you.</string>
 
     <!-- Notifications -->
     <string name="channel_check_name">New text checks</string>
     <string name="channel_check_desc">Initial SMS reports show the sender, short preview and result while unlocked.</string>
     <string name="notif_check_title">New text received</string>
-    <string name="notif_check_body">Check it with Veritxt before you tap any link.</string>
+    <string name="notif_check_body">Check it with VeriText before you tap any link.</string>
     <string name="notif_check_public">New text to check</string>
     <string name="notif_action_check">Check now</string>
     <string name="notif_action_dismiss">Dismiss</string>
@@ -205,11 +205,11 @@
     <string name="channel_warning_name">High Risk SMS alerts</string>
     <string name="channel_warning_desc">High Risk SMS reports show sender and preview while unlocked. Reports are hidden on the lock screen.</string>
     <string name="warning_title">High Risk SMS</string>
-    <string name="warning_body">Strong suspicious indicators were identified. Avoid interacting until verified. Open Veritxt to review the analysis.</string>
+    <string name="warning_body">Strong suspicious indicators were identified. Avoid interacting until verified. Open VeriText to review the analysis.</string>
     <string name="notif_action_see_why">See why</string>
     <string name="notif_report_title">%1$s SMS</string>
     <string name="notif_report_initial">Initial scan · Experimental</string>
-    <string name="notif_report_unavailable">Automatic scan unavailable. Open Veritxt to check again.</string>
+    <string name="notif_report_unavailable">Automatic scan unavailable. Open VeriText to check again.</string>
     <string name="notif_action_report">View report</string>
     <string name="incoming_all">Notify me about every SMS</string>
     <string name="home_note_experimental">New SMS are scanned automatically while incoming SMS is on. Grouped reports identify each sender and show a short preview, risk level and gauge while unlocked. Expand for the score and analysis. Results are experimental and may be incorrect. Reporting is disabled.</string>
@@ -224,7 +224,7 @@
     <string name="result_close">Close</string>
     <string name="automatic_disabled">Automatic warnings and reporting are disabled.</string>
     <string name="result_explanation">Risk scores are provisional evidence indices, not statistical probabilities: Low Risk 0–29, Medium Risk 30–69, High Risk 70–100. Repeated indicators count once. A model flag contributes 40 points; requests to send or share credentials 70; credential entry requests, payment requests, and obscured URL structures 30 each; urgency, reward language, and shortened URLs 10 each. Link presence and organization names alone add no points. The total is capped at 100. A low score does not establish authenticity. These weights and thresholds require representative validation.</string>
-    <string name="result_abstention">Unable to assess has no numerical score. It applies when evidence or a usable model is unavailable, a check fails, or the input falls outside supported analysis. Phone numbers alone cannot establish fraud. Plain URLs and email addresses cannot establish reputation or identity. Email text is assessed only for visible patterns, without using the SMS model. No live domain reputation or email authentication check is available. Veritxt never blocks numbers automatically.</string>
+    <string name="result_abstention">Unable to assess has no numerical score. It applies when evidence or a usable model is unavailable, a check fails, or the input falls outside supported analysis. Phone numbers alone cannot establish fraud. Plain URLs and email addresses cannot establish reputation or identity. Email text is assessed only for visible patterns, without using the SMS model. No live domain reputation or email authentication check is available. VeriText never blocks numbers automatically.</string>
     <!-- Shared evidence-based risk results and user-controlled blocking. -->
     <string name="risk_low">Low Risk</string>
     <string name="risk_medium">Medium Risk</string>
@@ -261,7 +261,7 @@
     <string name="block_number">Block Number</string>
     <string name="block_sender">Block sender</string>
     <string name="block_sender_title">Block this sender?</string>
-    <string name="block_sender_body">Copy the sender’s number if needed, then open Android’s blocked-number screen. Add or paste the number and confirm there. Check it against the conversation in Messages first. Veritxt cannot confirm whether it was blocked. Leaving Veritxt clears this scan.</string>
+    <string name="block_sender_body">Copy the sender’s number if needed, then open Android’s blocked-number screen. Add or paste the number and confirm there. Check it against the conversation in Messages first. VeriText cannot confirm whether it was blocked. Leaving VeriText clears this scan.</string>
     <string name="sms_sender">Sender: %1$s</string>
     <string name="sms_sender_note">Number supplied with the incoming SMS. Sender identity is not verified.</string>
     <string name="sms_sender_missing">The sender’s number is unavailable for this scan. Check the original conversation in Messages; numbers in the message text may belong to someone else.</string>
@@ -269,13 +269,13 @@
     <string name="copy_sender_number">Copy sender number</string>
     <string name="sender_number_copied">Sender number copied</string>
     <string name="block_confirm_title">Review manual blocking?</string>
-    <string name="block_confirm_body">Open Android’s blocked-number screen, then add and confirm the sender’s number there. Verify the sender in your Messages or Phone app first; a number inside a message may belong to someone else. Veritxt does not select a number or confirm whether it was blocked. Leaving Veritxt clears this scan.</string>
+    <string name="block_confirm_body">Open Android’s blocked-number screen, then add and confirm the sender’s number there. Verify the sender in your Messages or Phone app first; a number inside a message may belong to someone else. VeriText does not select a number or confirm whether it was blocked. Leaving VeriText clears this scan.</string>
     <string name="block_confirm">Open blocked numbers</string>
     <string name="block_show_instructions">Show instructions</string>
     <string name="block_unavailable">Android’s blocked-number screen could not be opened on this device or user profile. Use the steps below instead.</string>
     <string name="block_cancel">Cancel</string>
     <string name="block_instructions_title">How to block a number</string>
-    <string name="block_instructions_body">1. Open the conversation in Messages, or the caller in Phone → Recents.\n2. Check the actual sender or caller number.\n3. Open Details, Info, or the menu, then select Block number or Block and report spam.\n4. Review the selected number and confirm there.\n\nMenu names vary by device and app. For email, use your email app to block or report the sender. For a suspicious URL, report it through the impersonated service using an official channel. Veritxt cannot confirm whether a number was blocked.</string>
+    <string name="block_instructions_body">1. Open the conversation in Messages, or the caller in Phone → Recents.\n2. Check the actual sender or caller number.\n3. Open Details, Info, or the menu, then select Block number or Block and report spam.\n4. Review the selected number and confirm there.\n\nMenu names vary by device and app. For email, use your email app to block or report the sender. For a suspicious URL, report it through the impersonated service using an official channel. VeriText cannot confirm whether a number was blocked.</string>
     <string name="sms_category_heading">SMS category</string>
     <string name="sms_category_ham">Ham</string>
     <string name="sms_category_smishing">Smishing</string>
@@ -294,11 +294,11 @@
     <string name="notif_group_single">1 SMS report</string>
     <string name="verdict_synthetic_title">Synthetic interface fixture</string>
     <string name="verdict_scam_title">Likely phishing (scam)</string>
-    <string name="verdict_scam_body">Veritxt found strong signs this text is a scam. Don\'t tap its links or reply.</string>
+    <string name="verdict_scam_body">VeriText found strong signs this text is a scam. Don\'t tap its links or reply.</string>
     <string name="verdict_caution_title">Not flagged, but be careful</string>
     <string name="verdict_caution_body">The model didn\'t flag it, but parts of this text look like common scams. Be careful.</string>
     <string name="verdict_safe_title">No phishing (scam) detected</string>
-    <string name="verdict_safe_body">Veritxt didn\'t find strong scam signs. That doesn\'t prove it\'s safe, so stay careful with links and requests.</string>
+    <string name="verdict_safe_body">VeriText didn\'t find strong scam signs. That doesn\'t prove it\'s safe, so stay careful with links and requests.</string>
     <string name="verdict_missing_title">Model unavailable</string>
     <string name="verdict_invalid_title">Model unavailable</string>
     <string name="verdict_failed_title">Could not complete the check</string>
@@ -318,7 +318,7 @@
     <string name="incoming_warn">Warn me when a text looks like a scam</string>
     <string name="verdict_abstain_body">Enter an SMS message with meaningful text.</string>
     <string name="verdict_busy_title">Previous check is still finishing</string>
-    <string name="score_disclaimer">Experimental — Veritxt can be wrong. Always double-check with the official app or hotline.</string>
+    <string name="score_disclaimer">Experimental — VeriText can be wrong. Always double-check with the official app or hotline.</string>
     <string name="warning_level">Warning signs: %1$s</string>
     <string name="level_high">High</string>
     <string name="level_some">Some</string>
@@ -327,5 +327,5 @@
     <string name="score_threshold">Texts scoring above %1$s are shown as %2$s.</string>
     <string name="score_threshold_inclusive">Texts scoring %1$s or more are shown as %2$s.</string>
     <string name="score_rounding">The score is rounded for display; the decision uses the exact score.</string>
-    <string name="autostart_transsion">Phone Master → Auto-start management → turn on Veritxt. Also Settings → Battery → App battery saver → Veritxt → No restrictions.</string>
+    <string name="autostart_transsion">Phone Master → Auto-start management → turn on VeriText. Also Settings → Battery → App battery saver → VeriText → No restrictions.</string>
 </resources>
