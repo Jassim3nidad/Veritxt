@@ -177,24 +177,25 @@ class AllSmsNotificationsTest {
         assertFalse(report.expanded(context).contains("Ordinary fictional SMS"))
     }
 
-    @Test fun gaugeNeedleAndUnavailableStateMatchTheIndex() {
+    @Test fun riskMeterMatchesTheRiskBands() {
         val low = NotificationRiskGauge.render(0)
-        val high = NotificationRiskGauge.render(100)
+        val lowEdge = NotificationRiskGauge.render(29)
+        val medium = NotificationRiskGauge.render(30)
+        val mediumEdge = NotificationRiskGauge.render(69)
+        val high = NotificationRiskGauge.render(70)
+        val highEdge = NotificationRiskGauge.render(100)
         val unknown = NotificationRiskGauge.render(null)
-        fun isPointer(bitmap: android.graphics.Bitmap, x: Int, y: Int): Boolean {
-            val pixel = bitmap.getPixel(x, y)
-            return android.graphics.Color.red(pixel) < 80 && android.graphics.Color.green(pixel) < 80
-        }
+        fun filledPips(bitmap: android.graphics.Bitmap) = listOf(94, 128, 162).count { bitmap.getPixel(it, 216) == android.graphics.Color.WHITE }
         try {
-            // Endpoints point into opposite bottom segments, rather than displaying a fixed illustration.
-            assertTrue(isPointer(low, 78, 169))
-            assertFalse(isPointer(high, 78, 169))
-            assertTrue(isPointer(high, 178, 169))
-            assertFalse(isPointer(low, 178, 169))
-            assertFalse(isPointer(unknown, 78, 169))
-            assertFalse(isPointer(unknown, 178, 169))
-            assertFalse("An unscored dial must not look like Low Risk", unknown.sameAs(low))
-        } finally { low.recycle(); high.recycle(); unknown.recycle() }
+            assertEquals(1, filledPips(low))
+            assertEquals(2, filledPips(medium))
+            assertEquals(3, filledPips(high))
+            assertEquals("An unscored meter must not look like Low Risk", 0, filledPips(unknown))
+            assertTrue(low.sameAs(lowEdge))
+            assertTrue(medium.sameAs(mediumEdge))
+            assertTrue(high.sameAs(highEdge))
+            assertFalse(low.sameAs(unknown))
+        } finally { listOf(low, lowEdge, medium, mediumEdge, high, highEdge, unknown).forEach { it.recycle() } }
     }
 
     @Test fun previewsAreBoundedPlainTextAndDoNotSplitEmoji() {
