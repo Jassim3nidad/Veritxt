@@ -16,9 +16,20 @@ class DecisionPolicyTest {
             assertEquals(inclusive, policy.suspicious(threshold))
             assertTrue(policy.suspicious(Math.nextUp(threshold)))
             assertEquals(ResultCopy.score(Math.nextDown(threshold)), ResultCopy.score(Math.nextUp(threshold)))
-            assertTrue(policy.explanation().contains(threshold.toString()))
+            assertTrue(policy.explanation().contains(" " + policy.displayThreshold + " "))
             assertTrue(policy.explanation().contains(if (inclusive) "greater than or equal to" else "strictly greater than"))
         }
+    }
+    @Test fun displayedThresholdHidesFloatNoiseButTheDecisionStaysExact() {
+        val policy = DecisionPolicy(0.3699999999999994, true)
+        assertEquals("0.37", policy.displayThreshold)
+        assertTrue(policy.explanation().contains("greater than or equal to 0.37 "))
+        assertFalse(policy.explanation().contains("0.3699"))
+        assertTrue(policy.suspicious(0.3699999999999994))
+        assertFalse(policy.suspicious(Math.nextDown(0.3699999999999994)))
+        assertEquals("0.89", DecisionPolicy(.8899999999999999, true).displayThreshold)
+        assertEquals("0.5", DecisionPolicy(.5, false).displayThreshold)
+        assertEquals("0.82", DecisionPolicy(.82, true).displayThreshold)
     }
     @Test fun linearDetectorUsesUnroundedRuleAndCalibratesOnce() = runBlocking {
         val fixture = javaClass.getResource("/synthetic-model.json")!!.readText()
