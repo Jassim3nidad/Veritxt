@@ -4,9 +4,12 @@ package ph.smishguard.model
 data class DecisionPolicy(val threshold: Double, val inclusive: Boolean) {
     init { require(threshold.isFinite()) }
     fun suspicious(score: Double): Boolean = if (inclusive) score >= threshold else score > threshold
+    /** For people only: the stored cutoff can carry float noise, e.g. 0.3699999999999994 is shown as 0.37. */
+    val displayThreshold: String get() =
+        java.math.BigDecimal(threshold).round(java.math.MathContext(6)).stripTrailingZeros().toPlainString()
     fun explanation(): String = "The SMS model contributes a supporting risk indicator when its unrounded output is " +
         (if (inclusive) "greater than or equal to" else "strictly greater than") +
-        " $threshold (on the model's own score scale). This model threshold is separate from the 0–100 risk index. The risk level is always determined by the displayed integer risk score."
+        " $displayThreshold (on the model's own score scale). This model threshold is separate from the 0–100 risk index. The risk level is always determined by the displayed integer risk score."
 }
 
 data class TokenWindow(val totalContentTokens: Int, val retainedContentTokens: Int, val maxTokens: Int) {
