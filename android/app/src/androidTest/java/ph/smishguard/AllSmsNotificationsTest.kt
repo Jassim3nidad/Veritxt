@@ -74,7 +74,7 @@ class AllSmsNotificationsTest {
     @Test fun lowMediumHighAndUnassessableSmsAllNotify() = runBlocking {
         val cases = listOf(
             Triple("Kita tayo bukas sa opisina.", Detection.Success(false, .1), RiskLevel.LOW),
-            Triple("Please review the meeting agenda.", Detection.Success(true, .9), RiskLevel.MEDIUM),
+            Triple("Please review the meeting agenda.", Detection.Success(true, .89), RiskLevel.MEDIUM),
             Triple("Send your OTP immediately.", Detection.Success(true, .9), RiskLevel.HIGH),
             Triple("123456", Detection.UnableToAssess, RiskLevel.UNABLE_TO_ASSESS)
         )

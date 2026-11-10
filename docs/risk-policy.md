@@ -4,6 +4,22 @@ Implemented 19 October 2026. Policy version: `evidence-index-v1`.
 
 20 October update for the Ham/Smishing (`oldSvm`) variant: the application opts into `linked-cashback-claim-deadline-v1`. A cashback/rebate claim with an expiry deadline and a parseable link contributes the existing 30-point cashback cue. Combined with a model flag (40), this produces High Risk at 70. A model flag alone remains Medium Risk. See [the user-selected supporting-evidence policy and verification](linked-cashback-risk-20261020.md). The base policy and other variants described below remain available.
 
+## evidence-index-v2
+
+Applies to the `selectedSvm`, `oldSvm` and `usbDemo` builds only. Other builds keep their existing policy. The model, its threshold and the 30 and 70 band boundaries are unchanged.
+
+| Change | Points | Rule |
+|---|---:|---|
+| Code-request wording | 70 (send) or 30 (enter) | Adds give, tell, bigay, bigyan, pahingi, sabihin, i-send and isend as request words, and "security code" as a credential. Plain "code" is excluded. Negated requests still do not count. |
+| Points offer with deadline | 30 | A reward or points offer, an expiry deadline, a non-negated redeem action and a parseable link. Not added when `CASHBACK_DEADLINE` already matched. |
+| High-confidence model flag | 30 | The model flagged the message and its 0-1 score is at least 0.90. `MODEL_SIGNAL` stays 40. |
+
+The 0.90 cutoff is provisional and was fixed before held-out testing. A model flag at or above it reaches High Risk by itself, so the statement below that the model alone cannot produce High Risk applies only to `evidence-index-v1`.
+
+"What does this mean?" lists the items that added points for the checked message, then the total and level. The model score is shown as a plain two-decimal value and is never a percentage or chance of fraud.
+
+These rules were designed while looking at known scam messages. Results on those messages are a scoring check, not model accuracy. The model's test results are separate and unchanged. Known gap: scam wording the model has not seen, with no expiry or code request, can remain Low Risk.
+
 ## Scope and meaning
 
 The existing Android SMS paste/share result screen and incoming-SMS warning path now use one `RiskPolicy`. Embedded URL indicators use the same rules. The shared text entry also recognizes a standalone URL, email address, phone number, or email text with `From:`, `To:`, or `Subject:` headers. No separate scan screens or network services were added. Headerless prose remains SMS input; this application cannot reliably infer its original channel.

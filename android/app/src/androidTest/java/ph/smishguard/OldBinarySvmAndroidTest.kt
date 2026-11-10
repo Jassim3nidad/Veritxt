@@ -24,7 +24,7 @@ class OldBinarySvmAndroidTest {
         assertEquals("15cc0105b0e51e5342682ea36896c4436e515c39d165faf040476046b6b8059c", hash)
         assertEquals("[\"ham\",\"smishing\"]", JSONObject(model).getJSONArray("classes").toString())
         assertEquals(18473, JSONObject(model).getJSONArray("vocabulary").length())
-        assertEquals("linked-cashback-claim-deadline-v1", AppRiskPolicy.VERSION)
+        assertEquals(RiskPolicy.VERSION_V2, AppRiskPolicy.VERSION)
         val parity = SelectedSvmParity.verify(model, fixture("selected-svm-cases.json"))
         val rawParity = RawSmsParity.verify(model, adapter, fixture("raw-sms-cases.json"))
         val detector = app.detector()
@@ -41,7 +41,7 @@ class OldBinarySvmAndroidTest {
             if (RiskPolicy.inputKind(text) == InputKind.MESSAGE) {
                 val actual = app.assess(text)
                 assertEquals("Application path $i", labeled, actual)
-                assertEquals("Original risk policy $i", RiskPolicy.assess(text, actual), AppRiskPolicy.assess(text, actual))
+                assertEquals("Application risk policy $i", RiskPolicy.assess(text, actual, linkedCashbackReview = true, rules = RiskRules.V2), AppRiskPolicy.assess(text, actual))
                 assertFalse(AppRiskPolicy.assess(text, actual).indicators.contains(RiskIndicator.CASHBACK_DEADLINE))
                 appCases++
             }

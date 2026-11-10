@@ -34,6 +34,23 @@ object RiskPresentation {
         RiskIndicator.SHORTENED_URL -> R.string.indicator_short_url
         RiskIndicator.LINK_PRESENT -> R.string.indicator_link
         RiskIndicator.CASHBACK_DEADLINE -> R.string.indicator_cashback_deadline
+        RiskIndicator.POINTS_OFFER_DEADLINE -> R.string.indicator_points_offer
+        RiskIndicator.MODEL_HIGH_CONFIDENCE -> R.string.indicator_model_confidence
+    }
+    /** Short label for one line of the score breakdown. Zero-point indicators never reach it. */
+    fun breakdown(indicator: RiskIndicator) = when (indicator) {
+        RiskIndicator.CREDENTIAL_REQUEST -> R.string.breakdown_credentials
+        RiskIndicator.CREDENTIAL_ENTRY -> R.string.breakdown_credential_entry
+        RiskIndicator.DECEPTIVE_URL -> R.string.breakdown_url_structure
+        RiskIndicator.PAYMENT_REQUEST -> R.string.breakdown_payment
+        RiskIndicator.MODEL_SIGNAL -> R.string.breakdown_model
+        RiskIndicator.MODEL_HIGH_CONFIDENCE -> R.string.breakdown_model_confidence
+        RiskIndicator.URGENCY -> R.string.breakdown_urgency
+        RiskIndicator.REWARD -> R.string.breakdown_reward
+        RiskIndicator.SHORTENED_URL -> R.string.breakdown_short_url
+        RiskIndicator.CASHBACK_DEADLINE -> R.string.breakdown_cashback_deadline
+        RiskIndicator.POINTS_OFFER_DEADLINE -> R.string.breakdown_points_offer
+        RiskIndicator.IDENTITY_CLAIM, RiskIndicator.LINK_PRESENT -> R.string.breakdown_none
     }
     fun limit(limit: AssessmentLimit) = when (limit) {
         AssessmentLimit.INSUFFICIENT_CONTENT -> R.string.risk_limit_content

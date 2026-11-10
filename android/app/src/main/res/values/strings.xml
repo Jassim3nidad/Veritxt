@@ -285,7 +285,7 @@
     <string name="multiclass_decision_note">The category with the largest model margin is selected. These margins are not probabilities or the risk index.</string>
     <string name="multiclass_margins">Model margins: Ham %1$.6f; Smishing %2$.6f; Gambling %3$.6f</string>
     <string name="indicator_cashback_deadline">A cashback offer asks you to claim it before a deadline. Verify it independently through the bank’s app or official contact details.</string>
-    <string name="linked_cashback_explanation">A cashback or rebate claim with an expiry deadline and a link adds 30 points. A model flag adds 40 points; together they give High Risk at 70 points. A model flag alone stays Medium Risk.</string>
+    <string name="linked_cashback_explanation">A cashback or rebate claim with an expiry deadline and a link adds 30 points. A model flag adds 40 points; together they give High Risk at 70 points. A model flag alone stays Medium Risk unless its score is 0.90 or higher.</string>
     <string name="notif_sender_risk">%1$s · %2$s</string>
     <string name="notif_unknown_sender">Unknown sender</string>
     <string name="notif_group_channel">SMS report group</string>
@@ -328,4 +328,25 @@
     <string name="score_threshold_inclusive">Texts scoring %1$s or more are shown as %2$s.</string>
     <string name="score_rounding">The score is rounded for display; the decision uses the exact score.</string>
     <string name="autostart_transsion">Phone Master → Auto-start management → turn on VeriText. Also Settings → Battery → App battery saver → VeriText → No restrictions.</string>
+    <!-- evidence-index-v2 scoring and the per-message score breakdown. -->
+    <string name="indicator_points_offer">A points or reward offer with an expiry deadline, a redeem action and a link was identified.</string>
+    <string name="indicator_model_confidence">The SMS model was highly confident in its flag. This is a supporting signal, not confirmation of fraud.</string>
+    <string name="result_explanation_v2">This build also adds 30 points for a points or reward offer with an expiry deadline, a redeem action and a link, and 30 points when the model flags a message with a score of 0.90 or higher. Neither rule confirms fraud, and both still need validation.</string>
+    <string name="breakdown_title">How this score was calculated</string>
+    <string name="breakdown_item">%1$s +%2$d</string>
+    <string name="breakdown_total">%1$s, %2$s</string>
+    <string name="breakdown_capped">Items add up to %1$d. The score is capped at 100.</string>
+    <string name="breakdown_none">No items added points.</string>
+    <string name="breakdown_model_scored">Model flagged it (%1$s, flags at %2$s)</string>
+    <string name="breakdown_model">Model flagged it</string>
+    <string name="breakdown_model_confidence">Model is highly confident (0.90 or higher)</string>
+    <string name="breakdown_credentials">Asks you to send a password, OTP, PIN or similar code</string>
+    <string name="breakdown_credential_entry">Asks you to enter a password, OTP, PIN or similar code</string>
+    <string name="breakdown_url_structure">Link hides its real destination</string>
+    <string name="breakdown_payment">Asks for a payment</string>
+    <string name="breakdown_urgency">Urgent or account-restriction wording</string>
+    <string name="breakdown_reward">Prize or reward wording</string>
+    <string name="breakdown_short_url">Shortened link</string>
+    <string name="breakdown_cashback_deadline">Cashback or rebate claim with a deadline</string>
+    <string name="breakdown_points_offer">Points offer with expiry, redeem action and link</string>
 </resources>

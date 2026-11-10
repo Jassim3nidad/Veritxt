@@ -49,7 +49,7 @@ class RiskResultsTest {
     }
 
     @Test fun mediumRiskEmphasizesVerification() {
-        scan("Please review your account", Detection.Success(true, .97))
+        scan("Please review your account", Detection.Success(true, .89))
         compose.onNodeWithText("Medium Risk").assertExists()
         compose.onNodeWithText("Risk Score: 40/100").assertExists()
         compose.onNodeWithText(compose.activity.getString(R.string.risk_medium_action)).assertExists()
