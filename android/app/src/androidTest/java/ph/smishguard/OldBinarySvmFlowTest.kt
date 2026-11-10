@@ -42,7 +42,7 @@ class OldBinarySvmFlowTest {
                 val actual = state.result as Detection.Success
                 assertEquals(category, actual.category)
                 assertNull(actual.classScores)
-                assertEquals(RiskPolicy.assess(text, actual), AppRiskPolicy.assess(text, actual))
+                assertEquals(RiskPolicy.assess(text, actual, linkedCashbackReview = true, rules = RiskRules.V2), AppRiskPolicy.assess(text, actual))
             }
             compose.onNodeWithText("SMS category").performScrollTo(); compose.waitForIdle()
             val directory = File(app.filesDir, "old-binary").apply { mkdirs() }

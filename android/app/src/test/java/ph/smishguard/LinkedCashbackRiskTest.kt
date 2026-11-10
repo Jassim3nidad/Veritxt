@@ -65,8 +65,8 @@ class LinkedCashbackRiskTest {
     }
 
     @Test fun applicationProfileOptsInOnlyForTheRequestedVariant() {
-        if (BuildConfig.BUILD_TYPE in listOf("oldSvm", "usbDemo")) {
-            assertEquals("linked-cashback-claim-deadline-v1", AppRiskPolicy.VERSION)
+        if (AppRiskPolicy.scoringV2Enabled) {
+            assertEquals(RiskPolicy.VERSION_V2, AppRiskPolicy.VERSION)
             assertEquals(70, AppRiskPolicy.assess(text, flagged).score)
         } else if (BuildConfig.BUILD_TYPE != "cashbackReview") {
             assertEquals(RiskPolicy.VERSION, AppRiskPolicy.VERSION)

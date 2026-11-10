@@ -271,7 +271,7 @@
     <string name="multiclass_decision_note">Pinipili ang kategoryang may pinakamataas na margin ng modelo. Ang mga margin ay hindi probabilidad o risk index.</string>
     <string name="multiclass_margins">Mga margin: Ham %1$.6f; Smishing %2$.6f; Gambling %3$.6f</string>
     <string name="indicator_cashback_deadline">May alok na cashback na kailangang kunin bago ang takdang oras. Tiyakin ito gamit ang app o opisyal na contact ng bangko.</string>
-    <string name="linked_cashback_explanation">May dagdag na 30 puntos ang pag-claim ng cashback o rebate na may deadline at link. May 40 puntos ang babala ng model; kapag magkasama, 70 puntos ito at Mataas na Panganib. Katamtamang Panganib pa rin ang babala ng model lamang.</string>
+    <string name="linked_cashback_explanation">May dagdag na 30 puntos ang pag-claim ng cashback o rebate na may deadline at link. May 40 puntos ang babala ng model; kapag magkasama, 70 puntos ito at Mataas na Panganib. Katamtamang Panganib pa rin ang babala ng model lamang, maliban kung 0.90 pataas ang iskor nito.</string>
     <string name="notif_sender_risk">%1$s · %2$s</string>
     <string name="notif_unknown_sender">Hindi kilalang sender</string>
     <string name="notif_group_channel">Grupo ng resulta ng SMS</string>
@@ -314,4 +314,25 @@
     <string name="score_threshold_inclusive">Ang mga text na %1$s pataas ay ipinapakita bilang %2$s.</string>
     <string name="score_rounding">Naka-round ang score para sa display; ang eksaktong score ang ginagamit sa desisyon.</string>
     <string name="autostart_transsion">Phone Master → Auto-start management → i-on ang VeriText. Pati Settings → Battery → App battery saver → VeriText → No restrictions.</string>
+    <!-- evidence-index-v2 scoring and the score breakdown. Draft translations: needs native-speaker review. -->
+    <string name="indicator_points_offer">May natukoy na alok ng puntos o reward na may expiry, aksyong i-redeem, at link.</string>
+    <string name="indicator_model_confidence">Mataas ang kumpiyansa ng SMS model sa pag-flag nito. Suportang palatandaan lamang ito, hindi kumpirmasyon ng pandaraya.</string>
+    <string name="result_explanation_v2">Sa build na ito, may dagdag na 30 puntos ang alok ng puntos o reward na may expiry, aksyong i-redeem, at link, at 30 puntos kapag na-flag ng model ang mensahe na may iskor na 0.90 pataas. Hindi nito kinukumpirma ang pandaraya, at kailangan pa itong ma-validate.</string>
+    <string name="breakdown_title">Paano nakuha ang iskor na ito</string>
+    <string name="breakdown_item">%1$s +%2$d</string>
+    <string name="breakdown_total">%1$s, %2$s</string>
+    <string name="breakdown_capped">Umabot sa %1$d ang kabuuan. Hanggang 100 lang ang iskor.</string>
+    <string name="breakdown_none">Walang nagdagdag ng puntos.</string>
+    <string name="breakdown_model_scored">Na-flag ng model (%1$s, nagfa-flag sa %2$s)</string>
+    <string name="breakdown_model">Na-flag ng model</string>
+    <string name="breakdown_model_confidence">Mataas ang kumpiyansa ng model (0.90 pataas)</string>
+    <string name="breakdown_credentials">Hinihingi ang password, OTP, PIN o katulad na code</string>
+    <string name="breakdown_credential_entry">Pinapalagay ang password, OTP, PIN o katulad na code</string>
+    <string name="breakdown_url_structure">Itinatago ng link ang tunay na patutunguhan</string>
+    <string name="breakdown_payment">Humihingi ng bayad</string>
+    <string name="breakdown_urgency">Madalian o may banta sa account</string>
+    <string name="breakdown_reward">May salitang premyo o reward</string>
+    <string name="breakdown_short_url">Pinaikling link</string>
+    <string name="breakdown_cashback_deadline">Cashback o rebate na may deadline</string>
+    <string name="breakdown_points_offer">Alok ng puntos na may expiry, pag-redeem at link</string>
 </resources>

@@ -47,7 +47,7 @@ class CompactResultTest {
             compose.onNodeWithText("SMS message").assertDoesNotExist()
             compose.onNode(isSelectable() and hasText("Check")).assertIsSelected()
             compose.onNodeWithText("Check another message", substring = false).assertHeightIsAtLeast(48.dp)
-            val assessment = RiskPolicy.assess("Synthetic software fixture", result)
+            val assessment = AppRiskPolicy.assess("Synthetic software fixture", result)
             compose.onNodeWithText(ResultCopy.heading(assessment)).assert(SemanticsMatcher.expectValue(SemanticsProperties.Heading, Unit))
             compose.onNodeWithText(ResultCopy.riskScore(assessment.score!!)).assertExists()
             compose.onNodeWithText(ResultCopy.DISCLAIMER).assertExists()
@@ -62,7 +62,7 @@ class CompactResultTest {
     }
 
     @Test fun riskLevelMatchesTheEvidence() {
-        scan(Detection.Success(true, .9, experimental = true))
+        scan(Detection.Success(true, .89, experimental = true))
         compose.onNodeWithText("Medium Risk").assertExists()
         scan(Detection.Success(false, .3, experimental = true), "Please send your password")
         compose.onNodeWithText("High Risk").assertExists()

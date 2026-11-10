@@ -603,13 +603,33 @@ private fun clipboardText(context: Context): String? = context.getSystemService(
         dismissButton = { if (step == BlockingStep.AWAITING_CONFIRMATION) TextButton(onClick = { step = ManualBlocking.dismiss() }) { Text(stringResource(R.string.block_cancel)) } })
 }
 
+@Composable private fun ScoreBreakdown(assessment: ph.smishguard.model.RiskAssessment, result: Detection?) {
+    val score = assessment.score ?: return
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(stringResource(R.string.breakdown_title), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+        if (assessment.pointItems.isEmpty()) Text(stringResource(R.string.breakdown_none))
+        assessment.pointItems.forEach { item ->
+            val success = result as? Detection.Success
+            val threshold = success?.policy?.threshold
+            val label = if (item == ph.smishguard.model.RiskIndicator.MODEL_SIGNAL && success != null && threshold != null && success.score in 0.0..1.0)
+                stringResource(R.string.breakdown_model_scored, ph.smishguard.model.ResultCopy.breakdownScore(success.score), ph.smishguard.model.ResultCopy.breakdownScore(threshold))
+            else stringResource(RiskPresentation.breakdown(item))
+            Text(stringResource(R.string.breakdown_item, label, item.weight))
+        }
+        if (assessment.uncappedPoints > 100) Text(stringResource(R.string.breakdown_capped, assessment.uncappedPoints))
+        Text(stringResource(R.string.breakdown_total, stringResource(R.string.risk_score, score), stringResource(RiskPresentation.label(assessment.level))), fontWeight = FontWeight.SemiBold)
+    }
+}
+
 @Composable private fun ResultExplanation(state: CheckState, explain: Boolean, setExplain: (Boolean) -> Unit, report: () -> Unit) {
     TextButton(onClick = { setExplain(true) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.result_explain)) }
     if (explain) AlertDialog(onDismissRequest = { setExplain(false) },
         title = { Text(stringResource(R.string.result_about)) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                state.assessment?.takeIf { it.score != null }?.let { ScoreBreakdown(it, state.result) }
                 Text(stringResource(R.string.result_explanation))
+                if (RiskPolicy.scoringV2Enabled) Text(stringResource(R.string.result_explanation_v2))
                 if (RiskPolicy.linkedCashbackReviewEnabled) Text(stringResource(R.string.linked_cashback_explanation))
                 (state.result as? Detection.Success)?.takeIf { state.assessment?.score != null }?.let { result ->
                     // Preserve raw research output separately; it is never presented as a risk percentage.
